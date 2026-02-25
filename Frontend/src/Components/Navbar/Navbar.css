@@ -1,10 +1,23 @@
-body {
+/* ========================================= */
+/* GLOBAL RESET */
+/* ========================================= */
+
+* {
   margin: 0;
-  font-family: "Inter", sans-serif;
-  transition: background 0.3s ease;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: "Inter", sans-serif;
+  transition: background 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* ========================================= */
 /* DARK MODE */
+/* ========================================= */
+
 .dark-mode {
   background: #0f172a;
 }
@@ -35,8 +48,12 @@ body {
   color: white;
 }
 
-/* Navbar */
+/* ========================================= */
+/* NAVBAR */
+/* ========================================= */
+
 .navbar {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,6 +61,7 @@ body {
   background: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   position: relative;
+  z-index: 1000;
 }
 
 /* Remove Bullet Marks */
@@ -54,12 +72,20 @@ body {
   margin: 0;
 }
 
-/* Logo */
+/* ========================================= */
+/* LOGO */
+/* ========================================= */
+
 .logo-img {
-  width: 250px;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
 }
 
-/* Menu */
+/* ========================================= */
+/* MENU */
+/* ========================================= */
+
 .nav-menu {
   display: flex;
   gap: 36px;
@@ -84,7 +110,10 @@ body {
   color: #00a884;
 }
 
-/* Dropdown */
+/* ========================================= */
+/* DROPDOWN */
+/* ========================================= */
+
 .dropdown {
   position: absolute;
   top: 52px;
@@ -92,7 +121,7 @@ body {
   border-radius: 14px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
   padding: 12px 0;
-  min-width: 260px;
+  min-width: 240px;
   background: #ffffff;
 
   opacity: 0;
@@ -128,11 +157,14 @@ body {
   color: #00a884;
 }
 
-/* Right Section */
+/* ========================================= */
+/* RIGHT SECTION */
+/* ========================================= */
+
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .icon-btn {
@@ -149,6 +181,7 @@ body {
 }
 
 /* Buttons */
+
 .signin-btn,
 .register-btn {
   display: flex;
@@ -184,25 +217,57 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
-/* Responsive */
+/* ========================================= */
+/* HAMBURGER */
+/* ========================================= */
+
 .hamburger {
   display: none;
+  cursor: pointer;
 }
 
+/* ========================================= */
+/* RESPONSIVE DESIGN */
+/* ========================================= */
+
+/* 1400px+ Large Screens */
+@media (min-width: 1400px) {
+  .navbar {
+    padding: 20px 120px;
+  }
+}
+
+/* 1200px and below */
+@media (max-width: 1200px) {
+  .navbar {
+    padding: 16px 40px;
+  }
+
+  .nav-menu {
+    gap: 22px;
+  }
+
+  .logo-img {
+    width: 180px;
+  }
+}
+
+/* Tablet */
 @media (max-width: 992px) {
+
   .hamburger {
     display: block;
   }
 
   .nav-menu {
     position: absolute;
-    top: 80px;
+    top: 75px;
     left: 0;
     width: 100%;
-    background: white;
+    background: #ffffff;
     flex-direction: column;
     padding: 25px 0;
-    gap: 20px;
+    gap: 18px;
     display: none;
   }
 
@@ -210,13 +275,79 @@ body {
     display: flex;
   }
 
+  .nav-item {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .nav-link {
+    justify-content: space-between;
+    width: 100%;
+  }
+
   .dropdown {
     position: static;
     box-shadow: none;
     transform: none;
+    opacity: 1;
+    visibility: visible;
+    display: none;
+  }
+
+  .dropdown.open {
+    display: block;
   }
 
   .nav-right {
     display: none;
+  }
+
+  .logo-img {
+    width: 160px;
+  }
+}
+
+/* Large Mobile */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 20px;
+  }
+
+  .logo-img {
+    width: 140px;
+  }
+
+  .dropdown li {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .logo-img {
+    width: 120px;
+  }
+
+  .dropdown li {
+    font-size: 12px;
+  }
+
+  .icon-btn {
+    padding: 8px;
+  }
+}
+
+/* Extra Small */
+@media (max-width: 360px) {
+  .logo-img {
+    width: 100px;
+  }
+
+  .nav-link {
+    font-size: 14px;
   }
 }
