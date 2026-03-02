@@ -1,0 +1,279 @@
+/* =============================
+   SECTION
+============================= */
+.fs{
+  padding:70px 0;
+  background:#ffffff;
+}
+.fs-wrap{
+  width:min(1200px,92%);
+  margin:0 auto;
+}
+
+/* =============================
+   TOP BAR
+============================= */
+.fs-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:18px;
+}
+.fs-top h2{
+  margin:0;
+  font-size:30px;
+  font-weight:800;
+  color:#0f172a;
+}
+
+/* arrows */
+.fs-arrows button{
+  width:42px;
+  height:42px;
+  border-radius:999px;
+  border:0;
+  background:#0f172a;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+  margin-left:10px;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.fs-arrows button:hover{
+  transform:translateY(-2px);
+}
+.fs-arrows button:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+
+/* =============================
+   SLIDER (drag + smooth)
+============================= */
+.fs-viewport{
+  overflow:hidden;
+  border-radius:12px;
+  cursor:grab;
+  user-select:none;
+  touch-action:pan-y;
+}
+.fs-viewport.fs-grabbing{
+  cursor:grabbing;
+}
+.fs-track{
+  display:flex;
+  transition:transform 700ms cubic-bezier(.77,0,.18,1);
+  will-change:transform;
+}
+
+/* 4 cards per page -> 2x2 */
+.fs-page{
+  min-width:100%;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+/* =============================
+   CARD (same UI)
+   NOTE: no hover lift on card
+============================= */
+.fs-card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* =============================
+   IMAGE AREA
+============================= */
+.fs-media{
+  position:relative;
+  height:255px;
+  background:#000;
+  overflow:hidden;
+}
+.fs-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .75s cubic-bezier(.22,.61,.36,1);
+}
+
+/* dark shade like screenshot */
+.fs-mediaShade{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.05));
+  pointer-events:none;
+}
+
+/* price bottom-left */
+.fs-price{
+  position:absolute;
+  left:16px;
+  bottom:16px;
+  color:#fff;
+  font-size:22px;
+  font-weight:900;
+  text-shadow:0 6px 14px rgba(0,0,0,.45);
+  z-index:2;
+}
+
+/* avatar bottom-right */
+.fs-avatar{
+  position:absolute;
+  right:16px;
+  bottom:14px;
+  width:44px;
+  height:44px;
+  border-radius:999px;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  border:3px solid #fff;
+  box-shadow:0 10px 24px rgba(0,0,0,.2);
+  z-index:2;
+}
+
+/* =============================
+   HOVER EFFECT (ONLY IMAGE)
+   - zoom out + rotate right
+   - glass overlay only on image
+============================= */
+.fs-media:hover img{
+  transform:scale(0.92) rotate(2deg);
+}
+
+/* glass overlay on image only */
+.fs-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,0.14);
+  backdrop-filter:blur(10px);
+  opacity:0;
+  transition:opacity .45s ease;
+  pointer-events:none;
+  z-index:1;
+}
+.fs-media:hover::after{
+  opacity:1;
+}
+
+/* =============================
+   BODY
+============================= */
+.fs-body{
+  padding:18px 18px 16px;
+}
+
+/* rating */
+.fs-rating{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+.fs-stars{
+  letter-spacing:1px;
+  font-size:16px;
+  color:#f59e0b;
+}
+.fs-stars-dim{
+  opacity:.22;
+  color:#f59e0b;
+}
+.fs-ratingText{
+  color:#6b7280;
+  font-weight:700;
+}
+
+/* title */
+.fs-title{
+  margin:0 0 8px;
+  font-size:24px;
+  font-weight:900;
+  color:#0f172a;
+}
+
+/* address */
+.fs-address{
+  margin:0 0 16px;
+  color:#6b7280;
+  font-weight:700;
+}
+
+/* features row (3 boxes) */
+.fs-features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:16px;
+}
+.fs-chip{
+  background:#f8fafc;
+  border:1px solid #eef2f7;
+  border-radius:12px;
+  padding:14px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:800;
+  color:#374151;
+}
+
+/* footer row */
+.fs-footer{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  border-top:1px solid #eef2f7;
+  padding-top:14px;
+  color:#6b7280;
+  font-weight:800;
+}
+
+/* =============================
+   EXPLORE ALL BUTTON
+============================= */
+.fs-explore{
+  display:flex;
+  justify-content:center;
+  margin-top:22px;
+}
+.fs-exploreBtn{
+  border:0;
+  background:#0f172a;
+  color:#fff;
+  padding:14px 26px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+  transition:transform .2s ease;
+}
+.fs-exploreBtn:hover{
+  transform:translateY(-2px);
+}
+.fs-arrow{
+  margin-left:8px;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+@media (max-width: 900px){
+  .fs-page{
+    grid-template-columns:1fr;  /* 1 card per row */
+  }
+  .fs-title{
+    font-size:20px;
+  }
+  .fs-media{
+    height:230px;
+  }
+}

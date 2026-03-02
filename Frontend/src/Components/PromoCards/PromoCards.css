@@ -1,0 +1,88 @@
+.pc {
+  padding: 70px 20px 40px;
+  background: #ffffff;
+}
+
+.pc-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+/* big image card */
+.pc-card {
+  position: relative;
+  height: 420px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 25px 55px rgba(0,0,0,0.12);
+}
+
+.pc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s ease;
+}
+
+.pc-card:hover .pc-img {
+  transform: scale(1.06);
+}
+
+/* bottom white action box */
+.pc-action {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 25px 55px rgba(0,0,0,0.18);
+}
+
+.pc-action h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+/* circle arrow button */
+.pc-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  transition: .25s ease;
+}
+
+.pc-btn:hover {
+  transform: scale(1.08);
+}
+
+/* colors */
+.pc-btn.red { background: #ef4444; }
+.pc-btn.orange { background: #f59e0b; }
+.pc-btn.blue { background: #0ea5e9; }
+
+/* responsive */
+@media (max-width: 1000px) {
+  .pc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pc-card {
+    height: 320px;
+  }
+}
