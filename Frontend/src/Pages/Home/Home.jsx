@@ -9,6 +9,12 @@ import PromoCards from "../../Components/PromoCards/PromoCards";
 import Partners from "../../Components/Partners/Partners";
 import ClientReviews from "../../Components/ClientReviews/ClientReviews";
 import Pricing from "../../Components/Pricing/Pricing";
+import FAQ from "../../Components/FAQ/FAQ";
+import BecomeAgent from "../../Components/BecomeAgent/BecomeAgent";
+import Blog from "../../Components/Blog/Blog";
+import Footer from "../../Components/Footer/Footer";
+
+
 
 
 function Home() {
@@ -25,6 +31,10 @@ function Home() {
 <Partners />
 <ClientReviews />
 <Pricing />
+<FAQ/>
+<BecomeAgent />
+<Blog />
+<Footer />
 
     </>
   );
