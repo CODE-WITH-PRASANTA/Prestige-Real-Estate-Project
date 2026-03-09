@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Navbar.css";
 import logo from "../../assets/logo.webp";
+import { useNavigate } from "react-router-dom";
 
 import {
   FiSearch,
@@ -16,33 +17,53 @@ import {
 const menuItems = [
   {
     title: "Home",
-    options: ["Home 1", "Home 2", "Home 3"],
+    options: [
+      { name: "Home 1", path: "/" },
+      { name: "Home 2", path: "/" },
+      { name: "Home 3", path: "/" },
+    ],
   },
   {
     title: "Listing",
-    options: ["Grid View", "List View", "Map View"],
+    options: [
+      { name: "Grid View", path: "/listing-grid" },
+      { name: "List View", path: "/listing-list" },
+      { name: "Map View", path: "/listing-map" },
+    ],
   },
   {
     title: "Agent",
-    options: ["Agent Grid", "Agent List", "Agent Details"],
+    options: [
+      { name: "Agent Grid", path: "/agent-grid" },
+      { name: "Agent List", path: "/agent-list" },
+      { name: "Agent Details", path: "/agent-details" },
+    ],
   },
   {
     title: "Agency",
     options: [
-      "Agency Grid",
-      "Agency List",
-      "Agency Grid with Sidebar",
-      "Agency List with Sidebar",
-      "Agency Details",
+      { name: "Agency Grid", path: "/agency-grid" },
+      { name: "Agency List", path: "/agency-list" },
+      { name: "Agency Grid with Sidebar", path: "/agency-grid-sidebar" },
+      { name: "Agency List with Sidebar", path: "/agency-list-sidebar" },
+      { name: "Agency Details", path: "/agency-details" },
     ],
   },
   {
     title: "Pages",
-    options: ["About", "FAQ", "Pricing"],
+    options: [
+      { name: "About", path: "/about" },
+      { name: "FAQ", path: "/faq" },
+      { name: "Pricing", path: "/pricing" },
+    ],
   },
   {
     title: "Blog",
-    options: ["Blog Grid", "Blog List", "Blog Details"],
+    options: [
+      { name: "Blog List", path: "/blog-list" },
+      { name: "Blog Grid", path: "/blog-grid" },
+      { name: "Blog Details", path: "/blog-details" },
+    ],
   },
 ];
 
@@ -51,8 +72,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const navbarRef = useRef(null);
+  const navigate = useNavigate();
 
-  /* Dark Mode Toggle */
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark-mode");
@@ -61,7 +82,6 @@ export default function Navbar() {
     }
   }, [darkMode]);
 
-  /* Close dropdown on outside click */
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (navbarRef.current && !navbarRef.current.contains(e.target)) {
@@ -69,9 +89,12 @@ export default function Navbar() {
         setMenuOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
+
+    return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleMobileDropdown = (index) => {
@@ -80,18 +103,22 @@ export default function Navbar() {
     }
   };
 
+  const handleOptionClick = (path) => {
+    navigate(path);
+    setActiveDropdown(null);
+    setMenuOpen(false);
+  };
+
   return (
     <nav className="navbar" ref={navbarRef}>
+      
       {/* Logo */}
-      <div className="logo-section">
+      <div className="logo-section" onClick={() => navigate("/")}>
         <img src={logo} alt="logo" className="logo-img" />
       </div>
 
-      {/* Hamburger */}
-      <div
-        className="hamburger"
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
+      {/* Mobile Hamburger */}
+      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
       </div>
 
@@ -102,32 +129,41 @@ export default function Navbar() {
             key={index}
             className="nav-item"
             onClick={() => handleMobileDropdown(index)}
+            onMouseEnter={() =>
+              window.innerWidth > 992 && setActiveDropdown(index)
+            }
+            onMouseLeave={() =>
+              window.innerWidth > 992 && setActiveDropdown(null)
+            }
           >
             <div className="nav-link">
               {menu.title}
               <FiChevronDown className="arrow-icon" />
             </div>
 
-            <ul
-              className={`dropdown ${
-                activeDropdown === index ? "open" : ""
-              }`}
-            >
+            <ul className={`dropdown ${activeDropdown === index ? "open" : ""}`}>
               {menu.options.map((option, i) => (
-                <li key={i}>{option}</li>
+                <li
+                  key={i}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOptionClick(option.path);
+                  }}
+                >
+                  {option.name}
+                </li>
               ))}
             </ul>
           </li>
         ))}
       </ul>
 
-      {/* Right Section */}
+      {/* Right Side Buttons */}
       <div className="nav-right">
         <button className="icon-btn">
           <FiSearch />
         </button>
 
-        {/* Dark Mode Button */}
         <button
           className="icon-btn"
           onClick={() => setDarkMode(!darkMode)}
@@ -135,12 +171,18 @@ export default function Navbar() {
           {darkMode ? <FiMoon /> : <FiSun />}
         </button>
 
-        <button className="signin-btn">
+        <button
+          className="signin-btn"
+          onClick={() => navigate("/login")}
+        >
           <FiUser className="btn-icon" />
           Sign In
         </button>
 
-        <button className="register-btn">
+        <button
+          className="register-btn"
+          onClick={() => navigate("/register")}
+        >
           <FiLock className="btn-icon" />
           Register
         </button>

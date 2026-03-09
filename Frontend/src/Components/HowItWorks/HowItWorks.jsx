@@ -40,7 +40,7 @@ function HowItWorks() {
             Secure your dream property quickly with a simple, hassle-free
             booking process.
           </p>
-        </div>
+        </div>      
 
       </div>
     </section>

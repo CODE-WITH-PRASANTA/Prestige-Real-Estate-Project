@@ -67,7 +67,7 @@ function Breadcrumb() {
             <input type="text" placeholder="$" />
           </div>
 
-          <button className="search-btn">🔍</button>
+          <button className="search-btn">Go</button>
         </div>
       </div>
     </div>

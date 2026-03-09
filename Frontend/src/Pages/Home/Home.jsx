@@ -12,30 +12,24 @@ import Pricing from "../../Components/Pricing/Pricing";
 import FAQ from "../../Components/FAQ/FAQ";
 import BecomeAgent from "../../Components/BecomeAgent/BecomeAgent";
 import Blog from "../../Components/Blog/Blog";
-import Footer from "../../Components/Footer/Footer";
-
-
-
 
 function Home() {
   return (
     <>
       <Breadcrumb />
       <HowItWorks />
-       <PropertyType />
-        <FeaturedSales />
-        <Cities />
-<FeaturedProperties />
-<Stats />
-<PromoCards />
-<Partners />
-<ClientReviews />
-<Pricing />
-<FAQ/>
-<BecomeAgent />
-<Blog />
-<Footer />
-
+      <PropertyType />
+      <FeaturedSales />
+      <Cities />
+      <FeaturedProperties />
+      <Stats />
+      <PromoCards />
+      <Partners />
+      <ClientReviews />
+      <Pricing />
+      <FAQ />
+      <BecomeAgent />
+      <Blog />
     </>
   );
 }
