@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HowItWorks.css";
 
 function HowItWorks() {
+
+  const steps = [
+    {
+      title: "01. Search for Location",
+      text: "Find properties by location quickly, matching your lifestyle and preferences easily."
+    },
+    {
+      title: "02. Select Property Type",
+      text: "Choose your ideal property type easily, from apartments to villas."
+    },
+    {
+      title: "03. Book your Property",
+      text: "Secure your dream property quickly with a simple, hassle-free booking process."
+    }
+  ];
+
+  const [page, setPage] = useState(0);
+
   return (
     <section className="how">
 
-      {/* ===== TITLE ===== */}
       <h2 className="how-title">How It Works</h2>
 
       <div className="title-line">
@@ -16,35 +33,39 @@ function HowItWorks() {
         Follow these simple steps to find your dream property
       </p>
 
-      {/* ===== CARDS ===== */}
-      <div className="how-grid">
+      {/* SLIDER WRAPPER */}
+      <div className="how-slider">
 
-        <div className="card">
-          <h3>01. Search for Location</h3>
-          <p>
-            Find properties by location quickly, matching your lifestyle and
-            preferences easily.
-          </p>
+        <div
+          className="how-track"
+          style={{ transform: `translateX(-${page * 100}%)` }}
+        >
+
+          {steps.map((item, index) => (
+            <div className="card" key={index}>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          ))}
+
         </div>
-
-        <div className="card">
-          <h3>02. Select Property Type</h3>
-          <p>
-            Choose your ideal property type easily, from apartments to villas.
-          </p>
-        </div>
-
-        <div className="card">
-          <h3>03. Book your Property</h3>
-          <p>
-            Secure your dream property quickly with a simple, hassle-free
-            booking process.
-          </p>
-        </div>      
 
       </div>
+
+      {/* PAGINATION DOTS */}
+
+      <div className="how-dots">
+        {steps.map((_, i) => (
+          <button
+            key={i}
+            className={`how-dot ${page === i ? "active" : ""}`}
+            onClick={() => setPage(i)}
+          />
+        ))}
+      </div>
+
     </section>
   );
 }
 
-export default HowItWorks;  
+export default HowItWorks;

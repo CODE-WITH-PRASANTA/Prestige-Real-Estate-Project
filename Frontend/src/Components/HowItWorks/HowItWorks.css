@@ -2,133 +2,172 @@
    HOW IT WORKS SECTION
 ============================= */
 
-.how {
-  width: 100%;
-  padding: 80px 20px;
-  background: #f8fafc;
-  text-align: center;
+.how{
+width:100%;
+padding:80px 20px;
+background:#f8fafc;
+text-align:center;
 }
 
-/* ===== TITLE ===== */
+/* TITLE */
 
-.how-title {
-  font-size: 36px;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 10px;
+.how-title{
+font-size:36px;
+font-weight:800;
+color:#0f172a;
+margin-bottom:10px;
 }
 
-/* decorative line */
-
-.title-line {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 12px;
+.title-line{
+display:flex;
+justify-content:center;
+margin-bottom:12px;
 }
 
-.title-line span {
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg,#18b98a,#0ea57a);
-  border-radius: 4px;
+.title-line span{
+width:80px;
+height:4px;
+background:linear-gradient(90deg,#18b98a,#0ea57a);
+border-radius:4px;
 }
 
-/* subtitle */
-
-.subtitle {
-  font-size: 15px;
-  color: #64748b;
-  margin-bottom: 50px;
+.subtitle{
+font-size:15px;
+color:#64748b;
+margin-bottom:50px;
 }
 
-/* ===== GRID ===== */
+/* =============================
+   DESKTOP GRID
+============================= */
 
-.how-grid {
-  width: min(1100px, 95%);
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 28px;
+.how-slider{
+width:min(1100px,95%);
+margin:auto;
+overflow:hidden;
 }
 
-/* ===== CARD ===== */
-
-.card {
-  background: #ffffff;
-  padding: 40px 25px;
-  border-radius: 18px;
-  border: 1px solid rgba(148,163,184,0.25);
-  box-shadow: 0 20px 45px rgba(15,23,42,0.06);
-  transition: all 0.35s ease;
-  position: relative;
-  overflow: hidden;
+.how-track{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:28px;
+transition:transform .5s ease;
 }
 
-/* gradient hover effect */
+/* =============================
+   CARD
+============================= */
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg,#18b98a,#0ea57a);
-  opacity: 0;
-  transition: opacity .35s ease;
-  z-index: 0;
+.card{
+background:#ffffff;
+padding:40px 25px;
+border-radius:18px;
+border:1px solid rgba(148,163,184,0.25);
+box-shadow:0 20px 45px rgba(15,23,42,0.06);
+transition:.35s;
+position:relative;
+overflow:hidden;
 }
 
-/* hover animation */
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 70px rgba(15,23,42,0.12);
+.card::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(135deg,#18b98a,#0ea57a);
+opacity:0;
+transition:.35s;
 }
 
-.card:hover::before {
-  opacity: 1;
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 30px 70px rgba(15,23,42,0.12);
 }
 
-/* text on hover */
+.card:hover::before{
+opacity:1;
+}
 
 .card:hover h3,
-.card:hover p {
-  color: #ffffff;
+.card:hover p{
+color:#fff;
 }
 
-.card h3 {
-  position: relative;
-  z-index: 1;
-  font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 12px;
+.card h3{
+position:relative;
+z-index:1;
+font-size:18px;
+font-weight:700;
+color:#0f172a;
+margin-bottom:12px;
 }
 
-.card p {
-  position: relative;
-  z-index: 1;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #64748b;
+.card p{
+position:relative;
+z-index:1;
+font-size:14px;
+line-height:1.6;
+color:#64748b;
 }
 
-/* ===== RESPONSIVE ===== */
+/* =============================
+   PAGINATION DOTS
+============================= */
 
-@media (max-width: 992px) {
+.how-dots{
+display:none;
+justify-content:center;
+gap:10px;
+margin-top:20px;
+}
 
-  .how-grid {
-    grid-template-columns: repeat(2,1fr);
-  }
+.how-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+border:none;
+background:#cbd5e1;
+cursor:pointer;
+transition:.3s;
+}
+
+.how-dot.active{
+width:24px;
+border-radius:10px;
+background:#0f172a;
+}
+
+/* =============================
+   TABLET
+============================= */
+
+@media (max-width:992px){
+
+.how-track{
+grid-template-columns:repeat(2,1fr);
+}
 
 }
 
-@media (max-width: 600px) {
+/* =============================
+   MOBILE SLIDER
+============================= */
 
-  .how-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width:600px){
 
-  .how-title {
-    font-size: 28px;
-  }
+.how-track{
+display:flex;
+}
+
+.card{
+min-width:100%;
+}
+
+.how-dots{
+display:flex;
+}
+
+.how-title{
+font-size:28px;
+}
 
 }

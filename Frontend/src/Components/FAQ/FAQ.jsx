@@ -1,11 +1,10 @@
 import { useState } from "react";
 import "./FAQ.css";
-
-// ✅ put your image in: src/assets/faq.jpg (or change the name here)
 import faqImg from "../../assets/faq.jpg";
 
-export default function FAQ() {
-  const [openId, setOpenId] = useState("g1"); // default open first
+const FAQ = () => {
+
+  const [openId, setOpenId] = useState("g1");
 
   const general = [
     {
@@ -43,24 +42,33 @@ export default function FAQ() {
     },
   ];
 
-  const toggle = (id) => setOpenId((prev) => (prev === id ? "" : id));
+  const toggle = (id) => {
+    setOpenId((prev) => (prev === id ? "" : id));
+  };
 
   return (
     <section className="faq">
+
       <div className="faq-wrap">
+
         {/* heading */}
         <div className="faq-head">
           <h2>Frequently Asked Questions</h2>
-          <div className="faq-underline" aria-hidden="true">
+
+          <div className="faq-underline">
             <span />
             <span />
           </div>
+
           <p>Ready to buy your dream home? find it here.</p>
         </div>
 
         {/* content */}
+
         <div className="faq-grid">
+
           {/* LEFT IMAGE */}
+
           <div className="faq-left">
             <div className="faq-imgBox">
               <img src={faqImg} alt="Property" />
@@ -68,7 +76,9 @@ export default function FAQ() {
           </div>
 
           {/* RIGHT ACCORDION */}
+
           <div className="faq-right">
+
             <h3 className="faq-groupTitle">General FAQ’s</h3>
 
             <div className="faq-list">
@@ -94,26 +104,43 @@ export default function FAQ() {
                 />
               ))}
             </div>
+
           </div>
+
         </div>
+
       </div>
+
     </section>
   );
-}
+};
 
-function FaqItem({ item, isOpen, onToggle }) {
+export default FAQ;
+
+
+
+const FaqItem = ({ item, isOpen, onToggle }) => {
   return (
     <div className={`faq-card ${isOpen ? "open" : ""}`}>
+
       <button className="faq-q" onClick={onToggle} type="button">
+
         <span>{item.q}</span>
-        <span className="faq-icon" aria-hidden="true">
+
+        <span className="faq-icon">
           {isOpen ? "−" : "+"}
         </span>
+
       </button>
 
       <div className="faq-aWrap" style={{ maxHeight: isOpen ? 220 : 0 }}>
-        <div className="faq-a">{item.a}</div>
+
+        <div className="faq-a">
+          {item.a}
+        </div>
+
       </div>
+
     </div>
   );
-}
+};

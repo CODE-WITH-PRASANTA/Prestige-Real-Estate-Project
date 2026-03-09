@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import "./FeaturedProperties.css";
 
 import p1 from "../../assets/p1.jpg";
@@ -11,6 +11,7 @@ import p7 from "../../assets/p7.jpg";
 import p8 from "../../assets/p8.jpg";
 
 export default function FeaturedProperties() {
+
   const properties = [
     {
       id: 1,
@@ -134,7 +135,31 @@ export default function FeaturedProperties() {
     },
   ];
 
-  const perPage = 4;
+  /* RESPONSIVE ITEMS PER PAGE */
+
+  const getPerPage = () => {
+  const width = window.innerWidth;
+
+  if (width <= 768) return 1;   // mobile → 1 card
+  if (width <= 1024) return 2;  // tablet → 2 cards
+  return 4;                     // desktop → 4 cards
+};
+
+
+  const [perPage, setPerPage] = useState(getPerPage());
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    const resize = () => {
+      setPerPage(getPerPage());
+      setPage(0);
+    };
+
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  /* PAGINATION */
 
   const pages = useMemo(() => {
     const arr = [];
@@ -142,13 +167,14 @@ export default function FeaturedProperties() {
       arr.push(properties.slice(i, i + perPage));
     }
     return arr;
-  }, [properties]);
+  }, [perPage]);
 
-  const [page, setPage] = useState(0);
   const pageCount = pages.length;
 
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pageCount - 1, p + 1));
+
+  /* SWIPE */
 
   const drag = useRef({ down: false, x: 0 });
 
@@ -170,6 +196,7 @@ export default function FeaturedProperties() {
 
   return (
     <section className="fp">
+
       <div className="fp-head">
         <div>
           <h2>Featured Properties for Rent</h2>
@@ -177,12 +204,8 @@ export default function FeaturedProperties() {
         </div>
 
         <div className="fp-arrows">
-          <button onClick={prev} disabled={page === 0}>
-            ‹
-          </button>
-          <button onClick={next} disabled={page === pageCount - 1}>
-            ›
-          </button>
+          <button onClick={prev} disabled={page === 0}>‹</button>
+          <button onClick={next} disabled={page === pageCount - 1}>›</button>
         </div>
       </div>
 
@@ -193,9 +216,15 @@ export default function FeaturedProperties() {
         onTouchStart={onDown}
         onTouchEnd={onUp}
       >
-        <div className="fp-track" style={{ transform: `translateX(-${page * 100}%)` }}>
+
+        <div
+          className="fp-track"
+          style={{ transform: `translateX(-${page * 100}%)` }}
+        >
+
           {pages.map((group, i) => (
             <div className="fp-page" key={i}>
+
               {group.map((x) => (
                 <div className="fp-card" key={x.id}>
                   <div className="fp-img">
@@ -203,25 +232,20 @@ export default function FeaturedProperties() {
 
                     <div className="fp-topTags">
                       {x.tags.includes("New") && <span className="tag red">New</span>}
-                      {x.tags.includes("Featured") && (
-                        <span className="tag orange">Featured</span>
-                      )}
+                      {x.tags.includes("Featured") && <span className="tag orange">Featured</span>}
                     </div>
 
                     <div className="fp-price">
                       <strong>{x.price}</strong> <span>/ Night</span>
                     </div>
 
-                    <button className="fp-like" type="button" aria-label="like">
-                      ♡
-                    </button>
+                    <button className="fp-like">♡</button>
                   </div>
 
                   <div className="fp-body">
+
                     <div className="fp-row1">
-                      <div className="fp-stars">
-                        ★★★★★ <span>{x.ratingText}</span>
-                      </div>
+                      <div className="fp-stars">★★★★★ <span>{x.ratingText}</span></div>
                       <span className="fp-type">{x.type}</span>
                     </div>
 
@@ -235,24 +259,29 @@ export default function FeaturedProperties() {
                     </div>
 
                     <div className="fp-footer">
+
                       <div className="fp-owner">
                         <div className="fp-avatar">{x.owner[0]}</div>
+
                         <div>
                           <div className="fp-ownerName">{x.owner}</div>
                           <div className="fp-country">{x.country}</div>
                         </div>
                       </div>
 
-                      <button className="fp-btn" type="button">
-                        Book Now
-                      </button>
+                      <button className="fp-btn">Book Now</button>
+
                     </div>
+
                   </div>
                 </div>
               ))}
+
             </div>
           ))}
+
         </div>
+
       </div>
 
       <div className="fp-dots">
@@ -265,9 +294,10 @@ export default function FeaturedProperties() {
         ))}
       </div>
 
-      <button className="fp-explore" type="button">
+      <button className="fp-explore">
         Explore All →
       </button>
+
     </section>
   );
 }
