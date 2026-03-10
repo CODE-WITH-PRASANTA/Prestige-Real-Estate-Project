@@ -44,6 +44,7 @@ export default function Navbar() {
           <li>Pricing</li>
           <li>FAQ</li>
           <li>Agent</li>
+          
         </ul>
 
         {/* RIGHT BUTTONS */}
