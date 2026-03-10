@@ -365,3 +365,84 @@
     animation: none !important;
   }
 }
+/* slider */
+
+.priceSlider{
+position:relative;
+overflow:hidden;
+}
+
+.priceTrack{
+display:flex;
+transition:transform .6s cubic-bezier(.22,.61,.36,1);
+gap: 15px;
+}
+
+.priceCard{
+min-width:33.333%;
+}
+
+/* arrows */
+
+.priceNav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:#fff;
+border:none;
+width:42px;
+height:42px;
+border-radius:50%;
+font-size:20px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+z-index:5;
+}
+
+.priceNav.left{left:-10px;}
+.priceNav.right{right:-10px;}
+
+/* dots */
+
+.priceDots{
+margin-top:30px;
+text-align:center;
+}
+
+.dot{
+width:10px;
+height:10px;
+background:#d1d5db;
+border-radius:50%;
+display:inline-block;
+margin:0 6px;
+cursor:pointer;
+transition:.3s;
+}
+
+.dot.active{
+width:26px;
+border-radius:10px;
+background:#6d4aff;
+}
+
+/* responsive */
+
+@media (max-width:1024px){
+
+.priceCard{
+min-width:50%;
+}
+
+}
+
+@media (max-width:768px){
+
+.priceCard{
+min-width:100%;
+}
+
+.priceNav.left{left:10px;}
+.priceNav.right{right:10px;}
+
+}

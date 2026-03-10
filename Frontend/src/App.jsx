@@ -5,11 +5,16 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 
 import Home from "./Pages/Home/Home";
-import Login from "./Pages/Home/Login/Login";
-import Register from "./Pages/Home/Register/Register";
-import BlogList from "./Pages/Home/BlogList/BlogList";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import BlogList from "./Pages/BlogList/BlogList";
 import About from "./Pages/About/About";
 import Contact from "./Pages/Contact/Contact";
+
+
+import Pricing from "./Components/Pricing/Pricing";
+import FAQ from "./Components/FAQ/FAQ";
+
 
 function App() {
   const location = useLocation();
@@ -28,6 +33,9 @@ function App() {
         <Route path="/blog-list" element={<BlogList />} />
         <Route path="/about" element={<About/>}/>
         <Route path="/contact" element={<Contact/>}/>
+        <Route path="/news" element={<BlogList />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/faq" element={<FAQ />} />
       </Routes>
 
       {!isAuthPage && <Footer />}

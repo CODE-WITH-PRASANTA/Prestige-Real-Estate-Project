@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import "./Cities.css";
 
 import c1 from "../../assets/c1.jpg";
@@ -11,6 +11,7 @@ import c7 from "../../assets/c7.jpg";
 import c8 from "../../assets/c8.jpg";
 
 export default function Cities() {
+
   const cities = [
     { id: 1, name: "New York", count: "300 Properties", img: c1 },
     { id: 2, name: "Singapore", count: "400 Properties", img: c2 },
@@ -22,7 +23,30 @@ export default function Cities() {
     { id: 8, name: "Tokyo", count: "830 Properties", img: c8 }
   ];
 
-  const perPage = 4;
+  /* ===== RESPONSIVE PER PAGE ===== */
+
+  const getPerPage = () => {
+    const width = window.innerWidth;
+
+    if (width <= 768) return 2;   // mobile
+    if (width <= 1024) return 2;  // tablet
+    return 4;                     // desktop
+  };
+
+  const [perPage, setPerPage] = useState(getPerPage());
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    const resize = () => {
+      setPerPage(getPerPage());
+      setPage(0);
+    };
+
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  /* ===== PAGINATION ===== */
 
   const pages = useMemo(() => {
     const arr = [];
@@ -30,13 +54,14 @@ export default function Cities() {
       arr.push(cities.slice(i, i + perPage));
     }
     return arr;
-  }, [cities]);
+  }, [perPage]);
 
-  const [page, setPage] = useState(0);
   const pageCount = pages.length;
 
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pageCount - 1, p + 1));
+
+  /* ===== SWIPE ===== */
 
   const drag = useRef({ down: false, x: 0 });
 
@@ -48,6 +73,7 @@ export default function Cities() {
   const up = (e) => {
     if (!drag.current.down) return;
     drag.current.down = false;
+
     const end = e.clientX || e.changedTouches?.[0].clientX;
 
     if (drag.current.x - end > 60) next();
@@ -56,6 +82,7 @@ export default function Cities() {
 
   return (
     <section className="cities">
+
       <h2>Cities With Listing</h2>
       <p className="sub">Destinations we love the most</p>
 
@@ -66,28 +93,46 @@ export default function Cities() {
         onTouchStart={down}
         onTouchEnd={up}
       >
+
         <button className="nav left" onClick={prev}>‹</button>
 
-        <div className="track" style={{ transform: `translateX(-${page * 100}%)` }}>
+        <div
+          className="track"
+          style={{ transform: `translateX(-${page * 100}%)` }}
+        >
+
           {pages.map((group, i) => (
             <div className="page" key={i}>
+
               {group.map((city) => (
                 <div className="city-card" key={city.id}>
-                  <img className="city-img" src={city.img} alt={city.name} />
+
+                  <img
+                    className="city-img"
+                    src={city.img}
+                    alt={city.name}
+                  />
+
                   <div className="city-overlay">
                     <div className="city-text">
                       <h3>{city.name}</h3>
                       <p>{city.count}</p>
                     </div>
                   </div>
+
                 </div>
               ))}
+
             </div>
           ))}
+
         </div>
 
         <button className="nav right" onClick={next}>›</button>
+
       </div>
+
+      {/* PAGINATION DOTS */}
 
       <div className="dots">
         {pages.map((_, i) => (
@@ -98,6 +143,7 @@ export default function Cities() {
           />
         ))}
       </div>
+
     </section>
   );
 }

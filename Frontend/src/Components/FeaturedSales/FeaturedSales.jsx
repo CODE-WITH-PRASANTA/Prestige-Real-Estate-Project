@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import "./FeaturedSales.css";
 
 import p1 from "../../assets/p1.jpg";
@@ -14,8 +14,6 @@ import p10 from "../../assets/p10.jpg";
 import p11 from "../../assets/p11.jpg";
 import p12 from "../../assets/p12.jpg";
 
-// OPTIONAL avatar images (you can replace later)
-// If you don't have, it will show emoji 🙂
 const listings = [
   {
     id: 1,
@@ -198,93 +196,89 @@ function Stars({ value }) {
 }
 
 export default function FeaturedSales() {
-  const perPage = 4;
 
-  const pages = useMemo(() => {
-    const out = [];
-    for (let i = 0; i < listings.length; i += perPage) {
-      out.push(listings.slice(i, i + perPage));
-    }
-    return out;
+  const getPerPage = () => {
+    const width = window.innerWidth;
+
+    if (width <= 768) return 2;
+    if (width <= 1024) return 2;
+    return 4;
+  };
+
+  const [perPage, setPerPage] = useState(getPerPage());
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    const resize = () => {
+      setPerPage(getPerPage());
+      setPage(0);
+    };
+
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
-  const [page, setPage] = useState(0);
+  const pages = useMemo(() => {
+    const arr = [];
+    for (let i = 0; i < listings.length; i += perPage) {
+      arr.push(listings.slice(i, i + perPage));
+    }
+    return arr;
+  }, [perPage]);
 
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
 
-  // ===== drag/swipe =====
   const viewportRef = useRef(null);
   const drag = useRef({ dragging: false, startX: 0, dx: 0, startPage: 0 });
 
   const getX = (e) => (e.touches ? e.touches[0].clientX : e.clientX);
 
   const onDown = (e) => {
-    const vp = viewportRef.current;
-    if (!vp) return;
-
     drag.current.dragging = true;
     drag.current.startX = getX(e);
-    drag.current.dx = 0;
     drag.current.startPage = page;
-
-    vp.classList.add("fs-grabbing");
   };
 
   const onMove = (e) => {
-    const vp = viewportRef.current;
-    if (!vp || !drag.current.dragging) return;
+    if (!drag.current.dragging) return;
 
     const x = getX(e);
     const dx = x - drag.current.startX;
     drag.current.dx = dx;
 
-    const percent = (dx / vp.clientWidth) * 100;
-    const track = vp.querySelector(".fs-track");
-    if (track) {
-      track.style.transition = "none";
-      track.style.transform = `translateX(calc(-${
-        drag.current.startPage * 100
-      }% + ${percent}%))`;
-    }
+    const percent = (dx / viewportRef.current.clientWidth) * 100;
 
-    if (e.cancelable) e.preventDefault();
+    const track = viewportRef.current.querySelector(".fs-track");
+    track.style.transition = "none";
+    track.style.transform = `translateX(calc(-${drag.current.startPage * 100}% + ${percent}%))`;
   };
 
   const onUp = () => {
-    const vp = viewportRef.current;
-    if (!vp || !drag.current.dragging) return;
+    if (!drag.current.dragging) return;
 
     drag.current.dragging = false;
 
-    const threshold = vp.clientWidth * 0.18;
+    const threshold = viewportRef.current.clientWidth * 0.18;
     const dx = drag.current.dx;
 
-    const track = vp.querySelector(".fs-track");
-    if (track) track.style.transition = "";
+    const track = viewportRef.current.querySelector(".fs-track");
+    track.style.transition = "";
 
     if (dx < -threshold) next();
     else if (dx > threshold) prev();
-    else setPage((p) => p);
-
-    vp.classList.remove("fs-grabbing");
   };
 
   return (
     <section className="fs">
       <div className="fs-wrap">
+
         <div className="fs-top">
-          <div>
-            <h2>Featured Properties for Sales</h2>
-          </div>
+          <h2>Featured Properties for Sales</h2>
 
           <div className="fs-arrows">
-            <button onClick={prev} disabled={page === 0}>
-              ‹
-            </button>
-            <button onClick={next} disabled={page === pages.length - 1}>
-              ›
-            </button>
+            <button onClick={prev} disabled={page === 0}>‹</button>
+            <button onClick={next} disabled={page === pages.length - 1}>›</button>
           </div>
         </div>
 
@@ -299,32 +293,36 @@ export default function FeaturedSales() {
           onTouchMove={onMove}
           onTouchEnd={onUp}
         >
+
           <div
             className="fs-track"
             style={{ transform: `translateX(-${page * 100}%)` }}
           >
-            {pages.map((group, idx) => (
-              <div className="fs-page" key={idx}>
+
+            {pages.map((group, i) => (
+              <div className="fs-page" key={i}>
+
                 {group.map((x) => (
                   <article className="fs-card" key={x.id}>
+
                     <div className="fs-media">
-                      <img src={x.img} alt={x.title} draggable="false" />
+                      <img src={x.img} alt={x.title} />
                       <div className="fs-price">{x.price}</div>
-
                       <div className="fs-avatar">👤</div>
-
-                      <div className="fs-mediaShade" />
+                      <div className="fs-mediaShade"></div>
                     </div>
 
                     <div className="fs-body">
+
                       <div className="fs-rating">
                         <Stars value={x.rating} />
                         <span className="fs-ratingText">
-                          {x.rating} ({x.reviews} Reviews)
+                          {x.rating} ({x.reviews})
                         </span>
                       </div>
 
                       <h3 className="fs-title">{x.title}</h3>
+
                       <p className="fs-address">📍 {x.address}</p>
 
                       <div className="fs-features">
@@ -337,19 +335,34 @@ export default function FeaturedSales() {
                         <span>Listed on : {x.date}</span>
                         <span>Category : {x.category}</span>
                       </div>
+
                     </div>
+
                   </article>
                 ))}
+
               </div>
             ))}
+
           </div>
+        </div>
+
+        <div className="fs-dots">
+          {pages.map((_, i) => (
+            <button
+              key={i}
+              className={`fs-dot ${page === i ? "active" : ""}`}
+              onClick={() => setPage(i)}
+            />
+          ))}
         </div>
 
         <div className="fs-explore">
           <button className="fs-exploreBtn">
-            Explore All <span className="fs-arrow">→</span>
+            Explore All →
           </button>
         </div>
+
       </div>
     </section>
   );

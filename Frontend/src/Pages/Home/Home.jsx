@@ -18,7 +18,7 @@ function Home() {
     <>
       <Breadcrumb />
       <HowItWorks />
-      <PropertyType />
+      {/* <PropertyType /> */}
       <FeaturedSales />
       <Cities />
       <FeaturedProperties />

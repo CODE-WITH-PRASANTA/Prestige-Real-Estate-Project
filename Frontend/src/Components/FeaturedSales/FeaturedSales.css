@@ -266,14 +266,80 @@
 /* =============================
    RESPONSIVE
 ============================= */
-@media (max-width: 900px){
-  .fs-page{
-    grid-template-columns:1fr;  /* 1 card per row */
-  }
-  .fs-title{
-    font-size:20px;
-  }
-  .fs-media{
-    height:230px;
-  }
+/* PAGINATION DOTS */
+
+.fs-dots{
+display:none;
+justify-content:center;
+gap:10px;
+margin-top:20px;
+}
+
+.fs-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+border:none;
+background:#cbd5e1;
+cursor:pointer;
+transition:.3s;
+}
+
+.fs-dot.active{
+width:24px;
+border-radius:10px;
+background:#0f172a;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:1024px){
+
+.fs-page{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media (max-width:768px){
+
+.fs-arrows{
+display:none;
+}
+
+.fs-page{
+grid-template-columns:1fr;
+}
+
+.fs-dots{
+display:flex;
+}
+
+.fs-media{
+height:220px;
+}
+
+}
+
+@media (max-width:480px){
+
+.fs{
+padding:50px 0;
+}
+
+.fs-media{
+height:200px;
+}
+
+.fs-chip{
+font-size:13px;
+padding:10px 6px;
+}
+
+.fs-footer{
+flex-direction:column;
+font-size:12px;
+gap:6px;
+}
+
 }
