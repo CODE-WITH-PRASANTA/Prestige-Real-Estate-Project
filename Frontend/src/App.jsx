@@ -17,6 +17,7 @@ import FAQ from "./Components/FAQ/FAQ";
 import Blog from "./Pages/Blog/Blog";
 import BlogList from "./Pages/BlogList/BlogList";
 import BlogDetails from "./Pages/BlogDetails/BlogDetails";
+import Property from "./Pages/Property/Property";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/blog" element={<Blog/>}/>
         <Route path="/bloglist" element={<BlogList/>}/>
         <Route path="/blog-details" element={<BlogDetails/>}/>
+        <Route path="/property" element={<Property/>}/>
       </Routes>
 
       {!isAuthPage && <Footer />}
