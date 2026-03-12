@@ -1,0 +1,198 @@
+.properties-rent-admin{
+padding:40px;
+background:#f6f8fc;
+font-family:Inter,sans-serif;
+}
+
+/* GRID */
+
+.properties-rent-admin__container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+margin-bottom:40px;
+}
+
+/* FORM */
+
+.properties-rent-admin__form,
+.properties-rent-admin__preview{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.properties-rent-admin__form h2,
+.properties-rent-admin__preview h2{
+margin-bottom:20px;
+}
+
+.properties-rent-admin__form input,
+.properties-rent-admin__form select{
+width:100%;
+padding:10px;
+margin-bottom:12px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.properties-rent-admin__grid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+}
+
+.properties-rent-admin__btn{
+background:#2563eb;
+color:white;
+padding:12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+width:100%;
+margin-top:10px;
+}
+
+/* CARD */
+
+.properties-rent-admin__card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.properties-rent-admin__img{
+height:200px;
+background-size:cover;
+background-position:center;
+position:relative;
+}
+
+.price{
+position:absolute;
+bottom:10px;
+left:10px;
+background:black;
+color:white;
+padding:6px 10px;
+border-radius:4px;
+}
+
+.properties-rent-admin__cardBody{
+padding:15px;
+}
+
+.details{
+display:flex;
+gap:10px;
+margin:10px 0;
+font-size:13px;
+}
+
+.bookBtn{
+background:#0f172a;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+margin-top:10px;
+}
+
+.badge{
+float:right;
+background:#6366f1;
+color:white;
+padding:4px 10px;
+border-radius:20px;
+font-size:12px;
+}
+
+/* TABLE */
+
+.properties-rent-admin__table{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.properties-rent-admin__tableWrap{
+overflow-x:auto;
+}
+
+.properties-rent-admin__table table{
+width:100%;
+min-width:1100px;
+border-collapse:collapse;
+}
+
+.properties-rent-admin__table th,
+.properties-rent-admin__table td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+.properties-rent-admin__table img{
+width:70px;
+height:45px;
+object-fit:cover;
+border-radius:6px;
+}
+
+.status{
+background:#22c55e;
+color:white;
+padding:4px 10px;
+border-radius:20px;
+font-size:12px;
+}
+
+/* ACTION BUTTONS */
+
+.edit{
+background:#3b82f6;
+color:white;
+border:none;
+padding:6px 12px;
+margin-right:6px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.delete{
+background:#ef4444;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+.properties-rent-admin__container{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:700px){
+
+.properties-rent-admin{
+padding:20px;
+}
+
+.properties-rent-admin__grid{
+grid-template-columns:1fr;
+}
+
+.details{
+flex-direction:column;
+}
+
+}
