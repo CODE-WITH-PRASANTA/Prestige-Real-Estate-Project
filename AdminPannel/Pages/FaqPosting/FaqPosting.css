@@ -1,0 +1,314 @@
+/* MAIN WRAPPER */
+
+.faq-admin{
+padding:40px;
+background:#f5f7fb;
+font-family:Inter,sans-serif;
+min-height:100vh;
+}
+
+.faq-admin__container{
+max-width:1300px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:40px;
+}
+
+/* HEADER */
+
+.faq-admin__header{
+margin-bottom:18px;
+}
+
+.faq-admin__header h3{
+font-size:20px;
+font-weight:600;
+}
+
+.faq-admin__header p{
+font-size:13px;
+color:#6b7280;
+}
+
+/* GRID LAYOUT */
+
+.faq-admin__top{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+align-items:start;
+}
+
+/* FORM */
+
+.faq-admin__formBox{
+background:#fff;
+padding:30px;
+border-radius:14px;
+border:1px solid #eee;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.faq-admin__formBox form{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.faq-admin__formBox label{
+font-size:14px;
+font-weight:500;
+}
+
+.faq-admin__formBox input,
+.faq-admin__formBox textarea,
+.faq-admin__formBox select{
+padding:11px;
+border-radius:8px;
+border:1px solid #e5e7eb;
+font-size:14px;
+transition:0.3s;
+width:100%;
+}
+
+.faq-admin__formBox input:focus,
+.faq-admin__formBox textarea:focus,
+.faq-admin__formBox select:focus{
+border-color:#6366f1;
+outline:none;
+}
+
+.faq-admin__formBox textarea{
+min-height:110px;
+resize:none;
+}
+
+/* BUTTON */
+
+.faq-admin__btn{
+margin-top:8px;
+padding:13px;
+background:linear-gradient(90deg,#6366f1,#4f46e5);
+color:#fff;
+border:none;
+border-radius:8px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.faq-admin__btn:hover{
+opacity:0.9;
+}
+
+/* PREVIEW */
+
+.faq-admin__preview{
+background:#fff;
+padding:30px;
+border-radius:14px;
+border:1px solid #eee;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.faq-admin__previewCard{
+background:#f9fafb;
+padding:25px;
+border-radius:10px;
+}
+
+.faq-admin__accordion{
+margin-top:15px;
+}
+
+.faq-admin__question{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+padding:12px;
+border-radius:8px;
+border:1px solid #eee;
+font-weight:600;
+}
+
+.faq-admin__answer{
+margin-top:10px;
+font-size:14px;
+color:#374151;
+line-height:1.6;
+}
+
+/* TABLE */
+
+.faq-admin__tableBox{
+background:#fff;
+padding:30px;
+border-radius:14px;
+border:1px solid #eee;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.faq-admin__tableWrap{
+overflow-x:auto;
+}
+
+.faq-admin__tableBox table{
+width:100%;
+border-collapse:collapse;
+min-width:900px;
+}
+
+.faq-admin__tableBox th{
+background:#f3f4f6;
+padding:14px;
+font-size:13px;
+text-transform:uppercase;
+text-align:left;
+}
+
+.faq-admin__tableBox td{
+padding:14px;
+border-bottom:1px solid #eee;
+font-size:14px;
+}
+
+.faq-admin__tableBox img{
+width:50px;
+height:50px;
+border-radius:8px;
+object-fit:cover;
+}
+
+/* TEXT */
+
+.faq-admin__answerText{
+max-width:250px;
+font-size:13px;
+color:#6b7280;
+}
+
+/* STATUS */
+
+.status{
+padding:5px 12px;
+border-radius:20px;
+font-size:12px;
+color:white;
+font-weight:500;
+}
+
+.status.active{
+background:#22c55e;
+}
+
+.status.inactive{
+background:#ef4444;
+}
+
+/* ACTION */
+
+.faq-admin__actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.edit{
+background:#3b82f6;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.delete{
+background:#ef4444;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+================================ */
+
+/* LAPTOP */
+
+@media(max-width:1200px){
+
+.faq-admin__container{
+max-width:1000px;
+}
+
+}
+
+/* TABLET */
+
+@media(max-width:992px){
+
+.faq-admin__top{
+grid-template-columns:1fr;
+}
+
+.faq-admin__preview{
+order:2;
+}
+
+.faq-admin__formBox{
+order:1;
+}
+
+}
+
+/* LARGE MOBILE */
+
+@media(max-width:768px){
+
+.faq-admin{
+padding:30px 20px;
+}
+
+.faq-admin__formBox,
+.faq-admin__preview,
+.faq-admin__tableBox{
+padding:22px;
+}
+
+.faq-admin__tableBox table{
+min-width:750px;
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+.faq-admin{
+padding:20px 15px;
+}
+
+.faq-admin__formBox,
+.faq-admin__preview,
+.faq-admin__tableBox{
+padding:18px;
+}
+
+.faq-admin__btn{
+width:100%;
+}
+
+.faq-admin__question{
+font-size:14px;
+}
+
+.faq-admin__answer{
+font-size:13px;
+}
+
+}

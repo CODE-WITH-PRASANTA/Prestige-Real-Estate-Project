@@ -17,9 +17,14 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
     { name: "Dashboard", path: "/", icon: <FaHome /> },
     { name: "Properties", path: "/admin/saleproperty", icon: <FaNewspaper /> },
     { name: "Rent Properties", path: "/admin/rentproperty", icon: <FaNewspaper /> },
+    { name: "Pricing", path: "/admin/pricing", icon: <FaNewspaper /> },
+     { name: "Testimonial", path: "/admin/testimonial", icon: <FaNewspaper /> },
+     { name: "FAQ Posting", path: "/admin/faqposting", icon: <FaNewspaper /> },
+     { name: "Blog Posting", path: "/admin/blogposting", icon: <FaNewspaper /> },
+    
 
     {
-      name: "Gallery",
+      name: "AddProperty",
       icon: <FaImages />,
       submenu: [
         { name: "Gallery Post", path: "/admin/gallery-post" },
