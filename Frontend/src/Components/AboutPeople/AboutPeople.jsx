@@ -11,31 +11,29 @@ const AboutPeople = () => {
       <div className="aboutPeople-container">
 
         <h2 className="aboutPeople-title">
-          We Connect Building With People
+          Connecting People with Spaces That Feel Like Home
         </h2>
 
         <p className="aboutPeople-text">
-          We believe in more than just property transactions—we believe in creating
-          meaningful connections. "We Connect Building With People" represents our
-          mission to bridge the gap between spaces and those who bring them to life.
-          Whether you're searching for a dream home, an office space, or a real estate
-          investment, our platform makes it easier to discover the right fit. With
-          trusted listings, expert support, and seamless technology, we help you turn
-          structures into stories, and buildings into belonging.
+          At Prestige Real Estate Properties, we understand that buying a property is not just a transaction—it's an emotional journey. Whether you're looking for your first home, upgrading to a better lifestyle, or investing in a promising real estate opportunity in India, we are here to guide you every step of the way.
+          <br /><br />
+          Our goal is simple: to help you find a space that matches your lifestyle, your dreams, and your future plans. With carefully selected residential and commercial properties, verified listings, and expert support, we make property buying and selling transparent and hassle-free.
+          <br /><br />
+          From modern apartments to premium villas and commercial spaces, Prestige Real Estate Properties brings you options that combine comfort, quality, and long-term value. We don’t just deal in properties—we help you find a place you can truly call your own.
         </p>
 
         <div className="aboutPeople-gallery">
 
           <div className="aboutPeople-card">
-            <img src={img1} alt="Interior 1" />
+            <img src={img1} alt="Modern apartment interior - Prestige Real Estate Properties" />
           </div>
 
           <div className="aboutPeople-card">
-            <img src={img2} alt="Interior 2" />
+            <img src={img2} alt="Luxury villa living space - Prestige Real Estate India" />
           </div>
 
           <div className="aboutPeople-card">
-            <img src={img3} alt="Interior 3" />
+            <img src={img3} alt="Premium office space design - Real estate investment India" />
           </div>
 
         </div>

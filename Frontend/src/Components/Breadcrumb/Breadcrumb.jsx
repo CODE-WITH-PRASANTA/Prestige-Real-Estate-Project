@@ -16,19 +16,21 @@ function Breadcrumb() {
       {/* content */}
       <div className="breadcrumb-content">
         <h1>
-          Find Your Best Dream <br />
-          House for Rental, Buy & Sell...
+          Prestige Real Estate properties <br />
+          Find Your Perfect Home to Buy or Rent
         </h1>
 
         <p>
-          Properties for buy / rent in your location. We have more than 3000+
-          listings for you to choose
+          Discover thoughtfully designed homes, apartments, and villas with 
+          Prestige. Whether you are looking to buy your dream home or find a 
+          comfortable rental, explore verified properties in prime locations 
+          at the right price.
         </p>
 
         {/* buttons */}
         <div className="buttons">
-          <button className="btn primary">Buy Property</button>
-          <button className="btn">Rent Property</button>
+          <button className="btn primary">Explore Properties</button>
+          <button className="btn">View Rentals</button>
         </div>
 
         {/* search section */}
@@ -36,7 +38,7 @@ function Breadcrumb() {
           <div className="field">
             <label>Keyword</label>
             <select>
-              <option>Select</option>
+              <option>Select Property</option>
               <option>Apartment</option>
               <option>Villa</option>
               <option>Plot</option>
@@ -46,28 +48,28 @@ function Breadcrumb() {
           <div className="field">
             <label>Property Type</label>
             <select>
-              <option>Select</option>
+              <option>Select Type</option>
               <option>Buy</option>
               <option>Rent</option>
             </select>
           </div>
 
           <div className="field">
-            <label>Address</label>
-            <input type="text" />
+            <label>Location</label>
+            <input type="text" placeholder="Enter city or area" />
           </div>
 
           <div className="field">
             <label>Min Price</label>
-            <input type="text" placeholder="$" />
+            <input type="text" placeholder="₹ Min" />
           </div>
 
           <div className="field">
             <label>Max Price</label>
-            <input type="text" placeholder="$" />
+            <input type="text" placeholder="₹ Max" />
           </div>
 
-          <button className="search-btn">Go</button>
+          <button className="search-btn">Search Property</button>
         </div>
       </div>
     </div>

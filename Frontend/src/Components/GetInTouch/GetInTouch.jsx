@@ -11,12 +11,15 @@ const GetInTouch = () => {
         {/* LEFT */}
         <div className="GetInTouch-left">
 
-          <h2>Get in Touch</h2>
+          <h2>Get in Touch with Prestige Real Estate Properties</h2>
 
           <p className="GetInTouch-desc">
-            Sed ut <b>perspiciatis unde omnis</b> iste natus error sit voluptatem accusantium doloremque laudantium,
-            totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            <b> Nemo enim ipsam voluptatem quia voluptas</b> sit aspernatur aut odit aut fugit.
+            Looking to buy your dream home or invest in a trusted property? At <b>Prestige Real Estate Properties</b>, 
+            we understand that finding the right space is an important decision. Whether you are exploring premium 
+            apartments, family homes, or smart investment options, our team is here to guide you at every step.
+            <br /><br />
+            Have questions about pricing, location, site visits, or availability? Feel free to connect with us. 
+            We believe in honest conversations, clear information, and helping you make the right choice without pressure.
           </p>
 
           {/* CONTACT INFO */}
@@ -24,22 +27,22 @@ const GetInTouch = () => {
 
             <div className="GetInTouch-item">
               <FiPhone />
-              <span>(+04) 743 323 424</span>
+              <span>+91 98765 43210</span>
             </div>
 
             <div className="GetInTouch-item">
               <FiMail />
-              <span>contact@urban.com</span>
+              <span>info@prestigerealty.in</span>
             </div>
 
             <div className="GetInTouch-item">
               <FiMapPin />
-              <span>Collins Street West Victoria</span>
+              <span>Mumbai, Maharashtra, India</span>
             </div>
 
             <div className="GetInTouch-item">
               <FiClock />
-              <span>Mon-Sat: 9:00 - 18:00</span>
+              <span>Mon - Sat: 10:00 AM - 7:00 PM</span>
             </div>
 
           </div>
@@ -55,29 +58,32 @@ const GetInTouch = () => {
 
               <div className="GetInTouch-field">
                 <label>First Name</label>
-                <input type="text" />
+                <input type="text" placeholder="Enter your first name" />
               </div>
 
               <div className="GetInTouch-field">
                 <label>Subject</label>
-                <input type="text" />
+                <input type="text" placeholder="Property inquiry / Site visit" />
               </div>
 
               <div className="GetInTouch-field">
                 <label>Email Address</label>
-                <input type="email" />
+                <input type="email" placeholder="Enter your email" />
               </div>
 
               <div className="GetInTouch-field">
                 <label>Last Name</label>
-                <input type="text" />
+                <input type="text" placeholder="Enter your last name" />
               </div>
 
             </div>
 
             <div className="GetInTouch-field full">
               <label>Message</label>
-              <textarea rows="5"></textarea>
+              <textarea 
+                rows="5" 
+                placeholder="Tell us what you're looking for — budget, location, or any questions..."
+              ></textarea>
             </div>
 
             <button className="GetInTouch-btn">
