@@ -1,0 +1,145 @@
+/* ================= SECTION ================= */
+
+.aboutPeople-section{
+width:100%;
+background:#f6f6f6;
+padding:90px 0;
+display:flex;
+justify-content:center;
+
+}
+
+/* ================= CONTAINER ================= */
+
+.aboutPeople-container{
+width:92%;
+max-width:1280px;
+margin:auto;
+}
+
+/* ================= TITLE ================= */
+
+.aboutPeople-title{
+font-size:38px;
+font-weight:700;
+color:#0b1c2c;
+margin-bottom:20px;
+line-height:1.3;
+
+}
+
+/* ================= TEXT ================= */
+
+.aboutPeople-text{
+font-size:16px;
+line-height:1.9;
+color:#5b6b7b;
+max-width:1050px;
+margin-bottom:50px;
+
+}
+
+/* ================= IMAGE GRID ================= */
+
+.aboutPeople-gallery{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:32px;
+}
+
+/* ================= CARD ================= */
+
+.aboutPeople-card{
+width:100%;
+height:460px;
+border-radius:14px;
+overflow:hidden;
+}
+
+.aboutPeople-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+transition:transform .4s ease;
+}
+
+.aboutPeople-card:hover img{
+transform:scale(1.05);
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Laptop */
+
+@media (max-width:1200px){
+
+.aboutPeople-title{
+font-size:34px;
+}
+
+.aboutPeople-card{
+height:420px;
+}
+
+}
+
+/* Tablet */
+
+@media (max-width:992px){
+
+.aboutPeople-gallery{
+grid-template-columns:repeat(2,1fr);
+}
+
+.aboutPeople-card{
+height:380px;
+}
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+.aboutPeople-section{
+padding:70px 0;
+}
+
+.aboutPeople-title{
+font-size:28px;
+}
+
+.aboutPeople-text{
+font-size:15px;
+line-height:1.8;
+}
+
+.aboutPeople-gallery{
+grid-template-columns:1fr;
+gap:24px;
+}
+
+.aboutPeople-card{
+height:320px;
+}
+
+}
+
+/* Small Mobile */
+
+@media (max-width:480px){
+
+.aboutPeople-title{
+font-size:24px;
+}
+
+.aboutPeople-text{
+font-size:14px;
+}
+
+.aboutPeople-card{
+height:260px;
+}
+
+}
