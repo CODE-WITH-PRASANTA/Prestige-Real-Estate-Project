@@ -1,6 +1,6 @@
 import React from "react";
 import "./AboutExperience.css";
-import person from "../../assets/Main-1.webp"; // 🔁 replace with your image
+import person from "../../assets/Main-1.webp";
 
 const AboutExperience = () => {
   return (
@@ -10,7 +10,10 @@ const AboutExperience = () => {
 
         {/* LEFT IMAGE */}
         <div className="AboutExperience-left">
-          <img src={person} alt="agent" />
+          <img
+            src={person}
+            alt="Experienced real estate agent - Prestige Real Estate Project"
+          />
         </div>
 
         {/* RIGHT CONTENT */}
@@ -20,9 +23,12 @@ const AboutExperience = () => {
           <div className="AboutExperience-item">
             <div className="AboutExperience-number">1</div>
             <div className="AboutExperience-text">
-              <h3>Over 25 Years of Experience</h3>
+              <h3>25+ Years of Trusted Real Estate Experience</h3>
               <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                At <b>Prestige Real Estate Project</b>, our journey is built on
+                years of hands-on experience in helping people find the right homes.
+                We understand market trends, property values, and what truly matters
+                to buyers and sellers in India.
               </p>
             </div>
           </div>
@@ -31,9 +37,12 @@ const AboutExperience = () => {
           <div className="AboutExperience-item">
             <div className="AboutExperience-number">2</div>
             <div className="AboutExperience-text">
-              <h3>Leaders in Sell and Rent Houses</h3>
+              <h3>Experts in Buying, Selling & Renting Homes</h3>
               <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                From first-time home buyers to property investors, we offer simple
+                and reliable solutions for buying, selling, and renting houses.
+                Our verified listings and clear process help you make confident
+                property decisions without confusion.
               </p>
             </div>
           </div>
@@ -42,9 +51,12 @@ const AboutExperience = () => {
           <div className="AboutExperience-item">
             <div className="AboutExperience-number">3</div>
             <div className="AboutExperience-text">
-              <h3>Want a House or Sell one</h3>
+              <h3>Looking to Buy, Sell or Rent a Property?</h3>
               <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                Whether you want to own your dream home or find the right tenant,
+                our team is ready to assist you at every step. We focus on honest
+                guidance, transparent deals, and long-term relationships with our
+                clients.
               </p>
             </div>
           </div>
