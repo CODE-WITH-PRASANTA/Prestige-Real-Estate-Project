@@ -19,7 +19,7 @@ function Home() {
       <HowItWorks />
       <FeaturedSales />
       <Cities />
-      <FeaturedProperties />
+      {/* <FeaturedProperties /> */}
       <Stats />
       <PromoCards />
       <Partners />
@@ -27,7 +27,7 @@ function Home() {
       <Pricing />
       <FAQ />
       <BecomeAgent />
-      <Testimonial />
+      {/* <Testimonial /> */}
     </>
   );
 }

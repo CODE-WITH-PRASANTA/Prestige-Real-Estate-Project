@@ -20,17 +20,20 @@ export default function Cities() {
     { id: 5, name: "Paris", count: "520 Properties", img: c5 },
     { id: 6, name: "Dubai", count: "610 Properties", img: c6 },
     { id: 7, name: "Sydney", count: "280 Properties", img: c7 },
-    { id: 8, name: "Tokyo", count: "830 Properties", img: c8 }
+    { id: 8, name: "Tokyo", count: "830 Properties", img: c8 },
+     { id: 1, name: "New York", count: "300 Properties", img: c1 },
+    { id: 2, name: "Singapore", count: "400 Properties", img: c2 },
+    { id: 3, name: "Argentina", count: "740 Properties", img: c3 },
+    { id: 4, name: "United Kingdom", count: "1450 Properties", img: c4 }
+    
   ];
 
-  /* ===== RESPONSIVE PER PAGE ===== */
-
+  /* ✅ RESPONSIVE */
   const getPerPage = () => {
-    const width = window.innerWidth;
-
-    if (width <= 768) return 2;   // mobile
-    if (width <= 1024) return 2;  // tablet
-    return 4;                     // desktop
+    const w = window.innerWidth;
+    if (w <= 768) return 2;     // mobile (1x2)
+    if (w <= 1024) return 4;    // tablet (2x2)
+    return 6;                   // desktop (3x2)
   };
 
   const [perPage, setPerPage] = useState(getPerPage());
@@ -41,13 +44,11 @@ export default function Cities() {
       setPerPage(getPerPage());
       setPage(0);
     };
-
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  /* ===== PAGINATION ===== */
-
+  /* PAGINATION */
   const pages = useMemo(() => {
     const arr = [];
     for (let i = 0; i < cities.length; i += perPage) {
@@ -56,13 +57,10 @@ export default function Cities() {
     return arr;
   }, [perPage]);
 
-  const pageCount = pages.length;
-
   const prev = () => setPage((p) => Math.max(0, p - 1));
-  const next = () => setPage((p) => Math.min(pageCount - 1, p + 1));
+  const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
 
-  /* ===== SWIPE ===== */
-
+  /* SWIPE */
   const drag = useRef({ down: false, x: 0 });
 
   const down = (e) => {
@@ -132,16 +130,27 @@ export default function Cities() {
 
       </div>
 
-      {/* PAGINATION DOTS */}
+      {/* ✅ PAGINATION */}
+      <div className="cities-pagination">
 
-      <div className="dots">
+        <button onClick={prev} disabled={page === 0}>
+          &lt;
+        </button>
+
         {pages.map((_, i) => (
-          <span
+          <button
             key={i}
-            className={i === page ? "dot active" : "dot"}
+            className={page === i ? "active" : ""}
             onClick={() => setPage(i)}
-          />
+          >
+            {i + 1}
+          </button>
         ))}
+
+        <button onClick={next} disabled={page === pages.length - 1}>
+          &gt;
+        </button>
+
       </div>
 
     </section>

@@ -4,13 +4,20 @@ import AboutPeople from '../../Components/AboutPeople/AboutPeople'
 import AboutStats from "../../Components/AboutStats/AboutStats";
 import AboutBook from "../../Components/AboutBook/AboutBook";
 import AboutPartner from "../../Components/AboutPartner/AboutPartner"
+import AboutRent from '../../Components/AboutRent/AboutRent';
+import AboutExperience from '../../Components/AboutExperience/AboutExperience';
+import GetInTouch from '../../Components/GetInTouch/GetInTouch';
 
 
 
 const About = () => {
   return (
     <div>
+     
       <AboutBreadcrum />
+       <AboutRent />
+       <AboutExperience />
+       <GetInTouch />
       <AboutPeople/>
       <AboutStats/>
       <AboutBook/>

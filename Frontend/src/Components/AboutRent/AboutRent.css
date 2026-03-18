@@ -1,0 +1,137 @@
+.AboutRent{
+  padding:80px 20px;
+  background:#f9fafb;
+}
+
+/* CONTAINER */
+.AboutRent-container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+/* LEFT */
+.AboutRent-left h1{
+  font-size:48px;
+  font-weight:800;
+  color:#111827;
+  line-height:1.2;
+}
+
+.AboutRent-desc{
+  margin:20px 0;
+  color:#4b5563;
+  font-size:16px;
+}
+
+.AboutRent-sub{
+  color:#6b7280;
+  font-size:15px;
+}
+
+/* RIGHT */
+.AboutRent-right{
+  position:relative;
+}
+
+.AboutRent-right img{
+  width:100%;
+  border-radius:16px;
+}
+
+/* PLAY BUTTON */
+.AboutRent-play{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:80px;
+  height:80px;
+  background:white;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* STATS */
+.AboutRent-stats{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  max-width:1200px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.AboutRent-card{
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.AboutRent-card h2{
+  color:#0ea5e9;
+  font-size:36px;
+  margin-bottom:8px;
+}
+
+.AboutRent-card p{
+  color:#6b7280;
+}
+
+/* MODAL */
+.AboutRent-modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+.AboutRent-video{
+  width:90%;
+  max-width:800px;
+  background:#000;
+}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .AboutRent-container{
+    grid-template-columns:1fr;
+  }
+
+  .AboutRent-left h1{
+    font-size:36px;
+  }
+
+  .AboutRent-stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .AboutRent-stats{
+    grid-template-columns:1fr;
+  }
+
+  .AboutRent-play{
+    width:60px;
+    height:60px;
+    font-size:20px;
+  }
+}
