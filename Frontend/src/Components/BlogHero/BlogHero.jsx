@@ -1,42 +1,31 @@
 import React from "react";
 import "./BlogHero.css";
 
-const BlogHero = () => {
-  const base = "blog-hero";
+import bg from "../../assets/breadcumb-bg.webp"; // 🔁 your main background
 
+
+const BlogHero = ({ title = "Team Details" }) => {
   return (
-    <section className={base}>
+    <section
+      className="Blog-hero"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
 
-      {/* Background layer */}
-      <div className={`${base}__bg`} />
+      {/* OVERLAY */}
+      <div className="Blog-hero-overlay"></div>
 
-      {/* Decorative shapes */}
-      <div className={`${base}__shape ${base}__shape--left`} />
-      <div className={`${base}__shape ${base}__shape--right`} />
+      {/* SHAPES */}
+      <div className="Blog-hero-shape top-left"></div>
+      <div className="Blog-hero-shape bottom-right"></div>
 
-      {/* Content */}
-      <div className={`${base}__container`}>
+      <div className="Blog-hero-container">
 
-        <h1 className={`${base}__title`}>
-          Blog List
-        </h1>
+        <h1>Home</h1>
 
-        <div className={`${base}__breadcrumb`}>
-
-          <span className={`${base}__home`}>
-            🏠
-          </span>
-
+        <div className="Blog-hero-path">
           <span>Home</span>
-
-          <span className={`${base}__divider`}>
-            ›
-          </span>
-
-          <span className={`${base}__current`}>
-            Blog List
-          </span>
-
+          <span className="arrow">→</span>
+          <span className="active">Blog</span>
         </div>
 
       </div>

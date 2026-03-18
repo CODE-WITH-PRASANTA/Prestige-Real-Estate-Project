@@ -77,20 +77,7 @@ function FAQPage() {
 
   return (
     <div className="faq-page">
-      <section className="faq-hero">
-        <div className="faq-container">
-          <div className="faq-hero-content">
-            <p className="faq-subtitle">Support Center</p>
-            <h1>Frequently asked questions</h1>
-
-            <div className="faq-breadcrumb">
-              <span>Home</span>
-              <span className="faq-separator">/</span>
-              <span className="active">FAQ</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       <section className="faq-main-section">
         <div className="faq-container">

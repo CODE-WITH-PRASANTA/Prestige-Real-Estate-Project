@@ -1,4 +1,4 @@
-.Blog-hero{
+.BreadcrumbMain{
   position:relative;
   height:300px;
   display:flex;
@@ -15,7 +15,7 @@
 }
 
 /* DARK OVERLAY */
-.Blog-hero-overlay{
+.BreadcrumbMain-overlay{
   position:absolute;
   inset:0;
   background:rgba(15, 23, 42, 0.75);
@@ -23,19 +23,19 @@
 }
 
 /* CONTENT */
-.Blog-hero-container{
+.BreadcrumbMain-container{
   position:relative;
   z-index:2;
 }
 
-.Blog-hero h1{
+.BreadcrumbMain h1{
   font-size:42px;
   font-weight:800;
   margin-bottom:10px;
 }
 
 /* PATH */
-.Blog-hero-path{
+.BreadcrumbMain-path{
   display:flex;
   justify-content:center;
   align-items:center;
@@ -44,17 +44,17 @@
   color:#e5e7eb;
 }
 
-.Blog-hero-path .arrow{
+.BreadcrumbMain-path .arrow{
   opacity:0.7;
 }
 
-.Blog-hero-path .active{
+.BreadcrumbMain-path .active{
   color:#10b981;
   font-weight:600;
 }
 
 /* SHAPES (DECORATIVE) */
-.Blog-hero-shape{
+.BreadcrumbMain-shape{
   position:absolute;
   width:120px;
   height:120px;
@@ -77,19 +77,19 @@
 /* RESPONSIVE */
 @media(max-width:768px){
 
-  .Blog-hero{
+  .BreadcrumbMain{
     height:220px;
   }
 
-  .Blog-hero h1{
+  .BreadcrumbMain h1{
     font-size:28px;
   }
 
-  .Blog-hero-path{
+  .BreadcrumbMain-path{
     font-size:14px;
   }
 
-  .Blog-hero-shape{
+  .BreadcrumbMain-shape{
     width:80px;
     height:80px;
   }
@@ -97,15 +97,15 @@
 
 @media(max-width:480px){
 
-  .Blog-hero{
+  .BreadcrumbMain{
     height:180px;
   }
 
-  .Blog-hero h1{
+  .BreadcrumbMain h1{
     font-size:22px;
   }
 
-  .Blog-hero-path{
+  .BreadcrumbMain-path{
     font-size:13px;
   }
 }

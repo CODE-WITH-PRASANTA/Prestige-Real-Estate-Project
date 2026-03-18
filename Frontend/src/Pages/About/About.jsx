@@ -7,6 +7,7 @@ import AboutPartner from "../../Components/AboutPartner/AboutPartner"
 import AboutRent from '../../Components/AboutRent/AboutRent';
 import AboutExperience from '../../Components/AboutExperience/AboutExperience';
 import GetInTouch from '../../Components/GetInTouch/GetInTouch';
+import Breadcrumbmain from '../../Components/BreadcrumbMain/BreadcrumbMain';
 
 
 
@@ -14,7 +15,7 @@ const About = () => {
   return (
     <div>
      
-      <AboutBreadcrum />
+      <Breadcrumbmain />
        <AboutRent />
        <AboutExperience />
        <GetInTouch />

@@ -13,25 +13,8 @@ import emailIcon from "../../assets/email.webp";
 import phoneIcon from "../../assets/phone.webp";
 import locationIcon from "../../assets/adress.webp";
 
-function ContactBreadcrumb() {
-  return (
-    <section className="contact-breadcrumb">
-      <div className="contact-container">
-        <h1>Contact Us</h1>
 
-        <div className="contact-breadcrumb-path">
-          <span className="contact-home-icon">
-            <FiHome />
-          </span>
-          <span>Home</span>
-          <span className="contact-separator">&gt;</span>
-          <span className="active">Contact</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
+  
 function ContactCards() {
   const cards = [
     {
@@ -170,7 +153,7 @@ function ContactCTA() {
 export default function Contact() {
   return (
     <div className="contact-page">
-      <ContactBreadcrumb />
+     
       <ContactCards />
       <ContactForm />
       <ContactMap />
