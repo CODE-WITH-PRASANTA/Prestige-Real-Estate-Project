@@ -1,0 +1,173 @@
+.related-post{
+padding:80px 20px;
+background:#f6f7fb;
+font-family:"Poppins",sans-serif;
+}
+
+.related-post__container{
+max-width:1200px;
+margin:auto;
+}
+
+/* HEADER */
+
+.related-post__header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
+}
+
+.related-post__header h2{
+font-size:28px;
+color:#111;
+}
+
+/* NAV */
+
+.related-post__nav{
+display:flex;
+gap:12px;
+}
+
+.related-post__nav button{
+width:44px;
+height:44px;
+border-radius:50%;
+border:none;
+background:#eee;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:.3s;
+}
+
+.related-post__nav button:hover{
+background:#6c5ce7;
+color:#fff;
+}
+
+.related-post__nav svg{
+width:20px;
+height:20px;
+fill:currentColor;
+}
+
+/* GRID */
+
+.related-post__grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+/* CARD */
+
+.related-post__card{
+background:#fff;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+transition:.3s;
+}
+
+.related-post__card:hover{
+transform:translateY(-6px);
+}
+
+/* IMAGE */
+
+.related-post__card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+/* CONTENT */
+
+.related-post__content{
+padding:22px;
+}
+
+/* BADGE */
+
+.related-post__badge{
+background:#6c5ce7;
+color:#fff;
+padding:6px 12px;
+border-radius:6px;
+font-size:13px;
+display:inline-block;
+margin-bottom:14px;
+}
+
+/* META */
+
+.related-post__meta{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:14px;
+color:#666;
+margin-bottom:10px;
+}
+
+.related-post__meta img{
+width:28px;
+height:28px;
+border-radius:50%;
+}
+
+.related-post__date{
+display:flex;
+align-items:center;
+gap:6px;
+margin-left:auto;
+}
+
+.related-post__date svg{
+width:16px;
+height:16px;
+fill:#666;
+}
+
+/* TITLE */
+
+.related-post__content h3{
+font-size:20px;
+margin:12px 0;
+color:#111;
+}
+
+/* DESC */
+
+.related-post__content p{
+font-size:15px;
+color:#666;
+line-height:1.6;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.related-post__grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:600px){
+
+.related-post__grid{
+grid-template-columns:1fr;
+}
+
+.related-post__header{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+}

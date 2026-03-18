@@ -11,7 +11,9 @@ import ClientReviews from "../../Components/ClientReviews/ClientReviews";
 import Pricing from "../../Components/Pricing/Pricing";
 import FAQ from "../../Components/FAQ/FAQ";
 import BecomeAgent from "../../Components/BecomeAgent/BecomeAgent";
-import Blog from "../../Components/Blog/Blog";
+import Testimonial from "../Testimonial/Testimonial";
+
+
 
 function Home() {
   return (
@@ -29,7 +31,8 @@ function Home() {
       <Pricing />
       <FAQ />
       <BecomeAgent />
-      <Blog />
+      <Testimonial/>
+      
     </>
   );
 }

@@ -1,0 +1,178 @@
+.property-document{
+width:100%;
+padding:60px 20px;
+background:#f5f7fb;
+}
+
+/* CONTAINER */
+
+.property-document__container{
+max-width:1200px;
+margin:auto;
+
+display:grid;
+grid-template-columns:1fr 2fr;
+
+gap:60px;
+align-items:start;
+}
+
+/* LEFT */
+
+.property-document__title{
+font-size:32px;
+font-weight:700;
+margin-bottom:14px;
+color:#0f172a;
+}
+
+.property-document__desc{
+font-size:17px;
+line-height:1.7;
+color:#64748b;
+max-width:420px;
+}
+
+/* CARD */
+
+.property-document__card{
+background:white;
+padding:40px;
+border-radius:14px;
+
+box-shadow:0 12px 35px rgba(0,0,0,0.06);
+
+animation:fadeIn .5s ease;
+}
+
+/* TITLE */
+
+.property-document__upload-title{
+font-size:20px;
+font-weight:600;
+margin-bottom:18px;
+color:#0f172a;
+}
+
+/* UPLOAD AREA */
+
+.property-document__upload-area{
+
+display:flex;
+align-items:center;
+gap:16px;
+
+background:#f1f5f9;
+
+padding:12px;
+border-radius:10px;
+
+border:1px solid #e2e8f0;
+}
+
+/* BUTTON */
+
+.property-document__button{
+
+background:#0f172a;
+color:white;
+
+padding:10px 18px;
+border-radius:8px;
+
+cursor:pointer;
+font-weight:500;
+
+transition:all .3s ease;
+}
+
+.property-document__button:hover{
+background:#1e293b;
+}
+
+/* HIDE INPUT */
+
+.property-document__button input{
+display:none;
+}
+
+/* FILE NAME */
+
+.property-document__filename{
+font-size:14px;
+color:#64748b;
+}
+
+/* RULES */
+
+.property-document__rules{
+margin-top:18px;
+padding-left:18px;
+color:#64748b;
+line-height:1.8;
+}
+
+/* SUCCESS */
+
+.property-document__success{
+margin-top:18px;
+color:#10b981;
+font-weight:600;
+
+animation:slideUp .4s ease;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes slideUp{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* TABLET */
+
+@media(max-width:1000px){
+
+.property-document__container{
+grid-template-columns:1fr;
+gap:40px;
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+.property-document__card{
+padding:28px;
+}
+
+.property-document__upload-area{
+flex-direction:column;
+align-items:flex-start;
+gap:10px;
+}
+
+.property-document__title{
+font-size:26px;
+}
+
+}

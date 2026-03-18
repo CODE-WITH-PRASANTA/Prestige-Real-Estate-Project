@@ -27,20 +27,22 @@ export default function Navbar() {
           <Link to="/about">
             <li>About</li>
           </Link>
+          <Link to="/property">
+            <li>Properties</li>
+          </Link>
           <Link to="/contact">
             <li>Contact</li>
-          </Link>
-
-          <Link to="/news">
-            <li>News</li>
-          </Link>
-          <Link to="/pricing">
-            <li>Pricing</li>
           </Link>
           <Link to="/faq">
             <li>FAQ</li>
           </Link>
-          <Link to="blog-list">
+          <Link to="/pricing">
+            <li>Pricing</li>
+          </Link>
+          <Link to="/testimonial">
+            <li>Testimonial</li>
+          </Link>
+          <Link to="/blog">
             <li>Blog</li>
           </Link>
         </ul>
