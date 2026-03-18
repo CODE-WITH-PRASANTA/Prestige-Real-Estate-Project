@@ -1,63 +1,47 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import logo from "../../assets/logo.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { FiMenu, FiX, FiPhone, FiHome, FiChevronDown } from "react-icons/fi";
-
-const menuItems = ["Home", "Listing", "Agent", "Agency", "Pages", "Blog"];
+import { FiMenu, FiX, FiPhone, FiHome } from "react-icons/fi";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
       <nav className="navbar">
         {/* LOGO */}
         <div className="logo-section">
-          <img src={logo} alt="logo" className="logo-img" />
+          <Link to="/">
+            <img src={logo} alt="logo" className="logo-img" />
+          </Link>
         </div>
 
         {/* DESKTOP MENU */}
         <ul className="nav-menu-desktop">
-          <Link to="/">
-            <li>Home</li>
-          </Link>
-          <Link to="/about">
-            <li>About</li>
-          </Link>
-          <Link to="/property">
-            <li>Properties</li>
-          </Link>
-          <Link to="/contact">
-            <li>Contact</li>
-          </Link>
-          <Link to="/faq">
-            <li>FAQ</li>
-          </Link>
-          <Link to="/pricing">
-            <li>Pricing</li>
-          </Link>
-          <Link to="/testimonial">
-            <li>Testimonial</li>
-          </Link>
-          <Link to="/blog">
-            <li>Blog</li>
-          </Link>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+         
+          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/faq">FAQ</Link></li>
+          <li><Link to="/pricing">Pricing</Link></li>
+          <li><Link to="/testimonial">Testimonial</Link></li>
+          <li><Link to="/blog">Blog</Link></li>
         </ul>
 
-        {/* RIGHT BUTTONS */}
+        {/* RIGHT */}
         <div className="nav-right">
           <button className="call-btn">
             <FiPhone />
           </button>
 
-          <button className="post-btn">
-            <FiHome />
-            Post Property
-          </button>
-
+          <Link to="/property" className="post-btn">
+  <FiHome />
+  Post Property
+</Link>
           <div className="hamburger" onClick={() => setMenuOpen(true)}>
             <FiMenu size={26} />
           </div>
@@ -67,29 +51,30 @@ export default function Navbar() {
       {/* OVERLAY */}
       <div
         className={`mobile-overlay ${menuOpen ? "show" : ""}`}
-        onClick={() => setMenuOpen(false)}
+        onClick={closeMenu}
       />
 
       {/* MOBILE DRAWER */}
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
         {/* HEADER */}
         <div className="mobile-top">
-          <img src={logo} alt="" className="mobile-logo" />
-
-          <FiX className="close-icon" onClick={() => setMenuOpen(false)} />
+          <img src={logo} alt="logo" className="mobile-logo" />
+          <FiX className="close-icon" onClick={closeMenu} />
         </div>
 
         {/* SEARCH */}
-        <input type="text" placeholder="Search" className="mobile-search" />
+        <input type="text" placeholder="Search..." className="mobile-search" />
 
-        {/* MENU */}
+        {/* MOBILE MENU */}
         <ul className="mobile-links">
-          {menuItems.map((item, i) => (
-            <li key={i}>
-              <span>{item}</span>
-              <FiChevronDown />
-            </li>
-          ))}
+          <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+          <li><Link to="/about" onClick={closeMenu}>About</Link></li>
+         
+          <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+          <li><Link to="/faq" onClick={closeMenu}>FAQ</Link></li>
+          <li><Link to="/pricing" onClick={closeMenu}>Pricing</Link></li>
+          <li><Link to="/testimonial" onClick={closeMenu}>Testimonial</Link></li>
+          <li><Link to="/blog" onClick={closeMenu}>Blog</Link></li>
         </ul>
       </div>
     </>
