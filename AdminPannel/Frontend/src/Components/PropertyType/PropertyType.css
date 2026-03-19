@@ -1,0 +1,169 @@
+.ptS{
+  padding:80px 20px;
+}
+
+.ptS-wrap{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:350px 1fr;
+  gap:30px;
+  align-items:center;
+}
+
+/* LEFT */
+
+.ptS-left h2{
+  font-size:42px;
+  margin-bottom:15px;
+}
+
+.ptS-left p{
+  color:#6b7280;
+  margin-bottom:20px;
+}
+
+.ptS-arrows{
+  display:flex;
+  gap:12px;
+}
+
+.ptS-arrows button{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  cursor:pointer;
+}
+
+/* RIGHT */
+
+.ptS-track{
+  display:flex;
+  gap:16px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:10px;
+}
+
+.ptS-track::-webkit-scrollbar{
+  display:none;
+}
+
+/* CARD */
+
+.ptS-card{
+  flex:0 0 auto;
+  width:240px;
+  padding:18px;
+  border-radius:16px;
+  border:1px solid #eef1f5;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  scroll-snap-align:start;
+}
+
+/* ICON */
+
+.ptS-icon{
+  width:50px;
+  height:50px;
+  border-radius:12px;
+  border:1px solid #eef1f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.ptS-icon img{
+  width:28px;
+}
+
+/* TEXT */
+
+.ptS-meta h3{
+  margin:0;
+  font-size:18px;
+}
+
+.ptS-meta span{
+  font-size:14px;
+  color:#6b7280;
+}
+
+/* PAGINATION */
+
+.ptS-dots{
+  display:none;
+  justify-content:center;
+  gap:8px;
+  margin-top:18px;
+}
+
+.ptS-dots span{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#d1d5db;
+}
+
+.ptS-dots span.active{
+  background:#111;
+}
+
+/* TABLET */
+
+@media(max-width:1024px){
+
+  .ptS-wrap{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .ptS-arrows{
+    justify-content:center;
+  }
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .ptS{
+    padding:60px 16px;
+  }
+
+  .ptS-left h2{
+    font-size:30px;
+  }
+
+  .ptS-card{
+    width:200px;
+  }
+
+  .ptS-arrows{
+    display:none;
+  }
+
+  .ptS-dots{
+    display:flex;
+  }
+
+}
+
+/* SMALL MOBILE */
+
+@media(max-width:480px){
+
+  .ptS-card{
+    width:180px;
+  }
+
+  .ptS-left h2{
+    font-size:26px;
+  }
+
+}
