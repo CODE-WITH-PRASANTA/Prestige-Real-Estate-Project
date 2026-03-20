@@ -1,0 +1,810 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.treding {
+  width: 100%;
+  background: #f7f8fb;
+  padding: 24px 0 80px;
+  font-family: "Inter", sans-serif;
+}
+
+.treding-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.treding-top {
+  margin-bottom: 28px;
+}
+
+.treding-topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.treding-badges {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.treding-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.treding-badgeTrending {
+  background: linear-gradient(135deg, #ff4a68, #ff3657);
+}
+
+.treding-badgeFeatured {
+  background: linear-gradient(135deg, #ffbe0b, #f4a300);
+}
+
+.treding-visits {
+  font-size: 18px;
+  color: #081b3a;
+  font-weight: 500;
+}
+
+.treding-heroImageWrap {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #ececf2;
+}
+
+.treding-heroImage {
+  width: 100%;
+  height: 760px;
+  object-fit: cover;
+  display: block;
+}
+
+.treding-thumbRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.treding-thumbArrow {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 1px solid #dfe3eb;
+  background: #fff;
+  font-size: 22px;
+  color: #081b3a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.35s ease;
+  flex-shrink: 0;
+}
+
+.treding-thumbArrow:hover {
+  background: #14b8a6;
+  color: #fff;
+  border-color: #14b8a6;
+}
+
+.treding-thumbGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+  flex: 1;
+}
+
+.treding-thumbItem {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+  border: 3px solid transparent;
+  transition: 0.35s ease;
+  height: 140px;
+}
+
+.treding-thumbItem.active {
+  border-color: #14b8a6;
+}
+
+.treding-thumbItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* box */
+.treding-box {
+  background: #fff;
+  border: 1px solid #e6e9ef;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.treding-boxHeader {
+  padding: 24px 30px;
+  border-bottom: 1px solid #e8ebf2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.treding-boxHeader h2 {
+  font-size: 26px;
+  color: #081b3a;
+  font-weight: 800;
+}
+
+.treding-boxHeader svg {
+  font-size: 22px;
+  color: #081b3a;
+}
+
+.treding-boxBody {
+  padding: 28px 30px;
+}
+
+.treding-paragraph {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #5f6f8b;
+}
+
+.treding-readMore {
+  margin-top: 24px;
+  border: none;
+  background: transparent;
+  color: #14b8a6;
+  font-size: 17px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* features and amenities */
+.treding-featureGrid,
+.treding-amenityGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 34px;
+}
+
+.treding-featureItem,
+.treding-amenityItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #5f6f8b;
+  font-size: 17px;
+}
+
+.treding-featureIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #6b46f2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* about */
+.treding-aboutList {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.treding-aboutItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 17px;
+  color: #5f6f8b;
+}
+
+.treding-aboutCheck {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  color: #35d39a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+/* floor */
+.treding-floorList {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.treding-floorItem {
+  background: #f7f8fb;
+  border-radius: 14px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 21px;
+  font-weight: 700;
+  color: #081b3a;
+}
+
+.treding-floorActions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.treding-floorActions button {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  color: #081b3a;
+  cursor: pointer;
+}
+
+/* gallery */
+.treding-galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.treding-galleryItem {
+  height: 260px;
+}
+
+.treding-galleryItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* faq */
+.treding-faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.treding-faqItem {
+  border: 1px solid #e2e6ee;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.treding-faqQuestion {
+  width: 100%;
+  border: none;
+  background: #fff;
+  padding: 24px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #081b3a;
+  cursor: pointer;
+  text-align: left;
+}
+
+.treding-faqPlus {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  border: 1px solid #8a94a6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.treding-faqAnswer {
+  padding: 0 22px 24px;
+  color: #5f6f8b;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* reviews */
+.treding-reviewTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.treding-reviewTop h3 {
+  font-size: 24px;
+  color: #081b3a;
+  font-weight: 800;
+}
+
+.treding-reviewBtn,
+.treding-replyBtn {
+  border: none;
+  background: #081b3a;
+  color: #fff;
+  padding: 16px 22px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.treding-replyBtn {
+  background: #fff;
+  color: #081b3a;
+  border: 1px solid #d9dee8;
+  padding: 14px 18px;
+}
+
+.treding-reviewStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-bottom: 26px;
+}
+
+.treding-ratingCard,
+.treding-ratingBars {
+  background: #f7f8fb;
+  border: 1px solid #e4e8ef;
+  border-radius: 14px;
+  padding: 30px;
+}
+
+.treding-ratingCard {
+  text-align: center;
+}
+
+.treding-ratingCard h4 {
+  font-size: 21px;
+  color: #081b3a;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.treding-ratingScore {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.treding-ratingScore strong {
+  font-size: 54px;
+  line-height: 1;
+  color: #081b3a;
+}
+
+.treding-ratingScore span {
+  font-size: 24px;
+  color: #5f6f8b;
+  margin-bottom: 8px;
+}
+
+.treding-ratingStars {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  color: #f5b343;
+  font-size: 24px;
+  margin-bottom: 22px;
+}
+
+.treding-ratingCard p {
+  color: #5f6f8b;
+  font-size: 17px;
+}
+
+.treding-barRow {
+  display: grid;
+  grid-template-columns: 150px 1fr 60px;
+  gap: 16px;
+  align-items: center;
+  font-size: 17px;
+  color: #5f6f8b;
+  margin-bottom: 20px;
+}
+
+.treding-barRow:last-child {
+  margin-bottom: 0;
+}
+
+.treding-barTrack {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #dfe3ea;
+  overflow: hidden;
+}
+
+.treding-barFill {
+  height: 100%;
+  border-radius: 999px;
+  background: #f3b347;
+}
+
+.treding-barRow strong {
+  color: #5f6f8b;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.treding-commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.treding-commentCard {
+  border: 1px solid #dfe3ea;
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+  background: #fff;
+}
+
+.treding-commentReplyBox {
+  margin-top: 24px;
+  margin-left: 70px;
+  background: #f7f8fb;
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.treding-commentTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.treding-commentUser {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.treding-commentUser img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.treding-commentUser h4 {
+  font-size: 20px;
+  color: #081b3a;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.treding-commentMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 16px;
+  color: #5f6f8b;
+}
+
+.treding-commentStars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #f5b343;
+}
+
+.treding-commentText {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #5f6f8b;
+  margin-bottom: 18px;
+}
+
+.treding-commentActions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 17px;
+  color: #081b3a;
+}
+
+.treding-commentActions span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.treding-commentActions .love {
+  color: #ff476a;
+}
+
+/* responsive */
+@media (max-width: 1400px) {
+  .treding-container {
+    padding: 0 18px;
+  }
+
+  .treding-thumbGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .treding-thumbItem:nth-child(6) {
+    display: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  .treding-heroImage {
+    height: 620px;
+  }
+
+  .treding-featureGrid,
+  .treding-amenityGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .treding-reviewStats {
+    grid-template-columns: 1fr;
+  }
+
+  .treding-galleryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .treding-galleryItem {
+    height: 240px;
+  }
+
+  .treding-thumbGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .treding-thumbItem:nth-child(5),
+  .treding-thumbItem:nth-child(6) {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .treding-heroImage {
+    height: 520px;
+  }
+
+  .treding-topBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .treding-featureGrid,
+  .treding-amenityGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .treding-listTest {
+    grid-template-columns: 1fr;
+  }
+
+  .treding-floorItem {
+    font-size: 18px;
+  }
+
+  .treding-barRow {
+    grid-template-columns: 120px 1fr 50px;
+  }
+
+  .treding-commentReplyBox {
+    margin-left: 0;
+  }
+
+  .treding-thumbGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .treding-thumbItem:nth-child(4),
+  .treding-thumbItem:nth-child(5),
+  .treding-thumbItem:nth-child(6) {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .treding {
+    padding: 18px 0 60px;
+  }
+
+  .treding-container {
+    padding: 0 14px;
+  }
+
+  .treding-heroImage {
+    height: 340px;
+  }
+
+  .treding-thumbRow {
+    gap: 10px;
+  }
+
+  .treding-thumbArrow {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .treding-thumbItem {
+    height: 90px;
+  }
+
+  .treding-boxHeader,
+  .treding-boxBody {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .treding-boxHeader {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .treding-boxHeader h2 {
+    font-size: 22px;
+  }
+
+  .treding-paragraph,
+  .treding-featureItem,
+  .treding-amenityItem,
+  .treding-aboutItem,
+  .treding-commentText {
+    font-size: 15px;
+  }
+
+  .treding-featureGrid,
+  .treding-amenityGrid,
+  .treding-galleryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .treding-floorItem {
+    padding: 22px 18px;
+    font-size: 17px;
+  }
+
+  .treding-faqQuestion {
+    font-size: 16px;
+    padding: 18px 16px;
+  }
+
+  .treding-reviewTop,
+  .treding-commentTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .treding-ratingCard,
+  .treding-ratingBars {
+    padding: 20px;
+  }
+
+  .treding-barRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .treding-commentCard,
+  .treding-commentReplyBox {
+    padding: 18px;
+  }
+
+  .treding-commentUser img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .treding-commentUser h4 {
+    font-size: 18px;
+  }
+
+  .treding-thumbGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .treding-thumbItem:nth-child(3),
+  .treding-thumbItem:nth-child(4),
+  .treding-thumbItem:nth-child(5),
+  .treding-thumbItem:nth-child(6) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .treding-badge {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .treding-visits {
+    font-size: 16px;
+  }
+
+  .treding-heroImage {
+    height: 280px;
+  }
+
+  .treding-thumbItem {
+    height: 76px;
+  }
+
+  .treding-boxHeader h2 {
+    font-size: 20px;
+  }
+
+  .treding-reviewTop h3 {
+    font-size: 22px;
+  }
+
+  .treding-ratingScore strong {
+    font-size: 44px;
+  }
+
+  .treding-ratingScore span {
+    font-size: 20px;
+  }
+
+  .treding-commentActions {
+    gap: 16px;
+    font-size: 15px;
+  }
+}

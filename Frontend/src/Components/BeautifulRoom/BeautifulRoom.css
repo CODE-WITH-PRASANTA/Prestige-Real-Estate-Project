@@ -1,0 +1,421 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.beautifulRoom {
+  width: 100%;
+  padding: 40px 16px;
+  background: linear-gradient(180deg, #f8f9fb 0%, #f4f6f9 100%);
+  font-family: "Inter", sans-serif;
+}
+
+.beautifulRoom__container {
+  max-width: 1720px;
+  margin: 0 auto;
+}
+
+.beautifulRoom__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 34px;
+  align-items: stretch;
+}
+
+.beautifulRoom__card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: beautifulRoomFadeUp 0.7s ease;
+}
+
+.beautifulRoom__card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+}
+
+.beautifulRoom__imageWrap {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.beautifulRoom__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.beautifulRoom__card:hover .beautifulRoom__image {
+  transform: scale(1.08);
+}
+
+.beautifulRoom__imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 14, 28, 0.1) 0%,
+    rgba(9, 14, 28, 0.18) 45%,
+    rgba(9, 14, 28, 0.45) 100%
+  );
+  pointer-events: none;
+}
+
+.beautifulRoom__topBadges {
+  position: absolute;
+  top: 0;
+  left: 22px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+}
+
+.beautifulRoom__iconBtn {
+  border: none;
+  outline: none;
+  width: 48px;
+  height: 42px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+}
+
+.beautifulRoom__iconBtn--pink {
+  background: linear-gradient(135deg, #ff4768 0%, #ff3d65 100%);
+  border-bottom-left-radius: 8px;
+}
+
+.beautifulRoom__iconBtn--orange {
+  background: linear-gradient(135deg, #f4a300 0%, #ffb21f 100%);
+  border-bottom-right-radius: 8px;
+}
+
+.beautifulRoom__iconBtn:hover {
+  filter: brightness(1.05);
+}
+
+.beautifulRoom__wishlistBtn {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.16);
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.beautifulRoom__wishlistBtn:hover {
+  transform: scale(1.08);
+  color: #ef4444;
+}
+
+.beautifulRoom__agentThumb {
+  position: absolute;
+  left: 24px;
+  bottom: 22px;
+  z-index: 3;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+}
+
+.beautifulRoom__agentThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.beautifulRoom__content {
+  padding: 30px 30px 28px;
+}
+
+.beautifulRoom__metaRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.beautifulRoom__category {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  padding: 8px 14px;
+  border-radius: 7px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.beautifulRoom__category--purple {
+  background: linear-gradient(135deg, #6c4cf1 0%, #5b3ee8 100%);
+}
+
+.beautifulRoom__category--green {
+  background: linear-gradient(135deg, #16c1a3 0%, #11b394 100%);
+}
+
+.beautifulRoom__listedOn {
+  font-size: 15px;
+  color: #667085;
+  font-weight: 500;
+}
+
+.beautifulRoom__title {
+  font-size: 24px;
+  line-height: 1.25;
+  color: #0f172a;
+  font-weight: 800;
+  margin-bottom: 14px;
+  transition: color 0.3s ease;
+}
+
+.beautifulRoom__card:hover .beautifulRoom__title {
+  color: #0a2540;
+}
+
+.beautifulRoom__location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.beautifulRoom__location svg {
+  color: #6b7280;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.beautifulRoom__priceRating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+}
+
+.beautifulRoom__priceWrap {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.beautifulRoom__price {
+  font-size: 30px;
+  font-weight: 800;
+  color: #04b78c;
+  line-height: 1;
+}
+
+.beautifulRoom__duration {
+  font-size: 18px;
+  color: #04b78c;
+  font-weight: 500;
+}
+
+.beautifulRoom__rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.beautifulRoom__rating span {
+  font-size: 16px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.beautifulRoom__stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.beautifulRoom__stars svg {
+  color: #f4b248;
+  font-size: 18px;
+}
+
+.beautifulRoom__divider {
+  width: 100%;
+  height: 1px;
+  background: #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.beautifulRoom__features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+}
+
+.beautifulRoom__featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #5f6b7a;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.beautifulRoom__featureIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: #f5f7fb;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+@keyframes beautifulRoomFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1400px) {
+  .beautifulRoom__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .beautifulRoom__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .beautifulRoom__title {
+    font-size: 22px;
+  }
+
+  .beautifulRoom__price {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .beautifulRoom {
+    padding: 26px 12px;
+  }
+
+  .beautifulRoom__grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .beautifulRoom__imageWrap {
+    height: 230px;
+  }
+
+  .beautifulRoom__content {
+    padding: 22px 20px 22px;
+  }
+
+  .beautifulRoom__title {
+    font-size: 21px;
+  }
+
+  .beautifulRoom__location {
+    font-size: 15px;
+  }
+
+  .beautifulRoom__price {
+    font-size: 26px;
+  }
+
+  .beautifulRoom__duration {
+    font-size: 17px;
+  }
+
+  .beautifulRoom__features {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .beautifulRoom__imageWrap {
+    height: 210px;
+  }
+
+  .beautifulRoom__topBadges {
+    left: 16px;
+  }
+
+  .beautifulRoom__wishlistBtn {
+    right: 16px;
+    top: 16px;
+  }
+
+  .beautifulRoom__agentThumb {
+    left: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .beautifulRoom__metaRow {
+    gap: 12px;
+  }
+
+  .beautifulRoom__listedOn {
+    font-size: 14px;
+  }
+
+  .beautifulRoom__title {
+    font-size: 20px;
+  }
+
+  .beautifulRoom__priceRating {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .beautifulRoom__features {
+    grid-template-columns: 1fr;
+  }
+}

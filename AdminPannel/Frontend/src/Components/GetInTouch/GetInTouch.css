@@ -1,0 +1,140 @@
+.GetInTouch{
+  padding:40px 20px;
+  background:#f9fafb;
+}
+
+/* CONTAINER */
+.GetInTouch-container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:60px;
+}
+
+/* LEFT */
+.GetInTouch-left h2{
+  font-size:48px;
+  font-weight:800;
+  color:#111827;
+}
+
+.GetInTouch-desc{
+  margin:20px 0 30px;
+  color:#4b5563;
+  line-height:1.7;
+}
+
+/* CONTACT INFO */
+.GetInTouch-info{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.GetInTouch-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#374151;
+  font-weight:500;
+}
+
+.GetInTouch-item svg{
+  color:#0ea5e9;
+  font-size:18px;
+}
+
+/* RIGHT FORM */
+.GetInTouch-form{
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* GRID */
+.GetInTouch-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* FIELD */
+.GetInTouch-field{
+  display:flex;
+  flex-direction:column;
+}
+
+.GetInTouch-field label{
+  font-size:14px;
+  margin-bottom:6px;
+  color:#111827;
+  font-weight:600;
+}
+
+.GetInTouch-field input,
+.GetInTouch-field textarea{
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  font-size:14px;
+  outline:none;
+  transition:0.3s;
+}
+
+.GetInTouch-field input:focus,
+.GetInTouch-field textarea:focus{
+  border-color:#0ea5e9;
+}
+
+/* FULL WIDTH */
+.GetInTouch-field.full{
+  margin-top:20px;
+}
+
+/* BUTTON */
+.GetInTouch-btn{
+  margin-top:20px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#0ea5e9;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.GetInTouch-btn:hover{
+  background:#0284c7;
+}
+
+/* RESPONSIVE */
+
+/* TABLET */
+@media(max-width:1024px){
+  .GetInTouch-container{
+    grid-template-columns:1fr;
+  }
+
+  .GetInTouch-left h2{
+    font-size:36px;
+  }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .GetInTouch-grid{
+    grid-template-columns:1fr;
+  }
+
+  .GetInTouch-info{
+    grid-template-columns:1fr;
+  }
+
+  .GetInTouch-left h2{
+    font-size:30px;
+  }
+}

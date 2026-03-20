@@ -1,0 +1,142 @@
+.partners {
+  padding: 90px 20px;
+  background: #ffffff;
+}
+
+.partners-inner {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.partners-inner h2 {
+  font-size: 44px;
+  font-weight: 900;
+  margin: 0;
+  color: #0f172a;
+}
+
+.partners-line {
+  width: 60px;
+  height: 4px;
+  border-radius: 999px;
+  margin: 14px auto 18px;
+  background: linear-gradient(90deg, #10b981, #6366f1);
+}
+
+.partners-inner p {
+  margin: 0 auto 45px;
+  max-width: 720px;
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ===== SLIDER WRAPPER ===== */
+.partners-slider {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* optional fade edges like pro websites */
+.partners-slider::before,
+.partners-slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.partners-slider::before {
+  left: 0;
+  background: linear-gradient(to right, #ffffff, rgba(255,255,255,0));
+}
+
+.partners-slider::after {
+  right: 0;
+  background: linear-gradient(to left, #ffffff, rgba(255,255,255,0));
+}
+
+/* track moves continuously */
+.partners-track {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  animation: partnersScroll 18s linear infinite;
+  padding: 10px 0;
+}
+
+/* pause when hover */
+.partners-slider:hover .partners-track {
+  animation-play-state: paused;
+}
+
+/* card */
+.partner-card {
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  border-radius: 16px;
+  height: 95px;
+  min-width: 260px;          /* important for slider */
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transition: 0.3s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+
+.partner-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 45px rgba(0,0,0,0.12);
+  background: #ffffff;
+}
+
+/* logo */
+.partner-card img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+/* name */
+.partner-card span {
+  font-weight: 800;
+  font-size: 18px;
+  color: #111827;
+  transition: 0.3s;
+}
+
+.partner-card:hover span {
+  color: #10b981;
+}
+
+/* animation */
+@keyframes partnersScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* responsive */
+@media (max-width: 480px) {
+  .partners-inner h2 {
+    font-size: 30px;
+  }
+  .partner-card {
+    min-width: 220px;
+  }
+  .partners-slider::before,
+  .partners-slider::after {
+    width: 60px;
+  }
+}
