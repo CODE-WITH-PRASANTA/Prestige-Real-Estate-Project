@@ -1,0 +1,49 @@
+/* WRAPPER */
+.pds-wrapper {
+  width: 100%;
+  padding: 20px 16px;
+  border-top: 1px solid #e5e7eb;
+  font-family: "Inter", sans-serif;
+}
+
+/* GRID (4 columns like reference) */
+.pds-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px 40px;
+}
+
+/* ITEM */
+.pds-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* LABEL */
+.pds-label {
+  font-size: 18px;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+/* VALUE */
+.pds-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .pds-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .pds-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -21,6 +21,7 @@ import FaqSection from "./Pages/FaqSection/FaqSection";
 import PrisingSection from "./Pages/PrisingSection/PrisingSection";
 import TestimonialSection from "./Pages/TestimonialSection/TestimonialSection";
 import ContactSection from "./Pages/ContactSection/ContactSection";
+import Rentdetails from "./Pages/Rentdetails/Rentdetails";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
 
         <Route path="/property" element={<Property />} />
         <Route path="/testimonial" element={<TestimonialSection />} />
+        <Route path="/Rentdetails" element={<Rentdetails/>}/>
       </Routes>
 
       <Footer />
