@@ -10,8 +10,6 @@ import Register from "./Pages/Register/Register";
 
 import About from "./Pages/About/About";
 
-
-
 import Blog from "./Pages/Blog/Blog";
 import BlogList from "./Pages/BlogList/BlogList";
 import BlogDetails from "./Pages/BlogDetails/BlogDetails";
@@ -21,6 +19,8 @@ import FaqSection from "./Pages/FaqSection/FaqSection";
 import PrisingSection from "./Pages/PrisingSection/PrisingSection";
 import TestimonialSection from "./Pages/TestimonialSection/TestimonialSection";
 import ContactSection from "./Pages/ContactSection/ContactSection";
+
+import RentDetails from "./Components/RentDetails/RentDetails";
 
 function App() {
   return (
@@ -35,7 +35,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactSection />} />
         <Route path="/pricing" element={<PrisingSection />} />
-
         <Route path="/faq" element={<FaqSection />} />
 
         <Route path="/blog" element={<Blog />} />
@@ -44,6 +43,8 @@ function App() {
 
         <Route path="/property" element={<Property />} />
         <Route path="/testimonial" element={<TestimonialSection />} />
+
+        <Route path="/RentDetails" element={<RentDetails />} />
       </Routes>
 
       <Footer />
