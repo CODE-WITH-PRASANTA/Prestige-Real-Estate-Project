@@ -1,7 +1,4 @@
-/* ===========================
-   PREMIUM REAL ESTATE HERO
-   (NO JSX CHANGE REQUIRED)
-   =========================== */
+
 
 .breadcrumb {
   position: relative;
@@ -61,7 +58,7 @@
 /* Title */
 .breadcrumb-content h1 {
   font-size: clamp(30px, 4.7vw, 64px);
-  font-weight: 900;
+  font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.9px;
   margin: 0 0 14px;

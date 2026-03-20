@@ -328,15 +328,15 @@
 /* Badge */
 .pc-badge {
   position: absolute;
-  top: 16px;
+  top: 5px;
   right: 16px;
   background: #e11d8b;
   color: #ffffff;
-  font-weight: 800;
+  font-weight: 500;
   font-size: 14px;
   padding: 10px 14px;
-  border-radius: 10px;
-  z-index: 3;
+  border-radius: 9px;
+  z-index: 2;
 }
 
 /* ULTRA: scroll reveal */

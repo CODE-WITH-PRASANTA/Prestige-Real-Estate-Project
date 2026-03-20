@@ -10,62 +10,62 @@ export default function Pricing() {
   const plans = useMemo(()=>[
     {
       id:"standard",
-      name:"Standard",
-      desc:"Manage up to 10 listings with essential features for small teams and businesses.",
-      monthly:99,
-      yearly:79,
+      name:"Standard Plan",
+      desc:"Perfect for individuals and small real estate agents managing a limited number of properties under Prestige Real Estate Properties.",
+      monthly:4999,
+      yearly:3999,
       badge:"",
       features:[
-        "10 Listing Per Login",
-        "Up to 100 Users",
-        "Enquiry on Listing",
-        "24 Hrs Support",
-        "Basic Custom Review",
-        "Simple Impact Reporting",
-        "Quick Onboarding & Account",
+        "10 Property Listings",
+        "Up to 100 Buyers/Users",
+        "Basic Property Enquiry System",
+        "Email Support (24 Hrs)",
+        "Simple Listing Management",
+        "Basic Performance Insights",
+        "Quick Account Setup",
         "No API Access",
-        "Basic Transaction Tracking",
-        "Dreams Estate Branding"
+        "Standard Transaction Records",
+        "Prestige Branding Included"
       ]
     },
     {
       id:"professional",
-      name:"Professional",
-      desc:"Advanced tools & analytics to scale faster with bigger teams and higher volume.",
-      monthly:199,
-      yearly:159,
+      name:"Professional Plan",
+      desc:"Best suited for growing real estate businesses looking to scale property listings and generate more leads efficiently.",
+      monthly:9999,
+      yearly:7999,
       badge:"Most Popular",
       features:[
-        "50 Listing Per Login",
-        "500+ Active Users",
-        "Enquiry On Every Listing",
-        "Priority 24 Hrs Support",
-        "Advanced Custom Review",
-        "Standard Impact Reporting",
-        "Quick Onboarding & Account",
-        "Partial API Access",
-        "Basic Transaction Tracking",
-        "Partial Custom Branding"
+        "50 Property Listings",
+        "500+ Active Buyers",
+        "Advanced Enquiry Management",
+        "Priority Customer Support",
+        "Detailed Property Reviews",
+        "Standard Analytics Dashboard",
+        "Faster Onboarding Process",
+        "Partial API Integration",
+        "Transaction Tracking",
+        "Custom Branding Options"
       ]
     },
     {
       id:"enterprise",
-      name:"Enterprise",
-      desc:"Unlimited listings, full API access, 24/7 support, and white-label branding.",
-      monthly:399,
-      yearly:319,
+      name:"Enterprise Plan",
+      desc:"Designed for large-scale real estate developers and agencies managing premium projects like Prestige Real Estate Properties with complete control.",
+      monthly:19999,
+      yearly:15999,
       badge:"",
       features:[
-        "Unlimited Listings Per Login",
+        "Unlimited Property Listings",
         "1000+ Active Users",
-        "Enquiry Enabled On Listings",
-        "Dedicated 24 Hrs Support",
-        "Full Custom Review Tools",
-        "Advanced Impact Reporting",
-        "Personalized Onboarding & Account",
-        "Full Api Access",
-        "Full Transaction Tracking",
-        "White-Label Branding"
+        "Full Enquiry Automation",
+        "Dedicated Account Manager",
+        "Advanced Review & CRM Tools",
+        "In-depth Analytics & Reports",
+        "Personalized Setup & Support",
+        "Full API Access",
+        "Complete Transaction Monitoring",
+        "White-label Branding"
       ]
     }
   ],[])
@@ -116,9 +116,13 @@ export default function Pricing() {
         <div className="pricingTop">
 
           <div>
-            <h2>Pricing & Subscriptions</h2>
+            <h2>Prestige Real Estate Properties Pricing Plans</h2>
             <div className="pricingLine"/>
-            <p>Checkout our package, choose your package wisely.</p>
+            <p>
+              Explore flexible pricing options designed for modern real estate professionals. 
+              Whether you're managing a few listings or handling large-scale property portfolios, 
+              our plans help you grow faster with better visibility and lead generation.
+            </p>
           </div>
 
           <div className="billingToggle">
@@ -166,7 +170,7 @@ export default function Pricing() {
                 <p className="pc-desc">{p.desc}</p>
 
                 <div className="pc-priceRow">
-                  <span className="pc-price">${priceOf(p)}</span>
+                  <span className="pc-price">₹{priceOf(p)}</span>
                   <span className="pc-per">/month</span>
                 </div>
 

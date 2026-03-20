@@ -1,6 +1,5 @@
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import HowItWorks from "../../Components/HowItWorks/HowItWorks";
-import PropertyType from "../../Components/PropertyType/PropertyType";
 import FeaturedSales from "../../Components/FeaturedSales/FeaturedSales";
 import Cities from "../../Components/Cities/Cities";
 import FeaturedProperties from "../../Components/FeaturedProperties/FeaturedProperties";
@@ -13,17 +12,14 @@ import FAQ from "../../Components/FAQ/FAQ";
 import BecomeAgent from "../../Components/BecomeAgent/BecomeAgent";
 import Testimonial from "../Testimonial/Testimonial";
 
-
-
 function Home() {
   return (
     <>
       <Breadcrumb />
       <HowItWorks />
-      {/* <PropertyType /> */}
       <FeaturedSales />
       <Cities />
-      <FeaturedProperties />
+      {/* <FeaturedProperties /> */}
       <Stats />
       <PromoCards />
       <Partners />
@@ -31,8 +27,7 @@ function Home() {
       <Pricing />
       <FAQ />
       <BecomeAgent />
-      <Testimonial/>
-      
+      {/* <Testimonial /> */}
     </>
   );
 }
