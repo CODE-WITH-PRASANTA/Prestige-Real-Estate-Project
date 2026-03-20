@@ -1,0 +1,163 @@
+.PropertyView {
+  padding: 20px;
+}
+
+/* HEADER */
+.PropertyView-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* TOGGLE BUTTONS */
+.PropertyView-toggle {
+  display: flex;
+  gap: 8px;
+}
+/* TOGGLE ICONS DEFAULT BLACK */
+.PropertyView-toggle button svg {
+  font-size: 18px;
+  color: black;
+}
+
+/* ACTIVE ICON (keep highlight if you want) */
+.PropertyView-toggle .active svg {
+  color: white; /* stays white on blue bg */
+}
+.PropertyView-toggle button {
+  border: none;
+  background: #f3f4f6;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PropertyView-toggle button svg {
+  font-size: 18px;
+}
+
+.PropertyView-toggle .active {
+  background: #2563eb;
+  color: white;
+}
+
+/* GRID */
+.PropertyView-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.PropertyView-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.PropertyView-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.PropertyView-card-content {
+  padding: 10px;
+}
+
+/* LIST */
+.PropertyView-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.PropertyView-list-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.PropertyView-list-item img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+}
+
+.PropertyView-list-content {
+  padding: 10px;
+  flex: 1;
+}
+
+/* 3 DOT MENU */
+.PropertyView-menu {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+
+/* DROPDOWN FIXED */
+.PropertyView-dropdown {
+  position: absolute;
+  right: 0;
+  top: 22px;
+  
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 90px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+/* SMALL BUTTONS */
+.PropertyView-dropdown button {
+  padding: 6px 10px;
+  color: black;
+  font-size: 13px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.PropertyView-dropdown button:hover {
+  background: #f3f4f6;
+}
+
+.PropertyView-dropdown .delete {
+  color: red;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .PropertyView-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .PropertyView-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .PropertyView-list-item {
+    flex-direction: column;
+  }
+
+  .PropertyView-list-item img {
+    width: 100%;
+    height: 160px;
+  }
+}

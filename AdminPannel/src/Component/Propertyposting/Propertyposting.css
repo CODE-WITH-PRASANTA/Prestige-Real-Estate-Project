@@ -1,0 +1,194 @@
+body {
+  overflow-x: hidden;
+}
+
+.Propertyposting {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 70px;
+}
+
+/* WIDTH */
+.Propertyposting-form {
+  width: 40%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.Propertyposting-table {
+  width: 60%;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* PROGRESS FIX */
+.Propertyposting-progress {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.progress-line {
+  position: absolute;
+  top: 15px;
+  width: 100%;
+  height: 4px;
+  background: #e5e7eb;
+  z-index: 0;
+}
+
+.progress-line::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  background: #2563eb;
+  width: 0%;
+}
+
+.progress-line.step-2::after { width: 33%; }
+.progress-line.step-3::after { width: 66%; }
+.progress-line.step-4::after { width: 100%; }
+
+.step {
+  position: relative;
+  z-index: 2;
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  background: #e5e7eb;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32px;
+}
+
+.step.active .circle {
+  background: #2563eb;
+  color: white;
+}
+
+/* FORM */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input,
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+textarea {
+  height: 100px;
+}
+
+/* BUTTON */
+.Propertyposting-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+button {
+  padding: 10px 15px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+/* TABLE FIX */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  min-width: 1300px;
+  width: max-content;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+/* MEDIA */
+.table-img {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.table-video {
+  width: 80px;
+  height: 50px;
+}
+
+/* 3 DOT */
+.action-cell {
+  position: relative;
+}
+
+.dots-btn {
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: black;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 100px;
+  z-index: 10;
+}
+
+.dropdown p {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown p:hover {
+  background: #f3f4f6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .Propertyposting {
+    flex-direction: column;
+  }
+
+  .Propertyposting-form,
+  .Propertyposting-table {
+    width: 100%;
+  }
+}
