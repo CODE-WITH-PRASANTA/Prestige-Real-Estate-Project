@@ -1,0 +1,235 @@
+/* WRAPPER */
+.ph-wrapper {
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  background: #fff;
+  color: #303030;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* TOP */
+.ph-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #6b7280;
+  padding: 8px 24px;
+}
+
+.ph-breadcrumb span {
+  color: #111827;
+  font-weight: 500;
+}
+
+.ph-update span {
+  font-weight: 500;
+  color: #111827;
+}
+
+/* MAIN */
+.ph-main {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 24px;
+}
+
+/* LEFT */
+.ph-left {
+  max-width: 70%;
+}
+
+.ph-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ph-verified {
+  background: #16a34a;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.ph-premium {
+  background: #ec4899;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* PRICE */
+.ph-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.ph-price {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.ph-price-type {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* TITLE */
+.ph-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 6px 0;
+}
+
+.ph-subtitle {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 2px 0;
+}
+
+.ph-location {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-top: 4px;
+}
+
+/* RERA */
+.ph-rera {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.ph-rera-label {
+  background: #059669;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.ph-rera-status {
+  color: #059669;
+  font-weight: 500;
+}
+
+.ph-rera-link {
+  color: #6b7280;
+}
+
+/* RIGHT */
+.ph-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+/* BUTTONS */
+.ph-contact-btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.ph-contact-btn span {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.ph-shortlist-btn {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 10px 22px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #374151;
+}
+
+/* TABS */
+.ph-tabs {
+  display: flex;
+  gap: 30px;
+  padding: 12px 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.ph-tab {
+  font-size: 15px;
+  color: #6b7280;
+  cursor: pointer;
+  padding-bottom: 6px;
+}
+
+.ph-tab.active {
+  color: #2563eb;
+  border-bottom: 2px solid #2563eb;
+  font-weight: 500;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .ph-main {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ph-left {
+    max-width: 100%;
+  }
+
+  .ph-right {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .ph-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .ph-price {
+    font-size: 28px;
+  }
+
+  .ph-title {
+    font-size: 20px;
+  }
+
+  .ph-tabs {
+    gap: 16px;
+    font-size: 14px;
+  }
+
+  .ph-contact-btn,
+  .ph-shortlist-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .ph-right {
+    width: 100%;
+    flex-direction: column;
+  }
+}

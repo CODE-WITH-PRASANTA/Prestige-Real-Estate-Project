@@ -1,0 +1,57 @@
+/* MAIN WRAPPER */
+.aboutProperty {
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+  font-family: "Inter", sans-serif;
+}
+
+/* CONTAINER */
+.aboutProperty-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+/* TITLE */
+.aboutProperty-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+/* ADDRESS */
+.aboutProperty-address {
+  font-size: 18px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.aboutProperty-address span {
+  font-weight: 600;
+}
+
+/* DESCRIPTION */
+.aboutProperty-desc {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .aboutProperty-container {
+    padding: 15px 10px;
+  }
+
+  .aboutProperty-title {
+    font-size: 16px;
+  }
+
+  .aboutProperty-desc {
+    font-size: 13px;
+  }
+}
