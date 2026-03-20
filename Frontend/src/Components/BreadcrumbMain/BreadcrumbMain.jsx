@@ -20,7 +20,7 @@ const BreadcrumbMain = ({ title = "Team Details" }) => {
 
       <div className="BreadcrumbMain-container">
 
-        <h1>Home</h1>
+        <h1>About</h1>
 
         <div className="BreadcrumbMain-path">
           <span>Home</span>

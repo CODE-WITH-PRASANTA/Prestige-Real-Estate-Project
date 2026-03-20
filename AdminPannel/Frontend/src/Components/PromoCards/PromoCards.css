@@ -1,0 +1,160 @@
+.pc{
+  padding:70px 20px 40px;
+  background:#ffffff;
+}
+
+/* SLIDER */
+.pc-slider{
+  max-width:1200px;
+  margin:auto;
+  position:relative;
+  overflow:hidden;
+}
+
+.pc-track{
+  display:flex;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1);
+}
+
+/* ✅ PAGE */
+.pc-page{
+  min-width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+/* CARD */
+.pc-card{
+  position:relative;
+  height:380px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,0.12);
+}
+
+.pc-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.5s;
+}
+
+.pc-card:hover .pc-img{
+  transform:scale(1.06);
+}
+
+/* ACTION BOX */
+.pc-action{
+  position:absolute;
+  left:15px;
+  right:15px;
+  bottom:15px;
+  background:#fff;
+  border-radius:14px;
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.pc-action h3{
+  font-size:18px;
+  font-weight:800;
+  margin:0;
+}
+
+/* BUTTON */
+.pc-btn{
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  border:none;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.pc-btn:hover{
+  transform:scale(1.1);
+}
+
+/* COLORS */
+.pc-btn.red{background:#ef4444;}
+.pc-btn.orange{background:#f59e0b;}
+.pc-btn.blue{background:#0ea5e9;}
+
+/* NAV */
+.pc-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:none;
+  background:#fff;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.pc-nav.left{left:-10px;}
+.pc-nav.right{right:-10px;}
+
+/* =============================
+   PAGINATION
+============================= */
+.pc-pagination{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+
+.pc-pagination button{
+  min-width:36px;
+  height:36px;
+  border-radius:8px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  cursor:pointer;
+  font-weight:600;
+  transition:.3s;
+}
+
+.pc-pagination button:hover{
+  background:#10b981;
+  color:#fff;
+}
+
+.pc-pagination .active{
+  background:#0f172a;
+  color:#fff;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+
+/* TABLET */
+@media(max-width:1024px){
+  .pc-page{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .pc-page{
+    grid-template-columns:1fr;
+  }
+
+  .pc-card{
+    height:300px;
+  }
+
+  .pc-nav.left{left:10px;}
+  .pc-nav.right{right:10px;}
+}
