@@ -17,8 +17,10 @@ import Property from "./Pages/Property/Property";
 
 import FaqSection from "./Pages/FaqSection/FaqSection";
 import PrisingSection from "./Pages/PrisingSection/PrisingSection";
-import TestimonialSection from "./Pages/TestimonialSection/TestimonialSection";
+
 import ContactSection from "./Pages/ContactSection/ContactSection";
+import BuyGrid from "./Pages/BuyGrid/BuyGrid";
+import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
 import RentDetails from "./Components/RentDetails/RentDetails";
 
@@ -42,9 +44,12 @@ function App() {
         <Route path="/blog-details" element={<BlogDetails />} />
 
         <Route path="/property" element={<Property />} />
-        <Route path="/testimonial" element={<TestimonialSection />} />
+        {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
 
         <Route path="/RentDetails" element={<RentDetails />} />
+        
+        <Route path="/buygrid" element={<BuyGrid/>}/>
+        <Route path="/buydetails" element={<BuyDetails/>}/>
       </Routes>
 
       <Footer />

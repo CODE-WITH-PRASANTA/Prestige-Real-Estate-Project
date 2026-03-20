@@ -1,0 +1,591 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.gridProperty {
+  width: 100%;
+  padding: 70px 0 90px;
+  background: #f6f7fb;
+  font-family: "Inter", sans-serif;
+}
+
+.gridProperty-container {
+  width: 100%;
+  max-width: 1650px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.gridProperty-toolbar {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #ececf2;
+  border-radius: 16px;
+  padding: 28px 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  margin-bottom: 34px;
+}
+
+.gridProperty-result {
+  font-size: 18px;
+  font-weight: 500;
+  color: #667085;
+}
+
+.gridProperty-result span {
+  color: #081b3a;
+  font-weight: 800;
+}
+
+.gridProperty-toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.gridProperty-selectWrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.gridProperty-selectWrap label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #081b3a;
+  white-space: nowrap;
+}
+
+.gridProperty-select {
+  min-width: 250px;
+  height: 58px;
+  border-radius: 12px;
+  background: #f3f4f8;
+  border: 1px solid #ececf3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #081b3a;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.gridProperty-select:hover {
+  border-color: #14b8a6;
+  background: #ffffff;
+}
+
+.gridProperty-viewBtns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gridProperty-viewBtn {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  border: 1px solid #d9dce5;
+  background: #ffffff;
+  color: #081b3a;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.gridProperty-viewBtn:hover,
+.gridProperty-viewBtn.active {
+  background: #14b8a6;
+  color: #ffffff;
+  border-color: #14b8a6;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(20, 184, 166, 0.22);
+}
+
+.gridProperty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.gridProperty-card {
+  background: #ffffff;
+  border: 1px solid #e5e7ef;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  transition: all 0.4s ease;
+}
+
+.gridProperty-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.12);
+}
+
+.gridProperty-imageWrap {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.gridProperty-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+}
+
+.gridProperty-card:hover .gridProperty-image {
+  transform: scale(1.08);
+}
+
+.gridProperty-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.68) 0%,
+    rgba(0, 0, 0, 0.18) 38%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+}
+
+.gridProperty-topBadges {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  z-index: 3;
+}
+
+.gridProperty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.gridProperty-badgeNew {
+  background: linear-gradient(135deg, #ff3d57, #ff5f4d);
+}
+
+.gridProperty-badgeFeatured {
+  background: linear-gradient(135deg, #ffb400, #ff9f0a);
+}
+
+.gridProperty-heartBtn {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: #081b3a;
+  font-size: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.gridProperty-heartBtn:hover {
+  background: #14b8a6;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.gridProperty-price {
+  position: absolute;
+  left: 26px;
+  bottom: 34px;
+  z-index: 3;
+  font-size: 27px;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+.gridProperty-agent {
+  position: absolute;
+  right: 24px;
+  bottom: 26px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 3;
+  border: 4px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+}
+
+.gridProperty-agent img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gridProperty-content {
+  padding: 28px 26px 24px;
+}
+
+.gridProperty-rating {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.gridProperty-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #f5b343;
+  font-size: 18px;
+}
+
+.gridProperty-ratingText {
+  font-size: 15px;
+  color: #667085;
+  font-weight: 500;
+}
+
+.gridProperty-title {
+  font-size: 23px;
+  line-height: 1.3;
+  color: #081b3a;
+  font-weight: 800;
+  margin-bottom: 12px;
+  transition: color 0.35s ease;
+}
+
+.gridProperty-card:hover .gridProperty-title {
+  color: #14b8a6;
+}
+
+.gridProperty-location {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 15px;
+  color: #667085;
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.gridProperty-location svg {
+  color: #5f6f8b;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.gridProperty-features {
+  width: 100%;
+  background: #f5f6fa;
+  border-radius: 14px;
+  padding: 18px 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.gridProperty-featureItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #5f6f8b;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.gridProperty-featureIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #6f4ef2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.gridProperty-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gridProperty-metaItem {
+  font-size: 15px;
+  color: #667085;
+  line-height: 1.6;
+}
+
+.gridProperty-metaItem strong {
+  color: #081b3a;
+  font-weight: 800;
+}
+
+.gridProperty-loadMoreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 38px;
+}
+
+.gridProperty-loadMore {
+  border: none;
+  background: linear-gradient(135deg, #081b3a, #0d2450);
+  color: #ffffff;
+  padding: 18px 28px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 14px 30px rgba(8, 27, 58, 0.18);
+}
+
+.gridProperty-loadMore:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #14b8a6, #0ea5a4);
+  box-shadow: 0 18px 36px rgba(20, 184, 166, 0.24);
+}
+
+@media (max-width: 1400px) {
+  .gridProperty-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .gridProperty-imageWrap {
+    height: 280px;
+  }
+
+  .gridProperty-title {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .gridProperty-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gridProperty-toolbarRight {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .gridProperty-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .gridProperty-content {
+    padding: 24px 22px 22px;
+  }
+
+  .gridProperty-imageWrap {
+    height: 300px;
+  }
+}
+
+@media (max-width: 991px) {
+  .gridProperty-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gridProperty-select {
+    min-width: 220px;
+  }
+
+  .gridProperty-imageWrap {
+    height: 340px;
+  }
+}
+
+@media (max-width: 767px) {
+  .gridProperty {
+    padding: 50px 0 70px;
+  }
+
+  .gridProperty-container {
+    padding: 0 16px;
+  }
+
+  .gridProperty-toolbar {
+    padding: 22px 18px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
+
+  .gridProperty-result {
+    font-size: 16px;
+  }
+
+  .gridProperty-toolbarRight {
+    gap: 16px;
+  }
+
+  .gridProperty-selectWrap {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .gridProperty-select {
+    width: 100%;
+    min-width: 100%;
+    height: 54px;
+  }
+
+  .gridProperty-viewBtns {
+    width: 100%;
+  }
+
+  .gridProperty-viewBtn {
+    width: 48px;
+    height: 48px;
+    font-size: 17px;
+  }
+
+  .gridProperty-card {
+    border-radius: 14px;
+  }
+
+  .gridProperty-imageWrap {
+    height: 290px;
+  }
+
+  .gridProperty-topBadges {
+    top: 18px;
+    left: 18px;
+  }
+
+  .gridProperty-heartBtn {
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .gridProperty-price {
+    left: 18px;
+    bottom: 22px;
+    font-size: 22px;
+  }
+
+  .gridProperty-agent {
+    right: 18px;
+    bottom: 18px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .gridProperty-content {
+    padding: 22px 18px 22px;
+  }
+
+  .gridProperty-rating {
+    margin-bottom: 16px;
+  }
+
+  .gridProperty-stars {
+    font-size: 16px;
+  }
+
+  .gridProperty-ratingText {
+    font-size: 15px;
+  }
+
+  .gridProperty-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .gridProperty-location {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .gridProperty-features {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .gridProperty-featureItem {
+    font-size: 15px;
+  }
+
+  .gridProperty-metaItem {
+    font-size: 15px;
+  }
+
+  .gridProperty-loadMore {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gridProperty-imageWrap {
+    height: 250px;
+  }
+
+  .gridProperty-badge {
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .gridProperty-title {
+    font-size: 18px;
+  }
+
+  .gridProperty-price {
+    font-size: 20px;
+  }
+
+  .gridProperty-agent {
+    width: 52px;
+    height: 52px;
+  }
+}

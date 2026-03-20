@@ -1,0 +1,146 @@
+.blog-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh;
+  background: #f4f6f9;
+}
+
+/* FORM */
+.blog-form {
+  width: 50%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-y: auto;
+}
+
+.blog-form h2 {
+  margin-bottom: 15px;
+}
+
+.blog-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.blog-group label {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.blog-group input,
+.blog-group textarea,
+.blog-group select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+}
+
+.blog-group input:focus,
+.blog-group textarea:focus {
+  border-color: #6366f1;
+}
+
+.blog-preview {
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.blog-btn {
+  width: 100%;
+  padding: 12px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* TABLE */
+.blog-list {
+  width: 50%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.blog-table-wrapper {
+  overflow-x: auto;
+}
+
+.blog-list table {
+  min-width: 700px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.blog-list th,
+.blog-list td {
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  text-align: center;
+}
+
+.blog-list th {
+  background: #6366f1;
+  color: white;
+}
+
+.blog-list img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* STATUS */
+.status-active {
+  color: green;
+  font-weight: 600;
+}
+
+.status-inactive {
+  color: red;
+  font-weight: 600;
+}
+
+/* ACTION */
+.blog-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.edit-btn {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .blog-container {
+    flex-direction: column;
+  }
+
+  .blog-form,
+  .blog-list {
+    width: 100%;
+  }
+}

@@ -1,0 +1,561 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.emptyProperty {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #f2f5f9 100%);
+  font-family: "Inter", sans-serif;
+  padding: 28px 18px 60px;
+  color: #0f172a;
+}
+
+.emptyProperty__container {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.emptyProperty__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.emptyProperty__card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
+  animation: emptyFadeUp 0.9s ease;
+}
+
+.emptyProperty__cardHeader {
+  padding: 28px 30px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.emptyProperty__cardHeader h2 {
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #071426;
+}
+
+/* TAB */
+.emptyProperty__tabWrap {
+  padding: 22px 24px 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.emptyProperty__tabBtn {
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #ffffff;
+  color: #0f172a;
+  padding: 16px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.35s ease;
+}
+
+.emptyProperty__tabBtn:hover {
+  transform: translateY(-2px);
+}
+
+.emptyProperty__tabBtn--active {
+  background: linear-gradient(135deg, #17c3ad 0%, #10b981 100%);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.24);
+}
+
+.emptyProperty__tabBtn--dark {
+  background: #071426;
+  color: #ffffff;
+  border-color: #071426;
+}
+
+/* AGENT CARD */
+.emptyProperty__agentCard {
+  margin: 18px 24px 8px;
+  background: #f5f7fb;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.35s ease;
+}
+
+.emptyProperty__agentCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.emptyProperty__agentCard img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+}
+
+.emptyProperty__agentCard h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.emptyProperty__agentCard p {
+  color: #6b7280;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* FORM */
+.emptyProperty__form {
+  padding: 8px 24px 28px;
+}
+
+.emptyProperty__field {
+  margin-bottom: 22px;
+}
+
+.emptyProperty__field label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.emptyProperty__field input,
+.emptyProperty__field textarea {
+  width: 100%;
+  border: 1px solid transparent;
+  outline: none;
+  background: #f5f7fb;
+  color: #0f172a;
+  padding: 18px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.35s ease;
+}
+
+.emptyProperty__field input::placeholder,
+.emptyProperty__field textarea::placeholder {
+  color: #a0a8b4;
+}
+
+.emptyProperty__field input:focus,
+.emptyProperty__field textarea:focus {
+  background: #ffffff;
+  border-color: #17c3ad;
+  box-shadow: 0 0 0 4px rgba(23, 195, 173, 0.1);
+}
+
+.emptyProperty__field textarea {
+  resize: vertical;
+  min-height: 122px;
+}
+
+.emptyProperty__submitBtn {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: linear-gradient(135deg, #04111f 0%, #071a2f 100%);
+  color: #ffffff;
+  padding: 18px 20px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 24px rgba(7, 20, 38, 0.22);
+}
+
+.emptyProperty__submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(7, 20, 38, 0.28);
+}
+
+/* OWNER */
+.emptyProperty__ownerTop {
+  padding: 26px 30px 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.emptyProperty__ownerTop img {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+}
+
+.emptyProperty__ownerTop h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.emptyProperty__rating {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.emptyProperty__rating svg {
+  color: #f4b248;
+  font-size: 15px;
+}
+
+.emptyProperty__rating span {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 2px;
+}
+
+.emptyProperty__detailsTable {
+  padding: 4px 30px 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.emptyProperty__detailsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px dashed rgba(15, 23, 42, 0.08);
+}
+
+.emptyProperty__detailsRow span {
+  color: #6b7280;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.emptyProperty__detailsRow strong {
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+  word-break: break-word;
+}
+
+.emptyProperty__verified {
+  background: linear-gradient(135deg, #51e0b6 0%, #25d199 100%);
+  color: #ffffff !important;
+  padding: 8px 14px;
+  border-radius: 10px;
+  display: inline-block;
+  width: fit-content;
+  justify-self: end;
+}
+
+.emptyProperty__actionButtons {
+  padding: 22px 30px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.emptyProperty__whatsappBtn,
+.emptyProperty__chatBtn {
+  border: none;
+  outline: none;
+  padding: 16px 18px;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.emptyProperty__whatsappBtn {
+  background: linear-gradient(135deg, #18c3ad 0%, #10b981 100%);
+  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.22);
+}
+
+.emptyProperty__chatBtn {
+  background: linear-gradient(135deg, #071426 0%, #0b1b33 100%);
+  box-shadow: 0 12px 24px rgba(7, 20, 38, 0.22);
+}
+
+.emptyProperty__whatsappBtn:hover,
+.emptyProperty__chatBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* SOCIAL */
+.emptyProperty__socialWrap {
+  padding: 28px 28px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.emptyProperty__socialWrap a {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22px;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+}
+
+.emptyProperty__socialWrap a:nth-child(1) {
+  background: #3b82f6;
+}
+.emptyProperty__socialWrap a:nth-child(2) {
+  background: #ff3a2f;
+}
+.emptyProperty__socialWrap a:nth-child(3) {
+  background: #1463ff;
+}
+.emptyProperty__socialWrap a:nth-child(4) {
+  background: #38aaf0;
+}
+.emptyProperty__socialWrap a:nth-child(5) {
+  background: #ff3a2f;
+}
+.emptyProperty__socialWrap a:nth-child(6) {
+  background: #156ae8;
+}
+
+.emptyProperty__socialWrap a:hover {
+  transform: translateY(-6px) scale(1.04);
+}
+
+/* MORTGAGE */
+.emptyProperty__mortgageSummary {
+  padding: 0 24px 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.emptyProperty__summaryBox {
+  background: linear-gradient(180deg, #f8fafc 0%, #f2f6fb 100%);
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  border-radius: 16px;
+  padding: 18px 16px;
+  transition: all 0.35s ease;
+}
+
+.emptyProperty__summaryBox:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.08);
+}
+
+.emptyProperty__summaryBox span {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.emptyProperty__summaryBox strong {
+  color: #0f172a;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* MAP */
+.emptyProperty__mapBox {
+  position: relative;
+  margin: 20px 20px 0;
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.emptyProperty__mapBox img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.emptyProperty__mapBtn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  border: none;
+  outline: none;
+  background: #ffffff;
+  color: #156ae8;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.emptyProperty__landmarkWrap {
+  padding: 16px 24px 28px;
+}
+
+.emptyProperty__landmarkWrap h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 18px;
+  color: #071426;
+}
+
+.emptyProperty__landmarkList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.emptyProperty__landmarkList li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.emptyProperty__landmarkList li svg {
+  color: #10b981;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+/* ANIMATION */
+@keyframes emptyFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .emptyProperty {
+    padding: 18px 12px 40px;
+  }
+
+  .emptyProperty__cardHeader {
+    padding: 22px 20px;
+  }
+
+  .emptyProperty__cardHeader h2 {
+    font-size: 22px;
+  }
+
+  .emptyProperty__tabWrap {
+    padding: 18px 18px 8px;
+    grid-template-columns: 1fr;
+  }
+
+  .emptyProperty__agentCard,
+  .emptyProperty__form,
+  .emptyProperty__detailsTable,
+  .emptyProperty__actionButtons,
+  .emptyProperty__socialWrap {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .emptyProperty__ownerTop {
+    padding: 22px 18px 10px;
+  }
+
+  .emptyProperty__detailsRow {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .emptyProperty__detailsRow strong,
+  .emptyProperty__verified {
+    text-align: left;
+    justify-self: start;
+  }
+
+  .emptyProperty__actionButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .emptyProperty__mortgageSummary {
+    padding: 0 18px 24px;
+    grid-template-columns: 1fr;
+  }
+
+  .emptyProperty__mapBox {
+    margin: 16px 16px 0;
+    min-height: 230px;
+  }
+
+  .emptyProperty__mapBox img {
+    height: 230px;
+  }
+
+  .emptyProperty__landmarkWrap {
+    padding: 16px 18px 24px;
+  }
+
+  .emptyProperty__landmarkWrap h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .emptyProperty__socialWrap a {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .emptyProperty__ownerTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
