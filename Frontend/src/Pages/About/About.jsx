@@ -1,11 +1,14 @@
 import React from 'react'
-import AboutBreadcrum from '../../Components/AboutBreadcrum/AboutBreadcrum'
-
+import AboutHero from '../../Components/AboutHero/AboutHero'
+import AboutUs from '../../Components/AboutUs/AboutUs'
+import AboutService from '../../Components/AboutService/AboutService'
 
 const About = () => {
   return (
     <div>
-      <AboutBreadcrum />
+      <AboutHero/>
+      <AboutUs/>
+      <AboutService/>
     </div>
   )
 }
