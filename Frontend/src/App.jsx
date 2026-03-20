@@ -19,14 +19,11 @@ import FaqSection from "./Pages/FaqSection/FaqSection";
 import PrisingSection from "./Pages/PrisingSection/PrisingSection";
 
 import ContactSection from "./Pages/ContactSection/ContactSection";
-<<<<<<< HEAD
-import Rentdetails from "./Pages/Rentdetails/Rentdetails";
-=======
 import BuyGrid from "./Pages/BuyGrid/BuyGrid";
 import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
 import RentDetails from "./Components/RentDetails/RentDetails";
->>>>>>> bbfc4490c653dbdf9135d06f7b84d6aed61de317
+import Rentdetails from "./Pages/Rentdetails/Rentdetails";
 
 function App() {
   return (
@@ -48,17 +45,13 @@ function App() {
         <Route path="/blog-details" element={<BlogDetails />} />
 
         <Route path="/property" element={<Property />} />
-<<<<<<< HEAD
-        <Route path="/testimonial" element={<TestimonialSection />} />
-        <Route path="/Rentdetails" element={<Rentdetails/>}/>
-=======
         {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
 
-        <Route path="/RentDetails" element={<RentDetails />} />
+        <Route path="/rent/property" element={<RentDetails />} />
+        <Route path="/rent/details"  element={<Rentdetails />}/>
         
         <Route path="/buygrid" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>
->>>>>>> bbfc4490c653dbdf9135d06f7b84d6aed61de317
       </Routes>
 
       <Footer />
