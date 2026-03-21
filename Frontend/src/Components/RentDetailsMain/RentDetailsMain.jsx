@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import "./RentDetails.css";
+import "./RentDetailsMain.css";
 import {
   FiChevronDown,
   FiHeart,
@@ -409,7 +409,7 @@ function ExploreSection() {
   );
 }
 
-export default function RentDetails() {
+export default function RentDetailsMain() {
   const cardsPerPage = 10;
 
   const [currentPage, setCurrentPage] = useState(1);
