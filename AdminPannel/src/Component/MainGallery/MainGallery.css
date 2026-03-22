@@ -1,0 +1,236 @@
+.MainGallery {
+  width: 100%;
+  padding: 20px;
+  background: transparent;
+}
+
+.MainGallery__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.MainGallery__formCard,
+.MainGallery__tableCard {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.MainGallery__header {
+  margin-bottom: 18px;
+}
+
+.MainGallery__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.MainGallery__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.MainGallery__formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.MainGallery__label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.MainGallery__input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.MainGallery__input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.MainGallery__submitBtn {
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.MainGallery__submitBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.22);
+}
+
+.MainGallery__tableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.MainGallery__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+.MainGallery__table thead tr {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.MainGallery__table th {
+  padding: 14px 16px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.MainGallery__table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #374151;
+  vertical-align: middle;
+}
+
+.MainGallery__photo {
+  width: 72px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.MainGallery__videoName {
+  display: inline-block;
+  max-width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MainGallery__actionBox {
+  position: relative;
+  display: inline-block;
+}
+
+.MainGallery__actionBtn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: #f3f4f6;
+  color: #111827;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.MainGallery__actionBtn:hover {
+  background: #e5e7eb;
+}
+
+.MainGallery__dropdown {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  min-width: 130px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  z-index: 20;
+  overflow: hidden;
+}
+
+.MainGallery__dropdown button {
+  width: 100%;
+  border: none;
+  background: #ffffff;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  text-align: left;
+}
+
+.MainGallery__dropdown button:hover {
+  background: #f9fafb;
+}
+
+.MainGallery__noData {
+  text-align: center;
+  padding: 24px 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Large tablets */
+@media (max-width: 1024px) {
+  .MainGallery__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .MainGallery {
+    padding: 14px;
+  }
+
+  .MainGallery__formCard,
+  .MainGallery__tableCard {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .MainGallery__title {
+    font-size: 18px;
+  }
+
+  .MainGallery__label {
+    font-size: 14px;
+  }
+
+  .MainGallery__submitBtn {
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .MainGallery__photo {
+    width: 58px;
+    height: 46px;
+  }
+
+  .MainGallery__table {
+    min-width: 460px;
+  }
+}
