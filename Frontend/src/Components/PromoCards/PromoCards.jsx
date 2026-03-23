@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import "./PromoCards.css";
 
 import img1 from "../../assets/promo1.jpg";
@@ -6,6 +6,7 @@ import img2 from "../../assets/promo2.jpg";
 import img3 from "../../assets/promo3.jpg";
 
 export default function PromoCards() {
+  const sectionRef = useRef(null);
 
   const items = [
     { id: 1, img: img1, title: "Buy a Property", color: "red" },
@@ -16,7 +17,6 @@ export default function PromoCards() {
     { id: 6, img: img3, title: "Rent a Property", color: "blue" },
   ];
 
-  /* ✅ RESPONSIVE */
   const getPerPage = () => {
     const w = window.innerWidth;
     if (w <= 768) return 1;
@@ -36,59 +36,83 @@ export default function PromoCards() {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  /* ✅ GROUP INTO PAGES */
+  useEffect(() => {
+    const elements = sectionRef.current.querySelectorAll(".pc-reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("pc-active");
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   const pages = useMemo(() => {
     const arr = [];
     for (let i = 0; i < items.length; i += perPage) {
       arr.push(items.slice(i, i + perPage));
     }
     return arr;
-  }, [perPage]);
+  }, [items, perPage]);
 
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
 
   return (
-    <section className="pc">
+    <section className="pc" ref={sectionRef}>
+      <div className="pc-bg pc-bg-one"></div>
+      <div className="pc-bg pc-bg-two"></div>
 
-      <div className="pc-slider">
-
-        <button className="pc-nav left" onClick={prev}>‹</button>
+      <div className="pc-slider pc-reveal">
+        <button className="pc-nav left" onClick={prev} type="button">
+          ‹
+        </button>
 
         <div
           className="pc-track"
           style={{ transform: `translateX(-${page * 100}%)` }}
         >
-
           {pages.map((group, i) => (
             <div className="pc-page" key={i}>
-
-              {group.map((x) => (
-                <div className="pc-card" key={x.id}>
-
+              {group.map((x, index) => (
+                <div
+                  className="pc-card"
+                  key={x.id}
+                  style={{ animationDelay: `${index * 0.14}s` }}
+                >
                   <img className="pc-img" src={x.img} alt={x.title} />
+
+                  <div className="pc-overlay"></div>
 
                   <div className="pc-action">
                     <h3>{x.title}</h3>
-                    <button className={`pc-btn ${x.color}`}>→</button>
+                    <button className={`pc-btn ${x.color}`} type="button">
+                      →
+                    </button>
                   </div>
-
                 </div>
               ))}
-
             </div>
           ))}
-
         </div>
 
-        <button className="pc-nav right" onClick={next}>›</button>
-
+        <button className="pc-nav right" onClick={next} type="button">
+          ›
+        </button>
       </div>
 
-      {/* ✅ PAGINATION */}
-      <div className="pc-pagination">
-
-        <button onClick={prev} disabled={page === 0}>
+      <div className="pc-pagination pc-reveal pc-delay-1">
+        <button onClick={prev} disabled={page === 0} type="button">
           &lt;
         </button>
 
@@ -97,17 +121,16 @@ export default function PromoCards() {
             key={i}
             className={page === i ? "active" : ""}
             onClick={() => setPage(i)}
+            type="button"
           >
             {i + 1}
           </button>
         ))}
 
-        <button onClick={next} disabled={page === pages.length - 1}>
+        <button onClick={next} disabled={page === pages.length - 1} type="button">
           &gt;
         </button>
-
       </div>
-
     </section>
   );
 }

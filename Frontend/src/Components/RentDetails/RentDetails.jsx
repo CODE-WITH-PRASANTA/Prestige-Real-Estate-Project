@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import "./RentDetails.css";
+import { Link } from "react-router-dom";
 import {
   FiChevronDown,
   FiHeart,
@@ -312,10 +313,10 @@ function PropertyCard({ item, savedItems, toggleSave }) {
           </div>
 
           <div className="rent-actions">
-            <button className="rent-view-details-btn" type="button">
+            <Link to="/rent/details" className="rent-view-details-btn">
               <FiEye />
               View Details
-            </button>
+            </Link>
 
             <button className="rent-view-btn" type="button">
               View Number
@@ -691,9 +692,7 @@ export default function RentDetails() {
                     ) : (
                       <button
                         key={page}
-                        className={`pagination-number ${
-                          currentPage === page ? "active" : ""
-                        }`}
+                        className={`pagination-number ${currentPage === page ? "active" : ""}`}
                         onClick={() => goToPage(page)}
                         type="button"
                       >

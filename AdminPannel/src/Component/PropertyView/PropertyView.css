@@ -1,163 +1,405 @@
-.PropertyView {
+.pv-page {
   padding: 20px;
+  background: #f5f7fb;
 }
 
-/* HEADER */
-.PropertyView-header {
+/* header */
+
+.pv-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pv-actions {
+  display: flex;
+  gap: 14px;
+}
+
+/* FILTER */
+
+.pv-filterBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: #eef1f6;
+  color: #5f6b7a;
+
+  border: none;
+  padding: 12px 18px;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.pv-filterBtn:hover {
+  background: #e3e7ee;
+}
+
+
+/* ADD */
+
+.pv-addBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: #17b26a;
+  color: white;
+
+  border: none;
+
+  padding: 12px 22px;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.pv-addBtn:hover {
+  background: #13975a;
+}
+
+
+/* ICON */
+
+.pv-btnIcon {
+  font-size: 14px;
+}
+
+/* grid */
+
+.pv-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* card */
+
+.pv-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.pv-card:hover {
+  transform: translateY(-6px);
+}
+
+/* image */
+
+.pv-imgBox {
+  position: relative;
+}
+
+.pv-imgBox img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* badge */
+
+.pv-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: white;
+  border-radius: 6px;
+}
+
+.sale {
+  background: #16c784;
+}
+
+.rent {
+  background: #ff5b5b;
+}
+
+.sold {
+  background: #4f6ef7;
+}
+
+/* hover icons */
+
+.pv-imgIcons {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.pv-imgIcons svg {
+  background: white;
+  padding: 6px;
+  border-radius: 50%;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.pv-card:hover .pv-imgIcons {
+  opacity: 1;
+}
+
+/* body */
+
+.pv-body {
+  padding: 14px;
+}
+
+.pv-priceRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.pv-price {
+  color: #16c784;
+  font-weight: 600;
+}
+
+.pv-rating {
+  color: #f59e0b;
+  font-size: 14px;
+}
+
+.pv-title {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+.pv-address {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.pv-info {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* overlay */
+
+.pv-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+}
+
+.pv-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
+/* overlay blur */
+
+.pv-overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  z-index: 40;
+}
+
+.pv-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* sidebar */
+
+.pv-filterBar {
+  position: fixed;
+  right: -420px;
+  transition: 0.3s;
+  top: 0;
+  width: 360px;
+  height: 100%;
+  background: #fff;
+  z-index: 50;
+  transition: .35s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -6px 0 25px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.pv-filterBar.open {
+  right: 0;
+}
+
+
+/* header */
+
+.pv-filterHeader {
+  padding: 18px 20px;
+  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* TOGGLE BUTTONS */
-.PropertyView-toggle {
-  display: flex;
-  gap: 8px;
-}
-/* TOGGLE ICONS DEFAULT BLACK */
-.PropertyView-toggle button svg {
-  font-size: 18px;
-  color: black;
-}
-
-/* ACTIVE ICON (keep highlight if you want) */
-.PropertyView-toggle .active svg {
-  color: white; /* stays white on blue bg */
-}
-.PropertyView-toggle button {
+.pv-closeBtn {
   border: none;
-  background: #f3f4f6;
-  padding: 6px 8px;
-  border-radius: 6px;
+  background: #f1f1f1;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.PropertyView-toggle button svg {
-  font-size: 18px;
-}
 
-.PropertyView-toggle .active {
-  background: #2563eb;
-  color: white;
-}
+/* content */
 
-/* GRID */
-.PropertyView-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.PropertyView-card {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-.PropertyView-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.PropertyView-card-content {
-  padding: 10px;
-}
-
-/* LIST */
-.PropertyView-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.PropertyView-list-item {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-.PropertyView-list-item img {
-  width: 120px;
-  height: 90px;
-  object-fit: cover;
-}
-
-.PropertyView-list-content {
-  padding: 10px;
+.pv-filterContent {
   flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* 3 DOT MENU */
-.PropertyView-menu {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  cursor: pointer;
+
+/* hide scrollbar */
+
+.pv-filterContent::-webkit-scrollbar {
+  width: 0;
 }
 
-/* DROPDOWN FIXED */
-.PropertyView-dropdown {
-  position: absolute;
-  right: 0;
-  top: 22px;
-  
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  width: 90px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  z-index: 10;
+.pv-filterContent {
+  scrollbar-width: none;
+}
+
+
+/* section */
+
+.pv-filterSection {
+  margin-bottom: 22px;
+}
+
+.pv-filterSection h4 {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+
+/* checkbox grid */
+
+.pv-checkGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.pv-checkGrid label {
+  font-size: 14px;
   display: flex;
-  flex-direction: column;
+  gap: 6px;
 }
 
-/* SMALL BUTTONS */
-.PropertyView-dropdown button {
-  padding: 6px 10px;
-  color: black;
-  font-size: 13px;
+
+/* range */
+
+.pv-range {
+  width: 100%;
+  margin: 10px 0;
+}
+
+
+/* inputs */
+
+.pv-rangeRow {
+   display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.pv-rangeRow input {
+  flex: 1;
+   min-width: 0;   /* ✅ important */
+   width: 100%;
+   box-sizing: border-box;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+
+/* footer sticky */
+
+.pv-filterFooter {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 18px;
+  border-top: 1px solid #eee;
+}
+
+.pv-applyBtn {
+  width: 100%;
+  background: #17b26a;
   border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
 }
 
-.PropertyView-dropdown button:hover {
-  background: #f3f4f6;
-}
+/* responsive */
 
-.PropertyView-dropdown .delete {
-  color: red;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .PropertyView-grid {
-    grid-template-columns: repeat(2, 1fr);
+@media(max-width:1200px){
+  .pv-grid{
+    grid-template-columns: repeat(3,1fr);
   }
 }
 
-@media (max-width: 600px) {
-  .PropertyView-grid {
+@media(max-width:900px){
+  .pv-grid{
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .pv-grid{
     grid-template-columns: 1fr;
   }
 
-  .PropertyView-list-item {
-    flex-direction: column;
-  }
-
-  .PropertyView-list-item img {
-    width: 100%;
-    height: 160px;
+  .pv-filterBar{
+    width:100%;
   }
 }

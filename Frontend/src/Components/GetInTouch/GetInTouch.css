@@ -1,140 +1,374 @@
-.GetInTouch{
-  padding:40px 20px;
-  background:#f9fafb;
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+.GetInTouch {
+  position: relative;
+  padding: 100px 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+}
+
+.GetInTouch-blur {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.GetInTouch-blurOne {
+  top: -70px;
+  left: -70px;
+  width: 230px;
+  height: 230px;
+  background: rgba(14, 165, 233, 0.18);
+}
+
+.GetInTouch-blurTwo {
+  right: -80px;
+  bottom: -60px;
+  width: 240px;
+  height: 240px;
+  background: rgba(99, 102, 241, 0.16);
 }
 
 /* CONTAINER */
-.GetInTouch-container{
-  max-width:1200px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1.2fr;
-  gap:60px;
+.GetInTouch-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 60px;
+  align-items: center;
 }
 
 /* LEFT */
-.GetInTouch-left h2{
-  font-size:48px;
-  font-weight:800;
-  color:#111827;
+.GetInTouch-left {
+  position: relative;
 }
 
-.GetInTouch-desc{
-  margin:20px 0 30px;
-  color:#4b5563;
-  line-height:1.7;
+.GetInTouch-badge {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.1);
+  color: #0284c7;
+  font-family: "Outfit", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border: 1px solid rgba(14, 165, 233, 0.16);
+}
+
+.GetInTouch-left h2 {
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  color: #0f172a;
+}
+
+.GetInTouch-left h2 span {
+  background: linear-gradient(90deg, #0ea5e9 0%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.GetInTouch-desc {
+  margin: 24px 0 34px;
+  color: #5b6778;
+  line-height: 1.9;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Manrope", sans-serif;
+  max-width: 620px;
 }
 
 /* CONTACT INFO */
-.GetInTouch-info{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:20px;
+.GetInTouch-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-.GetInTouch-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#374151;
-  font-weight:500;
+.GetInTouch-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.GetInTouch-item svg{
-  color:#0ea5e9;
-  font-size:18px;
+.GetInTouch-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(14, 165, 233, 0.12);
+}
+
+.GetInTouch-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0ea5e9 0%, #4f46e5 100%);
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.18);
+}
+
+.GetInTouch-item h4 {
+  margin: 0 0 5px;
+  font-family: "Outfit", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.GetInTouch-item span {
+  display: block;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  font-family: "Manrope", sans-serif;
 }
 
 /* RIGHT FORM */
-.GetInTouch-form{
-  background:#fff;
-  padding:30px;
-  border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+.GetInTouch-right {
+  position: relative;
+}
+
+.GetInTouch-form {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  padding: 34px;
+  border-radius: 28px;
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.GetInTouch-formTop {
+  margin-bottom: 24px;
+}
+
+.GetInTouch-formTop h3 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  color: #0f172a;
+  font-weight: 800;
+  font-family: "Outfit", sans-serif;
+}
+
+.GetInTouch-formTop p {
+  margin: 0;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.8;
+  font-family: "Manrope", sans-serif;
 }
 
 /* GRID */
-.GetInTouch-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+.GetInTouch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 /* FIELD */
-.GetInTouch-field{
-  display:flex;
-  flex-direction:column;
+.GetInTouch-field {
+  display: flex;
+  flex-direction: column;
 }
 
-.GetInTouch-field label{
-  font-size:14px;
-  margin-bottom:6px;
-  color:#111827;
-  font-weight:600;
+.GetInTouch-field label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #0f172a;
+  font-weight: 700;
+  font-family: "Outfit", sans-serif;
 }
 
 .GetInTouch-field input,
-.GetInTouch-field textarea{
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #e5e7eb;
-  font-size:14px;
-  outline:none;
-  transition:0.3s;
+.GetInTouch-field textarea {
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 16px;
+  border: 1px solid #dbe3ee;
+  background: #ffffff;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: "Manrope", sans-serif;
+  box-sizing: border-box;
+}
+
+.GetInTouch-field input::placeholder,
+.GetInTouch-field textarea::placeholder {
+  color: #94a3b8;
 }
 
 .GetInTouch-field input:focus,
-.GetInTouch-field textarea:focus{
-  border-color:#0ea5e9;
+.GetInTouch-field textarea:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
+}
+
+.GetInTouch-field textarea {
+  resize: none;
+  min-height: 150px;
 }
 
 /* FULL WIDTH */
-.GetInTouch-field.full{
-  margin-top:20px;
+.GetInTouch-field.full {
+  margin-top: 20px;
 }
 
 /* BUTTON */
-.GetInTouch-btn{
-  margin-top:20px;
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  background:#0ea5e9;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
+.GetInTouch-btn {
+  margin-top: 22px;
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #0ea5e9 0%, #4f46e5 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.2);
 }
 
-.GetInTouch-btn:hover{
-  background:#0284c7;
+.GetInTouch-btn svg {
+  font-size: 18px;
+  transition: transform 0.3s ease;
 }
 
-/* RESPONSIVE */
+.GetInTouch-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(79, 70, 229, 0.28);
+}
+
+.GetInTouch-btn:hover svg {
+  transform: translate(4px, -2px);
+}
 
 /* TABLET */
-@media(max-width:1024px){
-  .GetInTouch-container{
-    grid-template-columns:1fr;
+@media (max-width: 1024px) {
+  .GetInTouch {
+    padding: 80px 18px;
   }
 
-  .GetInTouch-left h2{
-    font-size:36px;
+  .GetInTouch-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .GetInTouch-left h2 {
+    font-size: 40px;
+  }
+}
+
+/* MOBILE LARGE */
+@media (max-width: 768px) {
+  .GetInTouch-left h2 {
+    font-size: 34px;
+  }
+
+  .GetInTouch-desc {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .GetInTouch-info {
+    grid-template-columns: 1fr;
+  }
+
+  .GetInTouch-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .GetInTouch-form {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .GetInTouch-formTop h3 {
+    font-size: 26px;
   }
 }
 
 /* MOBILE */
-@media(max-width:600px){
-  .GetInTouch-grid{
-    grid-template-columns:1fr;
+@media (max-width: 600px) {
+  .GetInTouch {
+    padding: 70px 15px;
   }
 
-  .GetInTouch-info{
-    grid-template-columns:1fr;
+  .GetInTouch-left h2 {
+    font-size: 29px;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
   }
 
-  .GetInTouch-left h2{
-    font-size:30px;
+  .GetInTouch-badge {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .GetInTouch-item {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .GetInTouch-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    font-size: 18px;
+    border-radius: 14px;
+  }
+
+  .GetInTouch-item h4 {
+    font-size: 16px;
+  }
+
+  .GetInTouch-item span {
+    font-size: 13px;
+  }
+
+  .GetInTouch-form {
+    padding: 20px;
+  }
+
+  .GetInTouch-field input,
+  .GetInTouch-field textarea {
+    padding: 14px 14px;
+    border-radius: 14px;
+  }
+
+  .GetInTouch-btn {
+    padding: 15px 18px;
+    border-radius: 14px;
   }
 }

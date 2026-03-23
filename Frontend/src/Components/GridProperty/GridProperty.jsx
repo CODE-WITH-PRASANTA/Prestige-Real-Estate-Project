@@ -1,5 +1,6 @@
 import React from "react";
 import "./GridProperty.css";
+import { Link } from "react-router-dom";
 import {
   FaBed,
   FaBath,
@@ -178,13 +179,15 @@ const GridProperty = () => {
             </div>
 
             <div className="gridProperty-viewBtns">
-              <button className="gridProperty-viewBtn">
+              <Link to="/buydetails" className="gridProperty-viewBtn">
                 <FaListUl />
-              </button>
-              <button className="gridProperty-viewBtn active">
+              </Link>
+
+              <button className="gridProperty-viewBtn active" type="button">
                 <FaThLarge />
               </button>
-              <button className="gridProperty-viewBtn">
+
+              <button className="gridProperty-viewBtn" type="button">
                 <FaMapMarkedAlt />
               </button>
             </div>
@@ -217,7 +220,7 @@ const GridProperty = () => {
                   )}
                 </div>
 
-                <button className="gridProperty-heartBtn">
+                <button className="gridProperty-heartBtn" type="button">
                   <FaRegHeart />
                 </button>
 
@@ -286,7 +289,7 @@ const GridProperty = () => {
         </div>
 
         <div className="gridProperty-loadMoreWrap">
-          <button className="gridProperty-loadMore">
+          <button className="gridProperty-loadMore" type="button">
             <FaSyncAlt /> Load More
           </button>
         </div>
