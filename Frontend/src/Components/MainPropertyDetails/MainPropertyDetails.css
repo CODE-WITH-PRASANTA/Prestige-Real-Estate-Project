@@ -1,125 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* GLOBAL */
+body {
+  margin: 0;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
 /* WRAPPER */
 .ph-wrapper {
   width: 100%;
   font-family: "Inter", sans-serif;
   background: #fff;
-  color: #303030;
+  color: #222;
   border-bottom: 1px solid #e5e7eb;
 }
 
-/* TOP */
+/* ================= TOP ================= */
 .ph-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
   color: #6b7280;
-  padding: 8px 24px;
+  padding: 10px 24px;
+}
+
+.ph-breadcrumb {
+  line-height: 1.4;
 }
 
 .ph-breadcrumb span {
-  color: #111827;
+  color: #111;
   font-weight: 500;
 }
 
 .ph-update span {
+  color: #111;
   font-weight: 500;
-  color: #111827;
 }
 
-/* MAIN */
+/* ================= MAIN ================= */
 .ph-main {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   padding: 18px 24px;
 }
 
 /* LEFT */
 .ph-left {
-  max-width: 70%;
+  max-width: 65%;
 }
 
+/* TAGS */
 .ph-tags {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .ph-verified {
   background: #16a34a;
   color: #fff;
-  font-size: 12px;
-  padding: 3px 8px;
+  font-size: 11px;
+  padding: 4px 8px;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .ph-premium {
   background: #ec4899;
   color: #fff;
-  font-size: 12px;
-  padding: 3px 8px;
+  font-size: 11px;
+  padding: 4px 8px;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* PRICE */
 .ph-price-row {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
+  margin: 2px 0 6px;
 }
 
 .ph-price {
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 700;
   margin: 0;
+  line-height: 1;
+  letter-spacing: -0.3px;
 }
 
 .ph-price-type {
-  font-size: 14px;
+  font-size: 34px;
   color: #6b7280;
+  margin-top: 6px;
 }
 
 /* TITLE */
 .ph-title {
-  font-size: 24px;
+  font-size: 34px;
   font-weight: 500;
-  margin: 6px 0;
+  margin: 4px 0 2px;
+  color: #111;
+  line-height: 1.3;
 }
 
+/* SUBTITLE */
 .ph-subtitle {
-  font-size: 15px;
+  font-size: 20px;
   color: #6b7280;
   margin: 2px 0;
+  line-height: 1.4;
 }
 
+/* LOCATION */
 .ph-location {
-  font-size: 14px;
+  font-size: 19px;
   color: #9ca3af;
-  margin-top: 4px;
+  margin-top: 2px;
+  line-height: 1.4;
 }
 
 /* RERA */
 .ph-rera {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
   margin-top: 10px;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .ph-rera-label {
   background: #059669;
   color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .ph-rera-status {
   color: #059669;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .ph-rera-link {
@@ -139,47 +165,69 @@
   background: #3b82f6;
   color: #fff;
   border: none;
-  padding: 12px 22px;
-  font-size: 15px;
+  padding: 11px 22px;
+  font-size: 22px;
   border-radius: 4px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.ph-contact-btn:hover {
+  background: #2563eb;
 }
 
 .ph-contact-btn span {
-  font-size: 12px;
-  margin-left: 4px;
+  font-size: 11px;
+  margin-left: 6px;
+  opacity: 0.9;
 }
 
 .ph-shortlist-btn {
   background: #fff;
-  border: 1px solid #cbd5e1;
-  padding: 10px 22px;
-  font-size: 14px;
+  border: 1px solid #d1d5db;
+  padding: 9px 22px;
+  font-size: 22px;
   border-radius: 4px;
   cursor: pointer;
   color: #374151;
+  transition: 0.3s;
 }
 
-/* TABS */
+.ph-shortlist-btn:hover {
+  background: #f9fafb;
+}
+
+/* ================= TABS ================= */
 .ph-tabs {
   display: flex;
-  gap: 30px;
-  padding: 12px 24px;
+  gap: 32px;
+  padding: 12px 24px 0;
   border-top: 1px solid #e5e7eb;
 }
 
 .ph-tab {
-  font-size: 15px;
+  font-size: 20px;
   color: #6b7280;
   cursor: pointer;
-  padding-bottom: 6px;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 500;
 }
 
 .ph-tab.active {
   color: #2563eb;
-  border-bottom: 2px solid #2563eb;
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.ph-tab.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #2563eb;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -210,16 +258,15 @@
   }
 
   .ph-price {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .ph-title {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .ph-tabs {
     gap: 16px;
-    font-size: 14px;
   }
 
   .ph-contact-btn,
