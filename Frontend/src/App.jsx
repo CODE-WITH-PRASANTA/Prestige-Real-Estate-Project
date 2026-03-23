@@ -25,6 +25,8 @@ import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
 import RentDetails from "./Components/RentDetailsMain/RentDetailsMain";
 import RentDetailsMain from "./Components/RentDetailsMain/RentDetailsMain";
+import FloatingForm from "./Components/FloatingForm/FloatingForm";
+import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
 
 function App() {
   return (
@@ -52,10 +54,11 @@ function App() {
 
         <Route path="/RentDetails-Main" element={<RentDetailsMain />} />
         
-        <Route path="/buygrid" element={<BuyGrid/>}/>
+        <Route path="/buyproperties" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>
       </Routes>
-
+      <FloatingIcons />
+      <FloatingForm />
       <Footer />
     </>
   );

@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+}
+
+.FloatingIcons {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.FloatingIcons__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  pointer-events: auto;
+}
+
+.FloatingIcons__button {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.22);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    background 0.3s ease;
+  animation: FloatingIconsFloat 3s ease-in-out infinite;
+}
+
+.FloatingIcons__button:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 20px 36px rgba(15, 23, 42, 0.28);
+}
+
+.FloatingIcons__button svg {
+  position: relative;
+  z-index: 2;
+}
+
+.FloatingIcons__button--whatsapp {
+  background: linear-gradient(135deg, #25d366, #16a34a);
+}
+
+.FloatingIcons__button--call {
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+}
+
+.FloatingIcons__button--top {
+  background: linear-gradient(135deg, #111827, #334155);
+}
+
+.FloatingIcons__button--topShow {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.FloatingIcons__button--topHide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px) scale(0.85);
+  pointer-events: none;
+}
+
+.FloatingIcons__tooltip {
+  position: absolute;
+  right: 68px;
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  white-space: nowrap;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+  pointer-events: none;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.18);
+}
+
+.FloatingIcons__tooltip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  background: #0f172a;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.FloatingIcons__button:hover .FloatingIcons__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+@keyframes FloatingIconsFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .FloatingIcons {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .FloatingIcons__wrapper {
+    gap: 12px;
+  }
+
+  .FloatingIcons__button {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .FloatingIcons__tooltip {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .FloatingIcons {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .FloatingIcons__wrapper {
+    gap: 10px;
+  }
+
+  .FloatingIcons__button {
+    width: 46px;
+    height: 46px;
+    font-size: 18px;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.2);
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .FloatingIcons__button {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+}

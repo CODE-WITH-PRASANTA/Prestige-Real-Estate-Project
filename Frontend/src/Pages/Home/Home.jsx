@@ -10,6 +10,7 @@ import ClientReviews from "../../Components/ClientReviews/ClientReviews";
 import Pricing from "../../Components/Pricing/Pricing";
 import FAQ from "../../Components/FAQ/FAQ";
 import BecomeAgent from "../../Components/BecomeAgent/BecomeAgent";
+import VisionMission from "../../Components/VisionMission/VisionMission";
 
 
 function Home() {
@@ -17,6 +18,7 @@ function Home() {
     <>
       <Breadcrumb />
       <HowItWorks />
+      <VisionMission/>
       <FeaturedSales />
       <Cities />
       {/* <FeaturedProperties /> */}

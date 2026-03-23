@@ -17,34 +17,44 @@ export default function AboutPartner() {
 
   return (
     <section className="aboutPartner">
+      <div className="aboutPartner-blur aboutPartner-blurOne"></div>
+      <div className="aboutPartner-blur aboutPartner-blurTwo"></div>
+
       <div className="aboutPartner-inner">
+        <span className="aboutPartner-badge">Our Trusted Partners</span>
+
         <h2>
-          Trusted Partners Supporting Prestige Real Estate Properties
+          Trusted Partners Supporting{" "}
+          <span>Prestige Real Estate Properties</span>
         </h2>
 
         <div className="aboutPartner-line"></div>
 
         <p>
-          At Prestige Real Estate Properties, we work closely with reliable partners
-          and service providers to deliver a smooth and secure real estate experience.
-          From verified property listings and secure payment solutions to customer
-          support and digital tools, every partnership is built on trust and quality.
-          <br /><br />
+          At Prestige Real Estate Properties, we work closely with reliable
+          partners and service providers to deliver a smooth and secure real
+          estate experience. From verified property listings and secure payment
+          solutions to customer support and digital tools, every partnership is
+          built on trust and quality.
+          <br />
+          <br />
           Our network helps us offer better services for home buyers, property
           investors, and businesses across India. Whether you're searching for a
-          residential property, a commercial space, or a long-term investment, our
-          partners play a key role in making the process simple, transparent, and
-          dependable.
+          residential property, a commercial space, or a long-term investment,
+          our partners play a key role in making the process simple,
+          transparent, and dependable.
         </p>
 
         <div className="aboutPartner-slider">
           <div className="aboutPartner-track">
             {loop.map((p, idx) => (
               <div className="aboutPartner-card" key={`${p.id}-${idx}`}>
-                <img
-                  src={p.img}
-                  alt={`${p.name} partner - Prestige Real Estate Properties`}
-                />
+                <div className="aboutPartner-logoWrap">
+                  <img
+                    src={p.img}
+                    alt={`${p.name} partner - Prestige Real Estate Properties`}
+                  />
+                </div>
                 <span>{p.name}</span>
               </div>
             ))}

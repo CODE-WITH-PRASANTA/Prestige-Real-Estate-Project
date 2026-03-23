@@ -3,41 +3,121 @@
 ============================= */
 
 .how {
+  position: relative;
   width: 100%;
-  padding: 100px 20px;
-  background: #f8fafc;
+  padding: 110px 20px;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
   text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.985);
+  animation: howSectionOpen 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* background shapes */
+.how-bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.how-bg-shape-1 {
+  width: 260px;
+  height: 260px;
+  background: #18b98a;
+  top: 40px;
+  left: -80px;
+  animation:
+    howBlobOpen 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    howFloatBlob 8s ease-in-out 1.3s infinite;
+}
+
+.how-bg-shape-2 {
+  width: 320px;
+  height: 320px;
+  background: #0ea5e9;
+  bottom: -100px;
+  right: -80px;
+  animation:
+    howBlobOpen 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    howFloatBlob 10s ease-in-out 1.5s infinite;
+}
+
+/* reveal animation */
+.how-reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+  filter: blur(10px);
+  transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1s ease;
+  will-change: transform, opacity, filter;
+}
+
+.how-reveal.how-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.how-delay-1 {
+  transition-delay: 0.12s;
+}
+
+.how-delay-2 {
+  transition-delay: 0.24s;
+}
+
+.how-delay-3 {
+  transition-delay: 0.36s;
+}
+
+.how-delay-4 {
+  transition-delay: 0.48s;
 }
 
 /* TITLE */
 
 .how-title {
-  font-size: 38px;
+  position: relative;
+  z-index: 2;
+  font-size: clamp(28px, 4vw, 40px);
   font-weight: 800;
   color: #0f172a;
   margin-bottom: 12px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
 }
 
 .title-line {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .title-line span {
-  width: 90px;
+  width: 95px;
   height: 4px;
   background: linear-gradient(90deg, #18b98a, #0ea57a);
   border-radius: 6px;
+  animation: linePulse 3s ease-in-out infinite;
 }
 
 .subtitle {
+  position: relative;
+  z-index: 2;
   font-size: 16px;
   color: #64748b;
-  max-width: 650px;
+  max-width: 720px;
   margin: 0 auto 60px;
-  line-height: 1.6;
+  line-height: 1.75;
 }
 
 /* =============================
@@ -45,16 +125,22 @@
 ============================= */
 
 .how-slider {
+  position: relative;
+  z-index: 2;
   width: min(1100px, 95%);
   margin: auto;
   overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(45px);
+  animation: howSliderOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
 }
 
 .how-track {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  transition: transform 0.5s ease;
+  gap: 28px;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* =============================
@@ -62,59 +148,144 @@
 ============================= */
 
 .card {
-  background: #ffffff;
-  padding: 45px 28px;
-  border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.05);
-  transition: all 0.35s ease;
   position: relative;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 42px 28px;
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+  transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+  animation:
+    cardOpenSmooth 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
+    cardFloat 5s ease-in-out 1.1s infinite;
+  backdrop-filter: blur(10px);
+
+  opacity: 0;
+  transform: translateY(50px) scale(0.96);
 }
 
-/* subtle gradient hover layer */
+.card:nth-child(1) {
+  animation-delay: 0.18s, 1.2s;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.32s, 1.35s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 0.46s, 1.5s;
+}
+
+.card:nth-child(4) {
+  animation-delay: 0.6s, 1.65s;
+}
+
+.card:nth-child(5) {
+  animation-delay: 0.74s, 1.8s;
+}
+
+.card:nth-child(6) {
+  animation-delay: 0.88s, 1.95s;
+}
+
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #18b98a, #0ea57a);
   opacity: 0;
-  transition: 0.35s ease;
+  transition: opacity 0.4s ease;
   z-index: 0;
 }
 
-/* hover effect */
+.card::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -55px;
+  top: -55px;
+  background: rgba(24, 185, 138, 0.08);
+  border-radius: 50%;
+  transition: 0.4s ease;
+  z-index: 0;
+}
+
+.card-glow {
+  position: absolute;
+  inset: auto auto 15% -10%;
+  width: 140px;
+  height: 140px;
+  background: rgba(14, 165, 233, 0.09);
+  border-radius: 50%;
+  filter: blur(25px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.card-number,
+.card h3,
+.card p {
+  position: relative;
+  z-index: 1;
+}
+
+.card-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  color: #0ea57a;
+  font-size: 18px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.12);
+  transition: all 0.35s ease;
+}
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 14px;
+  transition: color 0.35s ease;
+}
+
+.card p {
+  font-size: 14.8px;
+  line-height: 1.75;
+  color: #64748b;
+  transition: color 0.35s ease;
+}
+
+/* hover */
+
 .card:hover {
   transform: translateY(-10px) scale(1.01);
-  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+  border-color: rgba(24, 185, 138, 0.25);
 }
 
 .card:hover::before {
   opacity: 1;
 }
 
-/* text */
-
-.card h3 {
-  position: relative;
-  z-index: 1;
-  font-size: 19px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 14px;
-  transition: 0.3s;
+.card:hover::after {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.card p {
-  position: relative;
-  z-index: 1;
-  font-size: 14.5px;
-  line-height: 1.7;
-  color: #64748b;
-  transition: 0.3s;
+.card:hover .card-number {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  box-shadow: none;
 }
-
-/* hover text color */
 
 .card:hover h3,
 .card:hover p {
@@ -126,15 +297,21 @@
 ============================= */
 
 .how-dots {
+  position: relative;
+  z-index: 2;
   display: none;
   justify-content: center;
   gap: 10px;
-  margin-top: 25px;
+  margin-top: 28px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: howDotsOpen 0.8s ease 0.7s forwards;
 }
 
 .how-dot {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   border: none;
   background: #cbd5e1;
@@ -143,9 +320,111 @@
 }
 
 .how-dot.active {
-  width: 26px;
-  border-radius: 12px;
+  width: 28px;
+  border-radius: 999px;
   background: #0f172a;
+}
+
+/* =============================
+   KEYFRAMES
+============================= */
+
+@keyframes howSectionOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.003);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes howBlobOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(30px);
+  }
+  100% {
+    opacity: 0.16;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes howSliderOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes howDotsOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardOpenSmooth {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.96);
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.01);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes howFloatBlob {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-22px) scale(1.06);
+  }
+}
+
+@keyframes cardFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes linePulse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1.08);
+    opacity: 0.85;
+  }
 }
 
 /* =============================
@@ -153,20 +432,18 @@
 ============================= */
 
 @media (max-width: 992px) {
-
   .how {
-    padding: 80px 20px;
+    padding: 90px 20px;
   }
 
   .how-track {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 22px;
   }
 
-  .how-title {
-    font-size: 32px;
+  .subtitle {
+    margin-bottom: 50px;
   }
-
 }
 
 /* =============================
@@ -174,9 +451,8 @@
 ============================= */
 
 @media (max-width: 600px) {
-
   .how {
-    padding: 70px 15px;
+    padding: 75px 15px;
   }
 
   .how-track {
@@ -186,7 +462,9 @@
 
   .card {
     min-width: 100%;
-    padding: 40px 22px;
+    padding: 36px 22px;
+    animation:
+      cardOpenSmooth 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .how-dots {
@@ -199,7 +477,22 @@
 
   .subtitle {
     font-size: 14px;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
+    line-height: 1.7;
   }
 
+  .card-number {
+    width: 54px;
+    height: 54px;
+    font-size: 16px;
+    border-radius: 16px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
 }

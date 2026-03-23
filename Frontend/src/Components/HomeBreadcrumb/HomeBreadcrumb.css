@@ -1,0 +1,365 @@
+/* =========================
+   HERO SECTION
+========================= */
+
+.hb-hero {
+  position: relative;
+    width: 100%;
+    min-height: 88vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 80px 80px 225px;
+    overflow: visible;
+}
+
+
+/* container */
+
+.hb-container {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+}
+
+
+/* left */
+
+.hb-left {
+  max-width: 520px;
+}
+
+
+/* title */
+
+.hb-title {
+  font-size: 44px;
+  font-weight: 750;
+  line-height: 1.1;
+  color: #0f172a;
+  margin-bottom: 14px;
+}
+
+
+/* sub */
+
+.hb-sub {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 24px;
+}
+
+
+/* buttons */
+
+.hb-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hb-btn {
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.hb-btn-primary {
+  background: #bf9c37;
+  color: white;
+  border: none;
+}
+
+
+/* =========================
+   SEARCH BAR
+========================= */
+
+.hb-search-wrap {
+  position: absolute;
+  bottom: 130px;
+  /* left: 50%; */
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  z-index: 5;
+}
+
+.hb-search {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.15);
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(5,1fr) 70px;
+  gap: 14px;
+  margin: 0 auto;
+}
+
+
+.hb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hb-field label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hb-field input,
+.hb-field select {
+  height: 46px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 0 10px;
+}
+
+
+/* button */
+
+.hb-search-btn {
+  width: 60px;
+  height: 46px;
+  background: #bf9c37;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 20px;
+}
+
+.hb-search-btn:hover {
+  background: #475569;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px #475569;
+}
+
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+.hb-title,
+.hb-sub,
+.hb-buttons,
+.hb-search-wrap {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.hb-show .hb-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.hb-show .hb-sub {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.hb-show .hb-buttons {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.hb-show .hb-search-wrap {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+
+
+/* =========================
+   LAPTOP
+========================= */
+
+@media (max-width: 1200px) {
+
+.hb-title {
+  font-size: 38px;
+}
+
+.hb-search {
+  grid-template-columns: repeat(3,1fr);
+}
+
+.hb-search-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+.hb-hero {
+  padding: 100px 20px 160px;
+}
+
+.hb-title {
+  font-size: 32px;
+}
+
+.hb-search {
+  grid-template-columns: repeat(2,1fr);
+}
+
+.hb-search-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+.hb-hero {
+
+  padding: 70px 14px 140px;
+
+  align-items: flex-start;
+
+}
+
+
+/* center text */
+
+.hb-left {
+
+  max-width: 100%;
+  text-align: center;
+
+}
+
+
+.hb-title {
+
+  font-size: 24px;
+  font-weight: 700;
+
+}
+
+
+.hb-sub {
+
+  font-size: 14px;
+
+}
+
+
+/* buttons */
+
+.hb-buttons {
+
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+
+}
+
+
+.hb-btn {
+
+  padding: 10px 14px;
+  font-size: 13px;
+
+}
+
+
+/* ===== search wrap ===== */
+
+.hb-search-wrap {
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  /* bottom: -70px; */
+
+  display: flex;
+  justify-content: center;
+
+  padding: 0 10px;
+
+}
+
+
+/* card */
+
+.hb-search {
+
+  width: 100%;
+
+  grid-template-columns: 1fr;
+
+  padding: 16px;
+
+  border-radius: 14px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+
+}
+
+
+/* fields */
+
+.hb-field input,
+.hb-field select {
+
+  height: 44px;
+
+}
+
+
+/* button */
+
+.hb-search-btn {
+
+  width: 100%;
+
+  height: 44px;
+
+  border-radius: 8px;
+
+}
+
+
+/* extra space */
+
+.hb-hero {
+
+  padding-bottom: 160px;
+
+}
+
+}

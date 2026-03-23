@@ -1,6 +1,8 @@
 .ba {
   width: 100%;
   padding: 36px 16px;
+  position: relative;
+  overflow: hidden;
 }
 
 .ba-wrap {
@@ -8,21 +10,41 @@
   overflow: hidden;
   max-width: 1220px;
   margin: 0 auto;
-
   border-radius: 18px;
-
-  /* dark premium gradient like screenshot */
-  background: radial-gradient(1200px 500px at 25% 40%, rgba(16, 185, 129, 0.10), transparent 55%),
-              radial-gradient(900px 450px at 70% 15%, rgba(99, 102, 241, 0.12), transparent 55%),
-              linear-gradient(90deg, #0b1420 0%, #0a1320 45%, #08101a 100%);
-
+  background:
+    radial-gradient(1200px 500px at 25% 40%, rgba(16, 185, 129, 0.10), transparent 55%),
+    radial-gradient(900px 450px at 70% 15%, rgba(99, 102, 241, 0.12), transparent 55%),
+    linear-gradient(90deg, #0b1420 0%, #0a1320 45%, #08101a 100%);
   padding: 44px 52px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 26px;
-
   box-shadow: 0 18px 50px rgba(2, 6, 23, 0.35);
+}
+
+/* reveal */
+.ba-reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+  transition: all 0.9s ease;
+}
+
+.ba-reveal.ba-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.ba-delay-1 {
+  transition-delay: 0.08s;
+}
+
+.ba-delay-2 {
+  transition-delay: 0.16s;
+}
+
+.ba-delay-3 {
+  transition-delay: 0.24s;
 }
 
 /* Left diagonal slabs */
@@ -32,8 +54,8 @@
   bottom: -40px;
   width: 130px;
   opacity: 0.28;
-  filter: blur(0px);
   pointer-events: none;
+  animation: baSlabFloat 8s ease-in-out infinite;
 }
 
 .ba-slab1 {
@@ -47,6 +69,7 @@
   transform: skewX(-20deg);
   opacity: 0.16;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.01));
+  animation-delay: 0.8s;
 }
 
 /* Dots */
@@ -56,6 +79,7 @@
   height: 18px;
   border-radius: 999px;
   pointer-events: none;
+  animation: baDotPulse 3.5s ease-in-out infinite;
 }
 
 .ba-dot1 {
@@ -70,6 +94,7 @@
   top: 55px;
   background: #6d28d9;
   box-shadow: 0 0 0 10px rgba(109, 40, 217, 0.12);
+  animation-delay: 0.9s;
 }
 
 /* Content */
@@ -141,6 +166,7 @@
   width: 240px;
   opacity: 0.95;
   pointer-events: none;
+  animation: baBuildingFloat 5s ease-in-out infinite;
 }
 
 .ba-building img {
@@ -150,18 +176,54 @@
   filter: drop-shadow(0 22px 30px rgba(2, 6, 23, 0.55));
 }
 
+/* keyframes */
+@keyframes baBuildingFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes baSlabFloat {
+  0%,
+  100% {
+    transform: skewX(-20deg) translateY(0px);
+  }
+  50% {
+    transform: skewX(-20deg) translateY(-8px);
+  }
+}
+
+@keyframes baDotPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.85;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .ba-wrap {
     padding: 36px 28px;
   }
+
   .ba-content h2 {
     font-size: 38px;
   }
+
   .ba-building {
     width: 210px;
     bottom: -40px;
   }
+
   .ba-dot2 {
     right: 220px;
   }
@@ -215,5 +277,16 @@
   .ba-building {
     width: 160px;
     bottom: -50px;
+  }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ba-reveal,
+  .ba-slab,
+  .ba-dot,
+  .ba-building {
+    transition: none !important;
+    animation: none !important;
   }
 }

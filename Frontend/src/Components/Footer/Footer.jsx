@@ -1,16 +1,16 @@
 import "./Footer.css";
 import { Link } from "react-router-dom";
-import logo from "../../assets/Logo-1.png"; // ✅ import your logo
+import logo from "../../assets/Logo-1.png";
 
 export default function Footer() {
   return (
     <footer className="ft">
+      <div className="ft-glow ft-glow-1"></div>
+      <div className="ft-glow ft-glow-2"></div>
 
       <div className="ft-wrap">
-
         {/* LEFT - LOGO */}
         <div className="ft-col ft-brand-col">
-
           <img src={logo} alt="logo" className="ft-logo" />
 
           <p className="ft-sub">
@@ -20,12 +20,11 @@ export default function Footer() {
 
           {/* SOCIAL */}
           <div className="ft-social">
-            <a href="#" className="ft-soc">f</a>
-            <a href="#" className="ft-soc">x</a>
-            <a href="#" className="ft-soc">in</a>
-            <a href="#" className="ft-soc">ig</a>
+            <a href="#" className="ft-soc" aria-label="Facebook">f</a>
+            <a href="#" className="ft-soc" aria-label="X">x</a>
+            <a href="#" className="ft-soc" aria-label="LinkedIn">in</a>
+            <a href="#" className="ft-soc" aria-label="Instagram">ig</a>
           </div>
-
         </div>
 
         {/* LINKS */}
@@ -55,19 +54,17 @@ export default function Footer() {
             <li>Mon-Sat: 9:00 - 18:00</li>
           </ul>
         </div>
-
       </div>
 
       {/* BOTTOM */}
       <div className="ft-bottom">
         <div className="ft-bottom-wrap">
-          <p>© 2026 Dreams Estate. All Rights Reserved.</p>
+          <p>2026 © Copyright reserve Prestige Property.</p>
           <p>
-            Developed by <span className="ft-brand">Dreams Technologies</span>
+            Developed by <span className="ft-brand">PR WebStock</span>
           </p>
         </div>
       </div>
-
     </footer>
   );
 }

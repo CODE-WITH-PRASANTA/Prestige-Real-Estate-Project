@@ -5,8 +5,16 @@ import "./Sidebar.css";
 import {
   FaTimes,
   FaHome,
-  FaNewspaper,
+  FaBuilding,
+  FaKey,
+  FaPlusSquare,
+  FaDollarSign,
+  FaCommentDots,
+  FaQuestionCircle,
+  FaBlog,
   FaImages,
+  FaPhoneAlt,
+  FaChevronDown,
 } from "react-icons/fa";
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
@@ -15,7 +23,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     {
       name: "Property Management",
-      icon: <FaNewspaper />,
+      icon: <FaBuilding />,
       submenu: [
         { name: "Property Posting", path: "/admin/saleproperty" },
         { name: "Property View", path: "/admin-property-view" },
@@ -24,28 +32,57 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     {
       name: "Rent Property",
-      icon: <FaNewspaper />,
+      icon: <FaKey />,
       submenu: [
         { name: "Rent Posting", path: "/admin/Rent-property" },
         { name: "Rent View", path: "/admin-Rent-view" },
       ],
     },
 
-    { name: "Pricing", path: "/admin/pricing", icon: <FaNewspaper /> },
-    { name: "Testimonial", path: "/admin/testimonial", icon: <FaNewspaper /> },
-    { name: "FAQ Posting", path: "/admin/faqposting", icon: <FaNewspaper /> },
-    { name: "Blog Posting", path: "/admin/blogposting", icon: <FaNewspaper /> },
-    { name: "Main Gallery", path: "/admin/gallery", icon: <FaImages /> },
-    { name: "Contact", path: "/admin/contact", icon: <FaNewspaper /> },
+    // {
+    //   name: "Add Property",
+    //   path: "/admin-add-property",
+    //   icon: <FaPlusSquare />,
+    // },
+    {
+      name: "Pricing",
+      path: "/admin/pricing",
+      icon: <FaDollarSign />,
+    },
+    {
+      name: "Testimonial",
+      path: "/admin/testimonial",
+      icon: <FaCommentDots />,
+    },
+    {
+      name: "FAQ Posting",
+      path: "/admin/faqposting",
+      icon: <FaQuestionCircle />,
+    },
+    {
+      name: "Blog Posting",
+      path: "/admin/blogposting",
+      icon: <FaBlog />,
+    },
+    {
+      name: "Main Gallery",
+      path: "/admin/gallery",
+      icon: <FaImages />,
+    },
+    {
+      name: "Contact",
+      path: "/admin/contact",
+      icon: <FaPhoneAlt />,
+    },
   ];
 
   const [openMenu, setOpenMenu] = useState(null);
 
-  const toggleMenu = (name) => {
+  const SidebarToggleMenu = (name) => {
     setOpenMenu(openMenu === name ? null : name);
   };
 
-  const handleNavClick = () => {
+  const SidebarHandleNavClick = () => {
     if (window.innerWidth < 1024) {
       setSidebarOpen(false);
     }
@@ -55,62 +92,71 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
     <>
       {sidebarOpen && (
         <div
-          className="sidebar-overlay"
+          className="Sidebar__overlay"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        
-        {/* HEADER */}
-        <div className="sidebar-header">
-          <h2 className="logo-text">
+      <aside className={`Sidebar ${sidebarOpen ? "Sidebar--open" : ""}`}>
+        <div className="Sidebar__header">
+          <h2 className="Sidebar__logo">
             {sidebarOpen ? "Admin Panel" : "AP"}
           </h2>
 
           <button
-            className="close-btn"
+            className="Sidebar__closeButton"
             onClick={() => setSidebarOpen(false)}
+            type="button"
           >
             <FaTimes />
           </button>
         </div>
 
-        {/* MENU */}
-        <nav className="sidebar-menu">
+        <nav className="Sidebar__menu">
           {menu.map((item) => (
-            <div key={item.name}>
-
+            <div key={item.name} className="Sidebar__group">
               {item.submenu ? (
                 <>
                   <button
-                    className="menu-item"
-                    onClick={() => toggleMenu(item.name)}
+                    className={`Sidebar__item Sidebar__itemButton ${
+                      openMenu === item.name ? "Sidebar__item--opened" : ""
+                    }`}
+                    onClick={() => SidebarToggleMenu(item.name)}
+                    type="button"
                   >
-                    <div className="menu-left">
-                      {item.icon}
-                      {sidebarOpen && <span>{item.name}</span>}
+                    <div className="Sidebar__itemLeft">
+                      <span className="Sidebar__icon">{item.icon}</span>
+                      {sidebarOpen && (
+                        <span className="Sidebar__text">{item.name}</span>
+                      )}
                     </div>
 
                     {sidebarOpen && (
-                      <span className="arrow">
-                        {openMenu === item.name ? "▾" : "▸"}
+                      <span
+                        className={`Sidebar__arrow ${
+                          openMenu === item.name ? "Sidebar__arrow--open" : ""
+                        }`}
+                      >
+                        <FaChevronDown />
                       </span>
                     )}
                   </button>
 
                   {openMenu === item.name && sidebarOpen && (
-                    <div className="submenu">
+                    <div className="Sidebar__submenu">
                       {item.submenu.map((sub) => (
                         <NavLink
                           key={sub.path}
                           to={sub.path}
-                          onClick={handleNavClick}
+                          onClick={SidebarHandleNavClick}
                           className={({ isActive }) =>
-                            `submenu-item ${isActive ? "active-sub" : ""}`
+                            `Sidebar__submenuItem ${
+                              isActive ? "Sidebar__submenuItem--active" : ""
+                            }`
                           }
                         >
-                          {sub.name}
+                          <span className="Sidebar__submenuDot"></span>
+                          <span>{sub.name}</span>
                         </NavLink>
                       ))}
                     </div>
@@ -119,18 +165,19 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
               ) : (
                 <NavLink
                   to={item.path}
-                  onClick={handleNavClick}
+                  onClick={SidebarHandleNavClick}
                   className={({ isActive }) =>
-                    `menu-item ${isActive ? "active" : ""}`
+                    `Sidebar__item ${isActive ? "Sidebar__item--active" : ""}`
                   }
                 >
-                  <div className="menu-left">
-                    {item.icon}
-                    {sidebarOpen && <span>{item.name}</span>}
+                  <div className="Sidebar__itemLeft">
+                    <span className="Sidebar__icon">{item.icon}</span>
+                    {sidebarOpen && (
+                      <span className="Sidebar__text">{item.name}</span>
+                    )}
                   </div>
                 </NavLink>
               )}
-
             </div>
           ))}
         </nav>
