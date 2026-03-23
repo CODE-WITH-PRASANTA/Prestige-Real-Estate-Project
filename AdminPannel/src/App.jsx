@@ -8,6 +8,10 @@ import Testimonial from "../Pages/Testimonial/Testimonial";
 import FaqPosting from "../Pages/FaqPosting/FaqPosting";
 import BlogPosting from "../Pages/BlogPosting/BlogPosting";
 import DashBoard from "../Pages/DashBoard/DashBoard";
+import AdminProfile from "../Pages/AdminProfile/AdminProfile";
+import AddCustomer from "../Pages/AddCustomer/AddCustomer";
+import NewCustomer from "../Pages/NewCustomer/NewCustomer";
+import PropertyView from "./Component/PropertyView/PropertyView";
 
 
 
@@ -26,8 +30,10 @@ export default function App() {
         <Route path="/admin/testimonial" element={<Testimonial/>}/>
         <Route path="/admin/faqposting" element={<FaqPosting/>}/>
         <Route path="/admin/blogposting" element={<BlogPosting/>}/>
-         
-
+         <Route path="/admin/profile" element={<AdminProfile/>}/>
+         <Route path="/add/customer" element={<AddCustomer/>}/>
+         <Route path="/new/customer" element={<NewCustomer/>} />
+         <Route path="/admin/Property-view" element={<PropertyView/>} />
          
         </Route>
       </Routes>

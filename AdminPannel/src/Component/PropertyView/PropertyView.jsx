@@ -1,151 +1,311 @@
 import React, { useState } from "react";
+import { FaFilter, FaPlus } from "react-icons/fa";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaBookmark,
+  FaBed,
+  FaBath,
+  FaRulerCombined,
+  FaStar,
+  FaTimes,
+} from "react-icons/fa";
+
 import "./PropertyView.css";
-import { FaThLarge, FaList, FaEllipsisV } from "react-icons/fa";
 
-const PropertyView = () => {
-  const [view, setView] = useState("grid");
-  const [activeMenu, setActiveMenu] = useState(null);
+const properties = [
+  {
+    id: 1,
+    title: "Whitepace Vintage Villa",
+    price: "$375,000",
+    status: "sale",
+    img: "https://picsum.photos/500/350?1",
+    address: "929 Hart St, Brooklyn, NY",
+    beds: 3,
+    baths: 2,
+    sqft: 1025,
+    rating: 4.8,
+  },
+  {
+    id: 2,
+    title: "Sunset Studio Apartment",
+    price: "$1,250 / month",
+    status: "rent",
+    img: "https://picsum.photos/500/350?2",
+    address: "3811 Ditmars Blvd, Astoria, NY",
+    beds: 2,
+    baths: 1,
+    sqft: 850,
+    rating: 4.6,
+  },
+  {
+    id: 3,
+    title: "Oakwood Family Home",
+    price: "$490,000",
+    status: "sold",
+    img: "https://picsum.photos/500/350?3",
+    address: "221 Main St, Queens, NY",
+    beds: 4,
+    baths: 3,
+    sqft: 1450,
+    rating: 4.9,
+  },
+  {
+    id: 4,
+    title: "Lakeview Modern Villa",
+    price: "$420,000",
+    status: "sale",
+    img: "https://picsum.photos/500/350?4",
+    address: "112 Lake St, Seattle, WA",
+    beds: 3,
+    baths: 2,
+    sqft: 1050,
+    rating: 4.7,
+  },
+];
 
-  const properties = [
-    {
-      id: 1,
-      name: "Luxury Villa",
-      price: "₹2.5 Cr",
-      city: "Mumbai",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-    },
-    {
-      id: 2,
-      name: "Modern Apartment",
-      price: "₹90 Lakh",
-      city: "Delhi",
-      image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
-    },
-    {
-      id: 3,
-      name: "Beach House",
-      price: "₹3.2 Cr",
-      city: "Goa",
-      image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
-    },
-      {
-      id: 1,
-      name: "Luxury Villa",
-      price: "₹2.5 Cr",
-      city: "Mumbai",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-    },
-    {
-      id: 2,
-      name: "Modern Apartment",
-      price: "₹90 Lakh",
-      city: "Delhi",
-      image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
-    },
-    {
-      id: 3,
-      name: "Beach House",
-      price: "₹3.2 Cr",
-      city: "Goa",
-      image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
-    },
-  ];
+export default function PropertyView() {
+  const [filterOpen, setFilterOpen] = useState(false);
 
   return (
-    <div className="PropertyView">
+    <div className="pv-page">
+      {/* header */}
 
-      {/* HEADER */}
-      <div className="PropertyView-header">
-        <h2>Property View</h2>
-
-        <div className="PropertyView-toggle">
+      <div className="pv-header">
+        <h2>Property Grid</h2>
+        <div className="pv-actions">
           <button
-            className={view === "list" ? "active" : ""}
-            onClick={() => setView("list")}
-          >
-            <FaList />
+  className="pv-filterBtn"
+  onClick={() => setFilterOpen(true)}
+>
+            <FaFilter className="pv-btnIcon" />
+            Filter
           </button>
 
-          <button
-            className={view === "grid" ? "active" : ""}
-            onClick={() => setView("grid")}
-          >
-            <FaThLarge />
+          <button className="pv-addBtn">
+            <FaPlus className="pv-btnIcon" />
+            Add Property
           </button>
         </div>
       </div>
 
-      {/* GRID VIEW */}
-      {view === "grid" && (
-        <div className="PropertyView-grid">
-          {properties.map((item, i) => (
-            <div key={item.id} className="PropertyView-card">
+      {/* grid */}
 
-              {/* 3 DOT */}
-              <div className="PropertyView-menu">
-                <FaEllipsisV
-                  onClick={() =>
-                    setActiveMenu(activeMenu === i ? null : i)
-                  }
-                />
+      <div className="pv-grid">
+        {properties.map((p) => (
+          <div key={p.id} className="pv-card">
+            {/* image */}
 
-                {activeMenu === i && (
-                  <div className="PropertyView-dropdown">
-                    <button>Edit</button>
-                    <button className="delete">Delete</button>
-                  </div>
-                )}
+            <div className="pv-imgBox">
+              <img src={p.img} alt="" />
+
+              <span className={`pv-badge ${p.status}`}>
+                {p.status === "sale"
+                  ? "For Sale"
+                  : p.status === "rent"
+                    ? "For Rent"
+                    : "Sold"}
+              </span>
+
+              {/* hover icons */}
+
+              <div className="pv-imgIcons">
+                <FaBookmark />
+                <FaHeart />
               </div>
-
-              <img src={item.image} alt="" />
-
-              <div className="PropertyView-card-content">
-                <h3>{item.name}</h3>
-                <p>{item.city}</p>
-                <span>{item.price}</span>
-              </div>
-
             </div>
-          ))}
-        </div>
-      )}
 
-      {/* LIST VIEW */}
-      {view === "list" && (
-        <div className="PropertyView-list">
-          {properties.map((item, i) => (
-            <div key={item.id} className="PropertyView-list-item">
+            {/* body */}
 
-              <img src={item.image} alt="" />
+            <div className="pv-body">
+              <div className="pv-priceRow">
+                <span className="pv-price">{p.price}</span>
 
-              <div className="PropertyView-list-content">
-                <h3>{item.name}</h3>
-                <p>{item.city}</p>
-                <span>{item.price}</span>
+                <span className="pv-rating">
+                  <FaStar /> {p.rating}
+                </span>
               </div>
 
-              {/* 3 DOT */}
-              <div className="PropertyView-menu">
-                <FaEllipsisV
-                  onClick={() =>
-                    setActiveMenu(activeMenu === i ? null : i)
-                  }
-                />
+              <h3 className="pv-title">{p.title}</h3>
 
-                {activeMenu === i && (
-                  <div className="PropertyView-dropdown">
-                    <button>Edit</button>
-                    <button className="delete">Delete</button>
-                  </div>
-                )}
+              <p className="pv-address">📍 {p.address}</p>
+
+              <div className="pv-info">
+                <span>
+                  <FaBed /> {p.beds} Beds
+                </span>
+
+                <span>
+                  <FaBath /> {p.baths} Baths
+                </span>
+
+                <span>
+                  <FaRulerCombined /> {p.sqft} sqft
+                </span>
               </div>
-
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
+
+
+{/* overlay blur */}
+
+<div
+  className={`pv-overlay ${filterOpen ? "show" : ""}`}
+  onClick={() => setFilterOpen(false)}
+/>
+
+
+{/* filter */}
+
+<div className={`pv-filterBar ${filterOpen ? "open" : ""}`}>
+
+  {/* header */}
+
+  <div className="pv-filterHeader">
+
+    <h3>Filter Properties</h3>
+
+<button
+  className="pv-closeBtn"
+  onClick={() => setFilterOpen(false)}
+>
+  <FaTimes />
+</button>
+
+  </div>
+
+
+
+  {/* content */}
+
+  <div className="pv-filterContent">
+
+
+    {/* status */}
+
+    <div className="pv-filterSection">
+
+      <h4>Property Status</h4>
+
+      <div className="pv-checkGrid">
+
+        <label><input type="checkbox" /> For Sale</label>
+        <label><input type="checkbox" /> For Rent</label>
+        <label><input type="checkbox" /> Sold</label>
+
+      </div>
+
+    </div>
+
+
+
+    {/* type */}
+
+    <div className="pv-filterSection">
+
+      <h4>Property Type</h4>
+
+      <div className="pv-checkGrid">
+
+        <label><input type="checkbox" /> House</label>
+        <label><input type="checkbox" /> Apartment</label>
+        <label><input type="checkbox" /> Villa</label>
+
+      </div>
+
+    </div>
+
+
+
+    {/* price */}
+
+    <div className="pv-filterSection">
+
+      <h4>Price Range</h4>
+
+      <input type="range" className="pv-range" />
+
+      <div className="pv-rangeRow">
+
+        <input placeholder="Min $" />
+        <input placeholder="Max $" />
+
+      </div>
+
+    </div>
+
+
+
+    {/* bedrooms */}
+
+    <div className="pv-filterSection">
+
+      <h4>Bedrooms</h4>
+
+      <div className="pv-checkGrid">
+
+        <label><input type="checkbox" /> 1+ Beds</label>
+        <label><input type="checkbox" /> 2+ Beds</label>
+        <label><input type="checkbox" /> 3+ Beds</label>
+
+      </div>
+
+    </div>
+
+
+
+    {/* year */}
+
+    <div className="pv-filterSection">
+
+      <h4>Year Built</h4>
+
+      <div className="pv-rangeRow">
+
+        <input placeholder="From" />
+        <input placeholder="To" />
+
+      </div>
+
+    </div>
+
+
+
+    {/* features */}
+
+    <div className="pv-filterSection">
+
+      <h4>Additional Features</h4>
+
+      <div className="pv-checkGrid">
+
+        <label><input type="checkbox" /> Balcony</label>
+        <label><input type="checkbox" /> Fireplace</label>
+        <label><input type="checkbox" /> Gym</label>
+        <label><input type="checkbox" /> Security</label>
+        <label><input type="checkbox" /> Swimming Pool</label>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  {/* footer */}
+
+  <div className="pv-filterFooter">
+
+    <button className="pv-applyBtn">
+      Apply Filters
+    </button>
+
+  </div>
+
+</div>
     </div>
   );
-};
-
-export default PropertyView;
+}
