@@ -10,8 +10,6 @@ import Register from "./Pages/Register/Register";
 
 import About from "./Pages/About/About";
 
-
-
 import Blog from "./Pages/Blog/Blog";
 import BlogList from "./Pages/BlogList/BlogList";
 import BlogDetails from "./Pages/BlogDetails/BlogDetails";
@@ -23,6 +21,9 @@ import PrisingSection from "./Pages/PrisingSection/PrisingSection";
 import ContactSection from "./Pages/ContactSection/ContactSection";
 import BuyGrid from "./Pages/BuyGrid/BuyGrid";
 import BuyDetails from "./Pages/BuyDetails/BuyDetails";
+
+import RentDetails from "./Components/RentDetails/RentDetails";
+import Rentdetails from "./Pages/Rentdetails/Rentdetails";
 
 function App() {
   return (
@@ -37,7 +38,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactSection />} />
         <Route path="/pricing" element={<PrisingSection />} />
-
         <Route path="/faq" element={<FaqSection />} />
 
         <Route path="/blog" element={<Blog />} />
@@ -45,8 +45,12 @@ function App() {
         <Route path="/blog-details" element={<BlogDetails />} />
 
         <Route path="/property" element={<Property />} />
+        {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
+
+        <Route path="/rent/property" element={<RentDetails />} />
+        <Route path="/rent/details"  element={<Rentdetails />}/>
         
-        <Route path="/buygrid" element={<BuyGrid/>}/>
+        <Route path="/buyproperties" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>
       </Routes>
 

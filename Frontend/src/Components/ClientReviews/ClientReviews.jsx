@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./ClientReviews.css";
 
 import t1 from "../../assets/t1.jpg";
@@ -12,7 +12,8 @@ function getPerViewFromCSS(el) {
 }
 
 export default function ClientReviews() {
-  // 4 cards (using only 2 images)
+  const sectionRef = useRef(null);
+
   const data = useMemo(
     () => [
       {
@@ -55,10 +56,9 @@ export default function ClientReviews() {
 
   const [perView, setPerView] = useState(4);
   const [index, setIndex] = useState(0);
-  const [anim, setAnim] = useState(true); // ✅ IMPORTANT (fix your error)
+  const [anim, setAnim] = useState(true);
   const [paused, setPaused] = useState(false);
 
-  // Read --perView from CSS (responsive)
   useEffect(() => {
     const update = () => {
       const pv = getPerViewFromCSS(sliderRef.current);
@@ -68,17 +68,36 @@ export default function ClientReviews() {
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
-  
+
+  useEffect(() => {
+    const elements = sectionRef.current.querySelectorAll(".cr-reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("cr-active");
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   const totalReal = data.length;
 
-  // infinite list: clone last perView + original + clone first perView
   const extended = useMemo(() => {
     const head = data.slice(0, perView);
     const tail = data.slice(-perView);
     return [...tail, ...data, ...head];
   }, [data, perView]);
 
-  // start at first "real" item
   useEffect(() => {
     setAnim(false);
     setIndex(perView);
@@ -89,14 +108,12 @@ export default function ClientReviews() {
   const next = () => setIndex((i) => i + 1);
   const prev = () => setIndex((i) => i - 1);
 
-  // auto-slide
   useEffect(() => {
     if (paused) return;
     const id = setInterval(next, 3000);
     return () => clearInterval(id);
   }, [paused]);
 
-  // snap after animation for infinite loop
   const onTransitionEnd = () => {
     if (index >= perView + totalReal) {
       setAnim(false);
@@ -113,11 +130,9 @@ export default function ClientReviews() {
     }
   };
 
-  // dots
   const activeDot = ((index - perView) % totalReal + totalReal) % totalReal;
   const goDot = (dotIdx) => setIndex(perView + dotIdx);
 
-  // drag/swipe (mouse + touch)
   const drag = useRef({ down: false, x: 0 });
 
   const down = (e) => {
@@ -143,15 +158,18 @@ export default function ClientReviews() {
   };
 
   return (
-    <section className="cr">
+    <section className="cr" ref={sectionRef}>
+      <div className="cr-bg cr-bg-one"></div>
+      <div className="cr-bg cr-bg-two"></div>
+
       <div className="cr-head">
-        <h2>Client Reviews</h2>
-        <div className="cr-line" />
-        <p>What our happy clients say</p>
+        <h2 className="cr-reveal">Client Reviews</h2>
+        <div className="cr-line cr-reveal cr-delay-1" />
+        <p className="cr-reveal cr-delay-2">What our happy clients say</p>
       </div>
 
       <div
-        className="cr-slider"
+        className="cr-slider cr-reveal cr-delay-3"
         ref={sliderRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -168,7 +186,10 @@ export default function ClientReviews() {
           >
             {extended.map((x, i) => (
               <div className="cr-slide" key={`${x.id}-${i}`}>
-                <div className="cr-card">
+                <div
+                  className="cr-card"
+                  style={{ animationDelay: `${(i % perView) * 0.12}s` }}
+                >
                   <div className="cr-avatar">
                     <img src={x.img} alt={x.name} />
                   </div>
@@ -182,10 +203,10 @@ export default function ClientReviews() {
           </div>
         </div>
 
-        <button className="cr-nav left" onClick={prev} aria-label="Previous">
+        <button className="cr-nav left" onClick={prev} aria-label="Previous" type="button">
           ‹
         </button>
-        <button className="cr-nav right" onClick={next} aria-label="Next">
+        <button className="cr-nav right" onClick={next} aria-label="Next" type="button">
           ›
         </button>
 

@@ -11,6 +11,8 @@ import DashBoard from "./Pages/DashBoard/DashBoard";
 import AdminLayout from "./Layout/AdminLayout";
 import Propertyposting from "./Component/Propertyposting/Propertyposting";
 import PropertyView from "./Component/PropertyView/PropertyView";
+import MainGallery from "./Component/MainGallery/MainGallery";
+import ContactUs from "./Component/ContactUs/ContactUs";
 
 
 
@@ -32,6 +34,8 @@ export default function App() {
         <Route path="/admin/blogposting" element={<BlogPosting/>}/>
         <Route path="/admin/saleproperty" element={<Propertyposting />} />
         <Route path="/admin-property-view" element={<PropertyView />} />
+        <Route path="/admin/gallery" element={<MainGallery />} />
+        <Route path="/admin/contact" element={<ContactUs />} />
          
 
          

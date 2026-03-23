@@ -1,7 +1,7 @@
 .cr {
+  position: relative;
   padding: 90px 20px 110px;
   background: radial-gradient(circle at top, #0b2a46 0%, #071a2f 55%, #061426 100%);
-  position: relative;
   overflow: visible;
 }
 
@@ -21,12 +21,67 @@
   pointer-events: none;
 }
 
+/* background glow */
+.cr-bg {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cr-bg-one {
+  width: 240px;
+  height: 240px;
+  background: #10b981;
+  top: 20px;
+  left: -70px;
+  animation: crBlobFloat 8s ease-in-out infinite;
+}
+
+.cr-bg-two {
+  width: 320px;
+  height: 320px;
+  background: #6366f1;
+  bottom: -100px;
+  right: -90px;
+  animation: crBlobFloat 10s ease-in-out infinite;
+}
+
+/* reveal */
+.cr-reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+  transition: all 0.9s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.cr-reveal.cr-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cr-delay-1 {
+  transition-delay: 0.08s;
+}
+
+.cr-delay-2 {
+  transition-delay: 0.16s;
+}
+
+.cr-delay-3 {
+  transition-delay: 0.24s;
+}
+
 .cr-head {
   position: relative;
   text-align: center;
   max-width: 900px;
   margin: 0 auto 55px;
   color: white;
+  z-index: 2;
 }
 
 .cr-head h2 {
@@ -41,6 +96,7 @@
   border-radius: 999px;
   margin: 14px auto;
   background: linear-gradient(90deg, #10b981, #6366f1);
+  animation: crLinePulse 3s ease-in-out infinite;
 }
 
 .cr-head p {
@@ -51,12 +107,13 @@
 
 /* slider */
 .cr-slider {
-  --perView: 4; /* desktop */
+  --perView: 4;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
   user-select: none;
   cursor: grab;
+  z-index: 2;
 }
 
 .cr-slider:active {
@@ -65,7 +122,7 @@
 
 .cr-mask {
   overflow: hidden;
-  padding-top: 38px; /* space for avatar */
+  padding-top: 38px;
 }
 
 /* track */
@@ -95,11 +152,26 @@
   box-shadow: 0 35px 80px rgba(0, 0, 0, 0.25);
   overflow: visible;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: crCardFloat 5s ease-in-out infinite;
+}
+
+.cr-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(99, 102, 241, 0.05));
+  opacity: 0;
+  transition: 0.35s ease;
 }
 
 .cr-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 55px 120px rgba(0, 0, 0, 0.35);
+}
+
+.cr-card:hover::before {
+  opacity: 1;
 }
 
 /* avatar */
@@ -115,6 +187,7 @@
   border: 4px solid #ffffff;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
   z-index: 5;
+  animation: crAvatarPulse 3s ease-in-out infinite;
 }
 
 .cr-avatar img {
@@ -124,6 +197,8 @@
 }
 
 .cr-text {
+  position: relative;
+  z-index: 1;
   margin: 26px 0 16px;
   font-size: 18px;
   line-height: 1.65;
@@ -131,6 +206,8 @@
 }
 
 .cr-name {
+  position: relative;
+  z-index: 1;
   margin: 0 0 10px;
   font-size: 20px;
   font-weight: 900;
@@ -138,6 +215,8 @@
 }
 
 .cr-stars {
+  position: relative;
+  z-index: 1;
   color: #f59e0b;
   font-size: 18px;
 }
@@ -157,12 +236,14 @@
   font-size: 26px;
   font-weight: 900;
   box-shadow: 0 20px 55px rgba(0, 0, 0, 0.28);
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
   z-index: 5;
 }
 
 .cr-nav:hover {
   transform: translateY(-50%) scale(1.06);
+  background: #10b981;
+  color: #ffffff;
 }
 
 .cr-nav.left {
@@ -195,6 +276,49 @@
   background: #10b981;
 }
 
+/* keyframes */
+@keyframes crBlobFloat {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-18px) scale(1.05);
+  }
+}
+
+@keyframes crCardFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes crAvatarPulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
+@keyframes crLinePulse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1.08);
+    opacity: 0.85;
+  }
+}
+
 /* responsive */
 @media (max-width: 1100px) {
   .cr-slider {
@@ -206,13 +330,32 @@
   .cr-slider {
     --perView: 1;
   }
+
   .cr-nav.left {
     left: 8px;
   }
+
   .cr-nav.right {
     right: 8px;
   }
+
   .cr-head h2 {
     font-size: 34px;
+  }
+
+  .cr-head p {
+    font-size: 16px;
+  }
+
+  .cr-card {
+    animation: none;
+  }
+
+  .cr-text {
+    font-size: 16px;
+  }
+
+  .cr-name {
+    font-size: 18px;
   }
 }
