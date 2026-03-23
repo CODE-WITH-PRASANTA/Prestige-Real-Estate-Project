@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./OwnerEnquiry.css";
-import ownerImg from "../../assets/owner-1.webp";
+import ownerImg from "../../assets/agent2.webp";
 
 const OwnerEnquiry = () => {
   const [openPopup, setOpenPopup] = useState(false);
@@ -42,48 +42,55 @@ const OwnerEnquiry = () => {
 
         {/* RIGHT SIDE */}
         <div className="ownerEnquiry-right">
-          <h3 className="ownerEnquiry-title">Send enquiry to Owner</h3>
 
-          <div className="ownerEnquiry-radio">
-            <span>You are</span>
-            <label><input type="radio" name="type" /> Individual</label>
-            <label><input type="radio" name="type" /> Dealer</label>
+          <div className="ownerEnquiry-formBox">
+
+            <h3 className="ownerEnquiry-title">Send enquiry to Owner</h3>
+
+            <div className="ownerEnquiry-radio">
+              <span>You are</span>
+              <label><input type="radio" name="type" /> Individual</label>
+              <label><input type="radio" name="type" /> Dealer</label>
+            </div>
+
+            <input type="text" placeholder="Name" className="ownerEnquiry-input" />
+
+            <div className="ownerEnquiry-phone">
+              <select className="ownerEnquiry-select">
+                <option>IND (+91)</option>
+              </select>
+              <input type="text" placeholder="Phone Number" className="ownerEnquiry-input" />
+            </div>
+
+            <textarea
+              placeholder="I am interested in this Property."
+              className="ownerEnquiry-textarea"
+            />
+
+            <div className="ownerEnquiry-checkbox">
+              <input type="checkbox" />
+              <p>
+                I agree to the <span>Terms & Conditions</span> and{" "}
+                <span>Privacy Policy</span>
+              </p>
+            </div>
+
+            <button className="ownerEnquiry-submit">
+              Send Email & SMS
+            </button>
+
           </div>
 
-          <input type="text" placeholder="Name" className="ownerEnquiry-input" />
-
-          <div className="ownerEnquiry-phone">
-            <select className="ownerEnquiry-select">
-              <option>IND (+91)</option>
-            </select>
-            <input type="text" placeholder="Phone Number" className="ownerEnquiry-input" />
-          </div>
-
-          <textarea
-            placeholder="I am interested in this Property."
-            className="ownerEnquiry-textarea"
-            maxLength={400}
-          />
-
-          <div className="ownerEnquiry-checkbox">
-            <input type="checkbox" />
-            <p>
-              I agree to the <span>Terms & Conditions</span> and{" "}
-              <span>Privacy Policy</span>
-            </p>
-          </div>
-
-          <button className="ownerEnquiry-submit">
-            Send Email & SMS
-          </button>
         </div>
       </div>
 
-      {/* ================= POPUP ================= */}
+      {/* ================= OTP POPUP ================= */}
       <div className={`otpModal ${openPopup ? "show" : ""}`}>
+
         <div className="otpModal-overlay" onClick={() => setOpenPopup(false)} />
 
         <div className="otpModal-content">
+
           <p className="otpModal-title">Please verify your phone number.</p>
 
           <p className="otpModal-desc">
@@ -114,6 +121,7 @@ const OwnerEnquiry = () => {
           <button className="otpModal-call">
             Give missed call
           </button>
+
         </div>
       </div>
     </div>

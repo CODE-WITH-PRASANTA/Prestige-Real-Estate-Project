@@ -16,28 +16,26 @@ const data = [
   { id: 6, img: img1, price: "₹ 27,000, 3 BHK", title: "Gymkhana Palace", location: "Khandagiri, Bhubaneswar" },
   { id: 7, img: img2, price: "₹ 21,000, 2 BHK", title: "Green Residency", location: "Patia, Bhubaneswar" },
   { id: 8, img: img3, price: "₹ 19,000, 2 BHK", title: "Lake View Homes", location: "Chandrasekharpur" },
-  { id: 9, img: img4, price: "₹ 30,000, 4 BHK", title: "Luxury Villa", location: "Saheed Nagar" },
-  { id: 10, img: img5, price: "₹ 18,000, 2 BHK", title: "Budget Flat", location: "Baramunda" },
 ];
 
+// duplicate for infinite loop
+const loopData = [...data, ...data];
+
 const SimilarProperties = () => {
-  const [page, setPage] = useState(0);
   const [openPopup, setOpenPopup] = useState(false);
-
-  const cardsPerPage = 5;
-  const totalPages = Math.ceil(data.length / cardsPerPage);
-
-  const start = page * cardsPerPage;
-  const visibleCards = data.slice(start, start + cardsPerPage);
 
   return (
     <div className="similarProperties">
+
       <h2 className="similarProperties-title">Similar Properties</h2>
 
-      <div className="similarProperties-wrapper">
-        <div className="similarProperties-grid">
-          {visibleCards.map((item) => (
-            <div className="similarProperties-card" key={item.id}>
+      {/* SLIDER */}
+      <div className="similarProperties-slider">
+        <div className="similarProperties-track">
+
+          {loopData.map((item, index) => (
+            <div className="similarProperties-card" key={index}>
+
               <div className="similarProperties-imageWrap">
                 <img src={item.img} alt="" />
               </div>
@@ -54,69 +52,74 @@ const SimilarProperties = () => {
                   Enquire Now
                 </span>
               </div>
+
             </div>
           ))}
-        </div>
-      </div>
 
-      {/* PAGINATION */}
-      <div className="similarProperties-pagination">
-        {[...Array(totalPages)].map((_, i) => (
-          <button
-            key={i}
-            className={page === i ? "active" : ""}
-            onClick={() => setPage(i)}
-          >
-            {i + 1}
-          </button>
-        ))}
+        </div>
       </div>
 
       {/* POPUP */}
       <div className={`similarProperties-modal ${openPopup ? "show" : ""}`}>
+
         <div
           className="similarProperties-overlay"
           onClick={() => setOpenPopup(false)}
         />
 
         <div className="similarProperties-modalContent">
-          <div className="similarProperties-header">
+
+          {/* HEADER */}
+          <div className="sp-header">
             <h4>You are requesting to view advertiser details.</h4>
             <span onClick={() => setOpenPopup(false)}>✕</span>
           </div>
 
-          <div className="similarProperties-box">
-            <p className="similarProperties-verifyTitle">
-              Please verify your phone number.
-            </p>
+          {/* TOP INFO */}
+          <div className="sp-top">
+            <div>
+              <p className="label">POSTED BY OWNER:</p>
+              <h4>+91 98****543**</h4>
+              <span>DEBA PRASAD PANDA</span>
+            </div>
 
-            <p className="similarProperties-desc">
+            <div>
+              <p className="label">POSTED ON 11TH MAR, 2026:</p>
+              <h4>₹22,000 | Bhaktamadhu Nagar</h4>
+              <span>2400 SQ.FT. | 3 BHK RESIDENTIAL APARTMENT</span>
+            </div>
+          </div>
+
+          {/* BODY */}
+          <div className="sp-body">
+
+            <h4>Please verify your phone number.</h4>
+
+            <p className="sp-desc">
               Enter the 4-digit code sent to your mobile no.+91-8249914241
               <span> Change Number</span>
             </p>
 
-            <div className="similarProperties-row">
+            <div className="sp-row">
               <input placeholder="Enter OTP received" />
               <button>Verify</button>
               <span className="resend">Resend Code</span>
             </div>
 
-            <div className="similarProperties-divider" />
+            <div className="sp-divider"></div>
 
-            <p className="similarProperties-help">
-              Having trouble receiving SMS?
-            </p>
-
-            <p className="similarProperties-sub">
+            <p className="sp-help">Having trouble receiving SMS?</p>
+            <p className="sp-sub">
               You can verify via a missed call from your number(+91-8249914241)
             </p>
 
-            <button className="similarProperties-call">
-              Give missed call
-            </button>
+            <button className="sp-call">Give missed call</button>
+
           </div>
+
         </div>
       </div>
+
     </div>
   );
 };
