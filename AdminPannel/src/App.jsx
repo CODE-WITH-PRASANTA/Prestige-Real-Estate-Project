@@ -7,11 +7,12 @@ import Pricing from "../Pages/Pricing/Pricing";
 import Testimonial from "../Pages/Testimonial/Testimonial";
 import FaqPosting from "../Pages/FaqPosting/FaqPosting";
 import BlogPosting from "../Pages/BlogPosting/BlogPosting";
-import DashBoard from "../Pages/DashBoard/DashBoard";
+
 import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import AddCustomer from "../Pages/AddCustomer/AddCustomer";
 import NewCustomer from "../Pages/NewCustomer/NewCustomer";
 import PropertyView from "./Component/PropertyView/PropertyView";
+import DashBoard from "./Pages/DashBoard/DashBoard";
 
 
 

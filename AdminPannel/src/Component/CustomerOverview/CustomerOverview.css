@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.CustomerOverview {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f6fa;
+  font-family: "Inter", sans-serif;
+}
+
+/* LEFT */
+.CustomerOverview-left {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.CustomerOverview-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.CustomerOverview-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.CustomerOverview-header span {
+  font-size: 13px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+/* LIST */
+.CustomerOverview-list {
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* CARD */
+.CustomerOverview-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.CustomerOverview-card img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+/* INFO */
+.CustomerOverview-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.CustomerOverview-info p {
+  font-size: 12px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* RING */
+.CustomerOverview-ring {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 4px solid;
+}
+
+.CustomerOverview-ring.blue { border-color: #3b82f6; }
+.CustomerOverview-ring.pink { border-color: #ec4899; }
+.CustomerOverview-ring.yellow { border-color: #f59e0b; }
+.CustomerOverview-ring.green { border-color: #10b981; }
+
+/* RIGHT */
+.CustomerOverview-right {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* HEADER */
+.CustomerOverview-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* TABS */
+.CustomerOverview-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.CustomerOverview-tabs button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #f3f4f6;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.CustomerOverview-tabs button.active {
+  background: #111827;
+  color: #fff;
+}
+
+/* MENU */
+.CustomerOverview-menuIcon {
+  position: relative;
+  cursor: pointer;
+}
+
+.CustomerOverview-menu {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.CustomerOverview-menu p {
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.CustomerOverview-menu p:hover {
+  background: #f3f4f6;
+}
+
+/* MONTHS */
+.CustomerOverview-months {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 20px;
+}
+
+/* BARS */
+.CustomerOverview-bars {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 200px;
+  margin-top: 10px;
+}
+
+.CustomerOverview-bar {
+  width: 20px;
+  height: 100%;
+  position: relative;
+}
+
+.CustomerOverview-bar .bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #e5e7eb;
+  border-radius: 10px;
+}
+
+.CustomerOverview-bar .fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #10b981;
+  border-radius: 10px;
+}
+
+/* FOOTER */
+.CustomerOverview-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.CustomerOverview-footer p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.CustomerOverview-footer h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.CustomerOverview-progress {
+  text-align: right;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .CustomerOverview {
+    grid-template-columns: 1fr;
+  }
+
+  .CustomerOverview-left {
+    height: auto;
+  }
+}
