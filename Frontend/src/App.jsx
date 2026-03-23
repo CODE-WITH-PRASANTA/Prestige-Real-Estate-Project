@@ -50,7 +50,7 @@ function App() {
         <Route path="/rent/property" element={<RentDetails />} />
         <Route path="/rent/details"  element={<Rentdetails />}/>
         
-        <Route path="/buygrid" element={<BuyGrid/>}/>
+        <Route path="/buyproperties" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>
       </Routes>
 

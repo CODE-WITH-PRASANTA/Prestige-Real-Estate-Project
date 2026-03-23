@@ -11,6 +11,7 @@ import c7 from "../../assets/c7.jpg";
 import c8 from "../../assets/c8.jpg";
 
 export default function Cities() {
+  const sectionRef = useRef(null);
 
   const cities = [
     { id: 1, name: "New York", count: "300 Properties", img: c1 },
@@ -21,19 +22,17 @@ export default function Cities() {
     { id: 6, name: "Dubai", count: "610 Properties", img: c6 },
     { id: 7, name: "Sydney", count: "280 Properties", img: c7 },
     { id: 8, name: "Tokyo", count: "830 Properties", img: c8 },
-     { id: 1, name: "New York", count: "300 Properties", img: c1 },
-    { id: 2, name: "Singapore", count: "400 Properties", img: c2 },
-    { id: 3, name: "Argentina", count: "740 Properties", img: c3 },
-    { id: 4, name: "United Kingdom", count: "1450 Properties", img: c4 }
-    
+    { id: 9, name: "New York", count: "300 Properties", img: c1 },
+    { id: 10, name: "Singapore", count: "400 Properties", img: c2 },
+    { id: 11, name: "Argentina", count: "740 Properties", img: c3 },
+    { id: 12, name: "United Kingdom", count: "1450 Properties", img: c4 }
   ];
 
-  /* ✅ RESPONSIVE */
   const getPerPage = () => {
     const w = window.innerWidth;
-    if (w <= 768) return 2;     // mobile (1x2)
-    if (w <= 1024) return 4;    // tablet (2x2)
-    return 6;                   // desktop (3x2)
+    if (w <= 768) return 2;
+    if (w <= 1024) return 4;
+    return 6;
   };
 
   const [perPage, setPerPage] = useState(getPerPage());
@@ -48,19 +47,38 @@ export default function Cities() {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  /* PAGINATION */
+  useEffect(() => {
+    const elements = sectionRef.current.querySelectorAll(".cities-reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("cities-active");
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   const pages = useMemo(() => {
     const arr = [];
     for (let i = 0; i < cities.length; i += perPage) {
       arr.push(cities.slice(i, i + perPage));
     }
     return arr;
-  }, [perPage]);
+  }, [cities, perPage]);
 
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
 
-  /* SWIPE */
   const drag = useRef({ down: false, x: 0 });
 
   const down = (e) => {
@@ -79,61 +97,64 @@ export default function Cities() {
   };
 
   return (
-    <section className="cities">
+    <section className="cities" ref={sectionRef}>
+      <div className="cities-bg cities-bg-one"></div>
+      <div className="cities-bg cities-bg-two"></div>
 
-      <h2>Cities With Listing</h2>
-      <p className="sub">Destinations we love the most</p>
+      <h2 className="cities-reveal">Cities With Listing</h2>
+      <p className="sub cities-reveal cities-delay-1">
+        Destinations we love the most
+      </p>
 
       <div
-        className="cities-slider"
+        className="cities-slider cities-reveal cities-delay-2"
         onMouseDown={down}
         onMouseUp={up}
         onTouchStart={down}
         onTouchEnd={up}
       >
-
-        <button className="nav left" onClick={prev}>‹</button>
+        <button className="nav left" onClick={prev} type="button">
+          ‹
+        </button>
 
         <div
           className="track"
           style={{ transform: `translateX(-${page * 100}%)` }}
         >
-
           {pages.map((group, i) => (
             <div className="page" key={i}>
-
-              {group.map((city) => (
-                <div className="city-card" key={city.id}>
-
+              {group.map((city, index) => (
+                <div
+                  className="city-card"
+                  key={city.id}
+                  style={{ animationDelay: `${index * 0.12}s` }}
+                >
                   <img
                     className="city-img"
                     src={city.img}
                     alt={city.name}
                   />
 
-                  <div className="city-overlay">
-                    <div className="city-text">
-                      <h3>{city.name}</h3>
-                      <p>{city.count}</p>
-                    </div>
-                  </div>
+                  <div className="city-overlay"></div>
 
+                  <div className="city-text">
+                    <span className="city-tag">Top City</span>
+                    <h3>{city.name}</h3>
+                    <p>{city.count}</p>
+                  </div>
                 </div>
               ))}
-
             </div>
           ))}
-
         </div>
 
-        <button className="nav right" onClick={next}>›</button>
-
+        <button className="nav right" onClick={next} type="button">
+          ›
+        </button>
       </div>
 
-      {/* ✅ PAGINATION */}
-      <div className="cities-pagination">
-
-        <button onClick={prev} disabled={page === 0}>
+      <div className="cities-pagination cities-reveal cities-delay-3">
+        <button onClick={prev} disabled={page === 0} type="button">
           &lt;
         </button>
 
@@ -142,17 +163,16 @@ export default function Cities() {
             key={i}
             className={page === i ? "active" : ""}
             onClick={() => setPage(i)}
+            type="button"
           >
             {i + 1}
           </button>
         ))}
 
-        <button onClick={next} disabled={page === pages.length - 1}>
+        <button onClick={next} disabled={page === pages.length - 1} type="button">
           &gt;
         </button>
-
       </div>
-
     </section>
   );
 }

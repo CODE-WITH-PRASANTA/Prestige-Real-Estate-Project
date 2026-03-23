@@ -1,12 +1,66 @@
 .partners {
+  position: relative;
   padding: 90px 20px;
   background: #ffffff;
+  overflow: hidden;
+}
+
+.partners-bg {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.partners-bg-one {
+  width: 240px;
+  height: 240px;
+  background: #10b981;
+  top: 20px;
+  left: -70px;
+  animation: partnersBlobFloat 8s ease-in-out infinite;
+}
+
+.partners-bg-two {
+  width: 300px;
+  height: 300px;
+  background: #6366f1;
+  bottom: -120px;
+  right: -80px;
+  animation: partnersBlobFloat 10s ease-in-out infinite;
 }
 
 .partners-inner {
   max-width: 1200px;
   margin: auto;
   text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* reveal */
+.partners-reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+  transition: all 0.9s ease;
+}
+
+.partners-reveal.partners-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.partners-delay-1 {
+  transition-delay: 0.08s;
+}
+
+.partners-delay-2 {
+  transition-delay: 0.16s;
+}
+
+.partners-delay-3 {
+  transition-delay: 0.24s;
 }
 
 .partners-inner h2 {
@@ -22,6 +76,7 @@
   border-radius: 999px;
   margin: 14px auto 18px;
   background: linear-gradient(90deg, #10b981, #6366f1);
+  animation: partnersLinePulse 3s ease-in-out infinite;
 }
 
 .partners-inner p {
@@ -32,7 +87,7 @@
   line-height: 1.7;
 }
 
-/* ===== SLIDER WRAPPER ===== */
+/* slider */
 .partners-slider {
   max-width: 1200px;
   margin: 0 auto;
@@ -40,7 +95,6 @@
   position: relative;
 }
 
-/* optional fade edges like pro websites */
 .partners-slider::before,
 .partners-slider::after {
   content: "";
@@ -54,15 +108,14 @@
 
 .partners-slider::before {
   left: 0;
-  background: linear-gradient(to right, #ffffff, rgba(255,255,255,0));
+  background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
 }
 
 .partners-slider::after {
   right: 0;
-  background: linear-gradient(to left, #ffffff, rgba(255,255,255,0));
+  background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0));
 }
 
-/* track moves continuously */
 .partners-track {
   display: flex;
   gap: 22px;
@@ -71,7 +124,6 @@
   padding: 10px 0;
 }
 
-/* pause when hover */
 .partners-slider:hover .partners-track {
   animation-play-state: paused;
 }
@@ -82,30 +134,29 @@
   border: 1px solid #eef2f7;
   border-radius: 16px;
   height: 95px;
-  min-width: 260px;          /* important for slider */
+  min-width: 260px;
   padding: 0 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
   transition: 0.3s ease;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  animation: partnerCardFloat 5s ease-in-out infinite;
 }
 
 .partner-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 22px 45px rgba(0,0,0,0.12);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.12);
   background: #ffffff;
 }
 
-/* logo */
 .partner-card img {
   width: 42px;
   height: 42px;
   object-fit: contain;
 }
 
-/* name */
 .partner-card span {
   font-weight: 800;
   font-size: 18px;
@@ -117,7 +168,7 @@
   color: #10b981;
 }
 
-/* animation */
+/* animations */
 @keyframes partnersScroll {
   from {
     transform: translateX(0);
@@ -127,14 +178,79 @@
   }
 }
 
+@keyframes partnersBlobFloat {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-18px) scale(1.05);
+  }
+}
+
+@keyframes partnerCardFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes partnersLinePulse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1.08);
+    opacity: 0.85;
+  }
+}
+
 /* responsive */
+@media (max-width: 768px) {
+  .partners {
+    padding: 75px 18px;
+  }
+
+  .partners-inner h2 {
+    font-size: 34px;
+  }
+
+  .partners-inner p {
+    margin-bottom: 35px;
+    font-size: 15px;
+  }
+
+  .partner-card {
+    animation: none;
+  }
+}
+
 @media (max-width: 480px) {
   .partners-inner h2 {
     font-size: 30px;
   }
+
   .partner-card {
     min-width: 220px;
+    height: 86px;
+    padding: 0 18px;
+    gap: 12px;
   }
+
+  .partner-card img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .partner-card span {
+    font-size: 16px;
+  }
+
   .partners-slider::before,
   .partners-slider::after {
     width: 60px;

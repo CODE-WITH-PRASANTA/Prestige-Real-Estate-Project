@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./FAQ.css";
 import faqImg from "../../assets/faq.jpg";
 
 const FAQ = () => {
+  const sectionRef = useRef(null);
   const [openId, setOpenId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -123,50 +124,78 @@ const FAQ = () => {
     }
   }, [currentPage]);
 
+  useEffect(() => {
+    const elements = sectionRef.current.querySelectorAll(".faq-reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("faq-active");
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   const toggle = (id) => {
-    setOpenId(prev => (prev === id ? null : id));
+    setOpenId((prev) => (prev === id ? null : id));
   };
 
   return (
-    <section className="faq">
+    <section className="faq" ref={sectionRef}>
+      <div className="faq-bg faq-bg-one"></div>
+      <div className="faq-bg faq-bg-two"></div>
+
       <div className="faq-wrap">
-
         <div className="faq-head">
-          <h2>Prestige Real Estate Properties – Frequently Asked Questions</h2>
+          <h2 className="faq-reveal">
+            Prestige Real Estate Properties – Frequently Asked Questions
+          </h2>
 
-          <div className="faq-underline">
+          <div className="faq-underline faq-reveal faq-delay-1">
             <span></span>
             <span></span>
           </div>
 
-          <p>
+          <p className="faq-reveal faq-delay-2">
             Get clear answers to common property questions and make confident real estate decisions.
           </p>
         </div>
 
         <div className="faq-grid">
-
-          <div className="faq-imgBox">
+          <div className="faq-imgBox faq-reveal faq-delay-3">
             <img src={faqImg} alt="Real estate FAQ - Prestige Real Estate Project" />
           </div>
 
-          <div className="faq-right">
-
+          <div className="faq-right faq-reveal faq-delay-4">
             <div className="faq-list">
-              {currentFaqs.map((item) => (
-                <div key={item.id} className={`faq-card ${openId === item.id ? "open" : ""}`}>
-                  
-                  <button className="faq-q" onClick={() => toggle(item.id)}>
+              {currentFaqs.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={`faq-card ${openId === item.id ? "open" : ""}`}
+                  style={{ animationDelay: `${index * 0.08}s` }}
+                >
+                  <button className="faq-q" onClick={() => toggle(item.id)} type="button">
                     <span>{item.q}</span>
                     <span className="faq-icon">
                       {openId === item.id ? "−" : "+"}
                     </span>
                   </button>
 
-                  <div className="faq-aWrap" style={{ maxHeight: openId === item.id ? "300px" : "0px" }}>
+                  <div
+                    className="faq-aWrap"
+                    style={{ maxHeight: openId === item.id ? "300px" : "0px" }}
+                  >
                     <div className="faq-a">{item.a}</div>
                   </div>
-
                 </div>
               ))}
             </div>
@@ -177,14 +206,13 @@ const FAQ = () => {
                   key={i}
                   className={currentPage === i + 1 ? "active" : ""}
                   onClick={() => setCurrentPage(i + 1)}
+                  type="button"
                 >
                   {i + 1}
                 </button>
               ))}
             </div>
-
           </div>
-
         </div>
       </div>
     </section>
