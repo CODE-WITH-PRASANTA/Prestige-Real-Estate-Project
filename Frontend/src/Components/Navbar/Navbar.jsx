@@ -25,11 +25,11 @@ export default function Navbar() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
          
-          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/rentproperty">Rent Property</Link></li>
+          <li><Link to="/properties">Properties</Link></li>
           <li><Link to="/faq">FAQ</Link></li>
-          <li><Link to="/pricing">Pricing</Link></li>
-          <li><Link to="/testimonial">Testimonial</Link></li>
           <li><Link to="/blog">Blog</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
         </ul>
 
         {/* RIGHT */}
