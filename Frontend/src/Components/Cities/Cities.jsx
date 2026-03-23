@@ -47,25 +47,33 @@ export default function Cities() {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
+  /* =============================
+     SMOOTH REVEAL (IMPROVED)
+  ============================= */
   useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".cities-reveal");
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const elements = section.querySelectorAll(".cities-reveal");
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("cities-active");
+            obs.unobserve(entry.target); // 🔥 animate once only (premium feel)
           }
         });
       },
-      { threshold: 0.18 }
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px",
+      }
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
+    return () => observer.disconnect();
   }, []);
 
   const pages = useMemo(() => {
@@ -79,6 +87,9 @@ export default function Cities() {
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
 
+  /* =============================
+     DRAG SUPPORT
+  ============================= */
   const drag = useRef({ down: false, x: 0 });
 
   const down = (e) => {
@@ -101,13 +112,16 @@ export default function Cities() {
       <div className="cities-bg cities-bg-one"></div>
       <div className="cities-bg cities-bg-two"></div>
 
-      <h2 className="cities-reveal">Cities With Listing</h2>
-      <p className="sub cities-reveal cities-delay-1">
+      <h2 className="cities-reveal cities-delay-1">
+        Cities With Listing
+      </h2>
+
+      <p className="sub cities-reveal cities-delay-2">
         Destinations we love the most
       </p>
 
       <div
-        className="cities-slider cities-reveal cities-delay-2"
+        className="cities-slider cities-reveal cities-delay-3"
         onMouseDown={down}
         onMouseUp={up}
         onTouchStart={down}
@@ -127,7 +141,9 @@ export default function Cities() {
                 <div
                   className="city-card"
                   key={city.id}
-                  style={{ animationDelay: `${index * 0.12}s` }}
+                  style={{
+                    animationDelay: `${0.2 + index * 0.12}s`
+                  }}
                 >
                   <img
                     className="city-img"
@@ -153,7 +169,7 @@ export default function Cities() {
         </button>
       </div>
 
-      <div className="cities-pagination cities-reveal cities-delay-3">
+      <div className="cities-pagination cities-reveal cities-delay-4">
         <button onClick={prev} disabled={page === 0} type="button">
           &lt;
         </button>

@@ -12,24 +12,29 @@ export default function Stats() {
   ];
 
   useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".stats-reveal");
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const elements = section.querySelectorAll(".stats-reveal");
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("stats-active");
+            obs.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 }
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px"
+      }
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -44,6 +49,7 @@ export default function Stats() {
             key={item.id}
           >
             <div className="stats-icon">{item.icon}</div>
+
             <div className="stats-content">
               <h2>{item.num}</h2>
               <p>{item.text}</p>

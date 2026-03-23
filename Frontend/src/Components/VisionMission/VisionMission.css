@@ -4,6 +4,10 @@
   padding: 90px 20px;
   background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
   overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.985);
+  animation: vmSectionOpen 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* background glow */
@@ -11,7 +15,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0.16;
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -21,7 +25,9 @@
   background: #3b82f6;
   top: 60px;
   left: -80px;
-  animation: vmGlowFloat 8s ease-in-out infinite;
+  animation:
+    vmGlowOpen 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    vmGlowFloat 8s ease-in-out 1.4s infinite;
 }
 
 .propertyVisionMission__bgGlow--two {
@@ -30,7 +36,9 @@
   background: #f97316;
   bottom: -120px;
   right: -80px;
-  animation: vmGlowFloat 10s ease-in-out infinite;
+  animation:
+    vmGlowOpen 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    vmGlowFloat 10s ease-in-out 1.6s infinite;
 }
 
 .propertyVisionMission__container {
@@ -48,29 +56,34 @@
 .vm-reveal {
   opacity: 0;
   transform: translateY(60px) scale(0.96);
-  transition: all 0.9s ease;
-  will-change: transform, opacity;
+  filter: blur(10px);
+  transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1s ease;
+  will-change: transform, opacity, filter;
 }
 
 .vm-reveal.vm-active {
   opacity: 1;
   transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 .vm-delay-1 {
-  transition-delay: 0.08s;
+  transition-delay: 0.1s;
 }
 
 .vm-delay-2 {
-  transition-delay: 0.16s;
+  transition-delay: 0.22s;
 }
 
 .vm-delay-3 {
-  transition-delay: 0.24s;
+  transition-delay: 0.34s;
 }
 
 .vm-delay-4 {
-  transition-delay: 0.32s;
+  transition-delay: 0.46s;
 }
 
 /* LEFT SIDE */
@@ -80,6 +93,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  opacity: 0;
+  transform: translateX(-45px);
+  animation: vmImageSideOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
 }
 
 .propertyVisionMission__imageShape {
@@ -92,7 +109,9 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  animation: propertyBlob 7s ease-in-out infinite;
+  animation:
+    vmBlobOpen 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    propertyBlob 7s ease-in-out 1.2s infinite;
 }
 
 .propertyVisionMission__imageWrap {
@@ -105,7 +124,12 @@
   box-shadow: 0 30px 70px rgba(15, 23, 42, 0.16);
   border: 8px solid rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
-  animation: vmImageFloat 5s ease-in-out infinite;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  animation:
+    vmMainImageOpen 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards,
+    vmImageFloat 5s ease-in-out 1.5s infinite;
 }
 
 .propertyVisionMission__mainImage {
@@ -126,18 +150,23 @@
   font-weight: 700;
   color: #1e3a8a;
   backdrop-filter: blur(8px);
-  animation: vmBadgeFloat 4s ease-in-out infinite;
+
+  opacity: 0;
+  animation:
+    vmBadgeOpen 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    vmBadgeFloat 4s ease-in-out 1.2s infinite;
 }
 
 .propertyVisionMission__floatingBadge--top {
   top: 40px;
   left: 40px;
+  animation-delay: 0.45s, 1.5s;
 }
 
 .propertyVisionMission__floatingBadge--bottom {
   bottom: 65px;
   right: 40px;
-  animation-delay: 0.8s;
+  animation-delay: 0.65s, 1.7s;
 }
 
 .propertyVisionMission__curveLine {
@@ -145,6 +174,7 @@
   border: 3px dashed rgba(14, 116, 144, 0.16);
   border-radius: 50%;
   z-index: 0;
+  opacity: 0;
 }
 
 .propertyVisionMission__curveLine--one {
@@ -152,7 +182,9 @@
   height: 520px;
   top: 40px;
   left: 40px;
-  animation: vmRotateSlow 18s linear infinite;
+  animation:
+    vmCurveOpen 1.2s ease forwards,
+    vmRotateSlow 18s linear 1.2s infinite;
 }
 
 .propertyVisionMission__curveLine--two {
@@ -160,13 +192,19 @@
   height: 280px;
   bottom: 10px;
   right: 20px;
-  animation: vmRotateSlow 14s linear infinite reverse;
+  animation:
+    vmCurveOpen 1.35s ease forwards,
+    vmRotateSlow 14s linear 1.35s infinite reverse;
 }
 
 /* RIGHT SIDE */
 .propertyVisionMission__contentSide {
   position: relative;
   z-index: 2;
+
+  opacity: 0;
+  transform: translateX(45px);
+  animation: vmContentSideOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
 }
 
 .propertyVisionMission__label {
@@ -223,6 +261,18 @@
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   min-height: 180px;
+
+  opacity: 0;
+  transform: translateY(45px) scale(0.96);
+  animation: vmCardOpen 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.propertyVisionMission__infoCard:nth-child(1) {
+  animation-delay: 0.35s;
+}
+
+.propertyVisionMission__infoCard:nth-child(2) {
+  animation-delay: 0.5s;
 }
 
 .propertyVisionMission__infoCard::before {
@@ -296,6 +346,10 @@
   justify-content: space-between;
   gap: 18px;
   flex-wrap: wrap;
+
+  opacity: 0;
+  transform: translateY(25px);
+  animation: vmBottomOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.72s forwards;
 }
 
 .propertyVisionMission__founderBox {
@@ -375,6 +429,131 @@
 }
 
 /* ANIMATION */
+@keyframes vmSectionOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.003);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes vmGlowOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(30px);
+  }
+  100% {
+    opacity: 0.16;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes vmImageSideOpen {
+  0% {
+    opacity: 0;
+    transform: translateX(-45px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes vmContentSideOpen {
+  0% {
+    opacity: 0;
+    transform: translateX(45px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes vmBlobOpen {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.78);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes vmMainImageOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes vmBadgeOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes vmCurveOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes vmCardOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(45px) scale(0.96);
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.01);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes vmBottomOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes propertyBlob {
   0% {
     border-radius: 57% 43% 58% 42% / 38% 54% 46% 62%;
@@ -391,7 +570,8 @@
 }
 
 @keyframes vmGlowFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) scale(1);
   }
   50% {
@@ -400,7 +580,8 @@
 }
 
 @keyframes vmImageFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -409,7 +590,8 @@
 }
 
 @keyframes vmBadgeFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -427,7 +609,8 @@
 }
 
 @keyframes vmIconPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -475,10 +658,14 @@
   .propertyVisionMission__imageSide {
     min-height: 520px;
     order: 1;
+    transform: translateY(35px);
+    animation: vmImageSideMobileOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
   }
 
   .propertyVisionMission__contentSide {
     order: 2;
+    transform: translateY(35px);
+    animation: vmContentSideMobileOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
   }
 
   .propertyVisionMission__title {
@@ -688,5 +875,27 @@
 
   .propertyVisionMission__cardContent p {
     font-size: 13.5px;
+  }
+}
+
+@keyframes vmImageSideMobileOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vmContentSideMobileOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

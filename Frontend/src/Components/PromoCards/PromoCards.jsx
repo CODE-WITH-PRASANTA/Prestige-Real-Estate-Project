@@ -32,29 +32,35 @@ export default function PromoCards() {
       setPerPage(getPerPage());
       setPage(0);
     };
+
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
 
   useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".pc-reveal");
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const elements = section.querySelectorAll(".pc-reveal");
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("pc-active");
+            obs.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.18 }
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px",
+      }
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
+    return () => observer.disconnect();
   }, []);
 
   const pages = useMemo(() => {
@@ -63,7 +69,7 @@ export default function PromoCards() {
       arr.push(items.slice(i, i + perPage));
     }
     return arr;
-  }, [items, perPage]);
+  }, [perPage]);
 
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
@@ -73,7 +79,7 @@ export default function PromoCards() {
       <div className="pc-bg pc-bg-one"></div>
       <div className="pc-bg pc-bg-two"></div>
 
-      <div className="pc-slider pc-reveal">
+      <div className="pc-slider pc-reveal pc-delay-1">
         <button className="pc-nav left" onClick={prev} type="button">
           ‹
         </button>
@@ -88,7 +94,9 @@ export default function PromoCards() {
                 <div
                   className="pc-card"
                   key={x.id}
-                  style={{ animationDelay: `${index * 0.14}s` }}
+                  style={{
+                    animationDelay: `${0.18 + index * 0.14}s, ${1.2 + index * 0.15}s`,
+                  }}
                 >
                   <img className="pc-img" src={x.img} alt={x.title} />
 
@@ -111,7 +119,7 @@ export default function PromoCards() {
         </button>
       </div>
 
-      <div className="pc-pagination pc-reveal pc-delay-1">
+      <div className="pc-pagination pc-reveal pc-delay-2">
         <button onClick={prev} disabled={page === 0} type="button">
           &lt;
         </button>
@@ -127,7 +135,11 @@ export default function PromoCards() {
           </button>
         ))}
 
-        <button onClick={next} disabled={page === pages.length - 1} type="button">
+        <button
+          onClick={next}
+          disabled={page === pages.length - 1}
+          type="button"
+        >
           &gt;
         </button>
       </div>
