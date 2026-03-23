@@ -7,7 +7,7 @@ import {
   FaMapMarkerAlt,
   FaCouch,
   FaUsers,
-  FaCalendarAlt
+  FaCalendarAlt,
 } from "react-icons/fa";
 import { MdOutlineSquareFoot } from "react-icons/md";
 
@@ -21,103 +21,140 @@ const images = [img1, img2, img3, img4, img5];
 
 const PropertyDetailsGallery = () => {
   const [index, setIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState("photos");
 
   const next = () => setIndex((i) => (i + 1) % images.length);
   const prev = () =>
     setIndex((i) => (i === 0 ? images.length - 1 : i - 1));
 
   return (
-    <div className="pdx-wrapper">
-      {/* LEFT IMAGE */}
-      <div className="pdx-left">
-        <div className="pdx-tabs">
-          <span>Videos (1)</span>
-          <span className="active">Property (9)</span>
+    <div className="pgd-wrapper">
+      {/* LEFT */}
+      <div className="pgd-left">
+        <div className="pgd-tabs">
+          <span
+            className={activeTab === "videos" ? "active" : ""}
+            onClick={() => setActiveTab("videos")}
+          >
+            Videos (1)
+          </span>
+
+          <span
+            className={activeTab === "photos" ? "active" : ""}
+            onClick={() => setActiveTab("photos")}
+          >
+            Property ({images.length})
+          </span>
         </div>
 
-        <div className="pdx-image-box">
-          <img src={images[index]} alt="" />
-
-          <button className="pdx-arrow left" onClick={prev}>
-            <FaChevronLeft />
-          </button>
-
-          <button className="pdx-arrow right" onClick={next}>
-            <FaChevronRight />
-          </button>
-
-          <div className="pdx-overlay">
-            🔥 4 people already contacted this week
+        {/* VIDEO */}
+        {activeTab === "videos" ? (
+          <div className="pgd-videoBox">
+            <iframe
+              src="https://www.youtube.com/embed/tgbNymZ7vqY"
+              title="Property Video"
+              frameBorder="0"
+              allowFullScreen
+            />
           </div>
-        </div>
+        ) : (
+          <div className="pgd-imageBox">
+            <img src={images[index]} alt="" />
+
+            <button className="pgd-arrow left" onClick={prev}>
+              <FaChevronLeft />
+            </button>
+
+            <button className="pgd-arrow right" onClick={next}>
+              <FaChevronRight />
+            </button>
+
+            <div className="pgd-overlay">
+              🔥 4 people already contacted this week
+            </div>
+
+            {/* DOT PAGINATION */}
+            <div className="pgd-dots">
+              {images.map((_, i) => (
+                <span
+                  key={i}
+                  className={i === index ? "active" : ""}
+                  onClick={() => setIndex(i)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* RIGHT CONTENT */}
-      <div className="pdx-right">
-        <div className="pdx-card">
-          <div className="pdx-grid">
-            <div className="pdx-item">
+      {/* RIGHT */}
+      <div className="pgd-right">
+        <div className="pgd-card">
+          <div className="pgd-grid">
+            <div className="pgd-item">
               <FaBed />
               <div>
                 <p>Configuration</p>
-                <h4>3 Bedrooms , 2 Bathrooms, No Balcony</h4>
+                <h4>3 Bedrooms, 2 Bathrooms, 3 Balconies</h4>
               </div>
             </div>
 
-            <div className="pdx-item">
+            <div className="pgd-item">
               <MdOutlineSquareFoot />
               <div>
                 <p>Rent</p>
-                <h4>₹ 23,000 <span>View Rent Details</span></h4>
+                <h4>
+                  ₹ 30,000 <span>View Details</span>
+                </h4>
               </div>
             </div>
 
-            <div className="pdx-item">
+            <div className="pgd-item">
               <MdOutlineSquareFoot />
               <div>
                 <p>Area</p>
-                <h4>Plot area 1500 sq.ft.</h4>
-                <span className="pdx-sub">Carpet area: 1350 sq.ft.</span>
+                <h4>Carpet: 1260 sq.ft.</h4>
+                <span className="pgd-sub">(117.06 sq.m.)</span>
               </div>
             </div>
 
-            <div className="pdx-item">
+            <div className="pgd-item">
               <FaMapMarkerAlt />
               <div>
                 <p>Address</p>
-                <h4>Achyuta Bhawan, Lane 4<br />Satabdi Nagar</h4>
+                <h4>Ratna Arcade, Pokhariput</h4>
               </div>
             </div>
 
-            <div className="pdx-item">
+            <div className="pgd-item">
               <FaCouch />
               <div>
                 <p>Furnishing</p>
-                <h4>Unfurnished</h4>
+                <h4>Furnished</h4>
               </div>
             </div>
 
-            <div className="pdx-item">
+            <div className="pgd-item">
               <FaUsers />
               <div>
                 <p>Available For</p>
-                <h4>All</h4>
+                <h4>Family Only</h4>
               </div>
             </div>
 
-            <div className="pdx-item">
+            <div className="pgd-item">
               <FaCalendarAlt />
               <div>
                 <p>Available From</p>
-                <h4>Immediate</h4>
+                <h4>01 May 2026</h4>
               </div>
             </div>
 
-            <div className="pdx-item">
+            <div className="pgd-item">
               <FaCalendarAlt />
               <div>
-                <p>Posted By</p>
-                <h4>Owner on Feb 24, 2026</h4>
+                <p>Posted</p>
+                <h4>Owner on Feb 27, 2026</h4>
               </div>
             </div>
           </div>

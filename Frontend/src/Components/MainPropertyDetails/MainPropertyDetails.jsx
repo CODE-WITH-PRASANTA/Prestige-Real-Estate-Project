@@ -7,7 +7,9 @@ const MainPropertyDetails = () => {
       {/* TOP BAR */}
       <div className="ph-top">
         <div className="ph-breadcrumb">
-          Home › Property for rent in Bhubaneswar › House for rent in Bhubaneswar › House for rent in Baramunda › House for rent in Satabdi Nagar › <span>3 BHK House</span>
+          Home › Property for rent in Bhubaneswar › House for rent in
+          Bhubaneswar › House for rent in Baramunda › House for rent in
+          Satabdi Nagar › <span>3 BHK House</span>
         </div>
 
         <div className="ph-update">
@@ -29,7 +31,7 @@ const MainPropertyDetails = () => {
             <span className="ph-price-type">Per Month</span>
           </div>
 
-          <h2 className="ph-title">3Bedrooms 2Baths</h2>
+          <h2 className="ph-title">3 Bedrooms 2 Baths</h2>
 
           <p className="ph-subtitle">
             Independent House/Villa for Rent

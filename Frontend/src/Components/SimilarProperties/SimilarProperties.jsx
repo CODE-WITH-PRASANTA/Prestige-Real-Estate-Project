@@ -24,31 +24,17 @@ const SimilarProperties = () => {
   const [page, setPage] = useState(0);
   const [openPopup, setOpenPopup] = useState(false);
 
-  const getCardsPerView = () => {
-    if (window.innerWidth <= 768) return 1;
-    if (window.innerWidth <= 1024) return 3;
-    return 5;
-  };
+  const cardsPerPage = 5;
+  const totalPages = Math.ceil(data.length / cardsPerPage);
 
-  const cardsPerView = getCardsPerView();
-  const start = page * cardsPerView;
-  const visibleCards = data.slice(start, start + cardsPerView);
-
-  const next = () => {
-    if ((page + 1) * cardsPerView < data.length) setPage(page + 1);
-  };
-
-  const prev = () => {
-    if (page > 0) setPage(page - 1);
-  };
+  const start = page * cardsPerPage;
+  const visibleCards = data.slice(start, start + cardsPerPage);
 
   return (
     <div className="similarProperties">
       <h2 className="similarProperties-title">Similar Properties</h2>
 
       <div className="similarProperties-wrapper">
-        <button className="similarProperties-arrow left" onClick={prev}>❮</button>
-
         <div className="similarProperties-grid">
           {visibleCards.map((item) => (
             <div className="similarProperties-card" key={item.id}>
@@ -71,11 +57,22 @@ const SimilarProperties = () => {
             </div>
           ))}
         </div>
-
-        <button className="similarProperties-arrow right" onClick={next}>❯</button>
       </div>
 
-      {/* ================= POPUP ================= */}
+      {/* PAGINATION */}
+      <div className="similarProperties-pagination">
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            className={page === i ? "active" : ""}
+            onClick={() => setPage(i)}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
+
+      {/* POPUP */}
       <div className={`similarProperties-modal ${openPopup ? "show" : ""}`}>
         <div
           className="similarProperties-overlay"

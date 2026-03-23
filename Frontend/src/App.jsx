@@ -23,6 +23,7 @@ import BuyGrid from "./Pages/BuyGrid/BuyGrid";
 import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
 import RentDetails from "./Components/RentDetails/RentDetails";
+import Rentdetails from "./Pages/Rentdetails/Rentdetails";
 
 function App() {
   return (
@@ -46,7 +47,8 @@ function App() {
         <Route path="/property" element={<Property />} />
         {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
 
-        <Route path="/RentDetails" element={<RentDetails />} />
+        <Route path="/rent/property" element={<RentDetails />} />
+        <Route path="/rent/details"  element={<Rentdetails />}/>
         
         <Route path="/buygrid" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>
