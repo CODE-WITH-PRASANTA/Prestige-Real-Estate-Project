@@ -1,9 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AdminLayout from "../Layout/AdminLayout";
 
 import PropetiesSale from "../Pages/PropetiesSale/PropetiesSale";
 import PropertiesRent from "../Pages/PropertiesRent/PropertiesRent";
-import Pricing from "../Pages/Pricing/Pricing";
 import Testimonial from "../Pages/Testimonial/Testimonial";
 import FaqPosting from "../Pages/FaqPosting/FaqPosting";
 import BlogPosting from "../Pages/BlogPosting/BlogPosting";
@@ -12,6 +11,13 @@ import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import AddCustomer from "../Pages/AddCustomer/AddCustomer";
 import NewCustomer from "../Pages/NewCustomer/NewCustomer";
 import PropertyView from "./Component/PropertyView/PropertyView";
+import LoginPage from "./Pages/LoginPage";
+import Settingspage from "./Pages/Settingspage/Settingspage";
+
+
+// AUTH //
+import { AuthProvider } from "./Auth/AuthContext";
+import ProtectedRoute from "./Auth/ProtectedRoute";
 
 
 
@@ -20,23 +26,50 @@ import PropertyView from "./Component/PropertyView/PropertyView";
 export default function App() {
   return (
     <BrowserRouter>
+    <AuthProvider>
       <Routes>
+
+       <Route path="/login" element={<LoginPage/>}/>
+
+        {/* ===== PROTECTED APP ===== */}
+        
+        <Route path="/"
+          element={
+            <ProtectedRoute>
+               <AdminLayout/>
+            </ProtectedRoute>
+
+          }
+        >
+
+
         {/* Admin Layout Wrapper */}
-        <Route element={<AdminLayout/>}>
-       <Route path="/"element={<DashBoard/>}/>
+
+        {/* <Route element={<AdminLayout/>}> */}
+
+        {/* Default redirect */}
+          <Route index element={<Navigate to="/dashboard" replace />} />
+
+       <Route path="/dashboard"element={<DashBoard/>}/>
         <Route path="/admin/saleproperty" element={<PropetiesSale/>}/>
         <Route path="/admin/rentproperty" element={<PropertiesRent/>}/>
-        <Route path="/admin/pricing" element={<Pricing/>}/>
         <Route path="/admin/testimonial" element={<Testimonial/>}/>
         <Route path="/admin/faqposting" element={<FaqPosting/>}/>
         <Route path="/admin/blogposting" element={<BlogPosting/>}/>
-         <Route path="/admin/profile" element={<AdminProfile/>}/>
          <Route path="/add/customer" element={<AddCustomer/>}/>
          <Route path="/new/customer" element={<NewCustomer/>} />
          <Route path="/admin/Property-view" element={<PropertyView/>} />
+        
+        {/* User */}
+        <Route path="/admin/profile" element={<AdminProfile/>}/>
+        <Route path="/admin/settings" element={<Settingspage/>} />
          
         </Route>
+
+        {/* ===== FALLBACK ===== */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

@@ -156,7 +156,7 @@ const handleLogout = () => {
 
 <button
   onClick={() => {
-    alert("Settings Clicked");
+    navigate("/admin/settings");
     setOpenProfile(false);
   }}
   className="

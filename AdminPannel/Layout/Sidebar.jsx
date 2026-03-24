@@ -18,13 +18,11 @@ import {
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
 const menu = [
-  { name: "Dashboard", path: "/", icon: <FaHome /> },
+  { name: "Dashboard", path: "dashboard", icon: <FaHome /> },
 
   { name: "Property Management", path: "/admin/saleproperty", icon: <FaBuilding /> },
 
   { name: "Rent Properties", path: "/admin/rentproperty", icon: <FaKey /> },
-
-  { name: "Pricing", path: "/admin/pricing", icon: <FaRupeeSign /> },
 
   { name: "Testimonial", path: "/admin/testimonial", icon: <FaStar /> },
 
