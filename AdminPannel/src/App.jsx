@@ -12,11 +12,8 @@ import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import AddCustomer from "../Pages/AddCustomer/AddCustomer";
 import NewCustomer from "../Pages/NewCustomer/NewCustomer";
 import PropertyView from "./Component/PropertyView/PropertyView";
-<<<<<<< HEAD
 import DashBoard from "./Pages/DashBoard/DashBoard";
-=======
 import AddProperty from "./Component/AddProperty/AddProperty";
->>>>>>> 6573ba6e844de3a2f9825ab9584375c0748f3c5a
 
 
 
