@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import logo from "../../assets/Logo-1.png";
+import logo from "../../assets/Main-Logo.png";
 import { Link } from "react-router-dom";
 import { FiMenu, FiX, FiPhone, FiHome } from "react-icons/fi";
 

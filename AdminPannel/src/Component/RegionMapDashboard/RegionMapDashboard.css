@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.RegionMapDashboard {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f6fa;
+  font-family: "Inter", sans-serif;
+}
+
+/* LEFT */
+.RegionMapDashboard-left {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.RegionMapDashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* DROPDOWN */
+.RegionMapDashboard-dropdown {
+  background: #f3f4f6;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  position: relative;
+}
+
+.RegionMapDashboard-menu {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  width: 120px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.RegionMapDashboard-menu p {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.RegionMapDashboard-menu p:hover {
+  background: #f3f4f6;
+}
+
+/* LIST */
+.RegionMapDashboard-list {
+  margin-top: 20px;
+}
+
+.RegionMapDashboard-item {
+  margin-bottom: 20px;
+}
+
+.RegionMapDashboard-item p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.RegionMapDashboard-item span {
+  color: #6b7280;
+}
+
+/* BAR */
+.RegionMapDashboard-bar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+.RegionMapDashboard-fill {
+  height: 100%;
+  background: #10b981;
+  border-radius: 10px;
+}
+
+/* RIGHT */
+.RegionMapDashboard-right {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* MAP */
+.RegionMapDashboard-map {
+  width: 100%;
+  height: 350px;
+}
+
+/* ZOOM */
+.RegionMapDashboard-zoom {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.RegionMapDashboard-zoom button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .RegionMapDashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .RegionMapDashboard-map {
+    height: 300px;
+  }
+}

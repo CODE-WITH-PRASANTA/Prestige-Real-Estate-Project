@@ -57,29 +57,35 @@ export default function FeaturedSales() {
       setPerPage(getPerPage());
       setPage(0);
     };
+
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
 
   useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".fs-reveal");
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const elements = section.querySelectorAll(".fs-reveal");
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("fs-active");
+            obs.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.18 }
+      {
+        threshold: 0.18,
+        rootMargin: "0px 0px -40px 0px",
+      }
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
+    return () => observer.disconnect();
   }, []);
 
   const pages = useMemo(() => {
@@ -99,16 +105,20 @@ export default function FeaturedSales() {
       <div className="fs-bg fs-bg-two"></div>
 
       <div className="fs-wrap">
-        <div className="fs-top fs-reveal">
+        <div className="fs-top fs-reveal fs-delay-1">
           <h2>Featured Properties for Sales</h2>
 
           <div className="fs-arrows">
-            <button onClick={prev} disabled={page === 0} type="button">‹</button>
-            <button onClick={next} disabled={page === pages.length - 1} type="button">›</button>
+            <button onClick={prev} disabled={page === 0} type="button">
+              ‹
+            </button>
+            <button onClick={next} disabled={page === pages.length - 1} type="button">
+              ›
+            </button>
           </div>
         </div>
 
-        <div className="fs-viewport fs-reveal fs-delay-1">
+        <div className="fs-viewport fs-reveal fs-delay-2">
           <div
             className="fs-track"
             style={{ transform: `translateX(-${page * 100}%)` }}
@@ -119,7 +129,7 @@ export default function FeaturedSales() {
                   <article
                     className="fs-card"
                     key={x.id}
-                    style={{ animationDelay: `${index * 0.12}s` }}
+                    style={{ animationDelay: `${0.18 + index * 0.12}s, ${1.2 + index * 0.15}s` }}
                   >
                     <div className="fs-media">
                       <img src={x.img} alt={x.title} />
@@ -156,8 +166,10 @@ export default function FeaturedSales() {
           </div>
         </div>
 
-        <div className="fs-pagination fs-reveal fs-delay-2">
-          <button onClick={prev} disabled={page === 0} type="button">&lt;</button>
+        <div className="fs-pagination fs-reveal fs-delay-3">
+          <button onClick={prev} disabled={page === 0} type="button">
+            &lt;
+          </button>
 
           {pages.map((_, i) => (
             <button
@@ -170,11 +182,15 @@ export default function FeaturedSales() {
             </button>
           ))}
 
-          <button onClick={next} disabled={page === pages.length - 1} type="button">&gt;</button>
+          <button onClick={next} disabled={page === pages.length - 1} type="button">
+            &gt;
+          </button>
         </div>
 
-        <div className="fs-explore fs-reveal fs-delay-3">
-          <button className="fs-exploreBtn" type="button">Explore More Properties</button>
+        <div className="fs-explore fs-reveal fs-delay-4">
+          <button className="fs-exploreBtn" type="button">
+            Explore More Properties
+          </button>
         </div>
       </div>
     </section>

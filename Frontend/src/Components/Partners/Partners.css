@@ -3,13 +3,17 @@
   padding: 90px 20px;
   background: #ffffff;
   overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.985);
+  animation: partnersSectionOpen 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .partners-bg {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0.14;
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -19,7 +23,9 @@
   background: #10b981;
   top: 20px;
   left: -70px;
-  animation: partnersBlobFloat 8s ease-in-out infinite;
+  animation:
+    partnersGlowOpen 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    partnersBlobFloat 8s ease-in-out 1.3s infinite;
 }
 
 .partners-bg-two {
@@ -28,7 +34,9 @@
   background: #6366f1;
   bottom: -120px;
   right: -80px;
-  animation: partnersBlobFloat 10s ease-in-out infinite;
+  animation:
+    partnersGlowOpen 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    partnersBlobFloat 10s ease-in-out 1.5s infinite;
 }
 
 .partners-inner {
@@ -43,12 +51,18 @@
 .partners-reveal {
   opacity: 0;
   transform: translateY(60px) scale(0.96);
-  transition: all 0.9s ease;
+  filter: blur(10px);
+  transition:
+    opacity 0.95s ease,
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.95s ease;
+  will-change: transform, opacity, filter;
 }
 
 .partners-reveal.partners-active {
   opacity: 1;
   transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 .partners-delay-1 {
@@ -63,11 +77,19 @@
   transition-delay: 0.24s;
 }
 
+.partners-delay-4 {
+  transition-delay: 0.32s;
+}
+
 .partners-inner h2 {
   font-size: 44px;
   font-weight: 900;
   margin: 0;
   color: #0f172a;
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: partnersHeadingOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
 }
 
 .partners-line {
@@ -76,7 +98,11 @@
   border-radius: 999px;
   margin: 14px auto 18px;
   background: linear-gradient(90deg, #10b981, #6366f1);
-  animation: partnersLinePulse 3s ease-in-out infinite;
+  animation:
+    partnersLineOpen 0.8s ease 0.22s forwards,
+    partnersLinePulse 3s ease-in-out 1s infinite;
+  transform: scaleX(0);
+  opacity: 0;
 }
 
 .partners-inner p {
@@ -85,6 +111,10 @@
   color: #6b7280;
   font-size: 16px;
   line-height: 1.7;
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: partnersHeadingOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
 }
 
 /* slider */
@@ -93,6 +123,10 @@
   margin: 0 auto;
   overflow: hidden;
   position: relative;
+
+  opacity: 0;
+  transform: translateY(30px);
+  animation: partnersSliderOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.34s forwards;
 }
 
 .partners-slider::before,
@@ -140,9 +174,40 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  transition: 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-  animation: partnerCardFloat 5s ease-in-out infinite;
+  animation:
+    partnerCardOpen 0.85s cubic-bezier(0.22, 1, 0.36, 1) both,
+    partnerCardFloat 5s ease-in-out 1.1s infinite;
+  opacity: 0;
+  transform: translateY(36px) scale(0.97);
+}
+
+.partner-card:nth-child(1) {
+  animation-delay: 0.12s, 1.2s;
+}
+
+.partner-card:nth-child(2) {
+  animation-delay: 0.22s, 1.35s;
+}
+
+.partner-card:nth-child(3) {
+  animation-delay: 0.32s, 1.5s;
+}
+
+.partner-card:nth-child(4) {
+  animation-delay: 0.42s, 1.65s;
+}
+
+.partner-card:nth-child(5) {
+  animation-delay: 0.52s, 1.8s;
+}
+
+.partner-card:nth-child(6) {
+  animation-delay: 0.62s, 1.95s;
 }
 
 .partner-card:hover {
@@ -169,6 +234,83 @@
 }
 
 /* animations */
+@keyframes partnersSectionOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.003);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes partnersGlowOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(24px);
+  }
+  100% {
+    opacity: 0.14;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes partnersHeadingOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes partnersLineOpen {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes partnersSliderOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes partnerCardOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.97);
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.01);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 @keyframes partnersScroll {
   from {
     transform: translateX(0);
@@ -226,7 +368,7 @@
   }
 
   .partner-card {
-    animation: none;
+    animation: partnerCardOpen 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
 

@@ -6,24 +6,29 @@ const VisionMission = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".vm-reveal");
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const elements = section.querySelectorAll(".vm-reveal");
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("vm-active");
+            obs.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.18 }
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px",
+      }
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -33,9 +38,10 @@ const VisionMission = () => {
 
       <div className="propertyVisionMission__container">
         {/* LEFT IMAGE SECTION */}
-        <div className="propertyVisionMission__imageSide vm-reveal">
+        <div className="propertyVisionMission__imageSide vm-reveal vm-delay-1">
           <div className="propertyVisionMission__imageShape"></div>
-          <div className="propertyVisionMission__imageWrap">
+
+          <div className="propertyVisionMission__imageWrap vm-reveal vm-delay-2">
             <img
               src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1000&q=80"
               alt="Luxury Property"
@@ -43,11 +49,11 @@ const VisionMission = () => {
             />
           </div>
 
-          <div className="propertyVisionMission__floatingBadge propertyVisionMission__floatingBadge--top vm-reveal vm-delay-1">
+          <div className="propertyVisionMission__floatingBadge propertyVisionMission__floatingBadge--top vm-reveal vm-delay-3">
             Premium Properties
           </div>
 
-          <div className="propertyVisionMission__floatingBadge propertyVisionMission__floatingBadge--bottom vm-reveal vm-delay-2">
+          <div className="propertyVisionMission__floatingBadge propertyVisionMission__floatingBadge--bottom vm-reveal vm-delay-4">
             Trusted Real Estate
           </div>
 
@@ -57,15 +63,15 @@ const VisionMission = () => {
 
         {/* RIGHT CONTENT SECTION */}
         <div className="propertyVisionMission__contentSide">
-          <span className="propertyVisionMission__label vm-reveal">
+          <span className="propertyVisionMission__label vm-reveal vm-delay-1">
             Property Vision & Mission
           </span>
 
-          <h2 className="propertyVisionMission__title vm-reveal vm-delay-1">
+          <h2 className="propertyVisionMission__title vm-reveal vm-delay-2">
             Welcome To <span>Prestige Real Estate</span>
           </h2>
 
-          <p className="propertyVisionMission__description vm-reveal vm-delay-2">
+          <p className="propertyVisionMission__description vm-reveal vm-delay-3">
             We are committed to helping clients discover premium properties with
             trust, transparency, and confidence. Our focus is to provide
             high-quality real estate solutions that combine comfort, value, and
@@ -73,7 +79,7 @@ const VisionMission = () => {
           </p>
 
           <div className="propertyVisionMission__cards">
-            <div className="propertyVisionMission__infoCard propertyVisionMission__infoCard--mission vm-reveal vm-delay-3">
+            <div className="propertyVisionMission__infoCard propertyVisionMission__infoCard--mission vm-reveal vm-delay-4">
               <div className="propertyVisionMission__iconBox">
                 <FiTarget />
               </div>

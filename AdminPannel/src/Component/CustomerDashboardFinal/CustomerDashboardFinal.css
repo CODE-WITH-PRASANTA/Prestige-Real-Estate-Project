@@ -1,0 +1,324 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+/* ================= MAIN ================= */
+.CustomerDashboardFinal {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f6fa;
+  font-family: "Inter", sans-serif;
+}
+
+/* ================= LEFT ================= */
+.CustomerDashboardFinal-left {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  height: 440px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.CustomerDashboardFinal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* DROPDOWN */
+.CustomerDashboardFinal-dropdown {
+  position: relative;
+  cursor: pointer;
+  font-size: 13px;
+  background: #f3f4f6;
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.CustomerDashboardFinal-dropdownMenu {
+  position: absolute;
+  top: 38px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  width: 130px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+.CustomerDashboardFinal-dropdownMenu p {
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.CustomerDashboardFinal-dropdownMenu p:hover {
+  background: #f3f4f6;
+}
+
+/* LIST */
+.CustomerDashboardFinal-list {
+  overflow-y: auto;
+  margin-top: 15px;
+  padding-right: 6px;
+}
+
+/* ITEM */
+.CustomerDashboardFinal-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.CustomerDashboardFinal-item:last-child {
+  border-bottom: none;
+}
+
+.CustomerDashboardFinal-item img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.CustomerDashboardFinal-item h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.CustomerDashboardFinal-item p {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.CustomerDashboardFinal-item span {
+  margin-left: auto;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ================= RIGHT ================= */
+.CustomerDashboardFinal-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ================= FEEDBACK ================= */
+.CustomerDashboardFinal-feedback {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.CustomerDashboardFinal-feedbackContent {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* PROFILE IMAGE */
+.CustomerDashboardFinal-feedbackContent img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+}
+
+/* TEXT */
+.CustomerDashboardFinal-feedbackText {
+  max-width: 55%;
+}
+
+.CustomerDashboardFinal-feedbackText h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.CustomerDashboardFinal-rating {
+  font-size: 13px;
+  color: #f59e0b;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 4px 0;
+}
+
+.CustomerDashboardFinal-feedbackText p {
+  font-size: 13px;
+  color: #4b5563;
+  margin-top: 6px;
+}
+
+/* ILLUSTRATION */
+.CustomerDashboardFinal-illustration {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CustomerDashboardFinal-illustration img {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* FLOAT ANIMATION */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ================= BOTTOM ================= */
+.CustomerDashboardFinal-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* CARD */
+.CustomerDashboardFinal-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* HEADER */
+.CustomerDashboardFinal-cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* MENU */
+.CustomerDashboardFinal-menu {
+  position: absolute;
+  right: 20px;
+  top: 45px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  width: 120px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+.CustomerDashboardFinal-menu p {
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.CustomerDashboardFinal-menu p:hover {
+  background: #f3f4f6;
+}
+
+/* TEXT */
+.CustomerDashboardFinal-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.CustomerDashboardFinal-card p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.green {
+  color: #10b981;
+  font-weight: 500;
+}
+
+/* ================= GRAPH FIX ================= */
+.recharts-wrapper {
+  margin-top: 10px;
+}
+
+/* ================= DAYS ================= */
+.CustomerDashboardFinal-days {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 0 4px;
+}
+
+.CustomerDashboardFinal-days span {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* OPTIONAL ACTIVE DAY */
+.CustomerDashboardFinal-days span:first-child {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* ================= DONUT ================= */
+.CustomerDashboardFinal-donut {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #3b82f6 25%,
+    #10b981 25% 50%,
+    #f59e0b 50% 75%,
+    #ef4444 75%
+  );
+  margin: 20px auto;
+  position: relative;
+}
+
+.CustomerDashboardFinal-donut::after {
+  content: "";
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  border-radius: 50%;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+  .CustomerDashboardFinal {
+    grid-template-columns: 1fr;
+  }
+
+  .CustomerDashboardFinal-left {
+    height: auto;
+  }
+
+  .CustomerDashboardFinal-feedbackContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .CustomerDashboardFinal-feedbackText {
+    max-width: 100%;
+  }
+
+  .CustomerDashboardFinal-illustration {
+    margin-left: 0;
+    align-self: center;
+  }
+
+  .CustomerDashboardFinal-bottom {
+    grid-template-columns: 1fr;
+  }
+}

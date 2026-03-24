@@ -22,7 +22,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center
+    <div
+      className="min-h-screen flex items-center justify-center
       bg-gradient-to-br from-indigo-50 via-white to-violet-50 px-4"
     >
       <form
@@ -35,41 +36,41 @@ export default function LoginPage() {
         </h1>
 
         {error && (
-          <p className="text-sm text-rose-600 mb-4 text-center">
-            {error}
-          </p>
+          <p className="text-sm text-rose-600 mb-4 text-center">{error}</p>
         )}
 
         <label className="label">Email</label>
+
         <div className="relative mb-4">
           <FiMail className="icon" />
+
           <input
             type="email"
             required
-            className="input pl-10"
+            className="input pl-14"
             value={form.email}
-            onChange={(e) =>
-              setForm({ ...form, email: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
         </div>
 
         <label className="label">Password</label>
+
         <div className="relative mb-6">
           <FiLock className="icon" />
+
           <input
             type="password"
             required
-            className="input pl-10"
+            className="input pl-14"
             value={form.password}
-            onChange={(e) =>
-              setForm({ ...form, password: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
         </div>
 
-        <button className="w-full py-3 rounded-xl text-white
-          bg-gradient-to-r from-indigo-600 to-violet-600">
+        <button
+          className="w-full py-3 rounded-xl text-white
+          bg-gradient-to-r from-indigo-600 to-violet-600"
+        >
           Login
         </button>
 
@@ -85,18 +86,26 @@ export default function LoginPage() {
           color: #4f46e5;
         }
         .input {
-          width: 100%;
-          border: 1px solid #e2e8f0;
-          border-radius: 0.75rem;
-          padding: 0.6rem 1rem;
-        }
+  width: 100%;
+  padding: 12px 14px;
+  padding-left: 52px;
+  border-radius: 14px;
+  border: 2px solid #000;
+  outline: none;
+  font-size: 15px;
+  position: relative;
+  z-index: 1;
+}
         .icon {
-          position: absolute;
-          left: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          color: #6366f1;
-        }
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4f46e5;
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 2;
+}
       `}</style>
     </div>
   );
