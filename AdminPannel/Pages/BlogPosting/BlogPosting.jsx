@@ -75,7 +75,8 @@ return (
 {/* HEADER */}
 
 <div className={`${base}__header`}>
-<h2>Blog / Article Management</h2>
+<h2>Post Management Panel</h2>
+<p>Manage blog articles, news, and property posts</p>
 </div>
 
 {/* FORM + PREVIEW */}
@@ -86,14 +87,14 @@ return (
 
 <div className={`${base}__form`}>
 
-<h3>Add Blog Form</h3>
+<h3>Create / Edit Post</h3>
 
 <form onSubmit={handleSubmit}>
 
-<label>Blog Image</label>
+<label>Upload Image</label>
 <input type="file" onChange={handleImage}/>
 
-<label>Category</label>
+<label>Post Category</label>
 <select name="category" value={form.category} onChange={handleChange}>
 <option>Property</option>
 <option>Villa</option>
@@ -101,11 +102,11 @@ return (
 <option>Guest House</option>
 </select>
 
-<label>Blog Title</label>
+<label>Post Title</label>
 <input
 type="text"
 name="title"
-placeholder="Enter blog title"
+placeholder="Enter post title"
 value={form.title}
 onChange={handleChange}
 />
@@ -130,7 +131,7 @@ onChange={handleChange}
 <label>Short Description</label>
 <textarea
 name="description"
-placeholder="Write short blog description"
+placeholder="Write short description"
 value={form.description}
 onChange={handleChange}
 />
@@ -142,7 +143,7 @@ onChange={handleChange}
 </select>
 
 <button type="submit">
-{editIndex !== null ? "Update Blog" : "Add Blog"}
+{editIndex !== null ? "Update Post" : "Add Post"}
 </button>
 
 </form>
@@ -153,7 +154,7 @@ onChange={handleChange}
 
 <div className={`${base}__preview`}>
 
-<h3>Live Preview</h3>
+<h3>Post Preview</h3>
 
 <div className={`${base}__card`}>
 
@@ -163,14 +164,14 @@ onChange={handleChange}
 {form.category}
 </span>
 
-<h4>{form.title || "Blog Title"}</h4>
+<h4>{form.title || "Post Title"}</h4>
 
 <p>
-{form.description || "Short description preview will appear here."}
+{form.description || "Post description preview will appear here"}
 </p>
 
 <div className={`${base}__meta`}>
-<span>{form.author || "Author"}</span>
+<span>{form.author || "Author Name"}</span>
 <span>{form.date || "Publish Date"}</span>
 </div>
 
@@ -184,7 +185,7 @@ onChange={handleChange}
 
 <div className={`${base}__list`}>
 
-<h3>Blog List</h3>
+<h3>All Posts</h3>
 
 <div className={`${base}__table-wrap`}>
 
@@ -198,7 +199,7 @@ onChange={handleChange}
 <th>Author</th>
 <th>Date</th>
 <th>Status</th>
-<th>Action</th>
+<th>Actions</th>
 </tr>
 </thead>
 
