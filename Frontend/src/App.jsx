@@ -49,10 +49,10 @@ function App() {
 
         <Route path="/property" element={<Property />} />
         {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
-        <Route path="/Rentdetails" element={<Rentdetails/>}/>
+        <Route path="/rent/details" element={<Rentdetails/>}/>
         {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
 
-        <Route path="/RentDetails-Main" element={<RentDetailsMain />} />
+        <Route path="/rent/property" element={<RentDetailsMain />} />
         
         <Route path="/buyproperties" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>
