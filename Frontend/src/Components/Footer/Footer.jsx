@@ -16,11 +16,11 @@ const Footer = () => {
           <div className="Footer-contact">
             <div>
               <p>Total Free Customer Care</p>
-              <h4>+91 766-648-8777</h4>
+              <h4>+91 9595422040</h4>
             </div>
             <div>
               <p>Need Live Support?</p>
-              <h4>cloudxsecure@gmail.com</h4>
+              <h4>Dayanand.prestige@gmail.com</h4>
             </div>
           </div>
 
@@ -82,31 +82,31 @@ const Footer = () => {
         </div>
       </div>
 
-     <div className="Footer-bottom">
-          <p className="Footer-copy">
-            © {new Date().getFullYear()} Prestige Properties. All rights reserved.
-          </p>
+      <div className="Footer-bottom">
+        <p className="Footer-copy">
+          © {new Date().getFullYear()} Prestige Properties. All rights reserved.
+        </p>
 
         <p className="Footer-developed">
-            Developed with <span className="Footer-heart">❤</span> by{" "}
-            <a
-              href="https://prwebstock.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="Footer-link-brand"
-            >
-              PR WEBSTOCK
-            </a>
-          </p>
+          Developed with <span className="Footer-heart">❤</span> by{" "}
+          <a
+            href="https://prwebstock.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="Footer-link-brand"
+          >
+            PR WEBSTOCK
+          </a>
+        </p>
 
-          <div className="Footer-bottom-links">
-            <span>Privacy</span>
-            <span>·</span>
-            <span>Terms</span>
-            <span>·</span>
-            <span>Sitemap</span>
-          </div>
+        <div className="Footer-bottom-links">
+          <span>Privacy</span>
+          <span>·</span>
+          <span>Terms</span>
+          <span>·</span>
+          <span>Sitemap</span>
         </div>
+      </div>
 
     </footer>
   );

@@ -1,68 +1,42 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "./Breadcrumb.css";
 import heroImg from "../../assets/hero.jpg";
 
 function Breadcrumb() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const elements = section.querySelectorAll(".reveal-item");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-            observer.unobserve(entry.target); // animate once
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
-      }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       className="breadcrumb"
       style={{ backgroundImage: `url(${heroImg})` }}
     >
       <div className="overlay"></div>
 
       <div className="breadcrumb-content">
-        <span className="breadcrumb-badge reveal-item">Prestige Properties</span>
 
-        <h1 className="reveal-item delay-1">
-          Prestige Real Estate Properties <br />
-          Find Your Perfect Home to Buy or Rent
+        <span className="breadcrumb-badge">
+          Prestige Real Estate
+        </span>
+
+        <h1>
+          Find Your Dream Property <br />
+          with Prestige Real Estate
         </h1>
 
-        <p className="reveal-item delay-2">
-          Discover thoughtfully designed homes, apartments, and villas with
-          Prestige. Whether you are looking to buy your dream home or find a
-          comfortable rental, explore verified properties in prime locations
-          at the right price.
+        <p>
+          Explore premium apartments, villas, and plots in prime locations.
+          Whether you're buying or renting, Prestige brings you verified
+          properties designed for modern living and long-term value.
         </p>
 
-        <div className="buttons reveal-item delay-3">
+        <div className="buttons">
           <button className="btn primary">Explore Properties</button>
-          <button className="btn">View Rentals</button>
+          <button className="btn secondary">View Rentals</button>
         </div>
 
-        <div className="search-section reveal-item delay-4">
+        <div className="search-section">
           <div className="search-bar">
+
             <div className="field">
-              <label>Keyword</label>
+              <label>Property</label>
               <select>
                 <option>Select Property</option>
                 <option>Apartment</option>
@@ -72,7 +46,7 @@ function Breadcrumb() {
             </div>
 
             <div className="field">
-              <label>Property Type</label>
+              <label>Type</label>
               <select>
                 <option>Select Type</option>
                 <option>Buy</option>
@@ -82,7 +56,7 @@ function Breadcrumb() {
 
             <div className="field">
               <label>Location</label>
-              <input type="text" placeholder="Enter city or area" />
+              <input type="text" placeholder="Enter location" />
             </div>
 
             <div className="field">
@@ -94,12 +68,14 @@ function Breadcrumb() {
               <label>Max Price</label>
               <input type="text" placeholder="₹ Max" />
             </div>
+
           </div>
 
           <div className="search-btn-row">
             <button className="search-btn">Search Property</button>
           </div>
         </div>
+
       </div>
     </section>
   );

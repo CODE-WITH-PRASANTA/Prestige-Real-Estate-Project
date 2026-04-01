@@ -7,10 +7,11 @@ import Stats from "../../Components/Stats/Stats";
 import PromoCards from "../../Components/PromoCards/PromoCards";
 import Partners from "../../Components/Partners/Partners";
 import ClientReviews from "../../Components/ClientReviews/ClientReviews";
-import Pricing from "../../Components/Pricing/Pricing";
+
 import FAQ from "../../Components/FAQ/FAQ";
 import BecomeAgent from "../../Components/BecomeAgent/BecomeAgent";
 import VisionMission from "../../Components/VisionMission/VisionMission";
+import Contactfrom from "../../Components/Contactfrom/Contactfrom";
 
 
 function Home() {
@@ -26,9 +27,10 @@ function Home() {
       <PromoCards />
       <Partners />
       <ClientReviews />
-      <Pricing />
+   
       <FAQ />
       <BecomeAgent />
+      <Contactfrom/>
       
     </>
   );
