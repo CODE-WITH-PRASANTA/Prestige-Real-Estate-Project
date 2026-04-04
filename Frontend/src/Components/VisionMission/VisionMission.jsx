@@ -37,6 +37,7 @@ const VisionMission = () => {
       <div className="propertyVisionMission__bgGlow propertyVisionMission__bgGlow--two"></div>
 
       <div className="propertyVisionMission__container">
+        
         {/* LEFT IMAGE SECTION */}
         <div className="propertyVisionMission__imageSide vm-reveal vm-delay-1">
           <div className="propertyVisionMission__imageShape"></div>
@@ -63,6 +64,7 @@ const VisionMission = () => {
 
         {/* RIGHT CONTENT SECTION */}
         <div className="propertyVisionMission__contentSide">
+          
           <span className="propertyVisionMission__label vm-reveal vm-delay-1">
             Property Vision & Mission
           </span>
@@ -79,6 +81,7 @@ const VisionMission = () => {
           </p>
 
           <div className="propertyVisionMission__cards">
+            
             <div className="propertyVisionMission__infoCard propertyVisionMission__infoCard--mission vm-reveal vm-delay-4">
               <div className="propertyVisionMission__iconBox">
                 <FiTarget />
@@ -87,8 +90,7 @@ const VisionMission = () => {
                 <h3>Our Mission</h3>
                 <p>
                   To connect people with the right properties through reliable
-                  service, modern solutions, and a customer-first real estate
-                  experience.
+                  service, modern solutions, and a customer-first real estate experience.
                 </p>
               </div>
             </div>
@@ -101,14 +103,16 @@ const VisionMission = () => {
                 <h3>Our Vision</h3>
                 <p>
                   To become a trusted leader in the property market by offering
-                  premium spaces, innovative service, and lasting value for
-                  every client.
+                  premium spaces, innovative service, and lasting value.
                 </p>
               </div>
             </div>
+
           </div>
 
+          {/* ✅ UPDATED BOTTOM ROW ONLY */}
           <div className="propertyVisionMission__bottomRow vm-reveal vm-delay-4">
+            
             <div className="propertyVisionMission__founderBox">
               <img
                 src="https://randomuser.me/api/portraits/men/32.jpg"
@@ -123,17 +127,14 @@ const VisionMission = () => {
 
             <a
               href="tel:+917014627894"
-              className="propertyVisionMission__callBox"
+              className="propertyVisionMission__callBtn"
             >
-              <div className="propertyVisionMission__callIcon">
-                <FiPhoneCall />
-              </div>
-              <div>
-                <span>Call Us Now</span>
-                <strong>+91 7014627894</strong>
-              </div>
+              <FiPhoneCall />
+              <span>Call Us +91 7014627894</span>
             </a>
+
           </div>
+
         </div>
       </div>
     </section>
