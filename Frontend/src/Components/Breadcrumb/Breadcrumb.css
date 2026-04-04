@@ -43,7 +43,7 @@
   top: 80px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(24, 185, 138, 0.18), transparent 70%);
-  filter: blur(20px);
+  
   animation: floatBlob 7s ease-in-out infinite;
   z-index: 1;
   pointer-events: none;
@@ -74,7 +74,7 @@
 .reveal-item {
   opacity: 0;
   transform: translateY(48px) scale(0.985);
-  filter: blur(8px);
+  
   transition:
     opacity 1s ease,
     transform 1s cubic-bezier(0.22, 1, 0.36, 1),
@@ -85,7 +85,7 @@
 .reveal-item.active {
   opacity: 1;
   transform: translateY(0) scale(1);
-  filter: blur(0);
+  
 }
 
 .reveal-item.delay-1 {
@@ -121,7 +121,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0px);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.4px;
@@ -163,7 +163,7 @@
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0px);
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,

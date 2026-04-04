@@ -10,7 +10,7 @@
 .propertyVisionMission__bgGlow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(0px);
   opacity: 0.16;
   pointer-events: none;
 }
@@ -104,7 +104,7 @@
   overflow: hidden;
   box-shadow: 0 30px 70px rgba(15, 23, 42, 0.16);
   border: 8px solid rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(0px);
   animation: vmImageFloat 5s ease-in-out infinite;
 }
 
@@ -125,7 +125,7 @@
   font-size: 14px;
   font-weight: 700;
   color: #1e3a8a;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(0px);
   animation: vmBadgeFloat 4s ease-in-out infinite;
 }
 

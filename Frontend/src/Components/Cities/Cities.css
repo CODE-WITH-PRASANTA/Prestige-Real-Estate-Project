@@ -10,7 +10,7 @@
 .cities-bg {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(0px);
   opacity: 0.15;
   pointer-events: none;
 }
