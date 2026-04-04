@@ -41,7 +41,7 @@ const FloatingIcons = () => {
         </a>
 
         <a
-          href="tel:+917014627894"
+          href="tel:+91 9595422040"
           className="FloatingIcons__button FloatingIcons__button--call"
           aria-label="Call now"
           title="Call"

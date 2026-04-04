@@ -28,10 +28,11 @@ export default function Cities() {
     { id: 12, name: "United Kingdom", count: "1450 Properties", img: c4 }
   ];
 
+  /* RESPONSIVE PER PAGE */
   const getPerPage = () => {
     const w = window.innerWidth;
-    if (w <= 768) return 2;
-    if (w <= 1024) return 4;
+    if (w <= 768) return 1;
+    if (w <= 1024) return 3;
     return 6;
   };
 
@@ -47,35 +48,6 @@ export default function Cities() {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  /* =============================
-     SMOOTH REVEAL (IMPROVED)
-  ============================= */
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const elements = section.querySelectorAll(".cities-reveal");
-
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("cities-active");
-            obs.unobserve(entry.target); // 🔥 animate once only (premium feel)
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   const pages = useMemo(() => {
     const arr = [];
     for (let i = 0; i < cities.length; i += perPage) {
@@ -87,69 +59,22 @@ export default function Cities() {
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
 
-  /* =============================
-     DRAG SUPPORT
-  ============================= */
-  const drag = useRef({ down: false, x: 0 });
-
-  const down = (e) => {
-    drag.current.down = true;
-    drag.current.x = e.clientX || e.touches?.[0].clientX;
-  };
-
-  const up = (e) => {
-    if (!drag.current.down) return;
-    drag.current.down = false;
-
-    const end = e.clientX || e.changedTouches?.[0].clientX;
-
-    if (drag.current.x - end > 60) next();
-    if (drag.current.x - end < -60) prev();
-  };
-
   return (
     <section className="cities" ref={sectionRef}>
-      <div className="cities-bg cities-bg-one"></div>
-      <div className="cities-bg cities-bg-two"></div>
 
-      <h2 className="cities-reveal cities-delay-1">
-        Cities With Listing
-      </h2>
+      <h2>Cities With Listing</h2>
+      <p className="sub">Destinations we love the most</p>
 
-      <p className="sub cities-reveal cities-delay-2">
-        Destinations we love the most
-      </p>
+      <div className="cities-slider">
 
-      <div
-        className="cities-slider cities-reveal cities-delay-3"
-        onMouseDown={down}
-        onMouseUp={up}
-        onTouchStart={down}
-        onTouchEnd={up}
-      >
-        <button className="nav left" onClick={prev} type="button">
-          ‹
-        </button>
+        <button className="nav left" onClick={prev}>‹</button>
 
-        <div
-          className="track"
-          style={{ transform: `translateX(-${page * 100}%)` }}
-        >
+        <div className="track" style={{ transform: `translateX(-${page * 100}%)` }}>
           {pages.map((group, i) => (
             <div className="page" key={i}>
-              {group.map((city, index) => (
-                <div
-                  className="city-card"
-                  key={city.id}
-                  style={{
-                    animationDelay: `${0.2 + index * 0.12}s`
-                  }}
-                >
-                  <img
-                    className="city-img"
-                    src={city.img}
-                    alt={city.name}
-                  />
+              {group.map((city) => (
+                <div className="city-card" key={city.id}>
+                  <img src={city.img} alt={city.name} />
 
                   <div className="city-overlay"></div>
 
@@ -164,31 +89,26 @@ export default function Cities() {
           ))}
         </div>
 
-        <button className="nav right" onClick={next} type="button">
-          ›
-        </button>
+        <button className="nav right" onClick={next}>›</button>
       </div>
 
-      <div className="cities-pagination cities-reveal cities-delay-4">
-        <button onClick={prev} disabled={page === 0} type="button">
-          &lt;
-        </button>
+      {/* PAGINATION */}
+      <div className="cities-pagination">
+        <button onClick={prev} disabled={page === 0}>‹</button>
 
         {pages.map((_, i) => (
           <button
             key={i}
             className={page === i ? "active" : ""}
             onClick={() => setPage(i)}
-            type="button"
           >
             {i + 1}
           </button>
         ))}
 
-        <button onClick={next} disabled={page === pages.length - 1} type="button">
-          &gt;
-        </button>
+        <button onClick={next} disabled={page === pages.length - 1}>›</button>
       </div>
+
     </section>
   );
 }
