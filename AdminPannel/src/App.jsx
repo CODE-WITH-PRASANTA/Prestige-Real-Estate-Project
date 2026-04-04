@@ -6,7 +6,7 @@ import PropertiesRent from "../Pages/PropertiesRent/PropertiesRent";
 import Testimonial from "../Pages/Testimonial/Testimonial";
 import FaqPosting from "../Pages/FaqPosting/FaqPosting";
 import BlogPosting from "../Pages/BlogPosting/BlogPosting";
-import DashBoard from "../Pages/DashBoard/DashBoard";
+
 
 import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import AddCustomer from "../Pages/AddCustomer/AddCustomer";
@@ -22,6 +22,7 @@ import Settingspage from "./Pages/Settingspage/Settingspage";
 // AUTH
 import { AuthProvider } from "./Auth/AuthContext";
 import ProtectedRoute from "./Auth/ProtectedRoute";
+import DashBoard from "./Pages/DashBoard/DashBoard";
 
 export default function App() {
   return (

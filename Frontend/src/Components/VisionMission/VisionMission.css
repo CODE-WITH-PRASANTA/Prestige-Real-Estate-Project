@@ -4,18 +4,14 @@
   padding: 90px 20px;
   background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
   overflow: hidden;
-
-  opacity: 0;
-  transform: translateY(40px) scale(0.985);
-  animation: vmSectionOpen 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* background glow */
+/* Background Glow */
 .propertyVisionMission__bgGlow {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0;
+  opacity: 0.4;
   pointer-events: none;
 }
 
@@ -25,9 +21,6 @@
   background: #3b82f6;
   top: 60px;
   left: -80px;
-  animation:
-    vmGlowOpen 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    vmGlowFloat 8s ease-in-out 1.4s infinite;
 }
 
 .propertyVisionMission__bgGlow--two {
@@ -36,11 +29,9 @@
   background: #f97316;
   bottom: -120px;
   right: -80px;
-  animation:
-    vmGlowOpen 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    vmGlowFloat 10s ease-in-out 1.6s infinite;
 }
 
+/* Container */
 .propertyVisionMission__container {
   max-width: 1320px;
   margin: 0 auto;
@@ -52,40 +43,6 @@
   z-index: 2;
 }
 
-/* reveal animation */
-.vm-reveal {
-  opacity: 0;
-  transform: translateY(60px) scale(0.96);
-  filter: blur(10px);
-  transition:
-    opacity 1s ease,
-    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 1s ease;
-  will-change: transform, opacity, filter;
-}
-
-.vm-reveal.vm-active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-.vm-delay-1 {
-  transition-delay: 0.1s;
-}
-
-.vm-delay-2 {
-  transition-delay: 0.22s;
-}
-
-.vm-delay-3 {
-  transition-delay: 0.34s;
-}
-
-.vm-delay-4 {
-  transition-delay: 0.46s;
-}
-
 /* LEFT SIDE */
 .propertyVisionMission__imageSide {
   position: relative;
@@ -93,10 +50,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  opacity: 0;
-  transform: translateX(-45px);
-  animation: vmImageSideOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
 }
 
 .propertyVisionMission__imageShape {
@@ -109,9 +62,6 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  animation:
-    vmBlobOpen 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    propertyBlob 7s ease-in-out 1.2s infinite;
 }
 
 .propertyVisionMission__imageWrap {
@@ -124,21 +74,15 @@
   box-shadow: 0 30px 70px rgba(15, 23, 42, 0.16);
   border: 8px solid rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
-
-  opacity: 0;
-  transform: translateY(40px) scale(0.9);
-  animation:
-    vmMainImageOpen 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards,
-    vmImageFloat 5s ease-in-out 1.5s infinite;
 }
 
 .propertyVisionMission__mainImage {
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
 }
 
+/* Floating Badges */
 .propertyVisionMission__floatingBadge {
   position: absolute;
   z-index: 3;
@@ -149,32 +93,25 @@
   font-size: 14px;
   font-weight: 700;
   color: #1e3a8a;
-  backdrop-filter: blur(8px);
-
-  opacity: 0;
-  animation:
-    vmBadgeOpen 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    vmBadgeFloat 4s ease-in-out 1.2s infinite;
 }
 
 .propertyVisionMission__floatingBadge--top {
   top: 40px;
   left: 40px;
-  animation-delay: 0.45s, 1.5s;
 }
 
 .propertyVisionMission__floatingBadge--bottom {
   bottom: 65px;
   right: 40px;
-  animation-delay: 0.65s, 1.7s;
 }
 
+/* Curve Lines */
 .propertyVisionMission__curveLine {
   position: absolute;
   border: 3px dashed rgba(14, 116, 144, 0.16);
   border-radius: 50%;
   z-index: 0;
-  opacity: 0;
+  opacity: 0.5;
 }
 
 .propertyVisionMission__curveLine--one {
@@ -182,9 +119,6 @@
   height: 520px;
   top: 40px;
   left: 40px;
-  animation:
-    vmCurveOpen 1.2s ease forwards,
-    vmRotateSlow 18s linear 1.2s infinite;
 }
 
 .propertyVisionMission__curveLine--two {
@@ -192,25 +126,17 @@
   height: 280px;
   bottom: 10px;
   right: 20px;
-  animation:
-    vmCurveOpen 1.35s ease forwards,
-    vmRotateSlow 14s linear 1.35s infinite reverse;
 }
 
 /* RIGHT SIDE */
 .propertyVisionMission__contentSide {
   position: relative;
   z-index: 2;
-
-  opacity: 0;
-  transform: translateX(45px);
-  animation: vmContentSideOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
 }
 
+/* Text */
 .propertyVisionMission__label {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   padding: 10px 18px;
   border-radius: 999px;
   background: #dbeafe;
@@ -218,16 +144,13 @@
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 20px;
-  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.08);
 }
 
 .propertyVisionMission__title {
-  margin: 0 0 22px;
+  margin-bottom: 22px;
   font-size: 48px;
-  line-height: 1.15;
   font-weight: 800;
   color: #0f172a;
-  letter-spacing: -0.5px;
 }
 
 .propertyVisionMission__title span {
@@ -235,667 +158,85 @@
 }
 
 .propertyVisionMission__description {
-  margin: 0 0 34px;
-  max-width: 760px;
+  margin-bottom: 34px;
   font-size: 19px;
   line-height: 1.9;
   color: #64748b;
 }
 
+/* Cards */
 .propertyVisionMission__cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
-  margin-bottom: 28px;
-  align-items: stretch;
 }
 
 .propertyVisionMission__infoCard {
-  position: relative;
   display: flex;
-  align-items: flex-start;
   gap: 14px;
-  padding: 20px 18px;
+  padding: 20px;
   border-radius: 20px;
-  overflow: hidden;
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  min-height: 180px;
-
-  opacity: 0;
-  transform: translateY(45px) scale(0.96);
-  animation: vmCardOpen 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.propertyVisionMission__infoCard:nth-child(1) {
-  animation-delay: 0.35s;
-}
-
-.propertyVisionMission__infoCard:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-.propertyVisionMission__infoCard::before {
-  content: "";
-  position: absolute;
-  width: 170px;
-  height: 170px;
-  top: -60px;
-  right: -60px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  z-index: 0;
-}
-
-.propertyVisionMission__infoCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.14);
 }
 
 .propertyVisionMission__infoCard--mission {
   background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: #ffffff;
+  color: #fff;
 }
 
 .propertyVisionMission__infoCard--vision {
   background: linear-gradient(135deg, #fb923c, #f97316);
-  color: #ffffff;
+  color: #fff;
 }
 
 .propertyVisionMission__iconBox {
   width: 50px;
   height: 50px;
-  flex-shrink: 0;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  color: #ffffff;
-  position: relative;
-  z-index: 1;
-  animation: vmIconPulse 3s ease-in-out infinite;
 }
 
-.propertyVisionMission__cardContent {
-  position: relative;
-  z-index: 1;
-}
-
-.propertyVisionMission__cardContent h3 {
-  margin: 0 0 8px;
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.propertyVisionMission__cardContent p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.95);
-}
-
-/* BOTTOM ROW */
+/* Bottom Row */
 .propertyVisionMission__bottomRow {
+  margin-top: 25px;
   padding-top: 18px;
   border-top: 1px solid rgba(148, 163, 184, 0.24);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 18px;
   flex-wrap: wrap;
-
-  opacity: 0;
-  transform: translateY(25px);
-  animation: vmBottomOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.72s forwards;
 }
 
-.propertyVisionMission__founderBox {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.propertyVisionMission__founderImage {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fb923c;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
-}
-
-.propertyVisionMission__founderBox h4 {
-  margin: 0 0 4px;
-  font-size: 18px;
-  color: #1e293b;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.propertyVisionMission__founderBox p {
-  margin: 0;
-  font-size: 13px;
-  color: #64748b;
-  line-height: 1.4;
-}
-
+/* Call Button */
 .propertyVisionMission__callBox {
-  min-width: 220px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 12px;
   padding: 12px 18px;
   border-radius: 999px;
-  text-decoration: none;
   background: linear-gradient(135deg, #7c3aed, #3b82f6);
-  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #fff;
 }
 
-.propertyVisionMission__callBox:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 30px rgba(59, 130, 246, 0.28);
-}
-
-.propertyVisionMission__callIcon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-size: 18px;
-  flex-shrink: 0;
-  animation: vmIconPulse 3s ease-in-out infinite;
-}
-
-.propertyVisionMission__callBox span {
-  display: block;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 2px;
-}
-
-.propertyVisionMission__callBox strong {
-  font-size: 16px;
-  color: #ffffff;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-/* ANIMATION */
-@keyframes vmSectionOpen {
-  0% {
-    opacity: 0;
-    transform: translateY(40px) scale(0.985);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-4px) scale(1.003);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes vmGlowOpen {
-  0% {
-    opacity: 0;
-    transform: scale(0.65) translateY(30px);
-  }
-  100% {
-    opacity: 0.16;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes vmImageSideOpen {
-  0% {
-    opacity: 0;
-    transform: translateX(-45px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes vmContentSideOpen {
-  0% {
-    opacity: 0;
-    transform: translateX(45px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes vmBlobOpen {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.78);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-}
-
-@keyframes vmMainImageOpen {
-  0% {
-    opacity: 0;
-    transform: translateY(40px) scale(0.9);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-6px) scale(1.02);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes vmBadgeOpen {
-  0% {
-    opacity: 0;
-    transform: translateY(22px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes vmCurveOpen {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes vmCardOpen {
-  0% {
-    opacity: 0;
-    transform: translateY(45px) scale(0.96);
-    filter: blur(8px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-4px) scale(1.01);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes vmBottomOpen {
-  0% {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes propertyBlob {
-  0% {
-    border-radius: 57% 43% 58% 42% / 38% 54% 46% 62%;
-    transform: translateX(-50%) rotate(0deg);
-  }
-  50% {
-    border-radius: 47% 53% 40% 60% / 56% 45% 55% 44%;
-    transform: translateX(-50%) rotate(4deg);
-  }
-  100% {
-    border-radius: 57% 43% 58% 42% / 38% 54% 46% 62%;
-    transform: translateX(-50%) rotate(0deg);
-  }
-}
-
-@keyframes vmGlowFloat {
-  0%,
-  100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(-20px) scale(1.06);
-  }
-}
-
-@keyframes vmImageFloat {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes vmBadgeFloat {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes vmRotateSlow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes vmIconPulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-}
-
-/* RESPONSIVE */
-@media (max-width: 1199px) {
-  .propertyVisionMission__container {
-    gap: 45px;
-  }
-
-  .propertyVisionMission__title {
-    font-size: 40px;
-  }
-
-  .propertyVisionMission__description {
-    font-size: 17px;
-  }
-
-  .propertyVisionMission__cardContent h3 {
-    font-size: 20px;
-  }
-
-  .propertyVisionMission__cardContent p {
-    font-size: 14px;
-  }
-
-  .propertyVisionMission__infoCard {
-    min-height: 165px;
-    padding: 18px 16px;
-  }
-}
-
+/* Responsive */
 @media (max-width: 991px) {
-  .propertyVisionMission {
-    padding: 80px 18px;
-  }
-
   .propertyVisionMission__container {
     grid-template-columns: 1fr;
-  }
-
-  .propertyVisionMission__imageSide {
-    min-height: 520px;
-    order: 1;
-    transform: translateY(35px);
-    animation: vmImageSideMobileOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
-  }
-
-  .propertyVisionMission__contentSide {
-    order: 2;
-    transform: translateY(35px);
-    animation: vmContentSideMobileOpen 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
-  }
-
-  .propertyVisionMission__title {
-    font-size: 36px;
   }
 
   .propertyVisionMission__cards {
     grid-template-columns: 1fr;
   }
-
-  .propertyVisionMission__bottomRow {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .propertyVisionMission__callBox {
-    min-width: 100%;
-    justify-content: flex-start;
-  }
-
-  .propertyVisionMission__infoCard {
-    min-height: auto;
-  }
 }
 
 @media (max-width: 767px) {
-  .propertyVisionMission {
-    padding: 65px 14px;
-  }
-
-  .propertyVisionMission__imageSide {
-    min-height: 420px;
-  }
-
-  .propertyVisionMission__imageShape {
-    width: 320px;
-    height: 320px;
-    top: 55px;
-  }
-
-  .propertyVisionMission__imageWrap {
-    width: 340px;
-  }
-
-  .propertyVisionMission__curveLine--one {
-    width: 360px;
-    height: 360px;
-    left: 50%;
-    top: 35px;
-    transform: translateX(-50%);
-  }
-
-  .propertyVisionMission__curveLine--two {
-    display: none;
-  }
-
-  .propertyVisionMission__floatingBadge {
-    padding: 10px 16px;
-    font-size: 12px;
-  }
-
-  .propertyVisionMission__floatingBadge--top {
-    top: 10px;
-    left: 14px;
-  }
-
-  .propertyVisionMission__floatingBadge--bottom {
-    bottom: 10px;
-    right: 14px;
-  }
-
-  .propertyVisionMission__label {
-    font-size: 13px;
-    padding: 8px 14px;
-  }
-
   .propertyVisionMission__title {
     font-size: 30px;
   }
 
   .propertyVisionMission__description {
     font-size: 15px;
-    line-height: 1.8;
-  }
-
-  .propertyVisionMission__infoCard {
-    padding: 18px 16px;
-    border-radius: 18px;
-    gap: 12px;
-  }
-
-  .propertyVisionMission__iconBox {
-    width: 46px;
-    height: 46px;
-    font-size: 20px;
-  }
-
-  .propertyVisionMission__cardContent h3 {
-    font-size: 19px;
-  }
-
-  .propertyVisionMission__cardContent p {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .propertyVisionMission__founderImage {
-    width: 50px;
-    height: 50px;
-  }
-
-  .propertyVisionMission__founderBox h4 {
-    font-size: 16px;
-  }
-
-  .propertyVisionMission__founderBox p {
-    font-size: 12px;
-  }
-
-  .propertyVisionMission__callBox {
-    padding: 12px 16px;
-    border-radius: 20px;
-  }
-
-  .propertyVisionMission__callIcon {
-    width: 42px;
-    height: 42px;
-    font-size: 17px;
-  }
-
-  .propertyVisionMission__callBox span {
-    font-size: 11px;
-  }
-
-  .propertyVisionMission__callBox strong {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .propertyVisionMission__imageSide {
-    min-height: 340px;
-  }
-
-  .propertyVisionMission__imageShape {
-    width: 260px;
-    height: 260px;
-  }
-
-  .propertyVisionMission__imageWrap {
-    width: 270px;
-  }
-
-  .propertyVisionMission__title {
-    font-size: 26px;
-    line-height: 1.25;
-  }
-
-  .propertyVisionMission__bottomRow {
-    gap: 14px;
-  }
-
-  .propertyVisionMission__founderBox {
-    align-items: center;
-    gap: 10px;
-  }
-
-  .propertyVisionMission__founderImage {
-    width: 46px;
-    height: 46px;
-  }
-
-  .propertyVisionMission__founderBox h4 {
-    font-size: 15px;
-  }
-
-  .propertyVisionMission__founderBox p {
-    font-size: 11px;
-  }
-
-  .propertyVisionMission__callBox {
-    min-width: 100%;
-    padding: 11px 14px;
-  }
-
-  .propertyVisionMission__callIcon {
-    width: 38px;
-    height: 38px;
-    font-size: 15px;
-  }
-
-  .propertyVisionMission__callBox span {
-    font-size: 10px;
-  }
-
-  .propertyVisionMission__callBox strong {
-    font-size: 14px;
-  }
-
-  .propertyVisionMission__infoCard {
-    padding: 16px 14px;
-  }
-
-  .propertyVisionMission__cardContent h3 {
-    font-size: 18px;
-  }
-
-  .propertyVisionMission__cardContent p {
-    font-size: 13.5px;
-  }
-}
-
-@keyframes vmImageSideMobileOpen {
-  0% {
-    opacity: 0;
-    transform: translateY(35px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes vmContentSideMobileOpen {
-  0% {
-    opacity: 0;
-    transform: translateY(35px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
