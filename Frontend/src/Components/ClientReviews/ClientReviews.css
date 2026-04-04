@@ -1,184 +1,361 @@
-.pc {
-  width: 100%;
-  padding: 80px 20px;
-  background: #f8fafc;
+.cr {
   position: relative;
-  overflow: hidden;
+  padding: 90px 20px 110px;
+  background: radial-gradient(circle at top, #0b2a46 0%, #071a2f 55%, #061426 100%);
+  overflow: visible;
 }
 
-/* HEADER */
-.pc-header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.pc-heading {
-  font-size: 34px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 10px;
-}
-
-.pc-subheading {
-  font-size: 16px;
-  color: #64748b;
-  max-width: 600px;
-  margin: auto;
-  line-height: 1.6;
-}
-
-/* SLIDER */
-.pc-slider {
-  position: relative;
-  max-width: 1200px;
-  margin: auto;
-  overflow: hidden;
-}
-
-/* TRACK */
-.pc-track {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-
-.pc-page {
-  min-width: 100%;
-  display: flex;
-  gap: 25px;
-  justify-content: center;
-}
-
-/* CARD */
-.pc-card {
-  position: relative;
-  width: 100%;
-  max-width: 360px;
-  border-radius: 16px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.pc-img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-/* HOVER IMAGE ZOOM */
-.pc-card:hover .pc-img {
-  transform: scale(1.08);
-}
-
-/* OVERLAY */
-.pc-overlay {
+/* subtle diagonal lines */
+.cr::before {
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 2px,
+    transparent 2px,
+    transparent 22px
+  );
+  opacity: 0.25;
+  pointer-events: none;
 }
 
-/* ACTION BOX */
-.pc-action {
+/* background glow */
+.cr-bg {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-radius: 50%;
+  filter: blur(0px);
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.pc-action h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1e293b;
+.cr-bg-one {
+  width: 240px;
+  height: 240px;
+  background: #10b981;
+  top: 20px;
+  left: -70px;
+  animation: crBlobFloat 8s ease-in-out infinite;
 }
 
-/* BUTTON */
-.pc-btn {
-  border: none;
-  padding: 10px 18px;
-  border-radius: 30px;
-  color: #fff;
-  cursor: pointer;
-  transition: 0.3s;
+.cr-bg-two {
+  width: 320px;
+  height: 320px;
+  background: #6366f1;
+  bottom: -100px;
+  right: -90px;
+  animation: crBlobFloat 10s ease-in-out infinite;
 }
 
-/* COLORS */
-.pc-btn.red { background: #ef4444; }
-.pc-btn.orange { background: #f59e0b; }
-.pc-btn.blue { background: #0284c7; }
+/* reveal */
+.cr-reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+  transition: all 0.9s ease;
+  position: relative;
+  z-index: 2;
+}
 
-/* HOVER */
-.pc-btn:hover {
-  transform: translateX(5px);
+.cr-reveal.cr-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cr-delay-1 {
+  transition-delay: 0.08s;
+}
+
+.cr-delay-2 {
+  transition-delay: 0.16s;
+}
+
+.cr-delay-3 {
+  transition-delay: 0.24s;
+}
+
+.cr-head {
+  position: relative;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 55px;
+  color: white;
+  z-index: 2;
+}
+
+.cr-head h2 {
+  margin: 0;
+  font-size: 46px;
+  font-weight: 900;
+}
+
+.cr-line {
+  width: 60px;
+  height: 4px;
+  border-radius: 999px;
+  margin: 14px auto;
+  background: linear-gradient(90deg, #10b981, #6366f1);
+  animation: crLinePulse 3s ease-in-out infinite;
+}
+
+.cr-head p {
+  margin: 0;
+  font-size: 18px;
   opacity: 0.9;
 }
 
-/* NAV BUTTONS */
-.pc-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #fff;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
+/* slider */
+.cr-slider {
+  --perView: 4;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  user-select: none;
+  cursor: grab;
   z-index: 2;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.pc-nav.left { left: -20px; }
-.pc-nav.right { right: -20px; }
+.cr-slider:active {
+  cursor: grabbing;
+}
 
-/* PAGINATION */
-.pc-pagination {
+.cr-mask {
+  overflow: hidden;
+  padding-top: 38px;
+}
+
+/* track */
+.cr-track {
+  display: flex;
+  will-change: transform;
+}
+
+.cr-track.anim {
+  transition: transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* slides */
+.cr-slide {
+  flex: 0 0 calc(100% / var(--perView));
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* card */
+.cr-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 56px 28px 34px;
   text-align: center;
-  margin-top: 30px;
+  position: relative;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.25);
+  overflow: visible;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: crCardFloat 5s ease-in-out infinite;
 }
 
-.pc-pagination button {
-  margin: 0 5px;
-  padding: 6px 12px;
-  border: 1px solid #ddd;
-  background: #fff;
+.cr-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(99, 102, 241, 0.05));
+  opacity: 0;
+  transition: 0.35s ease;
+}
+
+.cr-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 55px 120px rgba(0, 0, 0, 0.35);
+}
+
+.cr-card:hover::before {
+  opacity: 1;
+}
+
+/* avatar */
+.cr-avatar {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  z-index: 5;
+  animation: crAvatarPulse 3s ease-in-out infinite;
+}
+
+.cr-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cr-text {
+  position: relative;
+  z-index: 1;
+  margin: 26px 0 16px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #475569;
+}
+
+.cr-name {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.cr-stars {
+  position: relative;
+  z-index: 1;
+  color: #f59e0b;
+  font-size: 18px;
+}
+
+/* arrows */
+.cr-nav {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
   cursor: pointer;
-  border-radius: 6px;
+  background: white;
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 900;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  z-index: 5;
 }
 
-.pc-pagination button.active {
-  background: #0f172a;
-  color: #fff;
+.cr-nav:hover {
+  transform: translateY(-50%) scale(1.06);
+  background: #10b981;
+  color: #ffffff;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .pc-page {
-    flex-wrap: wrap;
+.cr-nav.left {
+  left: -18px;
+}
+
+.cr-nav.right {
+  right: -18px;
+}
+
+/* dots */
+.cr-dots {
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cr-dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.cr-dot.active {
+  width: 28px;
+  background: #10b981;
+}
+
+/* keyframes */
+@keyframes crBlobFloat {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-18px) scale(1.05);
   }
 }
 
-@media (max-width: 768px) {
-  .pc-heading {
-    font-size: 26px;
+@keyframes crCardFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
   }
-
-  .pc-img {
-    height: 220px;
+  50% {
+    transform: translateY(-4px);
   }
 }
 
-@media (max-width: 480px) {
-  .pc-heading {
-    font-size: 22px;
+@keyframes crAvatarPulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
+@keyframes crLinePulse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1.08);
+    opacity: 0.85;
+  }
+}
+
+/* responsive */
+@media (max-width: 1100px) {
+  .cr-slider {
+    --perView: 2;
+  }
+}
+
+@media (max-width: 650px) {
+  .cr-slider {
+    --perView: 1;
   }
 
-  .pc-subheading {
-    font-size: 14px;
+  .cr-nav.left {
+    left: 8px;
+  }
+
+  .cr-nav.right {
+    right: 8px;
+  }
+
+  .cr-head h2 {
+    font-size: 34px;
+  }
+
+  .cr-head p {
+    font-size: 16px;
+  }
+
+  .cr-card {
+    animation: none;
+  }
+
+  .cr-text {
+    font-size: 16px;
+  }
+
+  .cr-name {
+    font-size: 18px;
   }
 }

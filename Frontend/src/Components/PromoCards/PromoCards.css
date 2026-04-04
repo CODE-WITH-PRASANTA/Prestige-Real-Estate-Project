@@ -6,19 +6,10 @@
   overflow: hidden;
 }
 
-<<<<<<< HEAD
-/* background glow */
-.pc-bg {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0;
-  pointer-events: none;
-=======
 /* HEADER */
 .pc-header {
   text-align: center;
   margin-bottom: 50px;
->>>>>>> 1466a0e10b0fbaad21e50a20ddff10caeb7d9795
 }
 
 .pc-heading {
@@ -28,60 +19,12 @@
   margin-bottom: 10px;
 }
 
-<<<<<<< HEAD
-.pc-bg-two {
-  width: 300px;
-  height: 300px;
-  background: #0ea5e9;
-  bottom: -110px;
-  right: -80px;
-  animation:
-    pcGlowOpen 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    pcBlobFloat 10s ease-in-out 1.5s infinite;
-}
-
-/* reveal */
-.pc-reveal {
-  opacity: 0;
-  transform: translateY(60px) scale(0.96);
-  filter: blur(1px);
-  transition:
-    opacity 0.95s ease,
-    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.95s ease;
-  position: relative;
-  z-index: 2;
-  will-change: transform, opacity, filter;
-}
-
-.pc-reveal.pc-active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-.pc-delay-1 {
-  transition-delay: 0.12s;
-}
-
-.pc-delay-2 {
-  transition-delay: 0.22s;
-}
-
-.pc-delay-3 {
-  transition-delay: 0.32s;
-}
-
-.pc-delay-4 {
-  transition-delay: 0.42s;
-=======
 .pc-subheading {
   font-size: 16px;
   color: #64748b;
   max-width: 600px;
   margin: auto;
   line-height: 1.6;
->>>>>>> 1466a0e10b0fbaad21e50a20ddff10caeb7d9795
 }
 
 /* SLIDER */
