@@ -3,6 +3,10 @@
   padding: 80px 20px;
   background: linear-gradient(135deg, #071a2f, #081b33);
   overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.985);
+  animation: statsSectionOpen 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* background glow */
@@ -10,7 +14,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0.16;
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -20,7 +24,9 @@
   background: #10b981;
   top: -40px;
   left: -60px;
-  animation: statsBlobFloat 8s ease-in-out infinite;
+  animation:
+    statsGlowOpen 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    statsBlobFloat 8s ease-in-out 1.3s infinite;
 }
 
 .stats-bg-two {
@@ -29,7 +35,9 @@
   background: #6366f1;
   bottom: -100px;
   right: -80px;
-  animation: statsBlobFloat 10s ease-in-out infinite;
+  animation:
+    statsGlowOpen 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    statsBlobFloat 10s ease-in-out 1.5s infinite;
 }
 
 .stats-container {
@@ -46,12 +54,18 @@
 .stats-reveal {
   opacity: 0;
   transform: translateY(60px) scale(0.96);
-  transition: all 0.9s ease;
+  filter: blur(10px);
+  transition:
+    opacity 0.95s ease,
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.95s ease;
+  will-change: transform, opacity, filter;
 }
 
 .stats-reveal.stats-active {
   opacity: 1;
   transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 .stats-delay-1 {
@@ -78,10 +92,32 @@
   align-items: center;
   gap: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  transition: 0.35s ease;
-  animation: statsCardFloat 5s ease-in-out infinite;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+  animation:
+    statsCardOpen 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
+    statsCardFloat 5s ease-in-out 1.1s infinite;
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(42px) scale(0.97);
+}
+
+.stats-card:nth-child(1) {
+  animation-delay: 0.16s, 1.2s;
+}
+
+.stats-card:nth-child(2) {
+  animation-delay: 0.3s, 1.35s;
+}
+
+.stats-card:nth-child(3) {
+  animation-delay: 0.44s, 1.5s;
+}
+
+.stats-card:nth-child(4) {
+  animation-delay: 0.58s, 1.65s;
 }
 
 .stats-card::before {
@@ -138,6 +174,50 @@
 }
 
 /* keyframes */
+@keyframes statsSectionOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.003);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes statsGlowOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(24px);
+  }
+  100% {
+    opacity: 0.16;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes statsCardOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(42px) scale(0.97);
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.01);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 @keyframes statsBlobFloat {
   0%,
   100% {
@@ -187,7 +267,7 @@
 
   .stats-card {
     padding: 22px 20px;
-    animation: none;
+    animation: statsCardOpen 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .stats-icon {

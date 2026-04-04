@@ -19,24 +19,29 @@ export default function Partners() {
   const loop = [...partners, ...partners];
 
   useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".partners-reveal");
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const elements = section.querySelectorAll(".partners-reveal");
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("partners-active");
+            obs.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.18 }
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px",
+      }
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -45,19 +50,26 @@ export default function Partners() {
       <div className="partners-bg partners-bg-two"></div>
 
       <div className="partners-inner">
-        <h2 className="partners-reveal">Hundreds of Partners Around the World</h2>
-        <div className="partners-line partners-reveal partners-delay-1" />
-        <p className="partners-reveal partners-delay-2">
-          Every day, we build trust through communication, transparency, and results.
+        <h2 className="partners-reveal partners-delay-1">
+          Hundreds of Partners Around the World
+        </h2>
+
+        <div className="partners-line partners-reveal partners-delay-2"></div>
+
+        <p className="partners-reveal partners-delay-3">
+          Every day, we build trust through communication, transparency, and
+          results.
         </p>
 
-        <div className="partners-slider partners-reveal partners-delay-3">
+        <div className="partners-slider partners-reveal partners-delay-4">
           <div className="partners-track">
             {loop.map((p, idx) => (
               <div
                 className="partner-card"
                 key={`${p.id}-${idx}`}
-                style={{ animationDelay: `${idx * 0.08}s` }}
+                style={{
+                  animationDelay: `${0.12 + idx * 0.08}s, ${1.2 + idx * 0.12}s`,
+                }}
               >
                 <img src={p.img} alt={p.name} />
                 <span>{p.name}</span>

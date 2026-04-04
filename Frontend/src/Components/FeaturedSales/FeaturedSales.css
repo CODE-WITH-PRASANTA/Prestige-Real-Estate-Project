@@ -6,6 +6,9 @@
   padding: 70px 0;
   background: #ffffff;
   overflow: hidden;
+
+  opacity: 1;
+  transform: none;
 }
 
 .fs-wrap {
@@ -19,8 +22,13 @@
 .fs-bg {
   position: absolute;
   border-radius: 50%;
+<<<<<<< HEAD
   filter: blur(0px);
   opacity: 0.14;
+=======
+  filter: blur(90px);
+  opacity: 0;
+>>>>>>> 4ad38792cf26c3104a86f78de927d0133725a19c
   pointer-events: none;
 }
 
@@ -30,7 +38,6 @@
   background: #10b981;
   top: -30px;
   left: -80px;
-  animation: fsBlobFloat 8s ease-in-out infinite;
 }
 
 .fs-bg-two {
@@ -39,34 +46,31 @@
   background: #3b82f6;
   bottom: -100px;
   right: -100px;
-  animation: fsBlobFloat 10s ease-in-out infinite;
 }
 
 /* =============================
    REVEAL
 ============================= */
 .fs-reveal {
-  opacity: 0;
-  transform: translateY(60px) scale(0.97);
-  transition: all 0.9s ease;
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 0.95s ease,
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.95s ease;
 }
 
 .fs-reveal.fs-active {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: none;
+  filter: none;
 }
 
-.fs-delay-1 {
-  transition-delay: 0.08s;
-}
-
-.fs-delay-2 {
-  transition-delay: 0.16s;
-}
-
-.fs-delay-3 {
-  transition-delay: 0.24s;
-}
+.fs-delay-1 { transition-delay: 0.08s; }
+.fs-delay-2 { transition-delay: 0.16s; }
+.fs-delay-3 { transition-delay: 0.24s; }
+.fs-delay-4 { transition-delay: 0.32s; }
 
 /* =============================
    TOP BAR
@@ -82,9 +86,12 @@
   font-size: 30px;
   font-weight: 800;
   color: #0f172a;
+  margin: 0;
 }
 
 /* ARROWS */
+.fs-arrows {}
+
 .fs-arrows button {
   width: 42px;
   height: 42px;
@@ -95,17 +102,22 @@
   font-size: 20px;
   cursor: pointer;
   margin-left: 10px;
-  transition: 0.3s;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .fs-arrows button:hover {
   transform: translateY(-2px);
   background: #10b981;
+  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.22);
 }
 
 .fs-arrows button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* =============================
@@ -119,7 +131,7 @@
 
 .fs-track {
   display: flex;
-  transition: transform 0.6s ease;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* DESKTOP */
@@ -138,11 +150,13 @@
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #eef2f7;
-  transition: all 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   position: relative;
-  animation: fsCardFloat 5s ease-in-out infinite;
 }
 
 .fs-card::before {
@@ -158,6 +172,7 @@
 .fs-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  border-color: #dbe7f2;
 }
 
 .fs-card:hover::before {
@@ -315,12 +330,18 @@
   background: #fff;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.3s;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .fs-pagination button:hover {
   background: #10b981;
   color: #fff;
+  transform: translateY(-2px);
+  border-color: #10b981;
 }
 
 .fs-pagination .active {
@@ -332,6 +353,7 @@
 .fs-pagination button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  transform: none;
 }
 
 /* =============================
@@ -350,40 +372,22 @@
   border-radius: 10px;
   font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
   border: none;
 }
 
 .fs-exploreBtn:hover {
   transform: translateY(-2px);
   background: #10b981;
-}
-
-/* =============================
-   KEYFRAMES
-============================= */
-@keyframes fsBlobFloat {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(-20px) scale(1.05);
-  }
-}
-
-@keyframes fsCardFloat {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
+  box-shadow: 0 14px 28px rgba(16, 185, 129, 0.22);
 }
 
 /* =============================
    RESPONSIVE
 ============================= */
-
 @media (max-width: 1024px) {
   .fs-page {
     grid-template-columns: repeat(2, 1fr);
@@ -401,10 +405,6 @@
 
   .fs-media {
     height: 220px;
-  }
-
-  .fs-card {
-    animation: none;
   }
 }
 

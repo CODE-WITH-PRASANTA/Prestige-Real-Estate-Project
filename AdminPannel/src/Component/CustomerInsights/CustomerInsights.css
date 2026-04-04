@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.CustomerInsights {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f6fa;
+  font-family: "Inter", sans-serif;
+}
+
+/* LEFT CARD */
+.CustomerInsights-activity {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.CustomerInsights-heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* SCROLL */
+.CustomerInsights-activityList {
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* ITEM */
+.CustomerInsights-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+/* ICON */
+.CustomerInsights-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.CustomerInsights-icon.blue {
+  background: #3b82f6;
+}
+
+.CustomerInsights-icon.red {
+  background: #ef4444;
+}
+
+/* CONTENT */
+.CustomerInsights-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.CustomerInsights-date {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 5px 0;
+}
+
+.CustomerInsights-content ul {
+  padding-left: 18px;
+  font-size: 13px;
+  color: #374151;
+}
+
+/* BADGE */
+.CustomerInsights-badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.CustomerInsights-badge.upcoming {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.CustomerInsights-badge.cancelled {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* RIGHT CARD */
+.CustomerInsights-chart {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* HEADER */
+.CustomerInsights-chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* DROPDOWN */
+.CustomerInsights-dropdown {
+  position: relative;
+  background: #f3f4f6;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.CustomerInsights-dropdownMenu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 10px;
+  width: 120px;
+}
+
+.CustomerInsights-dropdownMenu p {
+  padding: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.CustomerInsights-dropdownMenu p:hover {
+  background: #f3f4f6;
+}
+
+/* GRAPH */
+.CustomerInsights-graph {
+  margin-top: 20px;
+}
+
+.CustomerInsights-graph svg {
+  width: 100%;
+  height: 260px;
+}
+
+/* MONTHS */
+.CustomerInsights-months {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .CustomerInsights {
+    grid-template-columns: 1fr;
+  }
+
+  .CustomerInsights-activity {
+    height: auto;
+  }
+}

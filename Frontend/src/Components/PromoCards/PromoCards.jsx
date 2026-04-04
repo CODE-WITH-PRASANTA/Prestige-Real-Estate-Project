@@ -32,29 +32,9 @@ export default function PromoCards() {
       setPerPage(getPerPage());
       setPage(0);
     };
+
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
-  }, []);
-
-  useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".pc-reveal");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("pc-active");
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
   }, []);
 
   const pages = useMemo(() => {
@@ -63,20 +43,25 @@ export default function PromoCards() {
       arr.push(items.slice(i, i + perPage));
     }
     return arr;
-  }, [items, perPage]);
+  }, [perPage]);
 
   const prev = () => setPage((p) => Math.max(0, p - 1));
   const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
 
   return (
     <section className="pc" ref={sectionRef}>
-      <div className="pc-bg pc-bg-one"></div>
-      <div className="pc-bg pc-bg-two"></div>
+      
+      {/* 🔥 HEADING */}
+      <div className="pc-header">
+        <h2 className="pc-heading">Find Your Perfect Property Match</h2>
+        <p className="pc-subheading">
+          Buy, sell, or rent properties with ease and confidence through our trusted platform.
+        </p>
+      </div>
 
-      <div className="pc-slider pc-reveal">
-        <button className="pc-nav left" onClick={prev} type="button">
-          ‹
-        </button>
+      {/* SLIDER */}
+      <div className="pc-slider">
+        <button className="pc-nav left" onClick={prev}>‹</button>
 
         <div
           className="pc-track"
@@ -84,21 +69,15 @@ export default function PromoCards() {
         >
           {pages.map((group, i) => (
             <div className="pc-page" key={i}>
-              {group.map((x, index) => (
-                <div
-                  className="pc-card"
-                  key={x.id}
-                  style={{ animationDelay: `${index * 0.14}s` }}
-                >
+              {group.map((x) => (
+                <div className="pc-card" key={x.id}>
                   <img className="pc-img" src={x.img} alt={x.title} />
 
                   <div className="pc-overlay"></div>
 
                   <div className="pc-action">
                     <h3>{x.title}</h3>
-                    <button className={`pc-btn ${x.color}`} type="button">
-                      →
-                    </button>
+                    <button className={`pc-btn ${x.color}`}>→</button>
                   </div>
                 </div>
               ))}
@@ -106,31 +85,26 @@ export default function PromoCards() {
           ))}
         </div>
 
-        <button className="pc-nav right" onClick={next} type="button">
-          ›
-        </button>
+        <button className="pc-nav right" onClick={next}>›</button>
       </div>
 
-      <div className="pc-pagination pc-reveal pc-delay-1">
-        <button onClick={prev} disabled={page === 0} type="button">
-          &lt;
-        </button>
+      {/* PAGINATION */}
+      <div className="pc-pagination">
+        <button onClick={prev} disabled={page === 0}>&lt;</button>
 
         {pages.map((_, i) => (
           <button
             key={i}
             className={page === i ? "active" : ""}
             onClick={() => setPage(i)}
-            type="button"
           >
             {i + 1}
           </button>
         ))}
 
-        <button onClick={next} disabled={page === pages.length - 1} type="button">
-          &gt;
-        </button>
+        <button onClick={next} disabled={page === pages.length - 1}>&gt;</button>
       </div>
+
     </section>
   );
 }

@@ -19,11 +19,14 @@ import FaqSection from "./Pages/FaqSection/FaqSection";
 import PrisingSection from "./Pages/PrisingSection/PrisingSection";
 
 import ContactSection from "./Pages/ContactSection/ContactSection";
+import Rentdetails from "./Pages/Rentdetails/Rentdetails";
 import BuyGrid from "./Pages/BuyGrid/BuyGrid";
 import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
-import RentDetails from "./Components/RentDetails/RentDetails";
-import Rentdetails from "./Pages/Rentdetails/Rentdetails";
+import RentDetails from "./Components/RentDetailsMain/RentDetailsMain";
+import RentDetailsMain from "./Components/RentDetailsMain/RentDetailsMain";
+import FloatingForm from "./Components/FloatingForm/FloatingForm";
+import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
 
 function App() {
   return (
@@ -46,14 +49,16 @@ function App() {
 
         <Route path="/property" element={<Property />} />
         {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
+        <Route path="/rent/details" element={<Rentdetails/>}/>
+        {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
 
-        <Route path="/rent/property" element={<RentDetails />} />
-        <Route path="/rent/details"  element={<Rentdetails />}/>
+        <Route path="/rent/property" element={<RentDetailsMain />} />
         
         <Route path="/buyproperties" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>
       </Routes>
-
+      <FloatingIcons />
+      <FloatingForm />
       <Footer />
     </>
   );

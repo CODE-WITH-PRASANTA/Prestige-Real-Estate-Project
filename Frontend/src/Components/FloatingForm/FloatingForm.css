@@ -1,0 +1,398 @@
+* {
+  box-sizing: border-box;
+}
+
+.FloatingForm {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.FloatingForm__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 15, 29, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.FloatingForm__card {
+  position: relative;
+  z-index: 2;
+  width: min(1100px, 100%);
+  min-height: 620px;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  transform-origin: center;
+}
+
+.FloatingForm--show .FloatingForm__overlay {
+  animation: FloatingFormOverlayShow 0.35s ease forwards;
+}
+
+.FloatingForm--show .FloatingForm__card {
+  animation: FloatingFormCardShow 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.FloatingForm--hide .FloatingForm__overlay {
+  animation: FloatingFormOverlayHide 0.3s ease forwards;
+}
+
+.FloatingForm--hide .FloatingForm__card {
+  animation: FloatingFormCardHide 0.35s ease forwards;
+}
+
+.FloatingForm__closeButton {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.FloatingForm__closeButton:hover {
+  background: #ef4444;
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.FloatingForm__left {
+  position: relative;
+  padding: 48px 38px;
+  background:
+    linear-gradient(135deg, rgba(16, 185, 129, 0.94), rgba(59, 130, 246, 0.92)),
+    url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.FloatingForm__left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.28));
+}
+
+.FloatingForm__left > * {
+  position: relative;
+  z-index: 2;
+}
+
+.FloatingForm__badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 10px 16px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.FloatingForm__title {
+  margin: 0 0 16px;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.FloatingForm__subtitle {
+  margin: 0 0 28px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 480px;
+}
+
+.FloatingForm__points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.FloatingForm__point {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.FloatingForm__pointIcon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.FloatingForm__right {
+  padding: 42px 34px 34px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.FloatingForm__form {
+  width: 100%;
+}
+
+.FloatingForm__formTitle {
+  margin: 0 0 22px;
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.FloatingForm__formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.FloatingForm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.FloatingForm__field--full {
+  margin-top: 16px;
+}
+
+.FloatingForm__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.FloatingForm__input,
+.FloatingForm__textarea {
+  width: 100%;
+  border: 1px solid #dbe4ee;
+  border-radius: 14px;
+  background: #f8fafc;
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.FloatingForm__input {
+  height: 52px;
+}
+
+.FloatingForm__textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+.FloatingForm__input:focus,
+.FloatingForm__textarea:focus {
+  border-color: #10b981;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+.FloatingForm__submitButton {
+  margin-top: 20px;
+  width: 100%;
+  height: 54px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #10b981, #2563eb);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.18);
+}
+
+.FloatingForm__submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 36px rgba(37, 99, 235, 0.24);
+}
+
+@keyframes FloatingFormOverlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes FloatingFormOverlayHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes FloatingFormCardShow {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.92);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.01);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes FloatingFormCardHide {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.94);
+  }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .FloatingForm__card {
+    grid-template-columns: 1fr;
+    max-width: 700px;
+    min-height: auto;
+  }
+
+  .FloatingForm__left {
+    padding: 34px 26px;
+  }
+
+  .FloatingForm__right {
+    padding: 30px 24px 26px;
+  }
+
+  .FloatingForm__title {
+    max-width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .FloatingForm {
+    padding: 12px;
+    align-items: center;
+  }
+
+  .FloatingForm__card {
+    border-radius: 22px;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+
+  .FloatingForm__left {
+    padding: 28px 18px;
+  }
+
+  .FloatingForm__right {
+    padding: 24px 16px 18px;
+  }
+
+  .FloatingForm__formTitle {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .FloatingForm__formGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .FloatingForm__field--full {
+    margin-top: 14px;
+  }
+
+  .FloatingForm__closeButton {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 24px;
+  }
+
+  .FloatingForm__title {
+    font-size: 26px;
+  }
+
+  .FloatingForm__subtitle {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .FloatingForm__point {
+    font-size: 14px;
+  }
+
+  .FloatingForm__input,
+  .FloatingForm__textarea {
+    font-size: 14px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 420px) {
+  .FloatingForm__left {
+    padding: 24px 16px;
+  }
+
+  .FloatingForm__right {
+    padding: 22px 14px 16px;
+  }
+
+  .FloatingForm__badge {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .FloatingForm__title {
+    font-size: 24px;
+  }
+
+  .FloatingForm__submitButton {
+    height: 50px;
+    font-size: 15px;
+  }
+}
