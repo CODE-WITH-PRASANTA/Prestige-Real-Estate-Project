@@ -27,7 +27,6 @@ function Home() {
       <PromoCards />
       <Partners />
       <ClientReviews />
-   
       <FAQ />
       <BecomeAgent />
       <Contactfrom/>
