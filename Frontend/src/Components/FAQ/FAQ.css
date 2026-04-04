@@ -24,7 +24,6 @@
 .faq-bg {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
   opacity: 0;
   pointer-events: none;
 }
@@ -57,7 +56,6 @@
 .faq-reveal {
   opacity: 0;
   transform: translateY(60px) scale(0.96);
-  filter: blur(10px);
   transition:
     opacity 0.95s ease,
     transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
@@ -416,7 +414,7 @@
   0% {
     opacity: 0;
     transform: translateY(24px) scale(0.97);
-    filter: blur(8px);
+    filter: blur(0px);
   }
   100% {
     opacity: 1;
@@ -429,7 +427,7 @@
   0% {
     opacity: 0;
     transform: translateY(38px) scale(0.97);
-    filter: blur(8px);
+    filter: blur(0px);
   }
   60% {
     opacity: 1;
