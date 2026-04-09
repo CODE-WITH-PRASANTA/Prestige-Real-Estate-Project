@@ -1,0 +1,127 @@
+.propertyPosting {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* FORM */
+.propertyPosting__form {
+  width: 50%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.propertyPosting__form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.propertyPosting__form label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.propertyPosting__form input,
+.propertyPosting__form select,
+.propertyPosting__form textarea {
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* STARS */
+.propertyPosting__stars span {
+  font-size: 22px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.propertyPosting__stars .active {
+  color: gold;
+}
+
+/* BUTTON */
+.propertyPosting__form button {
+  margin-top: 15px;
+  padding: 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+}
+
+/* TABLE */
+.propertyPosting__table {
+  width: 50%;
+}
+
+.propertyPosting__tableWrapper {
+  overflow-x: auto;
+}
+
+.propertyPosting__table table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+}
+
+.propertyPosting__table th,
+.propertyPosting__table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.propertyPosting__table img {
+  width: 60px;
+  height: 50px;
+  object-fit: cover;
+}
+
+/* BUTTONS */
+.propertyPosting__table td button {
+  padding: 6px 10px;
+  margin: 3px;
+  border: none;
+  border-radius: 5px;
+}
+
+.propertyPosting__table td button:first-child {
+  background: green;
+  color: white;
+}
+
+.propertyPosting__table td button:last-child {
+  background: red;
+  color: white;
+}
+
+/* PAGINATION */
+.propertyPosting__pagination {
+  margin-top: 10px;
+}
+
+.propertyPosting__pagination button {
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+.propertyPosting__pagination .active {
+  background: blue;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .propertyPosting {
+    flex-direction: column;
+  }
+
+  .propertyPosting__form,
+  .propertyPosting__table {
+    width: 100%;
+  }
+}

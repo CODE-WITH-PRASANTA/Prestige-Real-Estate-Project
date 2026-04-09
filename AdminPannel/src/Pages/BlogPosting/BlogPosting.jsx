@@ -1,239 +1,331 @@
 import React, { useState } from "react";
 import "./BlogPosting.css";
+import { FaBold, FaItalic, FaUnderline, FaList, FaImage } from "react-icons/fa";
 
 const BlogPosting = () => {
-  const base = "blog";
+  const base = "blogposting";
 
-  const initialForm = {
-    image: "",
-    category: "",
+  const [form, setForm] = useState({
+    id: null,
     title: "",
+    category: "",
     author: "",
+    owner: "",
+    email: "",
     date: "",
-    description: "",
-    status: "Active",
-  };
+    time: "",
+    tags: [],
+    content: "",
+    course: "",
+    type: "Free",
+    image: "",
+  });
 
-  const [form, setForm] = useState(initialForm);
-  const [preview, setPreview] = useState("");
-  const [list, setList] = useState([]);
-  const [editId, setEditId] = useState(null);
+  const [tagInput, setTagInput] = useState("");
+  const [blogs, setBlogs] = useState([]);
 
-  // HANDLE INPUT
+  const categories = ["Animals", "Travel", "Interior", "Nature", "Health", "Food"];
+
+  // INPUT CHANGE
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
-  // IMAGE
-  const handleImage = (e) => {
+  // TAG ADD
+  const handleAddTag = () => {
+    if (tagInput.trim() && !form.tags.includes(tagInput)) {
+      setForm({ ...form, tags: [...form.tags, tagInput] });
+      setTagInput("");
+    }
+  };
+
+  const removeTag = (tag) => {
+    setForm({ ...form, tags: form.tags.filter((t) => t !== tag) });
+  };
+
+  // IMAGE UPLOAD
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setForm({ ...form, image: file });
-      setPreview(URL.createObjectURL(file));
+      setForm({ ...form, image: URL.createObjectURL(file) });
     }
   };
 
-  // SUBMIT / UPDATE
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // CREATE / UPDATE
+  const handlePost = (status) => {
+    if (!form.title) return alert("Title required");
 
-    if (editId) {
-      const updated = list.map((item) =>
-        item.id === editId
-          ? { ...form, id: editId, image: preview || item.image }
-          : item
+    if (form.id) {
+      setBlogs(
+        blogs.map((b) =>
+          b.id === form.id ? { ...form, status } : b
+        )
       );
-      setList(updated);
-      setEditId(null);
     } else {
-      const newItem = {
+      const newBlog = {
         ...form,
+        status,
         id: Date.now(),
-        image: preview,
       };
-      setList([newItem, ...list]);
+      setBlogs([newBlog, ...blogs]);
     }
 
-    setForm(initialForm);
-    setPreview("");
+    resetForm();
   };
 
-  // EDIT
-  const handleEdit = (item) => {
-    setForm(item);
-    setPreview(item.image);
-    setEditId(item.id);
+  const resetForm = () => {
+    setForm({
+      id: null,
+      title: "",
+      category: "",
+      author: "",
+      owner: "",
+      email: "",
+      date: "",
+      time: "",
+      tags: [],
+      content: "",
+      course: "",
+      type: "Free",
+      image: "",
+    });
   };
 
   // DELETE
   const handleDelete = (id) => {
-    if (window.confirm("Delete this blog?")) {
-      setList(list.filter((item) => item.id !== id));
-    }
+    setBlogs(blogs.filter((b) => b.id !== id));
+  };
+
+  // EDIT
+  const handleEdit = (blog) => {
+    setForm(blog);
+  };
+
+  // TOGGLE STATUS
+  const toggleStatus = (id) => {
+    setBlogs(
+      blogs.map((b) =>
+        b.id === id
+          ? {
+              ...b,
+              status: b.status === "Published" ? "Unpublished" : "Published",
+            }
+          : b
+      )
+    );
   };
 
   return (
-    <div className={`${base}-container`}>
-      
-      {/* FORM */}
-      <div className={`${base}-form`}>
-        <h2>{editId ? "Edit Blog" : "Add Blog"}</h2>
+    <div className={base}>
+      {/* LEFT */}
+      <div className={`${base}__left`}>
+        <h2 className={`${base}__title`}>Create Blog</h2>
 
-        <form onSubmit={handleSubmit}>
-          
-          <div className={`${base}-group`}>
-            <label>Blog Image</label>
-            <input type="file" onChange={handleImage} />
-            {preview && (
-              <img src={preview} className={`${base}-preview`} alt="" />
-            )}
-          </div>
+        <div className={`${base}__card`}>
+          <h3>New Blog</h3>
 
-          <div className={`${base}-group`}>
-            <label>Category</label>
-            <input
-              type="text"
-              name="category"
-              placeholder="Enter category"
-              value={form.category}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className={`${base}-group`}>
+          {/* TITLE */}
+          <div className={`${base}__field`}>
             <label>Blog Title</label>
             <input
               type="text"
               name="title"
-              placeholder="Enter blog title"
               value={form.title}
+              placeholder="Blog Title"
               onChange={handleChange}
-              required
             />
           </div>
 
-          <div className={`${base}-group`}>
-            <label>Author Name</label>
-            <input
-              type="text"
-              name="author"
-              placeholder="Enter author name"
-              value={form.author}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className={`${base}-group`}>
-            <label>Publish Date</label>
-            <input
-              type="date"
-              name="date"
-              value={form.date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className={`${base}-group`}>
-            <label>Description</label>
-            <textarea
-              name="description"
-              placeholder="Write blog content..."
-              value={form.description}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className={`${base}-group`}>
-            <label>Status</label>
-            <select
-              name="status"
-              value={form.status}
-              onChange={handleChange}
-            >
-              <option>Active</option>
-              <option>Inactive</option>
+          {/* CATEGORY */}
+          <div className={`${base}__field`}>
+            <label>Blog Category</label>
+            <select name="category" value={form.category} onChange={handleChange}>
+              <option value="">Select Category</option>
+              {categories.map((cat, i) => (
+                <option key={i}>{cat}</option>
+              ))}
             </select>
           </div>
 
-          <button type="submit" className={`${base}-btn`}>
-            {editId ? "Update Blog" : "Submit"}
-          </button>
-        </form>
+          {/* AUTHOR + EMAIL */}
+          <div className={`${base}__row`}>
+            <div className={`${base}__field`}>
+              <label>Blog Author</label>
+              <input
+                type="text"
+                name="author"
+                value={form.author}
+                placeholder="Enter Name"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className={`${base}__field`}>
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                placeholder="Enter Email"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          {/* OWNER */}
+          <div className={`${base}__field`}>
+            <label>Owner Name</label>
+            <input
+              type="text"
+              name="owner"
+              value={form.owner}
+              placeholder="Enter Owner Name"
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* DATE + TIME */}
+          <div className={`${base}__row`}>
+            <div className={`${base}__field`}>
+              <label>Publish Date</label>
+              <input type="date" name="date" value={form.date} onChange={handleChange} />
+            </div>
+
+            <div className={`${base}__field`}>
+              <label>Publish Time</label>
+              <input type="time" name="time" value={form.time} onChange={handleChange} />
+            </div>
+          </div>
+
+          {/* TAGS */}
+          <div className={`${base}__field`}>
+            <label>Blog Tags</label>
+
+            <div className={`${base}__tagInputBox`}>
+              <input
+                type="text"
+                placeholder="Enter tag"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+              />
+              <button onClick={handleAddTag}>Add</button>
+            </div>
+
+            <div className={`${base}__tagList`}>
+              {form.tags.map((tag, i) => (
+                <span key={i} onClick={() => removeTag(tag)}>
+                  {tag} ✕
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* CONTENT */}
+          <div className={`${base}__field`}>
+            <label>Blog Content</label>
+
+            <div className={`${base}__editorToolbar`}>
+              <FaBold />
+              <FaItalic />
+              <FaUnderline />
+              <FaList />
+              <FaImage />
+            </div>
+
+            <textarea
+              name="content"
+              value={form.content}
+              placeholder="Write blog content..."
+              onChange={handleChange}
+            ></textarea>
+          </div>
+
+          {/* COURSE */}
+          <div className={`${base}__field`}>
+            <label>Course Content</label>
+
+            <textarea
+              name="course"
+              value={form.course}
+              placeholder="Write course content..."
+              onChange={handleChange}
+            ></textarea>
+          </div>
+
+          {/* IMAGE */}
+          <div className={`${base}__field`}>
+            <label>Blog Image</label>
+
+            <input type="file" onChange={handleImageUpload} />
+
+            {form.image && (
+              <img className={`${base}__previewImage`} src={form.image} alt="" />
+            )}
+          </div>
+
+          {/* BUTTONS */}
+          <div className={`${base}__actions`}>
+            <button
+              className="blogposting__draft"
+              onClick={() => handlePost("Draft")}
+            >
+              Save Draft
+            </button>
+
+            <button
+              className="blogposting__publish"
+              onClick={() => handlePost("Published")}
+            >
+              Post Blog
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* TABLE */}
-      <div className={`${base}-list`}>
-        <h2>Blog List</h2>
+      {/* RIGHT */}
+      <div className={`${base}__right`}>
+        <h3>Recent Blogs</h3>
 
-        <div className={`${base}-table-wrapper`}>
-          <table>
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Category</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+        {blogs.map((blog) => (
+          <div key={blog.id} className={`${base}__previewCard`}>
+            <img src={blog.image || "https://via.placeholder.com/70"} alt="" />
 
-            <tbody>
-              {list.length === 0 ? (
-                <tr>
-                  <td colSpan="8">No Data Found</td>
-                </tr>
-              ) : (
-                list.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      <img src={item.image} alt="" />
-                    </td>
-                    <td>{item.category}</td>
-                    <td>{item.title}</td>
-                    <td>{item.author}</td>
-                    <td>{item.date}</td>
-                    <td>{item.description}</td>
-                    <td>
-                      <span
-                        className={
-                          item.status === "Active"
-                            ? "status-active"
-                            : "status-inactive"
-                        }
-                      >
-                        {item.status}
-                      </span>
-                    </td>
+            <div>
+              <h4>{blog.title}</h4>
+              <p>{blog.content.slice(0, 50)}...</p>
 
-                    <td>
-                      <div className="blog-actions">
-                        <button
-                          className="edit-btn"
-                          onClick={() => handleEdit(item)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="delete-btn"
-                          onClick={() => handleDelete(item.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+              <span>
+                {blog.date || "No Date"} • {blog.status}
+              </span>
+
+              <div className={`${base}__actionsRow`}>
+                <button
+                  className="blogposting__btnPublish"
+                  onClick={() => toggleStatus(blog.id)}
+                >
+                  {blog.status === "Published" ? "Unpublish" : "Publish"}
+                </button>
+
+                <button
+                  className="blogposting__btnEdit"
+                  onClick={() => handleEdit(blog)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="blogposting__btnDelete"
+                  onClick={() => handleDelete(blog.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {blogs.length === 0 && <p>No blogs yet</p>}
       </div>
     </div>
   );
