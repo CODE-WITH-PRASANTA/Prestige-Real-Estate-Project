@@ -1,146 +1,170 @@
-.blog-container {
+.blogposting {
   display: flex;
   gap: 20px;
   padding: 20px;
-  height: 100vh;
-  background: #f4f6f9;
+  background: #f5f6fa;
 }
 
-/* FORM */
-.blog-form {
-  width: 50%;
+/* LEFT */
+.blogposting__left {
+  width: 60%;
+}
+
+/* RIGHT */
+.blogposting__right {
+  width: 40%;
   background: #fff;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 10px;
+  max-height: 90vh;
   overflow-y: auto;
 }
 
-.blog-form h2 {
-  margin-bottom: 15px;
+/* CARD */
+.blogposting__card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.blog-group {
+/* FIELD */
+.blogposting__field {
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
+}
+
+.blogposting__field label {
+  margin-bottom: 6px;
+}
+
+/* INPUT */
+.blogposting__field input,
+.blogposting__field select,
+.blogposting__field textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+/* ROW */
+.blogposting__row {
+  display: flex;
+  gap: 10px;
+}
+
+.blogposting__row .blogposting__field {
+  flex: 1;
+}
+
+/* TAG */
+.blogposting__tagInputBox {
+  display: flex;
+  gap: 10px;
+}
+
+.blogposting__tagInputBox button {
+  background: #6c5ce7;
+  color: white;
+  border: none;
+  padding: 8px;
+}
+
+.blogposting__tagList span {
+  background: #6c5ce7;
+  color: white;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* EDITOR */
+.blogposting__editorToolbar {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-bottom: none;
+}
+
+/* IMAGE */
+.blogposting__previewImage {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+/* BUTTONS */
+.blogposting__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.blogposting__draft {
+  background: #ccc;
+  border: none;
+  padding: 10px;
+}
+
+.blogposting__publish {
+  background: #6c5ce7;
+  color: white;
+  border: none;
+  padding: 10px;
+}
+
+/* PREVIEW */
+.blogposting__previewCard {
+  display: flex;
+  gap: 10px;
   margin-bottom: 15px;
 }
 
-.blog-group label {
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-
-.blog-group input,
-.blog-group textarea,
-.blog-group select {
-  padding: 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  outline: none;
-}
-
-.blog-group input:focus,
-.blog-group textarea:focus {
-  border-color: #6366f1;
-}
-
-.blog-preview {
-  width: 80px;
-  height: 80px;
-  margin-top: 10px;
+.blogposting__previewCard img {
+  width: 70px;
+  height: 70px;
   border-radius: 8px;
   object-fit: cover;
 }
 
-.blog-btn {
-  width: 100%;
-  padding: 12px;
-  background: #6366f1;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* TABLE */
-.blog-list {
-  width: 50%;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-}
-
-.blog-table-wrapper {
-  overflow-x: auto;
-}
-
-.blog-list table {
-  min-width: 700px;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.blog-list th,
-.blog-list td {
-  border: 1px solid #e2e8f0;
-  padding: 10px;
-  text-align: center;
-}
-
-.blog-list th {
-  background: #6366f1;
-  color: white;
-}
-
-.blog-list img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-/* STATUS */
-.status-active {
-  color: green;
-  font-weight: 600;
-}
-
-.status-inactive {
-  color: red;
-  font-weight: 600;
-}
-
-/* ACTION */
-.blog-actions {
+/* ACTION BUTTONS */
+.blogposting__actionsRow {
+  margin-top: 5px;
   display: flex;
-  gap: 6px;
-  justify-content: center;
+  gap: 5px;
 }
 
-.edit-btn {
-  background: #0ea5e9;
+.blogposting__btnPublish {
+  background: #00b894;
   color: white;
   border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
+  padding: 5px;
 }
 
-.delete-btn {
-  background: #ef4444;
+.blogposting__btnEdit {
+  background: #0984e3;
   color: white;
   border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
+  padding: 5px;
+}
+
+.blogposting__btnDelete {
+  background: #d63031;
+  color: white;
+  border: none;
+  padding: 5px;
 }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-  .blog-container {
+  .blogposting {
     flex-direction: column;
   }
 
-  .blog-form,
-  .blog-list {
+  .blogposting__left,
+  .blogposting__right {
     width: 100%;
   }
 }
