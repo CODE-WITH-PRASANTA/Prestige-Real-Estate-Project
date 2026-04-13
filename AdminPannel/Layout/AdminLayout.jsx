@@ -1,36 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 import Navbar from "./Navbar";
+import "./AdminLayout.css";
 
 export default function AdminLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 1024);
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 1024) {
+        setSidebarOpen(false);
+      } else {
+        setSidebarOpen(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className="flex w-full">
-
+    <div className="admin-layout">
       <Sidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
 
-      <div
-        className={`flex-1 transition-all duration-300 w-full
-        ${sidebarOpen ? "lg:ml-64" : "lg:ml-20"}`}
-      >
-
+      <div className="admin-content">
         <Navbar
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
         />
 
-        <main className="p-20 bg-gray-100 min-h-screen w-full">
+        <main className="admin-main">
           <Outlet />
         </main>
-
       </div>
-
     </div>
   );
 }
