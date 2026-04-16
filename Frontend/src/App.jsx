@@ -27,14 +27,15 @@ import RentDetails from "./Components/RentProperty/RentProperty";
 
 import FloatingForm from "./Components/FloatingForm/FloatingForm";
 import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
-import Topbar from "./Components/Topbar/Topbar";
+
 import RentProperty from "./Components/RentProperty/RentProperty";
+import Topbar from "./Components/Topbar/Topbar";
 
 function App() {
   return (
     <>
 
-     <Topbar />
+    <Topbar />
       <Navbar />
 
       <Routes>
