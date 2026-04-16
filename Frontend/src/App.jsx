@@ -20,17 +20,21 @@ import PrisingSection from "./Pages/PrisingSection/PrisingSection";
 
 import ContactSection from "./Pages/ContactSection/ContactSection";
 import Rentdetails from "./Pages/Rentdetails/Rentdetails";
-import BuyGrid from "./Pages/BuyGrid/BuyGrid";
+import BuyGrid from "./Pages/Properties/Properties";
 import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
-import RentDetails from "./Components/RentDetailsMain/RentDetailsMain";
-import RentDetailsMain from "./Components/RentDetailsMain/RentDetailsMain";
+import RentDetails from "./Components/RentProperty/RentProperty";
+
 import FloatingForm from "./Components/FloatingForm/FloatingForm";
 import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
+import Topbar from "./Components/Topbar/Topbar";
+import RentProperty from "./Components/RentProperty/RentProperty";
 
 function App() {
   return (
     <>
+
+     <Topbar />
       <Navbar />
 
       <Routes>
@@ -52,7 +56,7 @@ function App() {
         <Route path="/rent/details" element={<Rentdetails/>}/>
         {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
 
-        <Route path="/rent/property" element={<RentDetailsMain />} />
+        <Route path="/rent/property" element={<RentProperty />} />
         
         <Route path="/buyproperties" element={<BuyGrid/>}/>
         <Route path="/buydetails" element={<BuyDetails/>}/>

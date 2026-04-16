@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import "./RentDetailsMain.css";
+import "./RentProperty.css";
 import { Link } from "react-router-dom";
 import {
   FiChevronDown,
@@ -410,7 +410,7 @@ function ExploreSection() {
   );
 }
 
-export default function RentDetailsMain() {
+export default function RentProperty() {
   const cardsPerPage = 10;
 
   const [currentPage, setCurrentPage] = useState(1);

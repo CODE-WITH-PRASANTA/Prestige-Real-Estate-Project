@@ -2,7 +2,7 @@ import React from "react";
 import GridHome from "../../Components/GridHome/GridHome";
 import GridProperty from "../../Components/GridProperty/GridProperty";
 
-const BuyGrid = () => {
+const Properties = () => {
   return (
     <div>
       <GridHome />
@@ -11,4 +11,4 @@ const BuyGrid = () => {
   );
 };
 
-export default BuyGrid;
+export default Properties;
