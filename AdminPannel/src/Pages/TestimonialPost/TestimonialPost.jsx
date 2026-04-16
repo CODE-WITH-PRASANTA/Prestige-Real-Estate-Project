@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./TestimonialPost.css";
+import { API, IMG_URL } from "../../api/axios"; // adjust path
+import { useEffect } from "react";
 
 export default function TestimonialPost() {
   const [form, setForm] = useState({
@@ -14,6 +16,23 @@ export default function TestimonialPost() {
 
   const [data, setData] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/testimonials");
+      setData(res.data.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -34,37 +53,71 @@ export default function TestimonialPost() {
     setForm({ ...form, rating: num });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (editIndex !== null) {
-      const updated = [...data];
-      updated[editIndex] = form;
-      setData(updated);
-      setEditIndex(null);
-    } else {
-      setData([...data, form]);
-    }
+    try {
+      const formData = new FormData();
 
-    setForm({
-      name: "",
-      designation: "",
-      location: "",
-      feedback: "",
-      rating: 0,
-      image: null,
-      preview: null,
-    });
+      formData.append("name", form.name);
+      formData.append("designation", form.designation);
+      formData.append("location", form.location);
+      formData.append("feedback", form.feedback);
+      formData.append("rating", form.rating);
+      if (form.image) formData.append("image", form.image);
+
+      if (editIndex !== null) {
+        const id = data[editIndex]._id;
+
+        await API.put(`/testimonials/${id}`, formData);
+
+        setEditIndex(null);
+      } else {
+        await API.post("/testimonials", formData);
+      }
+
+      fetchTestimonials();
+
+      setForm({
+        name: "",
+        designation: "",
+        location: "",
+        feedback: "",
+        rating: 0,
+        image: null,
+        preview: null,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleEdit = (index) => {
-    setForm(data[index]);
+    const item = data[index];
+
+    setForm({
+      name: item.name,
+      designation: item.designation,
+      location: item.location,
+      feedback: item.feedback,
+      rating: item.rating,
+      image: null,
+      preview: item.image ? IMG_URL + item.image : null,
+    });
+
     setEditIndex(index);
   };
 
-  const handleDelete = (index) => {
-    const updated = data.filter((_, i) => i !== index);
-    setData(updated);
+  const handleDelete = async (index) => {
+    try {
+      const id = data[index]._id;
+
+      await API.delete(`/testimonials/${id}`);
+
+      fetchTestimonials();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -78,7 +131,9 @@ export default function TestimonialPost() {
           <div className="tp-group">
             <label>Client Image</label>
             <input type="file" onChange={handleImage} />
-            {form.preview && <img src={form.preview} alt="" />}
+            {form.preview && (
+              <img src={form.preview} alt="preview" className="tp-img" />
+            )}
           </div>
 
           <div className="tp-group">
@@ -147,7 +202,9 @@ export default function TestimonialPost() {
       <div className="tp-table">
         <h2>All Testimonials</h2>
 
-        {data.length === 0 ? (
+        {loading ? (
+          <div className="tp-empty">Loading...</div>
+        ) : data.length === 0 ? (
           <div className="tp-empty">No testimonials yet</div>
         ) : (
           <table>
@@ -167,7 +224,14 @@ export default function TestimonialPost() {
               {data.map((item, index) => (
                 <tr key={index}>
                   <td>
-                    {item.preview && <img src={item.preview} alt="" />}
+                    <img
+                      src={
+                        item.image ? `${IMG_URL}${item.image}` : "/no-user.png"
+                      }
+                      alt="testimonial"
+                      className="tp-img"
+                      onError={(e) => (e.target.src = "/no-user.png")}
+                    />
                   </td>
                   <td>{item.name}</td>
                   <td>{item.designation}</td>
