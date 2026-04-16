@@ -1,7 +1,8 @@
 /* SECTION */
 .breadcrumb {
   position: relative;
-  min-height: 95vh;
+  padding-top: 90px;
+  min-height: 105vh;
   background-size: cover;
   background-position: center;
   display: flex;

@@ -1,26 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./BlogPosting.css";
 import { Editor } from "@tinymce/tinymce-react";
-import { API, IMG_URL } from "../../api/axios";
-import { useEffect } from "react";
+import { API, IMG_URL } from "../../api/axios"; // ✅ IMPORT ADDED
+
+const initialFormState = {
+  _id: null,
+  title: "",
+  category: "",
+  owner: "",
+  ownerdesignation: "",
+  date: "",
+  content: "",
+  tags: [],
+  reviews: "",
+  image: null,
+  preview: "",
+};
 
 const BlogPosting = () => {
   const base = "bp";
 
-  const [form, setForm] = useState({
-    _id: null,
-    title: "",
-    category: "",
-    owner: "",
-    date: "",
-    content: "",
-    tags: [],
-    reviews: "",
-    image: "",
-  });
-
+  const [form, setForm] = useState(initialFormState);
   const [blogs, setBlogs] = useState([]);
   const [tagInput, setTagInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [tableLoading, setTableLoading] = useState(false);
 
   const categories = ["Technology", "Travel", "Health", "Food", "Business"];
 
@@ -38,91 +42,107 @@ const BlogPosting = () => {
   };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setForm({
-        ...form,
+      setForm((prev) => ({
+        ...prev,
         image: file,
         preview: URL.createObjectURL(file),
-      });
+      }));
     }
   };
 
   const addTag = () => {
-    if (tagInput && !form.tags.includes(tagInput)) {
-      setForm({ ...form, tags: [...form.tags, tagInput] });
+    const cleanTag = tagInput.trim();
+    if (cleanTag && !form.tags.includes(cleanTag)) {
+      setForm((prev) => ({
+        ...prev,
+        tags: [...prev.tags, cleanTag],
+      }));
       setTagInput("");
     }
   };
 
-  const removeTag = (tag) => {
-    setForm({ ...form, tags: form.tags.filter((t) => t !== tag) });
+  const validateForm = () => {
+    if (!form.title.trim()) return "Blog title is required";
+    if (!form.category.trim()) return "Category is required";
+    if (!form.owner.trim()) return "Owner name is required";
+    if (!form.ownerdesignation.trim()) return "Owner designation is required";
+    if (!form.date) return "Date is required";
+    if (!form.content.trim()) return "Blog content is required";
+    if (!form._id && !form.image) return "Blog image is required";
+    return null;
   };
 
-  const handleSubmit = async () => {
-    if (!form.title) return alert("Title required");
+  const buildFormData = () => {
+    const formData = new FormData();
+
+    formData.append("title", form.title);
+    formData.append("category", form.category);
+    formData.append("owner", form.owner);
+    formData.append("ownerdesignation", form.ownerdesignation);
+    formData.append("date", form.date);
+    formData.append("content", form.content);
+    formData.append("reviews", form.reviews);
+    formData.append("tags", JSON.stringify(form.tags));
+
+    if (form.image instanceof File) {
+      formData.append("image", form.image);
+    }
+
+    return formData;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const error = validateForm();
+    if (error) return alert(error);
 
     try {
-      const formData = new FormData();
-
-      formData.append("title", form.title);
-      formData.append("category", form.category);
-      formData.append("owner", form.owner);
-      formData.append("ownerdesignation", form.ownerdesignation);
-      formData.append("date", form.date);
-      formData.append("content", form.content);
-      formData.append("reviews", form.reviews);
-
-      formData.append("tags", JSON.stringify(form.tags));
-
-      if (form.image) {
-        formData.append("image", form.image);
-      }
+      setLoading(true);
+      const formData = buildFormData();
 
       if (form._id) {
         await API.put(`/blogs/${form._id}`, formData);
+        alert("Blog updated successfully");
       } else {
         await API.post("/blogs", formData);
+        alert("Blog created successfully");
       }
 
-      fetchBlogs();
       resetForm();
+      fetchBlogs();
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const resetForm = () => {
-    setForm({
-      _id: null,
-      title: "",
-      category: "",
-      owner: "",
-      ownerdesignation: "",
-      date: "",
-      content: "",
-      tags: [],
-      reviews: "",
-      image: "",
-       preview: null,
-    });
+    setForm(initialFormState);
+    setTagInput("");
   };
 
+  // ✅ FIXED EDIT IMAGE PREVIEW
   const handleEdit = (blog) => {
     setForm({
       ...blog,
-      _id: blog._id, // ✅ ensure id present
+      _id: blog._id,
       image: null,
-      preview: blog.image ? IMG_URL + blog.image : null,
+      preview: blog.image ? IMG_URL + blog.image : "",
     });
   };
+
   const handleDelete = async (id) => {
     try {
-      await API.delete(`/blogs/${id}`);
+      await API.delete(`blogs/${id}`);
       fetchBlogs();
     } catch (err) {
       console.error(err);
@@ -131,18 +151,18 @@ const BlogPosting = () => {
 
   return (
     <div className={base}>
-      {/* ================= FORM ================= */}
       <div className={`${base}__card`}>
-        <h2 className={`${base}__title`}>Create Blog</h2>
+        <h2 className={`${base}__title`}>
+          {form._id ? "Update Blog" : "Create Blog"}
+        </h2>
 
-        {/* TOP ROW */}
         <div className="bp__topRow">
           <div className="bp__fileInput">
-           <input
-  type="file"
-  onChange={handleImage}
-  key={form.preview || ""} // ✅ forces reset
-/>
+            <input
+              type="file"
+              onChange={handleImage}
+              key={form.preview || ""}
+            />
           </div>
 
           <input
@@ -153,7 +173,6 @@ const BlogPosting = () => {
           />
         </div>
 
-        {/* IMAGE PREVIEW */}
         {(form.preview || form.image) && (
           <div className="bp__previewWrap">
             <img
@@ -162,11 +181,11 @@ const BlogPosting = () => {
               }
               className="bp__img"
               alt=""
+              onError={(e) => (e.target.src = "/no-user.png")}
             />
           </div>
         )}
 
-        {/* GRID */}
         <div className={`${base}__grid`}>
           <select name="category" value={form.category} onChange={handleChange}>
             <option>Select Category</option>
@@ -181,6 +200,7 @@ const BlogPosting = () => {
             value={form.owner}
             onChange={handleChange}
           />
+
           <input
             name="ownerdesignation"
             placeholder="Owner Designation"
@@ -196,24 +216,23 @@ const BlogPosting = () => {
           />
         </div>
 
-        {/* EDITOR */}
         <div className={`${base}__editor`}>
           <label className="bp__label">Description of Blog</label>
           <Editor
             apiKey="jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"
-            value={form.content}
-            onEditorChange={(content) => setForm({ ...form, content })}
             init={{
-              height: 300,
-              menubar: false,
-              plugins: ["link", "image", "lists"],
+              plugins:
+                "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount",
               toolbar:
-                "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | image",
+                "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
             }}
+            value={form.content}
+            onEditorChange={(content) =>
+              setForm((prev) => ({ ...prev, content }))
+            }
           />
         </div>
 
-        {/* TAG + REVIEWS */}
         <div className="bp__bottomGrid">
           <div className="bp__box bp__box--left">
             <label className="bp__label">Tags</label>
@@ -222,33 +241,20 @@ const BlogPosting = () => {
               <input
                 value={tagInput}
                 onChange={(e) => setTagInput(e.target.value)}
-                placeholder="Enter tag..."
               />
               <button onClick={addTag}>Add</button>
             </div>
 
-            <div className="bp__tags">
-              {form.tags.map((tag, i) => (
-                <span key={i} onClick={() => removeTag(tag)}>
-                  {tag} ✕
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="bp__box bp__box--right">
-            <label className="bp__label">Reviews</label>
-
-            <textarea
-              name="reviews"
-              placeholder="Write reviews..."
-              value={form.reviews}
+            <input
+              type="text"
+              name="title"
+              placeholder="Blog Title"
+              value={form.title}
               onChange={handleChange}
             />
           </div>
         </div>
 
-        {/* BUTTON */}
         <div className="bp__actionRow">
           <button className="bp__submitBtn" onClick={handleSubmit}>
             {form._id ? "Update Blog" : "Submit Blog"}
@@ -256,7 +262,6 @@ const BlogPosting = () => {
         </div>
       </div>
 
-      {/* ================= TABLE ================= */}
       <div className="bp__tableWrap">
         <h2 className="bp__title">All Blogs</h2>
 
@@ -305,8 +310,6 @@ const BlogPosting = () => {
             ))}
           </tbody>
         </table>
-
-        {blogs.length === 0 && <p className="bp__empty">No blogs available</p>}
       </div>
     </div>
   );
