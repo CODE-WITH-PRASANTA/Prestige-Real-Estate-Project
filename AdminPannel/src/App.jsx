@@ -8,6 +8,7 @@ import ColdLeadTable from "./Pages/ColdLeadTable/ColdLeadTable";
 import FlatPosting from "./Pages/FlatPosting/FlatPosting";
 import TestimonialPost from "./Pages/TestimonialPost/TestimonialPost";
 import EnquiryAdmin from "./Pages/EnquiryAdmin/EnquiryAdmin";
+import MainFaq from "./Pages/MainFaq/MainFaq";
 
 const App = () => {
   return (
@@ -16,13 +17,14 @@ const App = () => {
         {/* Parent Layout */}
         <Route element={<AdminLayout />}>
           <Route path="/" element={<DashBoard />} />
-          <Route path="/blog/post"element={<BlogPosting/>}/>
-          <Route path="/property/post"element={<PropertyPosting/>}/>
+          <Route path="/blog/post" element={<BlogPosting />} />
+          <Route path="/property/post" element={<PropertyPosting />} />
           <Route path="/admin/cold-lead" element={<ColdLeadForm />} />
           <Route path="/admin/cold-lead-table" element={<ColdLeadTable />} />
-          <Route path="/flat/post" element={<FlatPosting/>}/>
-          <Route path="/admin/testimonial" element={<TestimonialPost/>}/>
-          <Route path="/admin/enquiry" element={<EnquiryAdmin/>}/>
+          <Route path="/flat/post" element={<FlatPosting />} />
+          <Route path="/admin/testimonial" element={<TestimonialPost />} />
+          <Route path="/admin/enquiry" element={<EnquiryAdmin />} />
+          <Route path="/admin/faq" element={<MainFaq />} /> {/* ✅ FIXED */}
         </Route>
       </Routes>
     </BrowserRouter>
