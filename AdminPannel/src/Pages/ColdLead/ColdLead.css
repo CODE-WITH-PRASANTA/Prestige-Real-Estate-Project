@@ -1,0 +1,118 @@
+.coldlead {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f6fa;
+}
+
+/* LEFT & RIGHT */
+.coldlead__left,
+.coldlead__right {
+  width: 50%;
+}
+
+/* CARD */
+.coldlead__card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+/* ROW */
+.coldlead__row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.coldlead__field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.coldlead__field label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* INPUT */
+.coldlead__field input,
+.coldlead__field select,
+.coldlead__field textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: 0.3s;
+}
+
+.coldlead__field input:focus,
+.coldlead__field select:focus,
+.coldlead__field textarea:focus {
+  border-color: #3b82f6;
+}
+
+/* TEXTAREA */
+.coldlead__field textarea {
+  min-height: 120px;
+}
+
+/* BUTTON */
+.coldlead__submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: bold;
+  background: linear-gradient(to right, #22c55e, #3b82f6);
+  cursor: pointer;
+}
+
+/* FILTER */
+.coldlead__filterRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.coldlead__filterRow input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* TABLE */
+.coldlead__rowItem {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.coldlead__rowItem h4 {
+  margin: 0;
+}
+
+
+.coldlead__rowItem p {
+  margin: 3px 0;
+  color: #666;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .coldlead {
+    flex-direction: column;
+  }
+
+  .coldlead__left,
+  .coldlead__right {
+    width: 100%;
+  }
+
+  .coldlead__row {
+    flex-direction: column;
+  }
+}

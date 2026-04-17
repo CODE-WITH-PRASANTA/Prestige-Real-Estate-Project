@@ -68,12 +68,12 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       submenu: [
         {
           name: "Post Rent Property",
-          path: "/flat/post",
+          path: "/rent/post",
           icon: <FaPlusSquare />, // ➕ rent listing
         },
         {
           name: "Rent Details",
-          path: "/property/post",
+          path: "/rent/details",
           icon: <FaFileInvoiceDollar />, // 📄
         },
       ],

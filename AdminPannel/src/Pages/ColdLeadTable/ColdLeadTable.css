@@ -1,0 +1,126 @@
+.coldLeadTable {
+  width: 100%;
+  padding: 20px;
+  background: #f5f7fb;
+}
+
+.coldLeadTable__container {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Header */
+.coldLeadTable__header {
+  margin-bottom: 15px;
+}
+
+.coldLeadTable__title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e2a3b;
+  margin-bottom: 4px;
+}
+
+.coldLeadTable__subtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Table Wrapper */
+.coldLeadTable__tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Table */
+.coldLeadTable__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* Table Head */
+.coldLeadTable__table thead {
+  background: #eef2f7;
+}
+
+.coldLeadTable__table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Table Body */
+.coldLeadTable__table td {
+  padding: 14px;
+  font-size: 14px;
+  color: #374151;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Empty State */
+.coldLeadTable__empty {
+  text-align: left;
+  padding: 16px;
+  color: #6b7280;
+}
+
+/* Buttons */
+.coldLeadTable__btn {
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  margin-right: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Edit Button */
+.coldLeadTable__btn.edit {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+/* Delete Button */
+.coldLeadTable__btn.delete {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Hover Effects */
+.coldLeadTable__btn.edit:hover {
+  background: #bae6fd;
+}
+
+.coldLeadTable__btn.delete:hover {
+  background: #fecaca;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .coldLeadTable {
+    padding: 10px;
+  }
+
+  .coldLeadTable__container {
+    padding: 15px;
+  }
+
+  .coldLeadTable__title {
+    font-size: 18px;
+  }
+
+  .coldLeadTable__subtitle {
+    font-size: 12px;
+  }
+}

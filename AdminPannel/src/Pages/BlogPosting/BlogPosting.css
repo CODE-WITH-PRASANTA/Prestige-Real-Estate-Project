@@ -1,170 +1,225 @@
-.blogposting {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background: #f5f6fa;
-}
-
-/* LEFT */
-.blogposting__left {
-  width: 60%;
-}
-
-/* RIGHT */
-.blogposting__right {
-  width: 40%;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  max-height: 90vh;
-  overflow-y: auto;
+/* ROOT */
+.bp {
+  padding: 30px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
 }
 
 /* CARD */
-.blogposting__card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
+.bp__card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
 }
 
-/* FIELD */
-.blogposting__field {
+/* TITLE */
+.bp__title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* TOP ROW */
+.bp__topRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
   margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
 }
 
-.blogposting__field label {
-  margin-bottom: 6px;
+/* FILE */
+.bp__fileInput input[type="file"] {
+  width: 100%;
+  height: 45px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 6px;
+  background: white;
 }
 
-/* INPUT */
-.blogposting__field input,
-.blogposting__field select,
-.blogposting__field textarea {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-/* ROW */
-.blogposting__row {
-  display: flex;
-  gap: 10px;
-}
-
-.blogposting__row .blogposting__field {
-  flex: 1;
-}
-
-/* TAG */
-.blogposting__tagInputBox {
-  display: flex;
-  gap: 10px;
-}
-
-.blogposting__tagInputBox button {
-  background: #6c5ce7;
+.bp__fileInput input[type="file"]::file-selector-button {
+  background: linear-gradient(135deg,#6366f1,#8b5cf6);
   color: white;
   border: none;
-  padding: 8px;
-}
-
-.blogposting__tagList span {
-  background: #6c5ce7;
-  color: white;
-  padding: 5px 10px;
-  margin: 5px;
-  border-radius: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
-/* EDITOR */
-.blogposting__editorToolbar {
-  display: flex;
-  gap: 10px;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-bottom: none;
-}
-
-/* IMAGE */
-.blogposting__previewImage {
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 8px;
-}
-
-/* BUTTONS */
-.blogposting__actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.blogposting__draft {
-  background: #ccc;
-  border: none;
-  padding: 10px;
-}
-
-.blogposting__publish {
-  background: #6c5ce7;
-  color: white;
-  border: none;
-  padding: 10px;
-}
-
 /* PREVIEW */
-.blogposting__previewCard {
-  display: flex;
-  gap: 10px;
+.bp__previewWrap {
   margin-bottom: 15px;
 }
 
-.blogposting__previewCard img {
-  width: 70px;
-  height: 70px;
-  border-radius: 8px;
-  object-fit: cover;
+.bp__img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
 }
 
-/* ACTION BUTTONS */
-.blogposting__actionsRow {
-  margin-top: 5px;
+/* GRID */
+.bp__grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+.bp input,
+.bp select,
+.bp textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+/* EDITOR */
+.bp__editor {
+  margin-bottom: 20px;
+}
+
+/* TAG + REVIEW */
+.bp__bottomGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.bp__box {
+  padding: 16px;
+  background: #f9fafb;
+}
+
+.bp__box--left {
+  border-right: 1px solid #e5e7eb;
+}
+
+.bp__label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.bp__tagInputWrap {
   display: flex;
-  gap: 5px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
-.blogposting__btnPublish {
-  background: #00b894;
-  color: white;
-  border: none;
-  padding: 5px;
+.bp__tagInputWrap input {
+  flex: 1;
 }
 
-.blogposting__btnEdit {
-  background: #0984e3;
+.bp__tagInputWrap button {
+  background: linear-gradient(135deg,#6366f1,#8b5cf6);
   color: white;
   border: none;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-.blogposting__btnDelete {
-  background: #d63031;
+.bp__tags span {
+  background: #6366f1;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 4px;
+  display: inline-block;
+  font-size: 12px;
+}
+
+/* BUTTON */
+.bp__actionRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.bp__submitBtn {
+  background: linear-gradient(135deg,#6366f1,#8b5cf6);
   color: white;
   border: none;
-  padding: 5px;
+  padding: 12px 24px;
+  border-radius: 10px;
+}
+
+/* TABLE */
+.bp__tableWrap {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  overflow-x: auto;
+}
+
+.bp__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bp__table th {
+  background: #6366f1;
+  color: white;
+  padding: 12px;
+}
+
+.bp__table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.bp__table img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.bp__edit {
+  background: #3b82f6;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+}
+
+.bp__delete {
+  background: #ef4444;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  .blogposting {
-    flex-direction: column;
+@media (max-width: 1024px) {
+  .bp__grid {
+    grid-template-columns: repeat(2,1fr);
   }
 
-  .blogposting__left,
-  .blogposting__right {
+  .bp__bottomGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .bp__topRow {
+    grid-template-columns: 1fr;
+  }
+
+  .bp__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bp__submitBtn {
     width: 100%;
   }
 }

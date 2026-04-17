@@ -1,0 +1,148 @@
+/* ================= ROOT ================= */
+.ea-container {
+  padding: 24px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  min-height: 100vh;
+}
+
+/* CARD */
+.ea-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+.ea-card h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* EMPTY */
+.ea-empty {
+  text-align: center;
+  padding: 50px;
+  color: #999;
+}
+
+/* TABLE WRAPPER */
+.ea-tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* TABLE */
+.ea-tableWrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+/* HEADER */
+.ea-tableWrapper th {
+  text-align: left;
+  padding: 12px;
+  font-size: 13px;
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+/* ROW */
+.ea-tableWrapper td {
+  padding: 12px;
+  font-size: 13px;
+  border-bottom: 1px solid #eee;
+}
+
+.ea-tableWrapper tr:hover {
+  background: #f9fafb;
+}
+
+/* MESSAGE */
+.ea-msg {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* BUTTONS */
+.ea-view,
+.ea-delete {
+  border: none;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+.ea-view {
+  background: #6366f1;
+  color: #fff;
+}
+
+.ea-delete {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* 🔵 LARGE TABLET */
+@media (max-width: 1024px) {
+  .ea-card {
+    padding: 18px;
+  }
+
+  .ea-tableWrapper table {
+    min-width: 800px;
+  }
+}
+
+/* 🟡 TABLET */
+@media (max-width: 768px) {
+  .ea-container {
+    padding: 16px;
+  }
+
+  .ea-card {
+    padding: 16px;
+  }
+
+  .ea-card h2 {
+    font-size: 18px;
+  }
+}
+
+/* 🔴 MOBILE */
+@media (max-width: 600px) {
+  .ea-container {
+    padding: 12px;
+  }
+
+  .ea-tableWrapper th,
+  .ea-tableWrapper td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .ea-msg {
+    max-width: 120px;
+  }
+
+  .ea-view,
+  .ea-delete {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+
+/* ⚫ SMALL MOBILE */
+@media (max-width: 480px) {
+  .ea-card h2 {
+    font-size: 16px;
+  }
+}
