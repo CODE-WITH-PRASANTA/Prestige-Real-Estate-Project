@@ -1,10 +1,19 @@
+/* ===== GLOBAL FIX FOR FIXED NAVBAR ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-top: 84px;
+}
 
 /* ===== NAVBAR WRAPPER ===== */
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 999;
+  left: 0;
   width: 100%;
+  z-index: 9999;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -120,6 +129,7 @@
   transition: all 0.3s ease;
   padding: 0;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .call-btn:hover {
@@ -152,6 +162,7 @@
 .post-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 16px 28px rgba(37, 99, 235, 0.28);
+  color: #fff;
 }
 
 .hamburger {
@@ -183,13 +194,15 @@
   background: rgba(2, 6, 23, 0.48);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transition: all 0.35s ease;
-  z-index: 999;
+  z-index: 9998;
 }
 
 .mobile-overlay.show {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 /* ===== MOBILE MENU ===== */
@@ -205,7 +218,7 @@
   padding: 22px 18px 24px;
   transform: translateX(100%);
   transition: transform 0.35s ease;
-  z-index: 1000;
+  z-index: 10000;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -221,6 +234,12 @@
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 22px;
+}
+
+.mobile-top a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .mobile-logo {
@@ -338,6 +357,7 @@
 
 .mobile-call-btn:hover {
   background: #dbeafe;
+  color: #2563eb;
 }
 
 .mobile-post-btn {
@@ -349,6 +369,7 @@
 
 .mobile-post-btn:hover {
   transform: translateY(-2px);
+  color: #fff;
 }
 
 /* ===== LARGE DESKTOP ===== */
@@ -390,6 +411,10 @@
 
 /* ===== LAPTOP ===== */
 @media (max-width: 1100px) {
+  body {
+    padding-top: 78px;
+  }
+
   .navbar-inner {
     min-height: 78px;
     padding: 0 18px;
@@ -418,6 +443,10 @@
 
 /* ===== TABLET ===== */
 @media (max-width: 991px) {
+  body {
+    padding-top: 74px;
+  }
+
   .navbar-inner {
     min-height: 74px;
     padding: 0 16px;
@@ -443,6 +472,10 @@
 
 /* ===== MOBILE ===== */
 @media (max-width: 767px) {
+  body {
+    padding-top: 68px;
+  }
+
   .navbar-inner {
     min-height: 68px;
     padding: 0 14px;
@@ -510,6 +543,10 @@
 
 /* ===== SMALL MOBILE ===== */
 @media (max-width: 480px) {
+  body {
+    padding-top: 64px;
+  }
+
   .navbar-inner {
     min-height: 64px;
     padding: 0 10px;
@@ -596,7 +633,12 @@
 
 /* ===== EXTRA SMALL MOBILE ===== */
 @media (max-width: 360px) {
+  body {
+    padding-top: 58px;
+  }
+
   .navbar-inner {
+    min-height: 58px;
     padding: 0 8px;
   }
 

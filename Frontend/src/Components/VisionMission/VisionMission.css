@@ -80,6 +80,7 @@
 .propertyVisionMission__mainImage {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
 }
 
@@ -151,6 +152,7 @@
 .propertyVisionMission__title {
   margin-bottom: 22px;
   font-size: 48px;
+  line-height: 1.2;
   font-weight: 800;
   color: #0f172a;
 }
@@ -194,6 +196,7 @@
 .propertyVisionMission__iconBox {
   width: 50px;
   height: 50px;
+  min-width: 50px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.2);
   display: flex;
@@ -238,7 +241,7 @@
   color: #64748b;
 }
 
-/* ✅ UPDATED SMALL CALL BUTTON */
+/* Call Button */
 .propertyVisionMission__callBtn {
   display: flex;
   align-items: center;
@@ -258,7 +261,6 @@
   font-size: 16px;
 }
 
-/* Hover */
 .propertyVisionMission__callBtn:hover {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 15px 35px rgba(59, 130, 246, 0.35);
@@ -275,25 +277,296 @@
   50% { transform: translateY(-6px); }
 }
 
-/* Responsive */
+/* =========================
+   LARGE TABLET
+========================= */
+@media (max-width: 1199px) {
+  .propertyVisionMission__container {
+    gap: 40px;
+  }
+
+  .propertyVisionMission__title {
+    font-size: 40px;
+  }
+
+  .propertyVisionMission__description {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .propertyVisionMission__imageSide {
+    min-height: 540px;
+  }
+
+  .propertyVisionMission__imageShape {
+    width: 380px;
+    height: 380px;
+  }
+
+  .propertyVisionMission__imageWrap {
+    width: 420px;
+  }
+
+  .propertyVisionMission__curveLine--one {
+    width: 430px;
+    height: 430px;
+    left: 20px;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
 @media (max-width: 991px) {
+  .propertyVisionMission {
+    padding: 70px 18px;
+  }
+
   .propertyVisionMission__container {
     grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .propertyVisionMission__imageSide {
+    min-height: 500px;
+    order: 1;
+  }
+
+  .propertyVisionMission__contentSide {
+    order: 2;
+    text-align: center;
+  }
+
+  .propertyVisionMission__label {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .propertyVisionMission__title {
+    font-size: 36px;
+  }
+
+  .propertyVisionMission__description {
+    font-size: 16px;
+    margin-bottom: 28px;
   }
 
   .propertyVisionMission__cards {
     grid-template-columns: 1fr;
   }
+
+  .propertyVisionMission__infoCard {
+    text-align: left;
+  }
+
+  .propertyVisionMission__bottomRow {
+    justify-content: center;
+  }
+
+  .propertyVisionMission__founderBox {
+    justify-content: center;
+  }
+
+  .propertyVisionMission__curveLine--one {
+    width: 420px;
+    height: 420px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .propertyVisionMission__curveLine--two {
+    width: 220px;
+    height: 220px;
+    right: 50%;
+    transform: translateX(50%);
+  }
 }
 
-@media (max-width: 576px) {
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 767px) {
+  .propertyVisionMission {
+    padding: 60px 15px;
+  }
+
+  .propertyVisionMission__container {
+    gap: 34px;
+  }
+
+  .propertyVisionMission__imageSide {
+    min-height: 400px;
+  }
+
+  .propertyVisionMission__imageShape {
+    width: 280px;
+    height: 280px;
+    top: 65px;
+  }
+
+  .propertyVisionMission__imageWrap {
+    width: 300px;
+    border-width: 6px;
+  }
+
+  .propertyVisionMission__floatingBadge {
+    padding: 9px 14px;
+    font-size: 12px;
+  }
+
+  .propertyVisionMission__floatingBadge--top {
+    top: 20px;
+    left: 10px;
+  }
+
+  .propertyVisionMission__floatingBadge--bottom {
+    bottom: 28px;
+    right: 10px;
+  }
+
+  .propertyVisionMission__curveLine--one {
+    width: 300px;
+    height: 300px;
+    top: 50px;
+  }
+
+  .propertyVisionMission__curveLine--two {
+    width: 160px;
+    height: 160px;
+    bottom: 20px;
+  }
+
+  .propertyVisionMission__label {
+    font-size: 12px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+  }
+
+  .propertyVisionMission__title {
+    font-size: 30px;
+    margin-bottom: 16px;
+  }
+
+  .propertyVisionMission__description {
+    font-size: 15px;
+    line-height: 1.75;
+    margin-bottom: 24px;
+  }
+
+  .propertyVisionMission__infoCard {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .propertyVisionMission__iconBox {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+  }
+
   .propertyVisionMission__bottomRow {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .propertyVisionMission__founderBox {
+    justify-content: flex-start;
   }
 
   .propertyVisionMission__callBtn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 575px) {
+  .propertyVisionMission {
+    padding: 50px 12px;
+  }
+
+  .propertyVisionMission__imageSide {
+    min-height: 330px;
+  }
+
+  .propertyVisionMission__imageShape {
+    width: 220px;
+    height: 220px;
+    top: 55px;
+  }
+
+  .propertyVisionMission__imageWrap {
+    width: 240px;
+    border-width: 5px;
+  }
+
+  .propertyVisionMission__floatingBadge {
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+
+  .propertyVisionMission__floatingBadge--top {
+    top: 14px;
+    left: 0;
+  }
+
+  .propertyVisionMission__floatingBadge--bottom {
+    bottom: 16px;
+    right: 0;
+  }
+
+  .propertyVisionMission__curveLine--one {
+    width: 240px;
+    height: 240px;
+  }
+
+  .propertyVisionMission__curveLine--two {
+    width: 120px;
+    height: 120px;
+  }
+
+  .propertyVisionMission__title {
+    font-size: 26px;
+  }
+
+  .propertyVisionMission__description {
+    font-size: 14px;
+  }
+
+  .propertyVisionMission__infoCard {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .propertyVisionMission__founderImage {
+    width: 48px;
+    height: 48px;
+  }
+
+  .propertyVisionMission__founderBox h4 {
+    font-size: 14px;
+  }
+
+  .propertyVisionMission__founderBox p {
+    font-size: 12px;
+  }
+
+  .propertyVisionMission__callBtn {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  .propertyVisionMission__bgGlow--one {
+    width: 180px;
+    height: 180px;
+  }
+
+  .propertyVisionMission__bgGlow--two {
+    width: 220px;
+    height: 220px;
   }
 }
