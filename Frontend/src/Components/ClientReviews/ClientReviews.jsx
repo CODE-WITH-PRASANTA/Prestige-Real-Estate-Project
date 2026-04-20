@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./ClientReviews.css";
-
-import t1 from "../../assets/t1.jpg";
-import t2 from "../../assets/t2.jpg";
+import { API, IMG_URL } from "../../api/axios";
 
 function getPerViewFromCSS(el) {
   if (!el) return 4;
@@ -12,53 +10,38 @@ function getPerViewFromCSS(el) {
 }
 
 export default function ClientReviews() {
+  // ================= STATE =================
   const sectionRef = useRef(null);
-
-  const data = useMemo(
-    () => [
-      {
-        id: 1,
-        name: "Lily Brooks",
-        text:
-          "Booking our dream home was incredibly easy with Dreams Estate. The interface was user-friendly.",
-        img: t1,
-        stars: 5,
-      },
-      {
-        id: 2,
-        name: "Daniel Cooper",
-        text:
-          "Dreams Estate made home booking a breeze. Super easy and stress-free! Best listing portal.",
-        img: t2,
-        stars: 5,
-      },
-      {
-        id: 3,
-        name: "Olivia Hayes",
-        text:
-          "Professional agents and smooth process. I found the perfect place quickly. Highly recommended.",
-        img: t1,
-        stars: 5,
-      },
-      {
-        id: 4,
-        name: "Ethan Brooks",
-        text:
-          "Fast listings, clean UI, and great support. This platform feels premium and reliable.",
-        img: t2,
-        stars: 5,
-      },
-    ],
-    []
-  );
-
   const sliderRef = useRef(null);
 
+  const [loading, setLoading] = useState(true);
   const [perView, setPerView] = useState(4);
   const [index, setIndex] = useState(0);
   const [anim, setAnim] = useState(true);
   const [paused, setPaused] = useState(false);
+  const [data, setData] = useState([]);
 
+  // ================= FETCH =================
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+const fetchTestimonials = async () => {
+  try {
+    const res = await API.get("/testimonials");
+
+   console.log("API RESPONSE:", res.data.data);// 👈 ADD THIS
+
+    setData(res.data?.data || []); // ✅ SAFE FIX
+  } catch (err) {
+    console.error("FETCH ERROR:", err);
+    setData([]); // fallback
+  } finally {
+    setLoading(false);
+  }
+};
+
+  // ================= RESPONSIVE =================
   useEffect(() => {
     const update = () => {
       const pv = getPerViewFromCSS(sliderRef.current);
@@ -69,70 +52,81 @@ export default function ClientReviews() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  useEffect(() => {
-    const elements = sectionRef.current.querySelectorAll(".cr-reveal");
+  // ================= ANIMATION OBSERVER =================
+useEffect(() => {
+  if (!sectionRef.current) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("cr-active");
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
+  const elements = sectionRef.current.querySelectorAll(".cr-reveal");
 
-    elements.forEach((el) => observer.observe(el));
+  if (!elements.length) return; // ✅ prevent crash
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("cr-active");
+        }
+      });
+    },
+    { threshold: 0.18 }
+  );
 
-  const totalReal = data.length;
+  elements.forEach((el) => observer.observe(el));
 
+  return () => {
+    elements.forEach((el) => observer.unobserve(el));
+  };
+}, [data]); // ✅ add dependency
+
+  // ================= CORE LOGIC =================
+  const totalReal = data.length || 1;
+  const safePerView = Math.min(perView, data.length || 1);
+
+  // ================= EXTENDED =================
   const extended = useMemo(() => {
-    const head = data.slice(0, perView);
-    const tail = data.slice(-perView);
+    const head = data.slice(0, safePerView);
+    const tail = data.slice(-safePerView);
     return [...tail, ...data, ...head];
-  }, [data, perView]);
+  }, [data, safePerView]);
 
+  // ================= RESET INDEX =================
   useEffect(() => {
     setAnim(false);
-    setIndex(perView);
+    setIndex(safePerView);
     const t = setTimeout(() => setAnim(true), 0);
     return () => clearTimeout(t);
-  }, [perView]);
+  }, [safePerView]);
 
+  // ================= AUTO SLIDE =================
   const next = () => setIndex((i) => i + 1);
   const prev = () => setIndex((i) => i - 1);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || data.length <= safePerView) return;
     const id = setInterval(next, 3000);
     return () => clearInterval(id);
-  }, [paused]);
+  }, [paused, data, safePerView]);
 
+  // ================= LOOP FIX =================
   const onTransitionEnd = () => {
-    if (index >= perView + totalReal) {
+    if (index >= safePerView + totalReal) {
       setAnim(false);
-      setIndex(perView);
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => setAnim(true))
-      );
-    } else if (index < perView) {
+      setIndex(safePerView);
+      requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)));
+    } else if (index < safePerView) {
       setAnim(false);
-      setIndex(perView + totalReal - 1);
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => setAnim(true))
-      );
+      setIndex(safePerView + totalReal - 1);
+      requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)));
     }
   };
 
-  const activeDot = ((index - perView) % totalReal + totalReal) % totalReal;
-  const goDot = (dotIdx) => setIndex(perView + dotIdx);
+  // ================= DOTS =================
+  const activeDot =
+    (((index - safePerView) % totalReal) + totalReal) % totalReal;
 
+  const goDot = (dotIdx) => setIndex(safePerView + dotIdx);
+
+  // ================= DRAG =================
   const drag = useRef({ down: false, x: 0 });
 
   const down = (e) => {
@@ -157,6 +151,22 @@ export default function ClientReviews() {
     setPaused(false);
   };
 
+  // ================= UI STATES =================
+  if (loading) {
+    return (
+      <section className="cr">
+        <p style={{ textAlign: "center" }}>Loading...</p>
+      </section>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <section className="cr">
+        <p style={{ textAlign: "center" }}>No testimonials found</p>
+      </section>
+    );
+  }
   return (
     <section className="cr" ref={sectionRef}>
       <div className="cr-bg cr-bg-one"></div>
@@ -164,6 +174,7 @@ export default function ClientReviews() {
 
       <div className="cr-head">
         <h2 className="cr-reveal">Client Reviews</h2>
+
         <div className="cr-line cr-reveal cr-delay-1" />
         <p className="cr-reveal cr-delay-2">What our happy clients say</p>
       </div>
@@ -181,32 +192,48 @@ export default function ClientReviews() {
         <div className="cr-mask">
           <div
             className={`cr-track ${anim ? "anim" : ""}`}
-            style={{ transform: `translateX(-${index * (100 / perView)}%)` }}
+            style={{
+              transform: `translateX(-${index * (100 / safePerView)}%)`,
+            }}
             onTransitionEnd={onTransitionEnd}
           >
             {extended.map((x, i) => (
-              <div className="cr-slide" key={`${x.id}-${i}`}>
+              <div className="cr-slide" key={`${x._id || i}-${i}`}>
                 <div
                   className="cr-card"
                   style={{ animationDelay: `${(i % perView) * 0.12}s` }}
                 >
                   <div className="cr-avatar">
-                    <img src={x.img} alt={x.name} />
+                    <img
+                      src={x.image ? `${IMG_URL}${x.image}` : "/no-user.png"}
+                      alt={x.name}
+                      onError={(e) => (e.target.src = "/no-user.png")}
+                    />
                   </div>
 
-                  <p className="cr-text">{x.text}</p>
+                  <p className="cr-text">{x.feedback}</p>
                   <h3 className="cr-name">{x.name}</h3>
-                  <div className="cr-stars">{"★".repeat(x.stars)}</div>
+                  <div className="cr-stars">{"★".repeat(x.rating)}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <button className="cr-nav left" onClick={prev} aria-label="Previous" type="button">
+        <button
+          className="cr-nav left"
+          onClick={prev}
+          aria-label="Previous"
+          type="button"
+        >
           ‹
         </button>
-        <button className="cr-nav right" onClick={next} aria-label="Next" type="button">
+        <button
+          className="cr-nav right"
+          onClick={next}
+          aria-label="Next"
+          type="button"
+        >
           ›
         </button>
 
