@@ -86,11 +86,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       icon: <FaQuoteLeft />, // 💬
     },
 
-    {
-      name: "FAQ Posting",
-      path: "/admin/faq",
-      icon: <FaQuestionCircle />, // ❓
-    },
+    // {
+    //   name: "FAQ Posting",
+    //   path: "/admin/faq",
+    //   icon: <FaQuestionCircle />, // ❓
+    // },
 
     {
       name: "Blog Posting",
