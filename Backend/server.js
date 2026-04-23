@@ -13,6 +13,8 @@ const connectDB = require("./configs/db");
 const propertyRoutes = require("./routes/property.routes")
 const testimonialRoutes = require("./routes/testimonial.routes");
 const blogRoutes = require("./routes/blog.routes");
+const galleryRoutes = require("./routes/gallery.routes");
+
 
 
 
@@ -42,6 +44,8 @@ app.get("/", (req, res) => {
 app.use("/api/property", propertyRoutes)
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/blogs", blogRoutes);
+app.use("/api/gallery", galleryRoutes);
+
 
 
 

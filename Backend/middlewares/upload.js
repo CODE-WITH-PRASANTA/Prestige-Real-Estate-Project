@@ -15,6 +15,7 @@ const routeFolderMap = {
   "/property": "uploads/property",
   "/api/testimonials": "uploads/testimonials",
   "/blogs": "uploads/blogs",
+  "/api/gallery": "uploads/gallery",
 };
 
 /* ================= GET UPLOAD PATH ================= */

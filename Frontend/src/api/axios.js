@@ -1,9 +1,10 @@
 import axios from "axios";
 
-// 👉 API for backend
+export const BASE_URL = "http://localhost:5000";
+export const IMG_URL = BASE_URL;
+
 export const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: `${BASE_URL}/api`,
 });
 
-// 👉 Image Base URL
-export const IMG_URL = "http://localhost:5000";
+export default API;
