@@ -6,7 +6,7 @@ exports.createTestimonial = async (req, res) => {
   try {
     const data = {
       ...req.body,
-      image: req.body.image || "",
+      image: req.file?.path || "",
     };
 
     const testimonial = await Testimonial.create(data);
@@ -40,16 +40,16 @@ exports.updateTestimonial = async (req, res) => {
     const old = await Testimonial.findById(id);
     if (!old) return res.status(404).json({ message: "Not found" });
 
-    // delete old image if new uploaded
-    if (req.body.image && old.image) {
-      deleteImageFile(old.image);
+    const updateData = { ...req.body };
+
+    if (req.file?.path) {
+      if (old.image) deleteImageFile(old.image);
+      updateData.image = req.file.path;
     }
 
-    const updated = await Testimonial.findByIdAndUpdate(
-      id,
-      { ...req.body },
-      { new: true }
-    );
+    const updated = await Testimonial.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
 
     res.json({
       success: true,
