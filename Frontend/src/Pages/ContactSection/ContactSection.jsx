@@ -5,7 +5,7 @@ import ContactBreadcrum from '../../Components/ContactBreadcrum/ContactBreadcrum
 const ContactSection = () => {
   return (
     <div>
-        <ContactBreadcrum />
+      <ContactBreadcrum />
       <Contact />
     </div>
   )
