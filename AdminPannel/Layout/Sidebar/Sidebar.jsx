@@ -116,11 +116,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       icon: <FaImages />, // 🖼️
     },
 
-    {
-      name: "Teacher Posting",
-      path: "/admin/teacherposting",
-      icon: <FaChalkboardTeacher />, // 👨‍🏫
-    },
+   
 
     //////**************COMMUNICATION*************/////
     {

@@ -14,6 +14,8 @@ const propertyRoutes = require("./routes/property.routes")
 const testimonialRoutes = require("./routes/testimonial.routes");
 const blogRoutes = require("./routes/blog.routes");
 const galleryRoutes = require("./routes/gallery.routes");
+const enquiryRoutes = require("./routes/enquiry.routes");
+
 
 
 
@@ -45,6 +47,7 @@ app.use("/api/property", propertyRoutes)
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/gallery", galleryRoutes);
+app.use("/api/enquiries", enquiryRoutes);
 
 
 

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import API from "../../api/axios"; // ✅ use existing API
 import "./FloatingForm.css";
 
 const FloatingForm = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -18,7 +20,6 @@ const FloatingForm = () => {
   useEffect(() => {
     const openTimer = setTimeout(() => {
       setIsMounted(true);
-
       setTimeout(() => {
         setIsVisible(true);
       }, 30);
@@ -29,7 +30,6 @@ const FloatingForm = () => {
 
   const FloatingFormHandleClose = () => {
     setIsVisible(false);
-
     setTimeout(() => {
       setIsMounted(false);
     }, 350);
@@ -43,31 +43,56 @@ const FloatingForm = () => {
     }));
   };
 
-  const FloatingFormHandleSubmit = (e) => {
+  // ✅ CONNECTED SUBMIT
+  const FloatingFormHandleSubmit = async (e) => {
     e.preventDefault();
 
-    alert("Thank you! Our real estate team will contact you soon.");
+    try {
+      setLoading(true);
 
-    setFormData({
-      fullName: "",
-      phone: "",
-      email: "",
-      propertyType: "",
-      budget: "",
-      city: "",
-      message: "",
-    });
+      await API.post("/enquiries", {
+        name: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        type: formData.propertyType,
+        budget: formData.budget,
+        city: formData.city,
+        message: formData.message,
+      });
 
-    FloatingFormHandleClose();
+      alert("✅ Enquiry submitted successfully!");
+
+      setFormData({
+        fullName: "",
+        phone: "",
+        email: "",
+        propertyType: "",
+        budget: "",
+        city: "",
+        message: "",
+      });
+
+      FloatingFormHandleClose();
+    } catch (err) {
+      console.log("Submit Error:", err);
+      alert("❌ Failed to submit enquiry");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isMounted) return null;
 
   return (
     <div
-      className={`FloatingForm ${isVisible ? "FloatingForm--show" : "FloatingForm--hide"}`}
+      className={`FloatingForm ${
+        isVisible ? "FloatingForm--show" : "FloatingForm--hide"
+      }`}
     >
-      <div className="FloatingForm__overlay" onClick={FloatingFormHandleClose}></div>
+      <div
+        className="FloatingForm__overlay"
+        onClick={FloatingFormHandleClose}
+      ></div>
 
       <div className="FloatingForm__card">
         <button
@@ -81,7 +106,9 @@ const FloatingForm = () => {
 
         <div className="FloatingForm__left">
           <span className="FloatingForm__badge">Prestige Real Estate</span>
-          <h2 className="FloatingForm__title">Find Your Dream Property Today</h2>
+          <h2 className="FloatingForm__title">
+            Find Your Dream Property Today
+          </h2>
           <p className="FloatingForm__subtitle">
             Tell us what you are looking for and our expert team will help you
             discover the best property options for your budget and location.
@@ -106,8 +133,13 @@ const FloatingForm = () => {
         </div>
 
         <div className="FloatingForm__right">
-          <form className="FloatingForm__form" onSubmit={FloatingFormHandleSubmit}>
-            <h3 className="FloatingForm__formTitle">Request a Free Consultation</h3>
+          <form
+            className="FloatingForm__form"
+            onSubmit={FloatingFormHandleSubmit}
+          >
+            <h3 className="FloatingForm__formTitle">
+              Request a Free Consultation
+            </h3>
 
             <div className="FloatingForm__formGrid">
               <div className="FloatingForm__field">
@@ -116,7 +148,6 @@ const FloatingForm = () => {
                   className="FloatingForm__input"
                   type="text"
                   name="fullName"
-                  placeholder="Enter your full name"
                   value={formData.fullName}
                   onChange={FloatingFormHandleChange}
                   required
@@ -129,7 +160,6 @@ const FloatingForm = () => {
                   className="FloatingForm__input"
                   type="tel"
                   name="phone"
-                  placeholder="Enter your phone number"
                   value={formData.phone}
                   onChange={FloatingFormHandleChange}
                   required
@@ -142,7 +172,6 @@ const FloatingForm = () => {
                   className="FloatingForm__input"
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
                   value={formData.email}
                   onChange={FloatingFormHandleChange}
                   required
@@ -192,7 +221,6 @@ const FloatingForm = () => {
                   className="FloatingForm__input"
                   type="text"
                   name="city"
-                  placeholder="Enter preferred city"
                   value={formData.city}
                   onChange={FloatingFormHandleChange}
                   required
@@ -205,15 +233,17 @@ const FloatingForm = () => {
               <textarea
                 className="FloatingForm__textarea"
                 name="message"
-                placeholder="Tell us your requirements..."
-                rows="4"
                 value={formData.message}
                 onChange={FloatingFormHandleChange}
               ></textarea>
             </div>
 
-            <button className="FloatingForm__submitButton" type="submit">
-              Submit Enquiry
+            <button
+              className="FloatingForm__submitButton"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Submitting..." : "Submit Enquiry"}
             </button>
           </form>
         </div>
