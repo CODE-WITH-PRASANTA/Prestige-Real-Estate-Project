@@ -86,11 +86,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       icon: <FaQuoteLeft />, // 💬
     },
 
-    {
-      name: "FAQ Posting",
-      path: "/admin/faq",
-      icon: <FaQuestionCircle />, // ❓
-    },
+    // {
+    //   name: "FAQ Posting",
+    //   path: "/admin/faq",
+    //   icon: <FaQuestionCircle />, // ❓
+    // },
 
     {
       name: "Blog Posting",
@@ -116,11 +116,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       icon: <FaImages />, // 🖼️
     },
 
-    {
-      name: "Teacher Posting",
-      path: "/admin/teacherposting",
-      icon: <FaChalkboardTeacher />, // 👨‍🏫
-    },
+   
 
     //////**************COMMUNICATION*************/////
     {

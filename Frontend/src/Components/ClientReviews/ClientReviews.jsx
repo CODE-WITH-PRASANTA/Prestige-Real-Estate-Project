@@ -26,16 +26,20 @@ export default function ClientReviews() {
     fetchTestimonials();
   }, []);
 
-  const fetchTestimonials = async () => {
-    try {
-      const res = await API.get("/testimonials");
-      setData(res.data.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchTestimonials = async () => {
+  try {
+    const res = await API.get("/testimonials");
+
+   console.log("API RESPONSE:", res.data.data);// 👈 ADD THIS
+
+    setData(res.data?.data || []); // ✅ SAFE FIX
+  } catch (err) {
+    console.error("FETCH ERROR:", err);
+    setData([]); // fallback
+  } finally {
+    setLoading(false);
+  }
+};
 
   // ================= RESPONSIVE =================
   useEffect(() => {
@@ -49,28 +53,30 @@ export default function ClientReviews() {
   }, []);
 
   // ================= ANIMATION OBSERVER =================
-  useEffect(() => {
-    if (!sectionRef.current) return;
+useEffect(() => {
+  if (!sectionRef.current) return;
 
-    const elements = sectionRef.current.querySelectorAll(".cr-reveal");
+  const elements = sectionRef.current.querySelectorAll(".cr-reveal");
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("cr-active");
-          }
-        });
-      },
-      { threshold: 0.18 },
-    );
+  if (!elements.length) return; // ✅ prevent crash
 
-    elements.forEach((el) => observer.observe(el));
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("cr-active");
+        }
+      });
+    },
+    { threshold: 0.18 }
+  );
 
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+  elements.forEach((el) => observer.observe(el));
+
+  return () => {
+    elements.forEach((el) => observer.unobserve(el));
+  };
+}, [data]); // ✅ add dependency
 
   // ================= CORE LOGIC =================
   const totalReal = data.length || 1;

@@ -1,34 +1,37 @@
 import { useMemo, useRef, useState, useEffect } from "react";
+import API, { IMG_URL } from "../../api/axios";
 import "./Cities.css";
-
-import c1 from "../../assets/c1.jpg";
-import c2 from "../../assets/c2.jpg";
-import c3 from "../../assets/c3.jpg";
-import c4 from "../../assets/c4.jpg";
-import c5 from "../../assets/c5.jpg";
-import c6 from "../../assets/c6.jpg";
-import c7 from "../../assets/c7.jpg";
-import c8 from "../../assets/c8.jpg";
 
 export default function Cities() {
   const sectionRef = useRef(null);
 
-  const cities = [
-    { id: 1, name: "New York", count: "300 Properties", img: c1 },
-    { id: 2, name: "Singapore", count: "400 Properties", img: c2 },
-    { id: 3, name: "Argentina", count: "740 Properties", img: c3 },
-    { id: 4, name: "United Kingdom", count: "1450 Properties", img: c4 },
-    { id: 5, name: "Paris", count: "520 Properties", img: c5 },
-    { id: 6, name: "Dubai", count: "610 Properties", img: c6 },
-    { id: 7, name: "Sydney", count: "280 Properties", img: c7 },
-    { id: 8, name: "Tokyo", count: "830 Properties", img: c8 },
-    { id: 9, name: "New York", count: "300 Properties", img: c1 },
-    { id: 10, name: "Singapore", count: "400 Properties", img: c2 },
-    { id: 11, name: "Argentina", count: "740 Properties", img: c3 },
-    { id: 12, name: "United Kingdom", count: "1450 Properties", img: c4 }
-  ];
+  const [cities, setCities] = useState([]);
+  const [perPage, setPerPage] = useState(6);
+  const [page, setPage] = useState(0);
 
-  /* RESPONSIVE PER PAGE */
+  /* ================= FETCH FROM BACKEND ================= */
+  const fetchCities = async () => {
+    try {
+      const res = await API.get("/gallery?page=1");
+
+      const formatted = res.data.data.map((item) => ({
+        id: item._id,
+        name: item.cityName,
+        count: `${item.properties} Properties`,
+        img: `${IMG_URL}${item.image}`,
+      }));
+
+      setCities(formatted);
+    } catch (err) {
+      console.error("Cities Fetch Error:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCities();
+  }, []);
+
+  /* ================= RESPONSIVE ================= */
   const getPerPage = () => {
     const w = window.innerWidth;
     if (w <= 768) return 1;
@@ -36,18 +39,19 @@ export default function Cities() {
     return 6;
   };
 
-  const [perPage, setPerPage] = useState(getPerPage());
-  const [page, setPage] = useState(0);
-
   useEffect(() => {
+    setPerPage(getPerPage());
+
     const resize = () => {
       setPerPage(getPerPage());
       setPage(0);
     };
+
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
 
+  /* ================= PAGINATION ================= */
   const pages = useMemo(() => {
     const arr = [];
     for (let i = 0; i < cities.length; i += perPage) {
@@ -56,20 +60,40 @@ export default function Cities() {
     return arr;
   }, [cities, perPage]);
 
-  const prev = () => setPage((p) => Math.max(0, p - 1));
-  const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
+  /* 🔥 Prevent invalid page after resize/data change */
+  useEffect(() => {
+    if (page >= pages.length) {
+      setPage(0);
+    }
+  }, [pages.length]);
+
+  const prev = () => {
+    if (page > 0) setPage(page - 1);
+  };
+
+  const next = () => {
+    if (page < pages.length - 1) setPage(page + 1);
+  };
+
+  /* ================= LOADING ================= */
+  if (!cities.length) {
+    return <p style={{ textAlign: "center" }}>Loading...</p>;
+  }
 
   return (
     <section className="cities" ref={sectionRef}>
-
       <h2>Cities With Listing</h2>
       <p className="sub">Destinations we love the most</p>
 
       <div className="cities-slider">
+        <button className="nav left" onClick={prev}>
+          ‹
+        </button>
 
-        <button className="nav left" onClick={prev}>‹</button>
-
-        <div className="track" style={{ transform: `translateX(-${page * 100}%)` }}>
+        <div
+          className="track"
+          style={{ transform: `translateX(-${page * 100}%)` }}
+        >
           {pages.map((group, i) => (
             <div className="page" key={i}>
               {group.map((city) => (
@@ -89,12 +113,16 @@ export default function Cities() {
           ))}
         </div>
 
-        <button className="nav right" onClick={next}>›</button>
+        <button className="nav right" onClick={next}>
+          ›
+        </button>
       </div>
 
       {/* PAGINATION */}
       <div className="cities-pagination">
-        <button onClick={prev} disabled={page === 0}>‹</button>
+        <button onClick={prev} disabled={page === 0}>
+          ‹
+        </button>
 
         {pages.map((_, i) => (
           <button
@@ -106,9 +134,10 @@ export default function Cities() {
           </button>
         ))}
 
-        <button onClick={next} disabled={page === pages.length - 1}>›</button>
+        <button onClick={next} disabled={page === pages.length - 1}>
+          ›
+        </button>
       </div>
-
     </section>
   );
 }
