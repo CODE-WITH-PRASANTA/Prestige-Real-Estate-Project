@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ColdLead.css";
+import { createColdLead } from "../../services/coldLeadService";
 
 const ColdLeadForm = () => {
   const base = "coldlead";
@@ -14,39 +15,52 @@ const ColdLeadForm = () => {
     message: "",
   });
 
-  const [leads, setLeads] = useState([]);
-  const [filterName, setFilterName] = useState("");
-  const [filterAddress, setFilterAddress] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleSubmit = () => {
-    if (!form.name) return alert("Name required");
+  const handleSubmit = async () => {
+    try {
+      if (!form.name.trim()) {
+        return alert("Name is required");
+      }
 
-    setLeads([{ ...form, id: Date.now() }, ...leads]);
+      if (!form.phone.trim()) {
+        return alert("Phone number is required");
+      }
 
-    setForm({
-      name: "",
-      phone: "",
-      email: "",
-      property: "",
-      budget: "",
-      city: "",
-      message: "",
-    });
+      setLoading(true);
+
+      await createColdLead(form);
+
+      alert("Cold lead submitted successfully");
+
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        property: "",
+        budget: "",
+        city: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert(
+        error?.response?.data?.message || "Failed to submit cold lead"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const filteredLeads = leads.filter(
-    (lead) =>
-      lead.name.toLowerCase().includes(filterName.toLowerCase()) &&
-      lead.city.toLowerCase().includes(filterAddress.toLowerCase())
-  );
- 
   return (
     <div className={base}>
-      {/* LEFT FORM */}
       <div className={`${base}__left`}>
         <div className={`${base}__card`}>
           <h2>Request a Free Consultation</h2>
@@ -55,6 +69,7 @@ const ColdLeadForm = () => {
             <div className={`${base}__field`}>
               <label>Full Name</label>
               <input
+                type="text"
                 name="name"
                 placeholder="Enter your full name"
                 value={form.name}
@@ -65,6 +80,7 @@ const ColdLeadForm = () => {
             <div className={`${base}__field`}>
               <label>Phone Number</label>
               <input
+                type="text"
                 name="phone"
                 placeholder="Enter your phone number"
                 value={form.phone}
@@ -77,6 +93,7 @@ const ColdLeadForm = () => {
             <div className={`${base}__field`}>
               <label>Email Address</label>
               <input
+                type="email"
                 name="email"
                 placeholder="Enter your email"
                 value={form.email}
@@ -86,10 +103,16 @@ const ColdLeadForm = () => {
 
             <div className={`${base}__field`}>
               <label>Property Type</label>
-              <select name="property" onChange={handleChange}>
-                <option>Select property type</option>
-                <option>Flat</option>
-                <option>Villa</option>
+              <select
+                name="property"
+                value={form.property}
+                onChange={handleChange}
+              >
+                <option value="">Select property type</option>
+                <option value="Flat">Flat</option>
+                <option value="Villa">Villa</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Plot">Plot</option>
               </select>
             </div>
           </div>
@@ -97,16 +120,23 @@ const ColdLeadForm = () => {
           <div className={`${base}__row`}>
             <div className={`${base}__field`}>
               <label>Budget</label>
-              <select name="budget" onChange={handleChange}>
-                <option>Select budget</option>
-                <option>5L - 10L</option>
-                <option>10L - 20L</option>
+              <select
+                name="budget"
+                value={form.budget}
+                onChange={handleChange}
+              >
+                <option value="">Select budget</option>
+                <option value="5L - 10L">5L - 10L</option>
+                <option value="10L - 20L">10L - 20L</option>
+                <option value="20L - 40L">20L - 40L</option>
+                <option value="40L+">40L+</option>
               </select>
             </div>
 
             <div className={`${base}__field`}>
               <label>Preferred City</label>
               <input
+                type="text"
                 name="city"
                 placeholder="Enter preferred city"
                 value={form.city}
@@ -125,42 +155,13 @@ const ColdLeadForm = () => {
             />
           </div>
 
-          <button className={`${base}__submit`} onClick={handleSubmit}>
-            Submit Enquiry
+          <button
+            className={`${base}__submit`}
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit Enquiry"}
           </button>
-        </div>
-      </div>
-
-      {/* RIGHT TABLE */}
-      <div className={`${base}__right`}>
-        <div className={`${base}__card`}>
-          <div className={`${base}__filterRow`}>
-            <input
-              placeholder="Filter by Name"
-              value={filterName}
-              onChange={(e) => setFilterName(e.target.value)}
-            />
-
-            <input
-              placeholder="Filter by Address"
-              value={filterAddress}
-              onChange={(e) => setFilterAddress(e.target.value)}
-            />
-          </div>
-
-          <div className={`${base}__table`}>
-            {filteredLeads.length === 0 ? (
-              <p>No leads found.</p>
-            ) : (
-              filteredLeads.map((lead) => (
-                <div key={lead.id} className={`${base}__rowItem`}>
-                  <h4>{lead.name}</h4>
-                  <p>{lead.city}</p>
-                  <span>{lead.phone}</span>
-                </div>
-              ))
-            )}
-          </div>
         </div>
       </div>
     </div>

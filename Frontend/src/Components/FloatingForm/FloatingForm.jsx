@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./FloatingForm.css";
+import { createColdLead } from "../../services/coldLeadService";
 
 const FloatingForm = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -43,31 +45,72 @@ const FloatingForm = () => {
     }));
   };
 
-  const FloatingFormHandleSubmit = (e) => {
+  const FloatingFormHandleSubmit = async (e) => {
     e.preventDefault();
 
-    alert("Thank you! Our real estate team will contact you soon.");
+    try {
+      if (!formData.fullName.trim()) {
+        alert("Full name is required");
+        return;
+      }
 
-    setFormData({
-      fullName: "",
-      phone: "",
-      email: "",
-      propertyType: "",
-      budget: "",
-      city: "",
-      message: "",
-    });
+      if (!formData.phone.trim()) {
+        alert("Phone number is required");
+        return;
+      }
 
-    FloatingFormHandleClose();
+      setLoading(true);
+
+      const payload = {
+        name: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        property: formData.propertyType,
+        budget: formData.budget,
+        city: formData.city,
+        message: formData.message,
+      };
+
+      await createColdLead(payload);
+
+      alert("Thank you! Your enquiry has been submitted successfully.");
+
+      setFormData({
+        fullName: "",
+        phone: "",
+        email: "",
+        propertyType: "",
+        budget: "",
+        city: "",
+        message: "",
+      });
+
+      FloatingFormHandleClose();
+    } catch (error) {
+      console.error("Floating form submit error:", error);
+
+      if (error.code === "ERR_NETWORK") {
+        alert("Backend server is not running on localhost:5000");
+      } else {
+        alert(error?.response?.data?.message || "Failed to submit cold lead");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isMounted) return null;
 
   return (
     <div
-      className={`FloatingForm ${isVisible ? "FloatingForm--show" : "FloatingForm--hide"}`}
+      className={`FloatingForm ${
+        isVisible ? "FloatingForm--show" : "FloatingForm--hide"
+      }`}
     >
-      <div className="FloatingForm__overlay" onClick={FloatingFormHandleClose}></div>
+      <div
+        className="FloatingForm__overlay"
+        onClick={FloatingFormHandleClose}
+      ></div>
 
       <div className="FloatingForm__card">
         <button
@@ -75,6 +118,7 @@ const FloatingForm = () => {
           onClick={FloatingFormHandleClose}
           type="button"
           aria-label="Close form"
+          disabled={loading}
         >
           ×
         </button>
@@ -145,7 +189,6 @@ const FloatingForm = () => {
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={FloatingFormHandleChange}
-                  required
                 />
               </div>
 
@@ -156,7 +199,6 @@ const FloatingForm = () => {
                   name="propertyType"
                   value={formData.propertyType}
                   onChange={FloatingFormHandleChange}
-                  required
                 >
                   <option value="">Select property type</option>
                   <option value="Apartment">Apartment</option>
@@ -175,7 +217,6 @@ const FloatingForm = () => {
                   name="budget"
                   value={formData.budget}
                   onChange={FloatingFormHandleChange}
-                  required
                 >
                   <option value="">Select budget</option>
                   <option value="Under 25 Lakhs">Under 25 Lakhs</option>
@@ -195,7 +236,6 @@ const FloatingForm = () => {
                   placeholder="Enter preferred city"
                   value={formData.city}
                   onChange={FloatingFormHandleChange}
-                  required
                 />
               </div>
             </div>
@@ -212,8 +252,12 @@ const FloatingForm = () => {
               ></textarea>
             </div>
 
-            <button className="FloatingForm__submitButton" type="submit">
-              Submit Enquiry
+            <button
+              className="FloatingForm__submitButton"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Submitting..." : "Submit Enquiry"}
             </button>
           </form>
         </div>

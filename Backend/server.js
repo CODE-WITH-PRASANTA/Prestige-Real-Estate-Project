@@ -13,6 +13,8 @@ const connectDB = require("./configs/db");
 const propertyRoutes = require("./routes/property.routes")
 const testimonialRoutes = require("./routes/testimonial.routes");
 const blogRoutes = require("./routes/blog.routes");
+const coldLeadRoutes = require("./routes/coldLeadRoutes");
+
 
 
 
@@ -31,6 +33,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 /* Routes */
 app.use("/api/blogs", blogRoutes);
+
+app.use("/api/cold-leads", coldLeadRoutes);
 
 /* Test Route */
 app.get("/", (req, res) => {
