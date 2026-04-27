@@ -7,6 +7,7 @@ const {
   getAllProperties,
   getSingleProperty,
   deleteProperty,
+  updateProperty
 } = require("../controllers/property.controller");
 
 // ✅ YOUR MULTER
@@ -14,9 +15,6 @@ const {
   upload,
   convertToWebp,
 } = require("../middlewares/upload");
-
-
-// ================= ROUTES =================
 
 // ➕ ADD PROPERTY
 router.post(
@@ -38,6 +36,17 @@ router.get("/:id", getSingleProperty);
 
 // ❌ DELETE
 router.delete("/:id", deleteProperty);
+
+router.put(
+  "/:id",
+  upload.fields([
+    { name: "banner", maxCount: 1 },
+    { name: "ownerImage", maxCount: 1 },
+    { name: "images", maxCount: 10 },
+  ]),
+  convertToWebp,
+  updateProperty
+);
 
 
 module.exports = router;

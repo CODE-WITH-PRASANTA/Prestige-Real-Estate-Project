@@ -13,8 +13,9 @@ const ensureDir = (dir) => {
 /* ================= ROUTE → FOLDER MAP ================= */
 const routeFolderMap = {
   "/property": "uploads/property",
-  "/testimonials": "uploads/testimonials",
+  "/api/testimonials": "uploads/testimonials",
   "/blogs": "uploads/blogs",
+  "/api/gallery": "uploads/gallery",
 };
 
 /* ================= GET UPLOAD PATH ================= */
@@ -171,11 +172,18 @@ const deleteImageFile = (imagePath) => {
   try {
     if (!imagePath) return;
 
-    const fullPath = path.join(__dirname, "..", imagePath);
+    // Remove leading slash if exists
+    const cleanPath = imagePath.startsWith("/")
+      ? imagePath.slice(1)
+      : imagePath;
+
+    const fullPath = path.join(__dirname, "..", cleanPath);
 
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
       console.log("Deleted:", fullPath);
+    } else {
+      console.log("File not found:", fullPath);
     }
   } catch (err) {
     console.error("DELETE ERROR:", err);

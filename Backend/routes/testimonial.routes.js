@@ -26,7 +26,7 @@ router.post(
 // GET ALL
 router.get("/", getTestimonials);
 
-// UPDATE
+// UPDATE (with optional image)
 router.put(
   "/:id",
   upload.single("image"),

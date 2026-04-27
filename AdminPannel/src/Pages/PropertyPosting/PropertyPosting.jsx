@@ -1,94 +1,106 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PropertyPosting.css";
 import { FaEllipsisV } from "react-icons/fa";
+import API, { IMG_URL } from "../../api/axios"; 
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const properties = [
-  {
-    id: 1,
-    title: "Serenity Condo Suite",
-    price: "$21000",
-    location: "17, Grove Towers, New York, USA",
-    rating: 5.0,
-    reviews: 20,
-    beds: 4,
-    bath: 4,
-    area: "350 Sq Ft",
-    date: "16 Jan 2023",
-    category: "Apartment",
-    img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
-    user: "https://randomuser.me/api/portraits/women/44.jpg",
-    tag: "New",
-  },
-  {
-    id: 2,
-    title: "Loyal Apartment",
-    price: "$1940",
-    location: "25, Willow Crest Apartment, USA",
-    rating: 4.6,
-    reviews: 36,
-    beds: 2,
-    bath: 2,
-    area: "350 Sq Ft",
-    date: "02 May 2025",
-    category: "Apartment",
-    img: "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
-    user: "https://randomuser.me/api/portraits/women/65.jpg",
-    tag: "Featured",
-  },
-  {
-    id: 3,
-    title: "Grand Villa House",
-    price: "$1370",
-    location: "10, Oak Ridge Villa, USA",
-    rating: 4.9,
-    reviews: 25,
-    beds: 4,
-    bath: 3,
-    area: "520 Sq Ft",
-    date: "28 Apr 2025",
-    category: "Villa",
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-    user: "https://randomuser.me/api/portraits/men/32.jpg",
-    tag: "Featured",
-  },
-];
 
 export default function PropertyPost() {
+
+  const navigate = useNavigate();
+  const [properties, setProperties] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
 
   const toggleMenu = (id) => {
     setActiveMenu(activeMenu === id ? null : id);
   };
 
+  // ✅ IMAGE HELPER (CLEAN)
+  const getImageUrl = (path) => {
+    if (!path) return "/no-image.png"; // fallback
+    return path.startsWith("http") ? path : `${IMG_URL}${path}`;
+  };
+
+  // ✅ FETCH DATA
+  const fetchProperties = async () => {
+    try {
+      const res = await API.get("/property");
+      setProperties(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProperties();
+  }, []);
+
+  // ✅ DELETE
+ const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      await API.delete(`/property/${id}`);
+
+      Swal.fire({
+        title: "Deleted!",
+        text: "Property has been deleted successfully.",
+        icon: "success",
+      });
+
+      fetchProperties(); // refresh list
+    } catch (err) {
+      console.log(err);
+
+      Swal.fire({
+        title: "Error ❌",
+        text: "Failed to delete property",
+        icon: "error",
+      });
+    }
+  }
+};
+
+
+
   return (
     <div className="pp-container">
       {properties.map((item) => (
-        <div className="pp-card" key={item.id}>
+        <div className="pp-card" key={item._id}>
+          
           {/* IMAGE */}
           <div className="pp-imgBox">
-            <img src={item.img} alt="property" />
+            <img
+              src={getImageUrl(item.banner)} 
+              alt="property"
+            />
 
-            {/* TAG */}
-            <span className={`pp-tag ${item.tag === "New" ? "new" : ""}`}>
-              {item.tag}
-            </span>
+            <span className="pp-price">₹ {item.price}</span>
 
-            {/* PRICE */}
-            <span className="pp-price">{item.price}</span>
-
-            {/* PROFILE */}
-            <img className="pp-user" src={item.user} alt="user" />
-
-            {/* 3 DOT MENU */}
             <div className="pp-menu">
-              <FaEllipsisV onClick={() => toggleMenu(item.id)} />
+              <FaEllipsisV onClick={() => toggleMenu(item._id)} />
 
-              {activeMenu === item.id && (
+              {activeMenu === item._id && (
                 <div className="pp-dropdown">
-                  <p>Publish</p>
-                  <p>Unpublish</p>
-                  <p>Edit</p>
-                  <p className="danger">Delete</p>
+                  <p onClick={() => navigate(`/flat/post/${item._id}`)}>
+                    Edit
+                  </p>
+                  <p
+                    className="danger"
+                    onClick={() => handleDelete(item._id)}
+                  >
+                    Delete
+                  </p>
                 </div>
               )}
             </div>
@@ -96,25 +108,22 @@ export default function PropertyPost() {
 
           {/* CONTENT */}
           <div className="pp-content">
-            <div className="pp-rating">
-              ⭐ {item.rating} ({item.reviews} Reviews)
-            </div>
-
             <h3>{item.title}</h3>
 
             <p className="pp-location">📍 {item.location}</p>
 
             <div className="pp-features">
-              <span>🛏 {item.beds} Bedroom</span>
-              <span>🛁 {item.bath} Bath</span>
-              <span>📐 {item.area}</span>
+              <span>🛏 {item.features?.bedroom || 0} Bedroom</span>
+              <span>🛁 {item.features?.bathroom || 0} Bath</span>
+              <span>📐 {item.sqft || 0} Sqft</span>
             </div>
 
             <div className="pp-footer">
-              <p><strong>Listed on:</strong> {item.date}</p>
               <p><strong>Category:</strong> {item.category}</p>
+              <p><strong>Updated:</strong> {item.lastUpdate}</p>
             </div>
           </div>
+
         </div>
       ))}
     </div>

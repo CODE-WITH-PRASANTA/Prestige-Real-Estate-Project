@@ -2,9 +2,12 @@ import "./FlatPosting.css";
 import { FaChevronDown, FaPlus } from "react-icons/fa";
 import { Editor } from "@tinymce/tinymce-react";
 import Swal from "sweetalert2";
-import { API } from "../../api/axios";
+import { API, IMG_URL } from "../../api/axios";
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
+
 const FlatPosting = () => {
+  const { id } = useParams();
   const fileRef = useRef();
   const [activeSection, setActiveSection] = useState("basic");
   const [images, setImages] = useState([]);
@@ -86,10 +89,45 @@ const FlatPosting = () => {
   };
 
   useEffect(() => {
-    return () => {
-      images.forEach((img) => URL.revokeObjectURL(img));
-    };
-  }, [images]);
+    if (id) {
+      fetchSingleProperty();
+    }
+  }, [id]);
+
+  const fetchSingleProperty = async () => {
+    try {
+      const res = await API.get(`/property/${id}`);
+      const data = res.data.data;
+
+      // ✅ SET ALL STATES
+      setTitle(data.title || "");
+      setDescription(data.description || "");
+      setLocation(data.location || "");
+      setPrice(data.price || "");
+      setRating(data.rating || "");
+      setSqft(data.sqft || "");
+      setDownPayment(data.downPayment || "");
+      setLoanTerms(data.loanTerms || "");
+      setInterestRate(data.interestRate || "");
+      setLastUpdate(data.lastUpdate || "");
+      setCategory(data.category || "");
+
+      setFeatures(data.features || {});
+      setAmenities(data.amenities || []);
+      setEditorData(data.fullDescription || "");
+
+      setBannerPreview(data.banner ? `${IMG_URL}${data.banner}` : null);
+      setOwnerPreview(data.ownerImage ? `${IMG_URL}${data.ownerImage}` : null);
+
+      setImages(data.images?.map((img) => `${IMG_URL}${img}`) || []);
+          setImages(
+            data.images?.map((img) => IMG_URL + img) || []
+          );
+
+        } catch (err) {
+          console.log(err);
+        }
+  };
 
   const handleSubmit = () => {
     Swal.fire({
@@ -164,7 +202,13 @@ const FlatPosting = () => {
           formData.append("fullDescription", editorData || "");
 
           // ===== API CALL =====
-          const res = await API.post("/property/add", formData, {
+          const url = id ? `/property/${id}` : "/property/add";
+          const method = id ? "put" : "post";
+
+          const res = await API({
+            method,
+            url,
+            data: formData,
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -172,7 +216,11 @@ const FlatPosting = () => {
 
           console.log(res.data);
 
-          Swal.fire("Success 🎉", "Property Added Successfully", "success");
+          Swal.fire(
+  "Success 🎉",
+  id ? "Property Updated Successfully" : "Property Added Successfully",
+  "success"
+);
 
           // ===== RESET FORM =====
           setTitle("");
@@ -412,137 +460,116 @@ const FlatPosting = () => {
             activeSection === "features" ? "open" : ""
           }`}
         >
-          {/* ===== FEATURE DROPDOWNS ===== */}
-          <div className="FlatPost__grid">
-            <div className="FlatPost__field">
-              <label>Bedroom</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) => handleFeatureChange("bedroom", e.target.value)}
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+         <div className="FlatPost__grid">
 
-            <div className="FlatPost__field">
-              <label>Bathroom</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) =>
-                  handleFeatureChange("bathroom", e.target.value)
-                }
-              >
-                {renderOptions(5)}
-              </select>
-            </div>
+            {/* Bedroom */}
+            <select
+              className="FlatPost__input"
+              value={features.bedroom || ""}
+              onChange={(e) => handleFeatureChange("bedroom", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Parking</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) => handleFeatureChange("parking", e.target.value)}
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+            {/* Bathroom */}
+            <select
+              className="FlatPost__input"
+              value={features.bathroom || ""}
+              onChange={(e) => handleFeatureChange("bathroom", e.target.value)}
+            >
+              {renderOptions(5)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Balcony</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) => handleFeatureChange("balcony", e.target.value)}
-              >
-                {renderOptions(5)}
-              </select>
-            </div>
+            {/* Parking */}
+            <select
+              className="FlatPost__input"
+              value={features.parking || ""}
+              onChange={(e) => handleFeatureChange("parking", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Floor</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) => handleFeatureChange("floor", e.target.value)}
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+            {/* Balcony */}
+            <select
+              className="FlatPost__input"
+              value={features.balcony || ""}
+              onChange={(e) => handleFeatureChange("balcony", e.target.value)}
+            >
+              {renderOptions(5)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Wardrobe</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) =>
-                  handleFeatureChange("wardrobe", e.target.value)
-                }
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+            {/* Floor */}
+            <select
+              className="FlatPost__input"
+              value={features.floor || ""}
+              onChange={(e) => handleFeatureChange("floor", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>TV</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) => handleFeatureChange("tv", e.target.value)}
-              >
-                {renderOptions(5)}
-              </select>
-            </div>
+            {/* Wardrobe */}
+            <select
+              className="FlatPost__input"
+              value={features.wardrobe || ""}
+              onChange={(e) => handleFeatureChange("wardrobe", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Water Purifier</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) =>
-                  handleFeatureChange("purifier", e.target.value)
-                }
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+            {/* TV */}
+            <select
+              className="FlatPost__input"
+              value={features.tv || ""}
+              onChange={(e) => handleFeatureChange("tv", e.target.value)}
+            >
+              {renderOptions(5)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Microwave</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) =>
-                  handleFeatureChange("microwave", e.target.value)
-                }
-              >
-                {renderOptions(5)}
-              </select>
-            </div>
+            {/* Purifier */}
+            <select
+              className="FlatPost__input"
+              value={features.purifier || ""}
+              onChange={(e) => handleFeatureChange("purifier", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>AC</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) => handleFeatureChange("ac", e.target.value)}
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+            {/* Microwave */}
+            <select
+              className="FlatPost__input"
+              value={features.microwave || ""}
+              onChange={(e) => handleFeatureChange("microwave", e.target.value)}
+            >
+              {renderOptions(5)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Fridge</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) => handleFeatureChange("fridge", e.target.value)}
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+            {/* AC */}
+            <select
+              className="FlatPost__input"
+              value={features.ac || ""}
+              onChange={(e) => handleFeatureChange("ac", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
 
-            <div className="FlatPost__field">
-              <label>Curtains</label>
-              <select
-                className="FlatPost__input"
-                onChange={(e) =>
-                  handleFeatureChange("curtains", e.target.value)
-                }
-              >
-                {renderOptions(10)}
-              </select>
-            </div>
+            {/* Fridge */}
+            <select
+              className="FlatPost__input"
+              value={features.fridge || ""}
+              onChange={(e) => handleFeatureChange("fridge", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
+
+            {/* Curtains */}
+            <select
+              className="FlatPost__input"
+              value={features.curtains || ""}
+              onChange={(e) => handleFeatureChange("curtains", e.target.value)}
+            >
+              {renderOptions(10)}
+            </select>
+
           </div>
 
           {/* ===== AMENITIES ===== */}
@@ -567,6 +594,7 @@ const FlatPosting = () => {
                 <label key={i} className="FlatPost__amenityItem">
                   <input
                     type="checkbox"
+                    checked={amenities.includes(item)}
                     onChange={(e) => {
                       if (e.target.checked) {
                         setAmenities((prev) => [...new Set([...prev, item])]);
@@ -580,6 +608,7 @@ const FlatPosting = () => {
               ))}
             </div>
           </div>
+
         </div>
       </div>
 
@@ -691,7 +720,11 @@ const FlatPosting = () => {
         onClick={handleSubmit}
         disabled={loading}
       >
-        {loading ? "Submitting..." : "Submit Property"}
+       {loading
+        ? "Processing..."
+        : id
+        ? "Update Property"
+        : "Submit Property"}
       </button>
     </div>
   );
