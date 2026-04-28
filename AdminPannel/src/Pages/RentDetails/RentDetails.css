@@ -1,0 +1,153 @@
+.rent-container {
+  padding: 20px;
+  background: #f4f7fb;
+  font-family: "Segoe UI";
+}
+
+/* TOP */
+.rent-top {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* FORM */
+.rent-form {
+  flex: 1;
+  min-width: 300px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.rent-form input,
+.rent-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.rent-row {
+  display: flex;
+  gap: 10px;
+}
+
+.rent-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(45deg,#2563eb,#1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* PREVIEW */
+.rent-preview {
+  flex: 1;
+  min-width: 300px;
+}
+
+.preview-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.preview-grid {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.preview-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.preview-images img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+/* TABLE */
+.rent-table-section {
+  margin-top: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* SCROLL */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* BUTTONS */
+.edit-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-right: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .rent-top {
+    flex-direction: column;
+  }
+
+  .rent-row {
+    flex-direction: column;
+  }
+
+  table {
+    font-size: 14px;
+  }
+}
+
+/* SCROLLBAR */
+.table-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}

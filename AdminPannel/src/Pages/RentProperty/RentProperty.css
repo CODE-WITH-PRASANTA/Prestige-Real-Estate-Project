@@ -1,0 +1,363 @@
+/* RentProperty.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.rentProperty {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  background: #f4f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.rentPropertyWrapper {
+  width: 100%;
+}
+
+/* Heading */
+
+.rentPropertyHeading {
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+/* Grid */
+
+.rentPropertyTopGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Cards */
+
+.rentPropertyFormCard,
+.rentPropertyPreviewCard,
+.rentPropertyTableCard {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.rentPropertyCardTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+/* Section Headings */
+
+.rentPropertySectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 18px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Form */
+
+.rentPropertyForm {
+  width: 100%;
+}
+
+.rentPropertyGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.rentPropertyForm input,
+.rentPropertyForm select,
+.rentPropertyForm textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
+  outline: none;
+  font-size: 15px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.rentPropertyForm input:focus,
+.rentPropertyForm select:focus,
+.rentPropertyForm textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.rentPropertyForm textarea {
+  resize: none;
+  margin-top: 10px;
+}
+
+.rentPropertyForm input[type="file"] {
+  padding: 10px;
+  background: #f8fafc;
+}
+
+/* Button */
+
+.rentPropertyBtn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rentPropertyBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* Preview */
+
+.rentPropertyPreviewBox {
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #edf2f7;
+  background: #f8fafc;
+}
+
+.rentPropertyPreviewImg {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.rentPropertyPreviewContent {
+  padding: 18px;
+}
+
+.rentPropertyPreviewContent h3 {
+  font-size: 24px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.rentPropertyPreviewContent p {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+.rentPropertyPrice {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin: 16px 0;
+}
+
+.rentPropertyMeta,
+.rentPropertyTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.rentPropertyMeta span {
+  background: #eaf2ff;
+  color: #1d4ed8;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.rentPropertyTags span {
+  background: #ecfdf5;
+  color: #047857;
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rentPropertyDesc {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* Preview Buttons */
+
+.rentPropertyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rentPropertyActions button {
+  border: none;
+  padding: 11px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+  background: #111827;
+}
+
+.rentPropertyActions button:nth-child(2) {
+  background: #2563eb;
+}
+
+.rentPropertyActions button:nth-child(3) {
+  background: #10b981;
+}
+
+/* Table */
+
+.rentPropertyTableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.rentPropertyTable {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+.rentPropertyTable thead {
+  background: #eff6ff;
+}
+
+.rentPropertyTable th,
+.rentPropertyTable td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.rentPropertyTable th {
+  color: #111827;
+  font-size: 15px;
+}
+
+.rentPropertyTable td {
+  color: #475569;
+  font-size: 14px;
+}
+
+.rentPropertyTable td img {
+  width: 60px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Status */
+
+.rentPropertyStatus {
+  padding: 7px 10px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rentPropertyStatus.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.rentPropertyStatus.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.rentPropertyStatus.sold {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Table Action Buttons */
+
+.rentPropertyActionBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.rentPropertyActionBtns button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.rentPropertyActionBtns button:first-child {
+  background: #2563eb;
+}
+
+.rentPropertyActionBtns button:last-child {
+  background: #ef4444;
+}
+
+/* Responsive */
+
+@media (max-width: 1200px) {
+  .rentPropertyTopGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .rentProperty {
+    padding: 16px;
+  }
+
+  .rentPropertyHeading {
+    font-size: 24px;
+  }
+
+  .rentPropertyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rentPropertyPreviewImg {
+    height: 220px;
+  }
+
+  .rentPropertyCardTitle {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rentPropertyFormCard,
+  .rentPropertyPreviewCard,
+  .rentPropertyTableCard {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .rentPropertyHeading {
+    font-size: 22px;
+  }
+
+  .rentPropertyActions button,
+  .rentPropertyActionBtns button {
+    width: 100%;
+  }
+
+  .rentPropertyActionBtns {
+    flex-direction: column;
+  }
+}
