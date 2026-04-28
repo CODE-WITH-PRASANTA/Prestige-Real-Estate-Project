@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DetailsHero.css";
 import {
   FaStar,
@@ -8,71 +8,183 @@ import {
   FaExchangeAlt,
 } from "react-icons/fa";
 
-const DetailsHero = () => {
+import { IMG_URL } from "../../api/axios";
+
+const DetailsHero = ({ data }) => {
+  const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  if (!data) return null;
+
+  // 🔥 Unique ID
+  const propertyId = data._id;
+
+  // ================= LOAD STATE =================
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const savedList = JSON.parse(localStorage.getItem("saved")) || [];
+
+    setLiked(wishlist.includes(propertyId));
+    setSaved(savedList.includes(propertyId));
+  }, [propertyId]);
+
+  // ================= ❤️ LIKE =================
+  const handleLike = () => {
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    if (wishlist.includes(propertyId)) {
+      wishlist = wishlist.filter((id) => id !== propertyId);
+      setLiked(false);
+    } else {
+      wishlist.push(propertyId);
+      setLiked(true);
+    }
+
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  };
+
+  // ================= 🔖 SAVE =================
+  const handleSave = () => {
+    let savedList = JSON.parse(localStorage.getItem("saved")) || [];
+
+    if (savedList.includes(propertyId)) {
+      savedList = savedList.filter((id) => id !== propertyId);
+      setSaved(false);
+    } else {
+      savedList.push(propertyId);
+      setSaved(true);
+    }
+
+    localStorage.setItem("saved", JSON.stringify(savedList));
+  };
+
+  // ================= 🔄 SHARE =================
+  const handleShare = async () => {
+    const shareData = {
+      title: data.title,
+      text: `Check out this property: ${data.title}`,
+      url: window.location.href,
+    };
+
+    try {
+      // ✅ Mobile share (WhatsApp, etc.)
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // ✅ Fallback (copy link)
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copied to clipboard ✅");
+      }
+    } catch (err) {
+      console.error("Share failed:", err);
+    }
+  };
+
   return (
-    <section className="detailsHero">
+    <section
+      className="detailsHero"
+      style={{
+        backgroundImage: `url(${IMG_URL}${data.banner})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="detailsHero-overlay"></div>
 
       <div className="detailsHero-container">
         <div className="detailsHero-content">
+
+          {/* BADGES */}
           <div className="detailsHero-badges">
             <span className="detailsHero-badge detailsHero-badgePrimary">
-              Condo
+              {data.category || "Property"}
             </span>
+
             <span className="detailsHero-badge detailsHero-badgeSecondary">
-              For Rent
+              For Sale
             </span>
           </div>
 
-          <h1 className="detailsHero-title">Beautiful Condo Room</h1>
+          {/* TITLE */}
+          <h1 className="detailsHero-title">
+            {data.title || "No Title"}
+          </h1>
 
+          {/* META */}
           <div className="detailsHero-meta">
+            
+            {/* ⭐ RATING */}
             <div className="detailsHero-rating">
               <span className="detailsHero-stars">
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
+                {[...Array(5)].map((_, i) => (
+                  <FaStar
+                    key={i}
+                    color={i < (data.rating || 0) ? "#FFD700" : "#ccc"}
+                  />
+                ))}
               </span>
-              <span className="detailsHero-ratingValue">5.0</span>
+              <span className="detailsHero-ratingValue">
+                {data.rating || 0}
+              </span>
             </div>
 
             <span className="detailsHero-dot">•</span>
 
+            {/* 📍 LOCATION */}
             <div className="detailsHero-location">
               <FaMapMarkerAlt />
-              <span>318-330 S Oakley Blvd, Chicago, IL 60612, USA</span>
+              <span>{data.location || "No location"}</span>
             </div>
-
-            <a href="/" className="detailsHero-link">
-              View Location
-            </a>
 
             <span className="detailsHero-dot">•</span>
 
+            {/* 📅 UPDATED */}
             <div className="detailsHero-updated">
-              Last Updated on : 24 Feb 2025
+              Last Updated on :{" "}
+              {data.lastUpdate
+                ? data.lastUpdate
+                : new Date(data.createdAt).toDateString()}
             </div>
           </div>
 
+          {/* ACTIONS + PRICE */}
           <div className="detailsHero-actions">
             <div className="detailsHero-actionButtons">
-              <button className="detailsHero-actionBtn" type="button">
+
+              {/* ❤️ LIKE */}
+              <button
+                className="detailsHero-actionBtn"
+                onClick={handleLike}
+                style={{ color: liked ? "red" : "#333" }}
+              >
                 <FaHeart />
               </button>
 
-              <button className="detailsHero-actionBtn" type="button">
+              {/* 🔖 SAVE */}
+              <button
+                className="detailsHero-actionBtn"
+                onClick={handleSave}
+                style={{ color: saved ? "#007bff" : "#333" }}
+              >
                 <FaRegBookmark />
               </button>
 
-              <button className="detailsHero-actionBtn" type="button">
+              {/* 🔄 SHARE */}
+              <button
+                className="detailsHero-actionBtn"
+                onClick={handleShare}
+              >
                 <FaExchangeAlt />
               </button>
+
             </div>
 
-            <div className="detailsHero-price">$400</div>
+            {/* 💰 PRICE */}
+            <div className="detailsHero-price">
+              ₹ {data.price?.toLocaleString() || "0"}
+            </div>
           </div>
+
         </div>
       </div>
     </section>

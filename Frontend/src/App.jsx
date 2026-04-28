@@ -88,8 +88,7 @@ function App() {
 
             {/* BUY ROUTES */}
             <Route path="/buyproperties" element={<BuyGrid />} />
-            <Route path="/buydetails" element={<BuyDetails />} />
-          </Routes>
+            <Route path="/property/:id" element={<BuyDetails />} />          </Routes>
 
           <FloatingIcons />
           <FloatingForm />
