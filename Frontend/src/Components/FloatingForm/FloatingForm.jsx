@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import API from "../../api/axios";
 import "./FloatingForm.css";
 
 const FloatingForm = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -15,10 +17,10 @@ const FloatingForm = () => {
     message: "",
   });
 
+  /* ================= ANIMATION ================= */
   useEffect(() => {
     const openTimer = setTimeout(() => {
       setIsMounted(true);
-
       setTimeout(() => {
         setIsVisible(true);
       }, 30);
@@ -29,12 +31,12 @@ const FloatingForm = () => {
 
   const FloatingFormHandleClose = () => {
     setIsVisible(false);
-
     setTimeout(() => {
       setIsMounted(false);
-    }, 350);
+    }, 300);
   };
 
+  /* ================= INPUT ================= */
   const FloatingFormHandleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -43,45 +45,99 @@ const FloatingForm = () => {
     }));
   };
 
-  const FloatingFormHandleSubmit = (e) => {
+  /* ================= SUBMIT ================= */
+  const FloatingFormHandleSubmit = async (e) => {
     e.preventDefault();
 
-    alert("Thank you! Our real estate team will contact you soon.");
+    try {
+      /* VALIDATION */
+      if (!formData.fullName.trim()) {
+        alert("Full name is required");
+        return;
+      }
 
-    setFormData({
-      fullName: "",
-      phone: "",
-      email: "",
-      propertyType: "",
-      budget: "",
-      city: "",
-      message: "",
-    });
+      if (!formData.phone.trim()) {
+        alert("Phone number is required");
+        return;
+      }
 
-    FloatingFormHandleClose();
+      setLoading(true);
+
+      const payload = {
+        name: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        type: formData.propertyType,
+        budget: formData.budget,
+        city: formData.city,
+        message: formData.message,
+      };
+
+      /* ✅ SINGLE BACKEND API CALL */
+      await API.post("/enquiries", payload);
+
+      alert("✅ Enquiry submitted successfully!");
+
+      /* RESET FORM */
+      setFormData({
+        fullName: "",
+        phone: "",
+        email: "",
+        propertyType: "",
+        budget: "",
+        city: "",
+        message: "",
+      });
+
+      FloatingFormHandleClose();
+    } catch (error) {
+      console.error("Submit Error:", error);
+
+      if (error.code === "ERR_NETWORK") {
+        alert("❌ Backend not running on http://localhost:5000");
+      } else {
+        alert(
+          error?.response?.data?.message ||
+            "❌ Failed to submit enquiry"
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isMounted) return null;
 
   return (
     <div
-      className={`FloatingForm ${isVisible ? "FloatingForm--show" : "FloatingForm--hide"}`}
+      className={`FloatingForm ${
+        isVisible ? "FloatingForm--show" : "FloatingForm--hide"
+      }`}
     >
-      <div className="FloatingForm__overlay" onClick={FloatingFormHandleClose}></div>
+      <div
+        className="FloatingForm__overlay"
+        onClick={FloatingFormHandleClose}
+      ></div>
 
       <div className="FloatingForm__card">
+        {/* CLOSE BUTTON */}
         <button
           className="FloatingForm__closeButton"
           onClick={FloatingFormHandleClose}
           type="button"
-          aria-label="Close form"
+          disabled={loading}
         >
           ×
         </button>
 
+        {/* LEFT SIDE */}
         <div className="FloatingForm__left">
           <span className="FloatingForm__badge">Prestige Real Estate</span>
-          <h2 className="FloatingForm__title">Find Your Dream Property Today</h2>
+
+          <h2 className="FloatingForm__title">
+            Find Your Dream Property Today
+          </h2>
+
           <p className="FloatingForm__subtitle">
             Tell us what you are looking for and our expert team will help you
             discover the best property options for your budget and location.
@@ -89,34 +145,38 @@ const FloatingForm = () => {
 
           <div className="FloatingForm__points">
             <div className="FloatingForm__point">
-              <span className="FloatingForm__pointIcon">✓</span>
+              <span>✓</span>
               <span>Verified property suggestions</span>
             </div>
 
             <div className="FloatingForm__point">
-              <span className="FloatingForm__pointIcon">✓</span>
+              <span>✓</span>
               <span>Quick callback from our team</span>
             </div>
 
             <div className="FloatingForm__point">
-              <span className="FloatingForm__pointIcon">✓</span>
+              <span>✓</span>
               <span>Buy, sell, or rent with confidence</span>
             </div>
           </div>
         </div>
 
+        {/* RIGHT SIDE FORM */}
         <div className="FloatingForm__right">
-          <form className="FloatingForm__form" onSubmit={FloatingFormHandleSubmit}>
-            <h3 className="FloatingForm__formTitle">Request a Free Consultation</h3>
+          <form
+            className="FloatingForm__form"
+            onSubmit={FloatingFormHandleSubmit}
+          >
+            <h3 className="FloatingForm__formTitle">
+              Request a Free Consultation
+            </h3>
 
             <div className="FloatingForm__formGrid">
               <div className="FloatingForm__field">
-                <label className="FloatingForm__label">Full Name</label>
+                <label>Full Name</label>
                 <input
-                  className="FloatingForm__input"
                   type="text"
                   name="fullName"
-                  placeholder="Enter your full name"
                   value={formData.fullName}
                   onChange={FloatingFormHandleChange}
                   required
@@ -124,12 +184,10 @@ const FloatingForm = () => {
               </div>
 
               <div className="FloatingForm__field">
-                <label className="FloatingForm__label">Phone Number</label>
+                <label>Phone Number</label>
                 <input
-                  className="FloatingForm__input"
                   type="tel"
                   name="phone"
-                  placeholder="Enter your phone number"
                   value={formData.phone}
                   onChange={FloatingFormHandleChange}
                   required
@@ -137,47 +195,40 @@ const FloatingForm = () => {
               </div>
 
               <div className="FloatingForm__field">
-                <label className="FloatingForm__label">Email Address</label>
+                <label>Email</label>
                 <input
-                  className="FloatingForm__input"
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
                   value={formData.email}
                   onChange={FloatingFormHandleChange}
-                  required
                 />
               </div>
 
               <div className="FloatingForm__field">
-                <label className="FloatingForm__label">Property Type</label>
+                <label>Property Type</label>
                 <select
-                  className="FloatingForm__input"
                   name="propertyType"
                   value={formData.propertyType}
                   onChange={FloatingFormHandleChange}
-                  required
                 >
-                  <option value="">Select property type</option>
+                  <option value="">Select</option>
                   <option value="Apartment">Apartment</option>
                   <option value="Villa">Villa</option>
                   <option value="House">House</option>
                   <option value="Commercial">Commercial</option>
                   <option value="Plot">Plot</option>
-                  <option value="Rental">Rental Property</option>
+                  <option value="Rental">Rental</option>
                 </select>
               </div>
 
               <div className="FloatingForm__field">
-                <label className="FloatingForm__label">Budget</label>
+                <label>Budget</label>
                 <select
-                  className="FloatingForm__input"
                   name="budget"
                   value={formData.budget}
                   onChange={FloatingFormHandleChange}
-                  required
                 >
-                  <option value="">Select budget</option>
+                  <option value="">Select</option>
                   <option value="Under 25 Lakhs">Under 25 Lakhs</option>
                   <option value="25 - 50 Lakhs">25 - 50 Lakhs</option>
                   <option value="50 Lakhs - 1 Cr">50 Lakhs - 1 Cr</option>
@@ -187,33 +238,31 @@ const FloatingForm = () => {
               </div>
 
               <div className="FloatingForm__field">
-                <label className="FloatingForm__label">Preferred City</label>
+                <label>City</label>
                 <input
-                  className="FloatingForm__input"
                   type="text"
                   name="city"
-                  placeholder="Enter preferred city"
                   value={formData.city}
                   onChange={FloatingFormHandleChange}
-                  required
                 />
               </div>
             </div>
 
-            <div className="FloatingForm__field FloatingForm__field--full">
-              <label className="FloatingForm__label">Message</label>
+            <div className="FloatingForm__field">
+              <label>Message</label>
               <textarea
-                className="FloatingForm__textarea"
                 name="message"
-                placeholder="Tell us your requirements..."
-                rows="4"
                 value={formData.message}
                 onChange={FloatingFormHandleChange}
               ></textarea>
             </div>
 
-            <button className="FloatingForm__submitButton" type="submit">
-              Submit Enquiry
+            <button
+              type="submit"
+              className="FloatingForm__submitButton"
+              disabled={loading}
+            >
+              {loading ? "Submitting..." : "Submit Enquiry"}
             </button>
           </form>
         </div>

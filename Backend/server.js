@@ -13,6 +13,11 @@ const connectDB = require("./configs/db");
 const propertyRoutes = require("./routes/property.routes")
 const testimonialRoutes = require("./routes/testimonial.routes");
 const blogRoutes = require("./routes/blog.routes");
+const coldLeadRoutes = require("./routes/coldLeadRoutes");
+const galleryRoutes = require("./routes/gallery.routes");
+const enquiryRoutes = require("./routes/enquiry.routes");
+
+
 
 
 
@@ -32,6 +37,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 /* Routes */
 app.use("/api/blogs", blogRoutes);
 
+app.use("/api/cold-leads", coldLeadRoutes);
+
 /* Test Route */
 app.get("/", (req, res) => {
   res.send("Server Running 🚀");
@@ -42,6 +49,9 @@ app.get("/", (req, res) => {
 app.use("/api/property", propertyRoutes)
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/blogs", blogRoutes);
+app.use("/api/gallery", galleryRoutes);
+app.use("/api/enquiries", enquiryRoutes);
+
 
 
 
