@@ -1,14 +1,23 @@
+// ============================================
+// BACKEND
+// blog.routes.js
+// ============================================
+
 const express = require("express");
 const router = express.Router();
 
 const {
   createBlog,
   getBlogs,
+  getSingleBlog,
   updateBlog,
   deleteBlog,
 } = require("../controllers/blog.controller");
 
-const { upload, convertToWebp } = require("../middlewares/upload");
+const {
+  upload,
+  convertToWebp,
+} = require("../middlewares/upload");
 
 /* CREATE */
 router.post(
@@ -18,8 +27,11 @@ router.post(
   createBlog
 );
 
-/* GET */
+/* GET ALL */
 router.get("/", getBlogs);
+
+/* GET SINGLE BLOG */
+router.get("/:id", getSingleBlog);
 
 /* UPDATE */
 router.put(

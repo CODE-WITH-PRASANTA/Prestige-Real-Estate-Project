@@ -1,112 +1,149 @@
-import React from "react";
+// ============================================
+// PopularCities.jsx
+// CLICK BLOG → BLOG DETAILS
+// ============================================
+
+import React, {
+  useState,
+} from "react";
+
+import {
+  Link,
+} from "react-router-dom";
+
 import "./PopularCities.css";
 
-import Blog1 from "../../assets/Blog1.webp";
-import Blog2 from "../../assets/Blog2.webp";
-import Blog3 from "../../assets/Blog3.webp";
+import {
+  IMG_URL,
+} from "../../api/axios";
 
-const PopularCities = () => {
+const PopularCities = ({
+  blogs,
+  loading,
+}) => {
+  const base =
+    "popular-cities";
 
-const base = "popular-cities";
+  const [visible, setVisible] =
+    useState(3);
 
-const blogs = [
-{
-id:1,
-img:Blog1,
-tag:"Property",
-title:"The most popular cities for homebuyers",
-desc:"The majority have, although there are many other lorem ipsum passages available.",
-author:"Maria Ramirez",
-date:"27 Sep 2025"
-},
-{
-id:2,
-img:Blog2,
-tag:"Vila",
-title:"How to become financially independent",
-desc:"Quia omnis velit. Cupiditate et perspiciatis. Asperiores dolor magnam fuga voluptatum beatae.",
-author:"Laura Mincey",
-date:"20 Oct 2025"
-},
-{
-id:3,
-img:Blog3,
-tag:"Guest House",
-title:"Discover how our future is actually shaped by real estate.",
-desc:"Although there are numerous types of lorem ipsum passages accessible, most of them contain...",
-author:"Cecilia Newsome",
-date:"15 Nov 2025"
-}
-];
+  const showBlogs =
+    blogs.slice(
+      0,
+      visible
+    );
 
-return (
+  return (
+    <section className={base}>
+      <div
+        className={`${base}__container`}
+      >
+        {loading ? (
+          <h2>
+            Loading...
+          </h2>
+        ) : showBlogs.length >
+          0 ? (
+          showBlogs.map(
+            (blog) => (
+              <Link
+                key={
+                  blog._id
+                }
+                to={`/blog/${blog._id}`}
+                className={`${base}__card`}
+              >
+                {/* IMAGE */}
+                <div
+                  className={`${base}__image`}
+                >
+                  <img
+                    src={
+                      blog.image
+                        ? `${IMG_URL}${blog.image}`
+                        : "/no-user.png"
+                    }
+                    alt=""
+                  />
+                </div>
 
-<section className={base}>
+                {/* CONTENT */}
+                <div
+                  className={`${base}__content`}
+                >
+                  <div
+                    className={`${base}__meta`}
+                  >
+                    <span
+                      className={`${base}__tag`}
+                    >
+                      {
+                        blog.category
+                      }
+                    </span>
 
-<div className={`${base}__container`}>
+                    <div
+                      className={`${base}__author`}
+                    >
+                      👤{" "}
+                      {blog.owner ||
+                        "Admin"}
 
-{blogs.map((blog)=>(
-<div className={`${base}__card`} key={blog.id}>
+                      <span
+                        className={`${base}__date`}
+                      >
+                        📅{" "}
+                        {blog.date}
+                      </span>
+                    </div>
+                  </div>
 
-<div className={`${base}__image`}>
+                  <h3
+                    className={`${base}__title`}
+                  >
+                    {
+                      blog.title
+                    }
+                  </h3>
 
-<img src={blog.img} alt={blog.title}/>
+                  <div
+                    className={`${base}__desc`}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        blog.content,
+                    }}
+                  />
+                </div>
+              </Link>
+            )
+          )
+        ) : (
+          <h2>
+            No Blogs
+          </h2>
+        )}
 
-</div>
-
-<div className={`${base}__content`}>
-
-<div className={`${base}__meta`}>
-
-<span className={`${base}__tag`}>
-{blog.tag}
-</span>
-
-<div className={`${base}__author`}>
-
-<span className={`${base}__avatar`}>
-👤
-</span>
-
-<span>
-{blog.author}
-</span>
-
-<span className={`${base}__date`}>
-📅 {blog.date}
-</span>
-
-</div>
-
-</div>
-
-<h3 className={`${base}__title`}>
-{blog.title}
-</h3>
-
-<p className={`${base}__desc`}>
-{blog.desc}
-</p>
-
-</div>
-
-</div>
-))}
-
-<div className={`${base}__loadmore`}>
-
-<button className={`${base}__btn`}>
-↻ Load More
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-);
-
+        {visible <
+          blogs.length && (
+          <div
+            className={`${base}__loadmore`}
+          >
+            <button
+              className={`${base}__btn`}
+              onClick={() =>
+                setVisible(
+                  visible +
+                    3
+                )
+              }
+            >
+              Load More
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 };
 
 export default PopularCities;
