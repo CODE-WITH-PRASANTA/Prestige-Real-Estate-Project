@@ -1,112 +1,125 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./PopularCities.css";
-
-import Blog1 from "../../assets/Blog1.webp";
-import Blog2 from "../../assets/Blog2.webp";
-import Blog3 from "../../assets/Blog3.webp";
+import API, { IMG_URL } from "../../api/axios";
 
 const PopularCities = () => {
+  const base = "popular-cities";
 
-const base = "popular-cities";
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const blogs = [
-{
-id:1,
-img:Blog1,
-tag:"Property",
-title:"The most popular cities for homebuyers",
-desc:"The majority have, although there are many other lorem ipsum passages available.",
-author:"Maria Ramirez",
-date:"27 Sep 2025"
-},
-{
-id:2,
-img:Blog2,
-tag:"Vila",
-title:"How to become financially independent",
-desc:"Quia omnis velit. Cupiditate et perspiciatis. Asperiores dolor magnam fuga voluptatum beatae.",
-author:"Laura Mincey",
-date:"20 Oct 2025"
-},
-{
-id:3,
-img:Blog3,
-tag:"Guest House",
-title:"Discover how our future is actually shaped by real estate.",
-desc:"Although there are numerous types of lorem ipsum passages accessible, most of them contain...",
-author:"Cecilia Newsome",
-date:"15 Nov 2025"
-}
-];
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await API.get("/blogs");
 
-return (
+        console.log("API RESPONSE:", res.data);
 
-<section className={base}>
+        const data = res.data?.data || res.data || [];
 
-<div className={`${base}__container`}>
+        setBlogs(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setBlogs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-{blogs.map((blog)=>(
-<div className={`${base}__card`} key={blog.id}>
+    fetchBlogs();
+  }, []);
 
-<div className={`${base}__image`}>
+  // ✅ FIXED IMAGE HANDLER (handles all backend formats)
+  const getImageUrl = (image) => {
+    if (!image) return "https://via.placeholder.com/300";
 
-<img src={blog.img} alt={blog.title}/>
+    // full URL already
+    if (image.startsWith("http")) return image;
 
-</div>
+    // already correct backend format
+    if (image.startsWith("/uploads")) {
+      return `${IMG_URL}${image}`;
+    }
 
-<div className={`${base}__content`}>
+    // uploads/filename.jpg format
+    if (image.startsWith("uploads/")) {
+      return `${IMG_URL}/${image}`;
+    }
 
-<div className={`${base}__meta`}>
+    // fallback (just filename)
+    return `${IMG_URL}/uploads/${image}`;
+  };
 
-<span className={`${base}__tag`}>
-{blog.tag}
-</span>
+  if (loading) {
+    return (
+      <section className={base}>
+        <div className={`${base}__container`}>
+          <p>Loading blogs...</p>
+        </div>
+      </section>
+    );
+  }
 
-<div className={`${base}__author`}>
+  return (
+    <section className={base}>
+      <div className={`${base}__container`}>
 
-<span className={`${base}__avatar`}>
-👤
-</span>
+        {blogs.length === 0 ? (
+          <p>No blogs found</p>
+        ) : (
+          blogs.map((blog) => (
+            <div className={`${base}__card`} key={blog._id || blog.id}>
 
-<span>
-{blog.author}
-</span>
+              <div className={`${base}__image`}>
+                <img
+                  src={getImageUrl(blog.image || blog.imageUrl || blog.photo)}
+                  alt={blog.title || "blog"}
+                  onError={(e) => {
+                    e.target.src = "https://via.placeholder.com/300";
+                  }}
+                />
+              </div>
 
-<span className={`${base}__date`}>
-📅 {blog.date}
-</span>
+              <div className={`${base}__content`}>
 
-</div>
+                <div className={`${base}__meta`}>
+                  <span className={`${base}__tag`}>
+                    {blog.tag || "Blog"}
+                  </span>
 
-</div>
+                  <div className={`${base}__author`}>
+                    <span>👤 {blog.author || "Admin"}</span>
+                    <span className={`${base}__date`}>
+                      📅{" "}
+                      {blog.date
+                        ? new Date(blog.date).toDateString()
+                        : "No date"}
+                    </span>
+                  </div>
+                </div>
 
-<h3 className={`${base}__title`}>
-{blog.title}
-</h3>
+                <h3 className={`${base}__title`}>
+                  {blog.title}
+                </h3>
 
-<p className={`${base}__desc`}>
-{blog.desc}
-</p>
+                <p className={`${base}__desc`}>
+                  {blog.desc}
+                </p>
 
-</div>
+              </div>
+            </div>
+          ))
+        )}
 
-</div>
-))}
+        <div className={`${base}__loadmore`}>
+          <button className={`${base}__btn`}>
+            ↻ Load More
+          </button>
+        </div>
 
-<div className={`${base}__loadmore`}>
-
-<button className={`${base}__btn`}>
-↻ Load More
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-);
-
+      </div>
+    </section>
+  );
 };
 
 export default PopularCities;
