@@ -5,7 +5,28 @@
   min-height: 100vh;
   font-family: "Inter", sans-serif;
 }
+.bp__actionRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
+.bp__cancelBtn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  background: #e2e8f0;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.bp__cancelBtn:hover {
+  background: #cbd5e1;
+}
 /* CARD */
 .bp__card {
   background: rgba(255,255,255,0.85);

@@ -27,21 +27,25 @@ export default function Navbar() {
           </div>
 
           <ul className="nav-menu-desktop">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/rent/property">Rent Property</Link></li>
-            <li><Link to="/buyproperties">Properties</Link></li>
-            <li><Link to="/faq">FAQ</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+            <li><Link to="/about" onClick={closeMenu}>About</Link></li>
+            <li><Link to="/rent/property" onClick={closeMenu}>Rent Property</Link></li>
+            <li><Link to="/buyproperties" onClick={closeMenu}>Properties</Link></li>
+            <li><Link to="/faq" onClick={closeMenu}>FAQ</Link></li>
+            <li><Link to="/blog" onClick={closeMenu}>Blog</Link></li>
+            <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
           </ul>
 
           <div className="nav-right">
-            <button className="call-btn" aria-label="Call">
+            <a
+              href="tel:+919876543210"
+              className="call-btn"
+              aria-label="Call"
+            >
               <FiPhone />
-            </button>
+            </a>
 
-            <Link to="/property" className="post-btn">
+            <Link to="/property" className="post-btn" onClick={closeMenu}>
               <FiHome />
               <span>Post Property</span>
             </Link>
@@ -50,6 +54,7 @@ export default function Navbar() {
               className="hamburger"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
+              type="button"
             >
               <FiMenu size={24} />
             </button>
@@ -62,13 +67,17 @@ export default function Navbar() {
         onClick={closeMenu}
       />
 
-      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+      <aside className={`mobile-menu ${menuOpen ? "open" : ""}`}>
         <div className="mobile-top">
-          <img src={logo} alt="logo" className="mobile-logo" />
+          <Link to="/" onClick={closeMenu}>
+            <img src={logo} alt="logo" className="mobile-logo" />
+          </Link>
+
           <button
             className="close-icon-btn"
             onClick={closeMenu}
             aria-label="Close menu"
+            type="button"
           >
             <FiX className="close-icon" />
           </button>
@@ -95,17 +104,17 @@ export default function Navbar() {
         </ul>
 
         <div className="mobile-bottom-actions">
-          <button className="mobile-call-btn" type="button">
+          <a href="tel:+919876543210" className="mobile-call-btn">
             <FiPhone />
             <span>Call Now</span>
-          </button>
+          </a>
 
           <Link to="/property" className="mobile-post-btn" onClick={closeMenu}>
             <FiHome />
             <span>Post Property</span>
           </Link>
         </div>
-      </div>
+      </aside>
     </>
   );
 }

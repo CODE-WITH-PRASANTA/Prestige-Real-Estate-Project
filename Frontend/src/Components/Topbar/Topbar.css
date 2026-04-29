@@ -3,7 +3,7 @@
 }
 
 .Topbar {
-  position: fixed;
+  position: sticky;
   width: 100%;
   background: linear-gradient(90deg, #0f172a, #1e293b);
   color: #ffffff;
