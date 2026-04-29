@@ -1,153 +1,122 @@
+/* Container */
 .rent-container {
-  padding: 20px;
-  background: #f4f7fb;
-  font-family: "Segoe UI";
+  padding: 40px;
+  background: #f5f7fa;
+  font-family: "Poppins", sans-serif;
 }
 
-/* TOP */
-.rent-top {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+/* Heading */
+.rent-heading {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #222;
 }
 
-/* FORM */
-.rent-form {
-  flex: 1;
-  min-width: 300px;
+/* Grid */
+.rent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* Card */
+.rent-card {
   background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
 }
 
-.rent-form input,
-.rent-form select {
+.rent-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Image */
+.rent-image-wrapper {
+  position: relative;
+  height: 200px;
+}
+
+.rent-image-wrapper img {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-.rent-row {
-  display: flex;
-  gap: 10px;
-}
-
-.rent-btn {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(45deg,#2563eb,#1d4ed8);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-/* PREVIEW */
-.rent-preview {
-  flex: 1;
-  min-width: 300px;
-}
-
-.preview-card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-}
-
-.preview-grid {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.preview-images {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.preview-images img {
-  width: 80px;
-  height: 60px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid #ddd;
 }
 
-/* TABLE */
-.rent-table-section {
-  margin-top: 30px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
+/* Tag */
+.rent-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #ff9800;
+  color: #fff;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 20px;
 }
 
-/* SCROLL */
-.table-wrapper {
-  width: 100%;
-  overflow-x: auto;
+/* Price */
+.rent-price {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 8px;
 }
 
-/* TABLE */
-table {
-  width: 100%;
-  min-width: 600px;
-  border-collapse: collapse;
+/* Content */
+.rent-content {
+  padding: 18px;
 }
 
-th, td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-  white-space: nowrap;
+.rent-content h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
 }
 
-/* BUTTONS */
-.edit-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  margin-right: 6px;
-  border-radius: 6px;
-  cursor: pointer;
+.rent-location {
+  font-size: 14px;
+  color: #777;
+  margin: 6px 0 12px;
 }
 
-.delete-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+/* Features */
+.rent-features {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 12px;
 }
 
-/* MOBILE */
+/* Description */
+.rent-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .rent-top {
-    flex-direction: column;
+  .rent-heading {
+    font-size: 24px;
   }
 
-  .rent-row {
-    flex-direction: column;
+  .rent-content h3 {
+    font-size: 16px;
   }
 
-  table {
-    font-size: 14px;
+  .rent-description {
+    font-size: 12px;
   }
-}
-
-/* SCROLLBAR */
-.table-wrapper::-webkit-scrollbar {
-  height: 6px;
-}
-.table-wrapper::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
 }
