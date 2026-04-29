@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./MainFaq.css";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import API from "../../api/axiosInstance"; // ✅ correct path
+import API from "../../api/axios"; // ✅ correct path
 
 const MainFaq = () => {
   const base = "mainfaq";

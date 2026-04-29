@@ -19,8 +19,17 @@ dotenv.config();
 /* Import DB */
 const connectDB = require("./configs/db");
 
-/* Import Routes */
-const blogRoutes = require("./routes/blogRoutes");
+
+const propertyRoutes = require("./routes/property.routes")
+const testimonialRoutes = require("./routes/testimonial.routes");
+const blogRoutes = require("./routes/blog.routes");
+const coldLeadRoutes = require("./routes/coldLeadRoutes");
+const galleryRoutes = require("./routes/gallery.routes");
+const enquiryRoutes = require("./routes/enquiry.routes");
+const rentRoutes = require("./routes/rent.routes");
+
+
+
 
 const app = express();
 
@@ -41,13 +50,20 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 /* Routes */
 app.use("/api/blogs", blogRoutes);
 
+<<<<<<< HEAD
 /* ================= ROUTES ================= */
 
 // Test route
+=======
+app.use("/api/cold-leads", coldLeadRoutes);
+
+/* Test Route */
+>>>>>>> b7eb17c900db5eaae1d030a1c0ce409d6d08da93
 app.get("/", (req, res) => {
   res.send("Server Running 🚀");
 });
 
+<<<<<<< HEAD
 // FAQ API Route
 app.use("/api/faqs", faqRoutes);
 
@@ -61,6 +77,23 @@ app.use((err, req, res, next) => {
 });
 
 /* ================= PORT ================= */
+=======
+
+
+app.use("/api/property", propertyRoutes);
+app.use("/api/testimonials", testimonialRoutes);
+app.use("/api/blogs", blogRoutes);
+app.use("/api/gallery", galleryRoutes);
+app.use("/api/enquiries", enquiryRoutes);
+app.use("/api/rent", rentRoutes);
+app.use("/api/cold-leads", coldLeadRoutes);
+
+
+
+
+
+/* PORT */
+>>>>>>> b7eb17c900db5eaae1d030a1c0ce409d6d08da93
 const PORT = process.env.PORT || 5000;
 
 /* ================= SERVER ================= */

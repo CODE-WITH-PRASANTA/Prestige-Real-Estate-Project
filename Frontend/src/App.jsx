@@ -1,8 +1,9 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
+import Loader from "./Components/Loader/Loader";
 
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
@@ -32,39 +33,69 @@ import RentProperty from "./Components/RentProperty/RentProperty";
 import Topbar from "./Components/Topbar/Topbar";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  /* 🔥 INITIAL LOAD */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  /* 🔥 ROUTE CHANGE LOADER */
+  useEffect(() => {
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [location]);
+
   return (
     <>
+      {/* ✅ SHOW ONLY LOADER */}
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Topbar />
+          <Navbar />
 
-    <Topbar />
-      <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactSection />} />
+            <Route path="/pricing" element={<PrisingSection />} />
+            <Route path="/faq" element={<FaqSection />} />
 
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<ContactSection />} />
-        <Route path="/pricing" element={<PrisingSection />} />
-        <Route path="/faq" element={<FaqSection />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/bloglist" element={<BlogList />} />
+            <Route path="/blog-details" element={<BlogDetails />} />
 
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/bloglist" element={<BlogList />} />
-        <Route path="/blog-details" element={<BlogDetails />} />
+            <Route path="/property" element={<Property />} />
 
-        <Route path="/property" element={<Property />} />
-        {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
-        <Route path="/rent/details" element={<Rentdetails/>}/>
-        {/* <Route path="/testimonial" element={<TestimonialSection />} /> */}
+            {/* RENT ROUTES */}
+            <Route path="/rent/details" element={<Rentdetails />} />
+            <Route path="/rent/property" element={<RentProperty />} />
 
-        <Route path="/rent/property" element={<RentProperty />} />
-        
-        <Route path="/buyproperties" element={<BuyGrid/>}/>
-        <Route path="/buydetails" element={<BuyDetails/>}/>
-      </Routes>
-      <FloatingIcons />
-      <FloatingForm />
-      <Footer />
+            {/* BUY ROUTES */}
+            <Route path="/buyproperties" element={<BuyGrid />} />
+            <Route path="/buydetails" element={<BuyDetails />} />
+          </Routes>
+
+          <FloatingIcons />
+          <FloatingForm />
+          <Footer />
+        </>
+      )}
     </>
   );
 }
