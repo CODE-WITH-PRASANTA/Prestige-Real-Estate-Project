@@ -1,145 +1,111 @@
-// ============================================
-// PopularCities.jsx
-// CLICK BLOG → BLOG DETAILS
-// ============================================
-
-import React, {
-  useState,
-} from "react";
-
-import {
-  Link,
-} from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./PopularCities.css";
+import API, { IMG_URL } from "../../api/axios";
 
-import {
-  IMG_URL,
-} from "../../api/axios";
+const PopularCities = () => {
+  const base = "popular-cities";
+  const navigate = useNavigate();
 
-const PopularCities = ({
-  blogs,
-  loading,
-}) => {
-  const base =
-    "popular-cities";
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [visible, setVisible] =
-    useState(3);
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await API.get("/blogs");
+        const data = res.data?.data || res.data || [];
+        setBlogs(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error(error);
+        setBlogs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const showBlogs =
-    blogs.slice(
-      0,
-      visible
+    fetchBlogs();
+  }, []);
+
+  const getImageUrl = (image) => {
+    if (!image) return "https://via.placeholder.com/300";
+
+    if (image.startsWith("http")) return image;
+
+    if (image.startsWith("/uploads")) return `${IMG_URL}${image}`;
+
+    if (image.startsWith("uploads/")) return `${IMG_URL}/${image}`;
+
+    return `${IMG_URL}/uploads/${image}`;
+  };
+
+  // ✅ OPEN DIFFERENT BLOG DETAILS PAGE
+  const openBlogDetails = (blogId) => {
+    navigate(`/blog/${blogId}`);
+  };
+
+  if (loading) {
+    return (
+      <section className={base}>
+        <div className={`${base}__container`}>
+          <p>Loading blogs...</p>
+        </div>
+      </section>
     );
+  }
 
   return (
     <section className={base}>
-      <div
-        className={`${base}__container`}
-      >
-        {loading ? (
-          <h2>
-            Loading...
-          </h2>
-        ) : showBlogs.length >
-          0 ? (
-          showBlogs.map(
-            (blog) => (
-              <Link
-                key={
-                  blog._id
-                }
-                to={`/blog/${blog._id}`}
-                className={`${base}__card`}
-              >
-                {/* IMAGE */}
-                <div
-                  className={`${base}__image`}
-                >
-                  <img
-                    src={
-                      blog.image
-                        ? `${IMG_URL}${blog.image}`
-                        : "/no-user.png"
-                    }
-                    alt=""
-                  />
-                </div>
-
-                {/* CONTENT */}
-                <div
-                  className={`${base}__content`}
-                >
-                  <div
-                    className={`${base}__meta`}
-                  >
-                    <span
-                      className={`${base}__tag`}
-                    >
-                      {
-                        blog.category
-                      }
-                    </span>
-
-                    <div
-                      className={`${base}__author`}
-                    >
-                      👤{" "}
-                      {blog.owner ||
-                        "Admin"}
-
-                      <span
-                        className={`${base}__date`}
-                      >
-                        📅{" "}
-                        {blog.date}
-                      </span>
-                    </div>
-                  </div>
-
-                  <h3
-                    className={`${base}__title`}
-                  >
-                    {
-                      blog.title
-                    }
-                  </h3>
-
-                  <div
-                    className={`${base}__desc`}
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        blog.content,
-                    }}
-                  />
-                </div>
-              </Link>
-            )
-          )
+      <div className={`${base}__container`}>
+        {blogs.length === 0 ? (
+          <p>No blogs found</p>
         ) : (
-          <h2>
-            No Blogs
-          </h2>
-        )}
-
-        {visible <
-          blogs.length && (
-          <div
-            className={`${base}__loadmore`}
-          >
-            <button
-              className={`${base}__btn`}
-              onClick={() =>
-                setVisible(
-                  visible +
-                    3
-                )
-              }
+          blogs.map((blog) => (
+            <div
+              className={`${base}__card`}
+              key={blog._id}
+              onClick={() => openBlogDetails(blog._id)}
+              style={{ cursor: "pointer" }}
             >
-              Load More
-            </button>
-          </div>
+              <div className={`${base}__image`}>
+                <img
+                  src={getImageUrl(blog.image)}
+                  alt={blog.title}
+                  onError={(e) =>
+                    (e.target.src =
+                      "https://via.placeholder.com/300")
+                  }
+                />
+              </div>
+
+              <div className={`${base}__content`}>
+                <div className={`${base}__meta`}>
+                  <span className={`${base}__tag`}>
+                    {blog.tag || "Blog"}
+                  </span>
+
+                  <div className={`${base}__author`}>
+                    <span>👤 {blog.author || "Admin"}</span>
+
+                    <span className={`${base}__date`}>
+                      📅{" "}
+                      {new Date(
+                        blog.createdAt || blog.date
+                      ).toDateString()}
+                    </span>
+                  </div>
+                </div>
+
+                <h3 className={`${base}__title`}>
+                  {blog.title}
+                </h3>
+
+                <p className={`${base}__desc`}>
+                  {blog.desc}
+                </p>
+              </div>
+            </div>
+          ))
         )}
       </div>
     </section>

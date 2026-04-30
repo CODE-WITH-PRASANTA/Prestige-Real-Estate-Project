@@ -12,9 +12,11 @@ const ensureDir = (dir) => {
 
 /* ================= ROUTE → FOLDER MAP ================= */
 const routeFolderMap = {
-  "/property": "uploads/property",
+  "/api/property": "uploads/property",
   "/api/testimonials": "uploads/testimonials",
-  "/blogs": "uploads/blogs",
+  "/api/blogs": "uploads/blogs",
+  "/api/gallery": "uploads/gallery",
+  "/api/rent": "uploads/rent", // ✅ rent uploads
 };
 
 /* ================= GET UPLOAD PATH ================= */
@@ -98,10 +100,11 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+/* ================= MULTER INSTANCE ================= */
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
 /* ================= FILE PROCESSOR ================= */
@@ -129,7 +132,7 @@ const processFile = async (file, uploadPath) => {
   return "/" + outputPath.replace(/\\/g, "/");
 };
 
-/* ================= SHARP CONVERTER ================= */
+/* ================= CONVERT TO WEBP ================= */
 const convertToWebp = async (req, res, next) => {
   try {
     if (!req.file && !req.files) return next();
@@ -138,9 +141,9 @@ const convertToWebp = async (req, res, next) => {
 
     /* SINGLE FILE */
     if (req.file) {
-      const pathSaved = await processFile(req.file, uploadPath);
-      req.file.path = pathSaved;
-      req.body[req.file.fieldname] = pathSaved;
+      const savedPath = await processFile(req.file, uploadPath);
+      req.file.path = savedPath;
+      req.body[req.file.fieldname] = savedPath;
     }
 
     /* MULTIPLE FILES */
@@ -149,9 +152,9 @@ const convertToWebp = async (req, res, next) => {
         req.body[field] = [];
 
         for (const file of req.files[field]) {
-          const pathSaved = await processFile(file, uploadPath);
-          file.path = pathSaved;
-          req.body[field].push(pathSaved);
+          const savedPath = await processFile(file, uploadPath);
+          file.path = savedPath;
+          req.body[field].push(savedPath);
         }
       }
     }

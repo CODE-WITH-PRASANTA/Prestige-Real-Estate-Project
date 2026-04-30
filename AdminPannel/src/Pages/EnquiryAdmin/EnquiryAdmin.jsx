@@ -1,31 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import API from "../../api/axios";
 import "./EnquiryAdmin.css";
 
-export default function EnquiryAdmin() {
-  const [data, setData] = useState([
-    {
-      name: "John Doe",
-      phone: "9876543210",
-      email: "john@mail.com",
-      type: "Apartment",
-      budget: "₹50L - ₹80L",
-      city: "Mumbai",
-      message: "Looking for 2BHK near city center",
-    },
-    {
-      name: "Sarah Smith",
-      phone: "9123456780",
-      email: "sarah@mail.com",
-      type: "Villa",
-      budget: "₹1Cr+",
-      city: "Bangalore",
-      message: "Need luxury villa with garden",
-    },
-  ]);
+const EnquiryAdmin = () => {
+  const [data, setData] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [editMode, setEditMode] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleDelete = (index) => {
-    const updated = data.filter((_, i) => i !== index);
-    setData(updated);
+  // 🔄 FETCH DATA
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+
+      const res = await API.get("/enquiries");
+
+      console.log("API:", res.data);
+
+      setData(res?.data?.data || []);
+    } catch (err) {
+      console.log("Fetch Error:", err);
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // ❌ DELETE
+  const handleDelete = async (id) => {
+    try {
+      await API.delete(`/enquiries/${id}`);
+      fetchData();
+    } catch (err) {
+      console.log("Delete Error:", err);
+    }
+  };
+
+  // 👁 VIEW
+  const handleView = (item) => {
+    setSelected(item);
+    setFormData(item);
+    setSelectedId(item._id);
+    setEditMode(false);
+    setShowModal(true);
+  };
+
+  // ❌ CLOSE MODAL
+  const handleClose = () => {
+    setShowModal(false);
+    setTimeout(() => setSelected(null), 300);
+  };
+
+  // ✏️ INPUT CHANGE
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // 🔄 UPDATE
+  const handleUpdate = async () => {
+    try {
+      await API.put(`/enquiries/${selectedId}`, formData);
+      fetchData();
+      handleClose();
+    } catch (err) {
+      console.log("Update Error:", err);
+    }
   };
 
   return (
@@ -33,7 +79,9 @@ export default function EnquiryAdmin() {
       <div className="ea-card">
         <h2>Enquiry Management</h2>
 
-        {data.length === 0 ? (
+        {loading ? (
+          <div className="ea-empty">Loading enquiries...</div>
+        ) : !data || data.length === 0 ? (
           <div className="ea-empty">No enquiries found</div>
         ) : (
           <div className="ea-tableWrapper">
@@ -52,8 +100,8 @@ export default function EnquiryAdmin() {
               </thead>
 
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
+                {data.map((item) => (
+                  <tr key={item._id}>
                     <td>{item.name}</td>
                     <td>{item.phone}</td>
                     <td>{item.email}</td>
@@ -63,10 +111,16 @@ export default function EnquiryAdmin() {
                     <td className="ea-msg">{item.message}</td>
 
                     <td>
-                      <button className="ea-view">View</button>
+                      <button
+                        className="ea-view"
+                        onClick={() => handleView(item)}
+                      >
+                        View
+                      </button>
+
                       <button
                         className="ea-delete"
-                        onClick={() => handleDelete(index)}
+                        onClick={() => handleDelete(item._id)}
                       >
                         Delete
                       </button>
@@ -78,6 +132,68 @@ export default function EnquiryAdmin() {
           </div>
         )}
       </div>
+
+      {/* MODAL */}
+      {selected && (
+        <div className={`ea-modal ${showModal ? "open" : "close"}`}>
+          <div className="ea-modal-content">
+            <h3>Enquiry Details</h3>
+
+            <div className="ea-form">
+              {[
+                "name",
+                "phone",
+                "email",
+                "type",
+                "budget",
+                "city",
+                "message",
+              ].map((field) => (
+                <div key={field} className="ea-field">
+                  <label>{field.toUpperCase()}</label>
+
+                  {field === "message" ? (
+                    <textarea
+                      name={field}
+                      value={formData[field] || ""}
+                      onChange={handleChange}
+                      disabled={!editMode}
+                    />
+                  ) : (
+                    <input
+                      name={field}
+                      value={formData[field] || ""}
+                      onChange={handleChange}
+                      disabled={!editMode}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="ea-modal-actions">
+              {!editMode ? (
+                <button
+                  className="ea-edit"
+                  onClick={() => setEditMode(true)}
+                >
+                  Edit
+                </button>
+              ) : (
+                <button className="ea-update" onClick={handleUpdate}>
+                  Update
+                </button>
+              )}
+
+              <button className="ea-close" onClick={handleClose}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default EnquiryAdmin;
