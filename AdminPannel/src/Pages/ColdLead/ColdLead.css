@@ -2,10 +2,10 @@
   display: flex;
   gap: 20px;
   padding: 20px;
-  background: #f5f6fa;
+  background: #f4f6fb;
 }
 
-/* LEFT & RIGHT */
+/* LAYOUT */
 .coldlead__left,
 .coldlead__right {
   width: 50%;
@@ -15,7 +15,8 @@
 .coldlead__card {
   background: #fff;
   padding: 25px;
-  border-radius: 15px;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* ROW */
@@ -32,8 +33,9 @@
 }
 
 .coldlead__field label {
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 5px;
+  color: #444;
 }
 
 /* INPUT */
@@ -41,21 +43,13 @@
 .coldlead__field select,
 .coldlead__field textarea {
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid #ddd;
   outline: none;
-  transition: 0.3s;
 }
 
-.coldlead__field input:focus,
-.coldlead__field select:focus,
-.coldlead__field textarea:focus {
-  border-color: #3b82f6;
-}
-
-/* TEXTAREA */
 .coldlead__field textarea {
-  min-height: 120px;
+  min-height: 100px;
 }
 
 /* BUTTON */
@@ -64,41 +58,58 @@
   padding: 14px;
   margin-top: 20px;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   color: #fff;
   font-weight: bold;
   background: linear-gradient(to right, #22c55e, #3b82f6);
   cursor: pointer;
 }
 
-/* FILTER */
-.coldlead__filterRow {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.coldlead__filterRow input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
 /* TABLE */
-.coldlead__rowItem {
+.coldlead__tableWrapper {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.coldlead__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.coldlead__table th {
+  background: #3b82f6;
+  color: #fff;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.coldlead__table td {
   padding: 10px;
   border-bottom: 1px solid #eee;
+  font-size: 13px;
 }
 
-.coldlead__rowItem h4 {
-  margin: 0;
+.coldlead__table tr:hover {
+  background: #f9fafc;
 }
 
+/* ACTION BUTTONS */
+.editBtn {
+  background: #facc15;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-.coldlead__rowItem p {
-  margin: 3px 0;
-  color: #666;
+.deleteBtn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 /* RESPONSIVE */
