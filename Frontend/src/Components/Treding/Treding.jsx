@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import "./Treding.css";
 import {
   FaChevronDown,
@@ -12,32 +12,15 @@ import {
   FaSnowflake,
   FaTshirt,
   FaCheckCircle,
-  FaDumbbell,
-  FaSwimmingPool,
-  FaBolt,
-  FaGlassMartiniAlt,
-  FaParking,
-  FaSun,
-  FaDoorOpen,
-  FaVectorSquare,
-  FaDownload,
-  FaEye,
-  FaPlus,
-  FaThumbsUp,
-  FaThumbsDown,
-  FaHeart,
-  FaReply,
   FaListAlt,
   FaTag,
-  FaStar,
 } from "react-icons/fa";
 
-import { MdMicrowave, MdBalcony, MdWaterDrop, MdKitchen } from "react-icons/md";
+import { MdMicrowave, MdBalcony, MdWaterDrop } from "react-icons/md";
 import { IMG_URL } from "../../api/axios";
 
 const Treding = ({ data }) => {
   const [activeImage, setActiveImage] = useState(0);
-  const [openFaq, setOpenFaq] = useState(null);
   const [descExpanded, setDescExpanded] = useState(false);
 
   if (!data) return null;
@@ -64,7 +47,6 @@ const Treding = ({ data }) => {
     { icon: <FaCar />, label: `Parking: ${f.parking || 0}` },
     { icon: <MdBalcony />, label: `Balcony: ${f.balcony || 0}` },
     { icon: <FaBuilding />, label: `Floor: ${f.floor || 0}` },
-    { icon: <FaVectorSquare />, label: `Wardrobe: ${f.wardrobe || 0}` },
     { icon: <FaTv />, label: `TV: ${f.tv || 0}` },
     { icon: <MdWaterDrop />, label: `Purifier: ${f.purifier || 0}` },
     { icon: <MdMicrowave />, label: `Microwave: ${f.microwave || 0}` },
@@ -73,15 +55,30 @@ const Treding = ({ data }) => {
     { icon: <FaTshirt />, label: `Curtains: ${f.curtains || 0}` },
   ];
 
-  // ================= AMENITIES =================
   const amenities = data.amenities || [];
 
   return (
     <section className="treding">
       <div className="treding-container">
 
-        {/* ================= IMAGE SLIDER ================= */}
+        {/* ================= TOP BAR ================= */}
         <div className="treding-top">
+          <div className="treding-topBar">
+            <div className="treding-badges">
+              <span className="treding-badge treding-badgeTrending">
+                <FaListAlt /> Trending
+              </span>
+              <span className="treding-badge treding-badgeFeatured">
+                <FaTag /> Featured
+              </span>
+            </div>
+
+            <div className="treding-visits">
+              Category: {data.category || "Property"}
+            </div>
+          </div>
+
+          {/* ================= HERO IMAGE ================= */}
           <div className="treding-heroImageWrap">
             <img
               src={sliderImages[activeImage]}
@@ -90,62 +87,102 @@ const Treding = ({ data }) => {
             />
           </div>
 
+          {/* ================= THUMBNAILS ================= */}
           <div className="treding-thumbRow">
-            <button onClick={prevImage}><FaChevronLeft /></button>
+            <button className="treding-thumbArrow" onClick={prevImage}>
+              <FaChevronLeft />
+            </button>
 
             <div className="treding-thumbGrid">
               {sliderImages.map((img, index) => (
-                <img
+                <button
                   key={index}
-                  src={img}
+                  className={`treding-thumbItem ${
+                    activeImage === index ? "active" : ""
+                  }`}
                   onClick={() => setActiveImage(index)}
-                  style={{
-                    border: activeImage === index ? "2px solid red" : "",
-                    cursor: "pointer",
-                  }}
-                />
+                >
+                  <img src={img} alt="" />
+                </button>
               ))}
             </div>
 
-            <button onClick={nextImage}><FaChevronRight /></button>
+            <button className="treding-thumbArrow" onClick={nextImage}>
+              <FaChevronRight />
+            </button>
           </div>
         </div>
 
         {/* ================= DESCRIPTION ================= */}
         <div className="treding-box">
-          <h2>Description</h2>
-          <p>
-            {descExpanded
-              ? data.fullDescription
-              : data.fullDescription?.slice(0, 150)}
-          </p>
-
-          <button onClick={() => setDescExpanded(!descExpanded)}>
-            {descExpanded ? "Read Less" : "Read More"}
-          </button>
+          <div className="treding-boxHeader">
+            <h2>Description</h2>
+            <FaChevronDown />
+          </div>
+          <div
+            className="treding-paragraph"
+            dangerouslySetInnerHTML={{
+              __html: descExpanded
+                ? data.fullDescription
+                : data.fullDescription?.slice(0, 200),
+            }}
+          />
         </div>
 
         {/* ================= FEATURES ================= */}
         <div className="treding-box">
-          <h2>Property Features</h2>
-          <div className="treding-featureGrid">
-            {features.map((item, index) => (
-              <div key={index}>
-                {item.icon} {item.label}
-              </div>
-            ))}
+          <div className="treding-boxHeader">
+            <h2>Property Features</h2>
+            <FaChevronDown />
+          </div>
+          <div className="treding-boxBody">
+            <div className="treding-featureGrid">
+              {features.map((item, index) => (
+                <div className="treding-featureItem" key={index}>
+                  <span className="treding-featureIcon">
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* ================= AMENITIES ================= */}
         <div className="treding-box">
-          <h2>Amenities</h2>
-          <div className="treding-amenityGrid">
-            {amenities.map((item, index) => (
-              <div key={index}>
-                <FaCheckCircle /> {item}
-              </div>
-            ))}
+          <div className="treding-boxHeader">
+            <h2>Amenities</h2>
+            <FaChevronDown />
+          </div>
+          <div className="treding-boxBody">
+            <div className="treding-amenityGrid">
+              {amenities.map((item, index) => (
+                <div className="treding-amenityItem" key={index}>
+                  <span className="treding-featureIcon">
+                    <FaCheckCircle />
+                  </span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ================= GALLERY ================= */}
+        <div className="treding-box">
+          <div className="treding-boxHeader">
+            <h2>Gallery</h2>
+            <FaChevronDown />
+          </div>
+          <div className="treding-boxBody">
+            <div className="treding-galleryGrid">
+              {sliderImages.map((img, index) => (
+                <div className="treding-galleryItem" key={index}>
+                  <img src={img} alt="" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
