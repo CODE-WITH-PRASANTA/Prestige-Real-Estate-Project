@@ -1,7 +1,7 @@
 import React from "react";
 import "./Location.css";
 
-const Location = ({ data, setData }) => {
+const Location = ({ data, setData, onSubmit }) => {
   const base = "property-location";
 
   const handleChange = (e) => {
@@ -26,18 +26,17 @@ const Location = ({ data, setData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Property Location:", data);
-    alert("Property Added Successfully");
+
+    // 🔥 CALL PARENT SUBMIT
+    onSubmit();
   };
 
   return (
     <section className={base}>
       <div className={`${base}__container`}>
         {/* LEFT TEXT */}
-
         <div className={`${base}__left`}>
           <h2 className={`${base}__title`}>Property Location</h2>
-
           <p className={`${base}__desc`}>
             Centrally located near schools, shops, and transport—offering
             everyday convenience and strong long-term property value.
@@ -45,14 +44,11 @@ const Location = ({ data, setData }) => {
         </div>
 
         {/* RIGHT FORM */}
-
         <div className={`${base}__right`}>
           <form className={`${base}__card`} onSubmit={handleSubmit}>
             {/* ADDRESS */}
-
             <div className={`${base}__field`}>
               <label>Address</label>
-
               <input
                 name="address"
                 value={data.address || ""}
@@ -62,21 +58,15 @@ const Location = ({ data, setData }) => {
             </div>
 
             {/* GRID */}
-
             <div className={`${base}__grid`}>
-              {/* COUNTRY */}
-
               <div className={`${base}__field`}>
                 <label>Country</label>
-
                 <select
                   name="country"
                   value={data.country || ""}
                   onChange={handleChange}
                 >
-                  <option value="" disabled>
-                    Select Country
-                  </option>
+                  <option value="" disabled>Select Country</option>
                   <option>India</option>
                   <option>United States</option>
                   <option>United Kingdom</option>
@@ -84,19 +74,14 @@ const Location = ({ data, setData }) => {
                 </select>
               </div>
 
-              {/* STATE */}
-
               <div className={`${base}__field`}>
                 <label>State</label>
-
                 <select
                   name="state"
                   value={data.state || ""}
                   onChange={handleChange}
                 >
-                  <option value="" disabled>
-                    Select State
-                  </option>
+                  <option value="" disabled>Select State</option>
                   <option>Maharashtra</option>
                   <option>California</option>
                   <option>Texas</option>
@@ -104,19 +89,14 @@ const Location = ({ data, setData }) => {
                 </select>
               </div>
 
-              {/* CITY */}
-
               <div className={`${base}__field`}>
                 <label>City</label>
-
                 <select
                   name="city"
                   value={data.city || ""}
                   onChange={handleChange}
                 >
-                  <option value="" disabled>
-                    Select City
-                  </option>
+                  <option value="" disabled>Select City</option>
                   <option>Mumbai</option>
                   <option>Delhi</option>
                   <option>Los Angeles</option>
@@ -126,11 +106,9 @@ const Location = ({ data, setData }) => {
             </div>
 
             {/* LANDMARK + ZIP */}
-
             <div className={`${base}__grid-two`}>
               <div className={`${base}__field`}>
                 <label>Landmark</label>
-
                 <input
                   name="landmark"
                   value={data.landmark || ""}
@@ -141,7 +119,6 @@ const Location = ({ data, setData }) => {
 
               <div className={`${base}__field`}>
                 <label>Zipcode</label>
-
                 <input
                   name="zipcode"
                   value={data.zipcode || ""}
@@ -151,8 +128,7 @@ const Location = ({ data, setData }) => {
               </div>
             </div>
 
-            {/* GOOGLE MAP */}
-
+            {/* MAP */}
             <div className={`${base}__map`}>
               <iframe
                 title="google-map"
@@ -162,7 +138,6 @@ const Location = ({ data, setData }) => {
             </div>
 
             {/* BUTTONS */}
-
             <div className={`${base}__buttons`}>
               <button
                 type="button"
@@ -173,7 +148,7 @@ const Location = ({ data, setData }) => {
               </button>
 
               <button type="submit" className={`${base}__submit`}>
-                Add Property
+                Submit Property 🚀
               </button>
             </div>
           </form>

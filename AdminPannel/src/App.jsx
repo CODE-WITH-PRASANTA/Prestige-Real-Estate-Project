@@ -8,6 +8,7 @@ import ColdLeadTable from "./Pages/ColdLeadTable/ColdLeadTable";
 import FlatPosting from "./Pages/FlatPosting/FlatPosting";
 import TestimonialPost from "./Pages/TestimonialPost/TestimonialPost";
 import EnquiryAdmin from "./Pages/EnquiryAdmin/EnquiryAdmin";
+import MainFaq from "./Pages/MainFaq/MainFaq";
 import MainGallary from "./Pages/MainGallary/MainGallary";
 import RentProperty from "./Pages/RentProperty/RentProperty";
 import RentDetails from "./Pages/RentDetails/RentDetails";
@@ -30,6 +31,10 @@ const App = () => {
           <Route path="/flat/post" element={<FlatPosting />} />
           <Route path="/admin/testimonial" element={<TestimonialPost />} />
           <Route path="/admin/enquiry" element={<EnquiryAdmin />} />
+          <Route path="/admin/faq" element={<MainFaq />} /> {/* ✅ FIXED */}
+          <Route path="/flat/post" element={<FlatPosting/>}/>
+          <Route path="/admin/testimonial" element={<TestimonialPost/>}/>
+          <Route path="/admin/enquiry" element={<EnquiryAdmin/>}/>
           <Route path="/admin/gallery" element={<MainGallary />} />
           <Route path="/rent/post" element={<RentProperty />} />
           <Route path="/rent/details" element={<RentDetails />} />

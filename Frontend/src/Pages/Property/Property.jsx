@@ -84,7 +84,6 @@ const Property = () => {
 
       console.log(res.data);
       alert("Property Created Successfully 🚀");
-
     } catch (err) {
       console.error(err);
       alert("Error creating property");
@@ -96,12 +95,7 @@ const Property = () => {
   const renderComponent = () => {
     switch (activeTab) {
       case "Property Information":
-        return (
-          <PropertyInformation
-            data={basicInfo}
-            setData={setBasicInfo}
-          />
-        );
+        return <PropertyInformation data={basicInfo} setData={setBasicInfo} />;
 
       case "Property Details":
         return <PropertyDetails data={details} setData={setDetails} />;
@@ -125,7 +119,13 @@ const Property = () => {
         return <FloorPlanes data={floorPlans} setData={setFloorPlans} />;
 
       case "Location":
-        return <Location data={location} setData={setLocation} />;
+        return (
+          <Location
+            data={location}
+            setData={setLocation}
+            onSubmit={handleSubmit} // 🔥 PASS THIS
+          />
+        );
 
       default:
         return null;
@@ -141,11 +141,6 @@ const Property = () => {
       {renderComponent()}
 
       {/* SUBMIT BUTTON */}
-      <div style={{ textAlign: "center", margin: "30px" }}>
-        <button onClick={handleSubmit}>
-          Submit Property 🚀
-        </button>
-      </div>
     </div>
   );
 };

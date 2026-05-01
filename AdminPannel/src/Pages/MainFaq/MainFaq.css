@@ -1,0 +1,143 @@
+.mainfaq {
+  width: 100%;
+  padding: 20px;
+  background: #f5f7fb;
+}
+
+.mainfaq__wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+/* FORM */
+.mainfaq__formBox {
+  width: 50%;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.mainfaq__formTitle {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.mainfaq__field {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainfaq__field label {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.mainfaq__field input,
+.mainfaq__field textarea,
+.mainfaq__field select {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.mainfaq__field textarea {
+  height: 100px;
+  resize: none;
+}
+
+.mainfaq__submitBtn {
+  width: 100%;
+  padding: 12px;
+  background: #1d5cc6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mainfaq__submitBtn:hover {
+  background: #174aa3;
+}
+
+/* TABLE */
+.mainfaq__tableBox {
+  width: 50%;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.mainfaq__tableTitle {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.mainfaq__tableWrapper {
+  overflow-x: auto;
+}
+
+.mainfaq table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.mainfaq thead {
+  background: #eef2f7;
+}
+
+.mainfaq th {
+  padding: 12px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.mainfaq td {
+  padding: 12px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+
+.mainfaq__empty {
+  color: #6b7280;
+}
+
+/* BUTTONS */
+.mainfaq__actionBtn {
+  border: none;
+  padding: 6px 8px;
+  margin-right: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mainfaq__actionBtn.edit {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.mainfaq__actionBtn.delete {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .mainfaq__wrapper {
+    flex-direction: column;
+  }
+
+  .mainfaq__formBox,
+  .mainfaq__tableBox {
+    width: 100%;
+  }
+}
