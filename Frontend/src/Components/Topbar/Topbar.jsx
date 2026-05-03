@@ -1,95 +1,95 @@
 import React, { useState } from "react";
 import "./Topbar.css";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const sidebarItems = [
-    "Home",
-    "About Us",
-    "Our Services",
-    "Portfolio",
-    "Testimonials",
-    "Contact Info",
+  // ✅ SAME PATH AS NAVBAR
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Rent Property", path: "/rent/property" },
+    { name: "Properties", path: "/buyproperties" },
+    { name: "FAQ", path: "/faq" },
+    { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" },
   ];
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  };
+  const closeSidebar = () => setIsSidebarOpen(false);
 
   return (
     <>
       <div className="Topbar">
         <div className="Topbar__container">
+
+          {/* LEFT */}
           <div className="Topbar__left">
             <a href="mailto:info@example.com" className="Topbar__info">
-              <span className="Topbar__icon">✉</span>
-              <span className="Topbar__text">info@example.com</span>
+              ✉ info@example.com
             </a>
 
             <a href="tel:+919876543210" className="Topbar__info">
-              <span className="Topbar__icon">☎</span>
-              <span className="Topbar__text">+91 98765 43210</span>
+              ☎ +91 98765 43210
             </a>
           </div>
 
+          {/* RIGHT */}
           <div className="Topbar__right">
             <button className="Topbar__contactBtn">Contact Us</button>
 
             <button
               className={`Topbar__menuBtn ${isSidebarOpen ? "active" : ""}`}
-              onClick={toggleSidebar}
-              aria-label="Open menu"
+              onClick={() => setIsSidebarOpen(true)}
             >
               <span></span>
               <span></span>
               <span></span>
             </button>
           </div>
+
         </div>
       </div>
 
+      {/* OVERLAY */}
       <div
         className={`Topbar__overlay ${isSidebarOpen ? "active" : ""}`}
         onClick={closeSidebar}
-      ></div>
+      />
 
+      {/* SIDEBAR */}
       <div className={`Topbar__sidebar ${isSidebarOpen ? "active" : ""}`}>
+        
         <div className="Topbar__sidebarHeader">
-          <h3 className="Topbar__sidebarTitle">Menu</h3>
-          <button className="Topbar__closeBtn" onClick={closeSidebar}>
-            ×
-          </button>
+          <h3>Menu</h3>
+          <button onClick={closeSidebar}>×</button>
         </div>
 
         <div className="Topbar__sidebarContent">
+
           <ul className="Topbar__sidebarList">
-            {sidebarItems.map((item, index) => (
-              <li key={index} className="Topbar__sidebarItem">
-                <a href="#" className="Topbar__sidebarLink">
-                  {item}
-                </a>
+            {navItems.map((item, i) => (
+              <li key={i}>
+                {/* ✅ USE LINK (IMPORTANT) */}
+                <Link
+                  to={item.path}
+                  onClick={closeSidebar}
+                  className="Topbar__sidebarLink"
+                >
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>
 
+          {/* EXTRA INFO (OPTIONAL) */}
           <div className="Topbar__sidebarBox">
             <h4>Contact Details</h4>
             <p>Email: support@example.com</p>
             <p>Phone: +91 91234 56789</p>
-            <p>Location: Bhubaneswar, Odisha</p>
+            <p>Location: Bhubaneswar</p>
           </div>
 
-          <div className="Topbar__sidebarBox">
-            <h4>Office Hours</h4>
-            <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
-            <p>Saturday: 10:00 AM - 4:00 PM</p>
-            <p>Sunday: Closed</p>
-          </div>
         </div>
       </div>
     </>

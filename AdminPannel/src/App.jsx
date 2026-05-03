@@ -8,10 +8,14 @@ import ColdLeadTable from "./Pages/ColdLeadTable/ColdLeadTable";
 import FlatPosting from "./Pages/FlatPosting/FlatPosting";
 import TestimonialPost from "./Pages/TestimonialPost/TestimonialPost";
 import EnquiryAdmin from "./Pages/EnquiryAdmin/EnquiryAdmin";
+import MainFaq from "./Pages/MainFaq/MainFaq";
 import MainGallary from "./Pages/MainGallary/MainGallary";
 import RentProperty from "./Pages/RentProperty/RentProperty";
 import RentDetails from "./Pages/RentDetails/RentDetails";
 import ContactManagement from "./Pages/ContactManagement/ContactManagement";
+import PropertyList from "./Component/PropertyList.jsx/PropertyList";
+import PropertyView from "./Component/PropertyList.jsx/PropertyView";
+
 
 const App = () => {
   return (
@@ -20,18 +24,23 @@ const App = () => {
         {/* Parent Layout */}
         <Route element={<AdminLayout />}>
           <Route path="/" element={<DashBoard />} />
-          <Route path="/blog/post"element={<BlogPosting/>}/>
-          <Route path="/property/post"element={<PropertyPosting/>}/>
+          <Route path="/blog/post" element={<BlogPosting />} />
+          <Route path="/property/post" element={<PropertyPosting />} />
           <Route path="/admin/cold-lead" element={<ColdLeadForm />} />
           <Route path="/admin/cold-lead-table" element={<ColdLeadTable />} />
           <Route path="/flat/post" element={<FlatPosting />} />
-          <Route path="/flat/post/:id" element={<FlatPosting />} />          
+          <Route path="/admin/testimonial" element={<TestimonialPost />} />
+          <Route path="/admin/enquiry" element={<EnquiryAdmin />} />
+          <Route path="/admin/faq" element={<MainFaq />} /> {/* ✅ FIXED */}
+          <Route path="/flat/post" element={<FlatPosting/>}/>
           <Route path="/admin/testimonial" element={<TestimonialPost/>}/>
           <Route path="/admin/enquiry" element={<EnquiryAdmin/>}/>
           <Route path="/admin/gallery" element={<MainGallary />} />
-          <Route path="/rent/post" element={<RentProperty/>}/>
-          <Route path="/rent/details" element={<RentDetails/>}/>
-          <Route path="/admin/contact" element={<ContactManagement/>}/>
+          <Route path="/rent/post" element={<RentProperty />} />
+          <Route path="/rent/details" element={<RentDetails />} />
+          <Route path="/admin/contact" element={<ContactManagement />} />
+          <Route path="/properties" element={<PropertyList />} />
+          <Route path="/property/:id" element={<PropertyView />} />
         </Route>
       </Routes>
     </BrowserRouter>
