@@ -14,6 +14,10 @@ const blogRoutes = require("./routes/blog.routes");
 const coldLeadRoutes = require("./routes/coldLeadRoutes");
 const galleryRoutes = require("./routes/gallery.routes");
 const enquiryRoutes = require("./routes/enquiry.routes");
+const rentRoutes = require("./routes/rent.routes");
+
+
+
 
 const app = express();
 
@@ -38,11 +42,15 @@ app.get("/", (req, res) => {
   res.send("Server Running 🚀");
 });
 
-app.use("/api/property", propertyRoutes)
+
+
+app.use("/api/property", propertyRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/enquiries", enquiryRoutes);
+app.use("/api/rent", rentRoutes);
+app.use("/api/cold-leads", coldLeadRoutes);
 
 
 /* PORT */

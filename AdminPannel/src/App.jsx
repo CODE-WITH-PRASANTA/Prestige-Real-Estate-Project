@@ -9,6 +9,8 @@ import FlatPosting from "./Pages/FlatPosting/FlatPosting";
 import TestimonialPost from "./Pages/TestimonialPost/TestimonialPost";
 import EnquiryAdmin from "./Pages/EnquiryAdmin/EnquiryAdmin";
 import MainGallary from "./Pages/MainGallary/MainGallary";
+import RentProperty from "./Pages/RentProperty/RentProperty";
+import RentDetails from "./Pages/RentDetails/RentDetails";
 import ContactManagement from "./Pages/ContactManagement/ContactManagement";
 
 const App = () => {
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/admin/testimonial" element={<TestimonialPost/>}/>
           <Route path="/admin/enquiry" element={<EnquiryAdmin/>}/>
           <Route path="/admin/gallery" element={<MainGallary />} />
+          <Route path="/rent/post" element={<RentProperty/>}/>
+          <Route path="/rent/details" element={<RentDetails/>}/>
           <Route path="/admin/contact" element={<ContactManagement/>}/>
         </Route>
       </Routes>

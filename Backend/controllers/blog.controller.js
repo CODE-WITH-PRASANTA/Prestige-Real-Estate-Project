@@ -1,66 +1,178 @@
+// ============================================
+// BACKEND
+// blog.controller.js
+// ============================================
+
 const Blog = require("../models/blog.model");
-const { deleteImageFile } = require("../middlewares/upload");
+const {
+  deleteImageFile,
+} = require("../middlewares/upload");
 
 /* CREATE */
-exports.createBlog = async (req, res) => {
+exports.createBlog = async (
+  req,
+  res
+) => {
   try {
-    const blog = await Blog.create({
-      ...req.body,
-      image: req.body.image || "",
-      tags: req.body.tags ? JSON.parse(req.body.tags) : [],
-    });
+    const blog =
+      await Blog.create({
+        ...req.body,
+        image:
+          req.body.image ||
+          "",
+        tags:
+          req.body.tags
+            ? JSON.parse(
+                req.body.tags
+              )
+            : [],
+      });
 
-    res.status(201).json({ success: true, data: blog });
+    res.status(201).json({
+      success: true,
+      data: blog,
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({
+      message:
+        err.message,
+    });
   }
 };
 
 /* GET ALL */
-exports.getBlogs = async (req, res) => {
+exports.getBlogs = async (
+  req,
+  res
+) => {
   try {
-    const blogs = await Blog.find().sort({ createdAt: -1 });
-    res.json({ success: true, data: blogs });
+    const blogs =
+      await Blog.find().sort(
+        {
+          createdAt:
+            -1,
+        }
+      );
+
+    res.json({
+      success: true,
+      data: blogs,
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({
+      message:
+        err.message,
+    });
   }
 };
+
+/* GET SINGLE BLOG */
+exports.getSingleBlog =
+  async (req, res) => {
+    try {
+      const blog =
+        await Blog.findById(
+          req.params.id
+        );
+
+      if (!blog) {
+        return res
+          .status(404)
+          .json({
+            success:
+              false,
+            message:
+              "Blog not found",
+          });
+      }
+
+      res.json({
+        success: true,
+        data: blog,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message:
+          err.message,
+      });
+    }
+  };
 
 /* UPDATE */
-exports.updateBlog = async (req, res) => {
-  try {
-    const old = await Blog.findById(req.params.id);
+exports.updateBlog =
+  async (req, res) => {
+    try {
+      const old =
+        await Blog.findById(
+          req.params.id
+        );
 
-    if (req.body.image && old.image) {
-      deleteImageFile(old.image);
+      if (
+        req.body.image &&
+        old.image
+      ) {
+        deleteImageFile(
+          old.image
+        );
+      }
+
+      const updated =
+        await Blog.findByIdAndUpdate(
+          req.params.id,
+          {
+            ...req.body,
+            tags:
+              req.body.tags
+                ? JSON.parse(
+                    req.body.tags
+                  )
+                : [],
+          },
+          {
+            new: true,
+          }
+        );
+
+      res.json({
+        success: true,
+        data: updated,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message:
+          err.message,
+      });
     }
-
-    const updated = await Blog.findByIdAndUpdate(
-      req.params.id,
-      {
-        ...req.body,
-        tags: req.body.tags ? JSON.parse(req.body.tags) : [],
-      },
-      { new: true }
-    );
-
-    res.json({ success: true, data: updated });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+  };
 
 /* DELETE */
-exports.deleteBlog = async (req, res) => {
-  try {
-    const blog = await Blog.findById(req.params.id);
+exports.deleteBlog =
+  async (req, res) => {
+    try {
+      const blog =
+        await Blog.findById(
+          req.params.id
+        );
 
-    if (blog.image) deleteImageFile(blog.image);
+      if (
+        blog.image
+      ) {
+        deleteImageFile(
+          blog.image
+        );
+      }
 
-    await Blog.findByIdAndDelete(req.params.id);
+      await Blog.findByIdAndDelete(
+        req.params.id
+      );
 
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+      res.json({
+        success: true,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message:
+          err.message,
+      });
+    }
+  };

@@ -1,176 +1,243 @@
-import React from "react";
+// ============================================
+// FRONTEND
+// BlogDetails.jsx
+// FULL FINAL VERSION
+// ============================================
+
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  useParams,
+  Link,
+} from "react-router-dom";
+
 import "./BlogDetails.css";
 
-import author1 from "../../assets/agent6.webp";
-import author2 from "../../assets/agemt5.webp";
-import author3 from "../../assets/agent4.webp";
+import API, {
+  IMG_URL,
+} from "../../api/axios";
 
 const BlogDetails = () => {
+  const base =
+    "blog-details";
 
-const base = "blog-details";
+  const { id } =
+    useParams();
 
-const blogs = [
-{
-id:1,
-img:"https://images.unsplash.com/photo-1505691938895-1758d7feb511",
-category:"Property",
-author:"Susan Culli",
-authorImg:author1,
-date:"10 Apr 2025",
-title:"Location is Everything",
-desc:"The value of a property largely depends on where it’s located."
-},
-{
-id:2,
-img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-category:"Villa",
-author:"Shelly Cox",
-authorImg:author2,
-date:"24 Apr 2025",
-title:"Real Estate is a Investment",
-desc:"Unlike stocks, real estate usually grows in value over time."
-},
-{
-id:3,
-img:"https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
-category:"Godown",
-author:"Eva Jones",
-authorImg:author3,
-date:"27 Sep 2025",
-title:"Market Trends Matter",
-desc:"Staying informed about housing market trends helps you make smarter."
-},
-{
-id:4,
-img:"https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
-category:"Duplex",
-author:"Jason Rosen",
-authorImg:author1,
-date:"28 Jun 2025",
-title:"Legal Due Diligence is a Must",
-desc:"Before buying a property, always check the legal title."
-},
-{
-id:5,
-img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994",
-category:"Property",
-author:"Richard",
-authorImg:author2,
-date:"12 Jun 2025",
-title:"Maintenance Affects ROI",
-desc:"Regular upkeep preserves property value and attracts tenants."
-},
-{
-id:6,
-img:"https://images.unsplash.com/photo-1501183638710-841dd1904471",
-category:"House",
-author:"Sara Porter",
-authorImg:author3,
-date:"01 Jun 2025",
-title:"Real Estate is Local",
-desc:"Every market is different. What works in one city might not in another."
-},
-{
-id:7,
-img:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
-category:"Villa",
-author:"Susan Culli",
-authorImg:author1,
-date:"15 May 2025",
-title:"Luxury Living Trends",
-desc:"Modern villas combine comfort with technology."
-},
-{
-id:8,
-img:"https://images.unsplash.com/photo-1484154218962-a197022b5858",
-category:"Property",
-author:"Richard",
-authorImg:author2,
-date:"11 May 2025",
-title:"Smart Homes Future",
-desc:"Smart automation increases property value."
-},
-{
-id:9,
-img:"https://images.unsplash.com/photo-1560448075-bb485b067938",
-category:"House",
-author:"Sara Porter",
-authorImg:author3,
-date:"04 May 2025",
-title:"Investment Strategy",
-desc:"Diversify your real estate portfolio for better returns."
-}
-];
+  const [blog, setBlog] =
+    useState(null);
 
-return (
+  const [recentBlogs,
+    setRecentBlogs] =
+    useState([]);
 
-<section className={base}>
+  const [loading,
+    setLoading] =
+    useState(true);
 
-{/* floating background blobs */}
-<div className={`${base}__blob ${base}__blob--1`} />
-<div className={`${base}__blob ${base}__blob--2`} />
+  useEffect(() => {
+    fetchBlog();
+    fetchRecent();
+  }, [id]);
 
-<div className={`${base}__container`}>
+  /* SINGLE BLOG */
+  const fetchBlog =
+    async () => {
+      try {
+        const res =
+          await API.get(
+            `/blogs/${id}`
+          );
 
-<div className={`${base}__grid`}>
+        setBlog(
+          res.data.data
+        );
+      } catch (error) {
+        console.error(
+          error
+        );
+      } finally {
+        setLoading(
+          false
+        );
+      }
+    };
 
-{blogs.map((blog)=>(
-<div key={blog.id} className={`${base}__card`}>
+  /* RECENT BLOGS */
+  const fetchRecent =
+    async () => {
+      try {
+        const res =
+          await API.get(
+            "/blogs"
+          );
 
-<div className={`${base}__image`}>
-<img src={blog.img} alt="" />
-</div>
+        const others =
+          res.data.data
+            .filter(
+              (
+                item
+              ) =>
+                item._id !==
+                id
+            )
+            .slice(
+              0,
+              3
+            );
 
-<div className={`${base}__content`}>
+        setRecentBlogs(
+          others
+        );
+      } catch (error) {
+        console.error(
+          error
+        );
+      }
+    };
 
-<div className={`${base}__meta`}>
+  if (loading)
+    return (
+      <h2>
+        Loading...
+      </h2>
+    );
 
-<span className={`${base}__badge`}>
-{blog.category}
-</span>
+  if (!blog)
+    return (
+      <h2>
+        Blog Not
+        Found
+      </h2>
+    );
 
-<div className={`${base}__author`}>
-<img src={blog.authorImg} alt="" />
-<span>{blog.author}</span>
-</div>
+  return (
+    <section
+      className={
+        base
+      }
+    >
+      <div
+        className={`${base}__container`}
+      >
+        {/* HERO IMAGE */}
+        <img
+          className={`${base}__hero`}
+          src={`${IMG_URL}${blog.image}`}
+          alt=""
+        />
 
-<div className={`${base}__date`}>
-<svg width="16" height="16" viewBox="0 0 24 24">
-<path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2zm13 8H4v10h16V10z"/>
-</svg>
-<span>{blog.date}</span>
-</div>
+        {/* META */}
+        <div
+          className={`${base}__meta`}
+        >
+          <span>
+            {
+              blog.category
+            }
+          </span>
 
-</div>
+          <span>
+            👤{" "}
+            {
+              blog.owner
+            }
+          </span>
 
-<h3 className={`${base}__title`}>
-{blog.title}
-</h3>
+          <span>
+            📅{" "}
+            {
+              blog.date
+            }
+          </span>
+        </div>
 
-<p className={`${base}__desc`}>
-{blog.desc}
-</p>
+        {/* TITLE */}
+        <h1
+          className={`${base}__title`}
+        >
+          {
+            blog.title
+          }
+        </h1>
 
-</div>
+        {/* CONTENT */}
+        <div
+          className={`${base}__desc`}
+          dangerouslySetInnerHTML={{
+            __html:
+              blog.content,
+          }}
+        />
 
-</div>
-))}
+        {/* TAGS */}
+        {blog.tags &&
+          blog.tags
+            .length >
+            0 && (
+            <div
+              className={`${base}__tags`}
+            >
+              {blog.tags.map(
+                (
+                  tag,
+                  i
+                ) => (
+                  <span
+                    key={
+                      i
+                    }
+                  >
+                    #
+                    {
+                      tag
+                    }
+                  </span>
+                )
+              )}
+            </div>
+          )}
 
-</div>
+        {/* RECENT BLOGS */}
+        <h2>
+          Recent
+          Blogs
+        </h2>
 
-<div className={`${base}__load`}>
-<button>
-<svg width="18" height="18" viewBox="0 0 24 24">
-<path fill="currentColor" d="M12 6V3L8 7l4 4V8c2.76 0 5 2.24 5 5a5 5 0 1 1-9.9-1H5.02A7 7 0 1 0 12 6z"/>
-</svg>
-Load More
-</button>
-</div>
+        <div
+          className={`${base}__grid`}
+        >
+          {recentBlogs.map(
+            (
+              item
+            ) => (
+              <Link
+                key={
+                  item._id
+                }
+                to={`/blog/${item._id}`}
+                className={`${base}__card`}
+              >
+                <img
+                  src={`${IMG_URL}${item.image}`}
+                  alt=""
+                />
 
-</div>
-
-</section>
-);
+                <h4>
+                  {
+                    item.title
+                  }
+                </h4>
+              </Link>
+            )
+          )}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default BlogDetails;
