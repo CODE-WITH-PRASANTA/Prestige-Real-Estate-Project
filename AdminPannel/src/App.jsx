@@ -15,12 +15,9 @@ import RentDetails from "./Pages/RentDetails/RentDetails";
 import ContactManagement from "./Pages/ContactManagement/ContactManagement";
 import PropertyList from "./Component/PropertyList.jsx/PropertyList";
 import PropertyView from "./Component/PropertyList.jsx/PropertyView";
-<<<<<<< HEAD
 import BlogManagement from "./Pages/BlogManagement/BlogManagement";
 
-=======
 import PropertyInquiry from "./Pages/PropertyInquiry/PropertyInquiry";
->>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
 
 const App = () => {
   return (
