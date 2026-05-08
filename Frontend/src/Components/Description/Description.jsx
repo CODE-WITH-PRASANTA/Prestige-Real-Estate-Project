@@ -1,58 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Description.css";
 
-const Description = () => {
+const Description = ({ data, setData }) => {
+  const base = "property-description";
 
-const base = "property-description";
+  return (
+    <section className={base}>
+      <div className={`${base}__container`}>
+        {/* LEFT TEXT */}
 
-const [text,setText] = useState("");
+        <div className={`${base}__left`}>
+          <h2 className={`${base}__title`}>Description</h2>
 
-return (
+          <p className={`${base}__desc`}>
+            A beautifully designed home combining style and function, ideal for
+            modern lifestyles and peaceful, long-term living.
+          </p>
+        </div>
 
-<section className={base}>
+        {/* RIGHT CARD */}
 
-<div className={`${base}__container`}>
+        <div className={`${base}__card`}>
+          <div className={`${base}__field`}>
+            <label>Description of Property</label>
 
-{/* LEFT TEXT */}
-
-<div className={`${base}__left`}>
-
-<h2 className={`${base}__title`}>
-Description
-</h2>
-
-<p className={`${base}__desc`}>
-A beautifully designed home combining style and function,
-ideal for modern lifestyles and peaceful, long-term living.
-</p>
-
-</div>
-
-
-{/* RIGHT CARD */}
-
-<div className={`${base}__card`}>
-
-<div className={`${base}__field`}>
-
-<label>Description of Property</label>
-
-<textarea
-value={text}
-onChange={(e)=>setText(e.target.value)}
-placeholder="Write property description here..."
-/>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-);
-
+            <textarea
+              value={data || ""}
+              onChange={(e) => setData(e.target.value)}
+              placeholder="Write property description here..."
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Description;

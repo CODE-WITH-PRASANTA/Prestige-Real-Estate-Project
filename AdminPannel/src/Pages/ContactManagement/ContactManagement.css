@@ -11,7 +11,17 @@
   font-weight: 600;
   margin-bottom: 20px;
 }
+.ca__field {
+  display: flex;
+  flex-direction: column;
+}
 
+.ca__field label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 500;
+}
 /* CARDS */
 .ca__cards {
   display: grid;

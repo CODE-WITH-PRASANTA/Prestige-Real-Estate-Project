@@ -1,153 +1,126 @@
-import React, { useState } from "react";
+import React from "react";
 import "./PropertyInformation.css";
 
-const PropertyInformation = () => {
+const PropertyInformation = ({ data, setData }) => {
+  const base = "property-info";
 
-const base = "property-info";
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-const [form,setForm] = useState({
-name:"",
-type:"",
-category:"",
-currency:"",
-salePrice:"",
-offerPrice:""
-});
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
 
-const handleChange = (e)=>{
-const {name,value} = e.target;
-setForm({...form,[name]:value});
-};
+  return (
+    <section className={base}>
+      <div className={`${base}__container`}>
+        {/* LEFT TEXT */}
 
-return (
+        <div className={`${base}__left`}>
+          <h2 className={`${base}__title`}>Property Information</h2>
 
-<section className={base}>
+          <p className={`${base}__desc`}>
+            Explore essential details like size, type, pricing, and standout
+            features perfect for comfortable living or smart investment.
+          </p>
+        </div>
 
-<div className={`${base}__container`}>
+        {/* RIGHT FORM */}
 
-{/* LEFT TEXT */}
+        <div className={`${base}__form`}>
+          <div className={`${base}__grid`}>
+            {/* PROPERTY NAME */}
 
-<div className={`${base}__left`}>
+            <div className={`${base}__field`}>
+              <label>Property Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter property name"
+                value={data.name || ""}
+                onChange={handleChange}
+              />
+            </div>
 
-<h2 className={`${base}__title`}>
-Property Information
-</h2>
+            {/* PROPERTY TYPE */}
 
-<p className={`${base}__desc`}>
-Explore essential details like size, type, pricing, and standout
-features perfect for comfortable living or smart investment.
-</p>
+            <div className={`${base}__field`}>
+              <label>Property Type</label>
+              <select
+                name="type"
+                value={data.type || ""}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="buy">Buy</option>
+                <option value="sale">Sale</option>
+              </select>
+            </div>
 
-</div>
+            {/* PROPERTY CATEGORY */}
 
+            <div className={`${base}__field`}>
+              <label>Property Category</label>
+              <select
+                name="category"
+                value={data.category || ""}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="house">House</option>
+                <option value="home">Home</option>
+                <option value="apartment">Apartment</option>
+                <option value="villa">Villa</option>
+              </select>
+            </div>
 
-{/* RIGHT FORM */}
+            {/* CURRENCY TYPE */}
 
-<div className={`${base}__form`}>
+            <div className={`${base}__field`}>
+              <label>Currency Type</label>
+              <select
+                name="currency"
+                value={data.currency || ""}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="cash">Cash</option>
+                <option value="bank">Bank Transfer</option>
+              </select>
+            </div>
 
-<div className={`${base}__grid`}>
+            {/* SALE PRICE */}
 
-{/* PROPERTY NAME */}
+            <div className={`${base}__field`}>
+              <label>Sale Price</label>
+              <input
+                type="number"
+                name="salePrice"
+                placeholder="Enter price"
+                value={data.salePrice || ""}
+                onChange={handleChange}
+              />
+            </div>
 
-<div className={`${base}__field`}>
-<label>Property Name</label>
-<input
-type="text"
-name="name"
-placeholder="Enter property name"
-value={form.name}
-onChange={handleChange}
-/>
-</div>
+            {/* OFFER PRICE */}
 
-
-{/* PROPERTY TYPE */}
-
-<div className={`${base}__field`}>
-<label>Property Type</label>
-<select
-name="type"
-value={form.type}
-onChange={handleChange}
->
-<option value="">Select</option>
-<option value="buy">Buy</option>
-<option value="sale">Sale</option>
-</select>
-</div>
-
-
-{/* PROPERTY CATEGORY */}
-
-<div className={`${base}__field`}>
-<label>Property Category</label>
-<select
-name="category"
-value={form.category}
-onChange={handleChange}
->
-<option value="">Select</option>
-<option value="house">House</option>
-<option value="home">Home</option>
-<option value="apartment">Apartment</option>
-<option value="villa">Villa</option>
-</select>
-</div>
-
-
-{/* CURRENCY TYPE */}
-
-<div className={`${base}__field`}>
-<label>Currency Type</label>
-<select
-name="currency"
-value={form.currency}
-onChange={handleChange}
->
-<option value="">Select</option>
-<option value="cash">Cash</option>
-<option value="bank">Bank Transfer</option>
-</select>
-</div>
-
-
-{/* SALE PRICE */}
-
-<div className={`${base}__field`}>
-<label>Sale Price</label>
-<input
-type="number"
-name="salePrice"
-placeholder="Enter price"
-value={form.salePrice}
-onChange={handleChange}
-/>
-</div>
-
-
-{/* OFFER PRICE */}
-
-<div className={`${base}__field`}>
-<label>Offer Price</label>
-<input
-type="number"
-name="offerPrice"
-placeholder="Enter offer price"
-value={form.offerPrice}
-onChange={handleChange}
-/>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-);
-
+            <div className={`${base}__field`}>
+              <label>Offer Price</label>
+              <input
+                type="number"
+                name="offerPrice"
+                placeholder="Enter offer price"
+                value={data.offerPrice || ""}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default PropertyInformation;

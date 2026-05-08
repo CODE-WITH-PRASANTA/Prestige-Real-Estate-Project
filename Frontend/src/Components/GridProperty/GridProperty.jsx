@@ -1,62 +1,61 @@
 import React, { useEffect, useState } from "react";
 import "./GridProperty.css";
 import { Link } from "react-router-dom";
+import API, { IMG_URL } from "../../api/axios";
+
 import {
   FaBed,
   FaBath,
   FaRegHeart,
   FaMapMarkerAlt,
   FaStar,
-  FaThLarge,
-  FaListUl,
-  FaMapMarkedAlt,
-  FaChevronDown,
-  FaTag,
-  FaSyncAlt,
   FaRulerCombined,
+  FaChevronDown,
+  FaListUl,
+  FaThLarge,
+  FaMapMarkedAlt,
+  FaSyncAlt,
+  FaTag,
 } from "react-icons/fa";
-
-import API, { IMG_URL } from "../../api/axios";
 
 const GridProperty = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // ✅ FETCH DATA FROM BACKEND
-useEffect(() => {
-  const fetchProperties = async () => {
-    try {
-      const res = await API.get("/property");
+  // ✅ FETCH DATA
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const res = await API.get("/property");
 
-      console.log("API RESPONSE:", res.data);
+        let data = res.data;
 
-      let data = res.data;
-
-      // 🔥 HANDLE ALL CASES
-      if (Array.isArray(data)) {
-        setProperties(data);
-      } else if (Array.isArray(data.data)) {
-        setProperties(data.data);
-      } else if (Array.isArray(data.properties)) {
-        setProperties(data.properties);
-      } else {
-        setProperties([]); // fallback
+        if (Array.isArray(data)) {
+          setProperties(data);
+        } else if (Array.isArray(data.data)) {
+          setProperties(data.data);
+        } else if (Array.isArray(data.properties)) {
+          setProperties(data.properties);
+        } else {
+          setProperties([]);
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load properties");
+      } finally {
+        setLoading(false);
       }
+    };
 
-    } catch (err) {
-      console.error(err);
-      setProperties([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchProperties();
+  }, []);
 
-  fetchProperties();
-}, []);
+  if (loading)
+    return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
 
-  if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
-  if (error) return <h2 style={{ textAlign: "center" }}>{error}</h2>;
+  if (error)
+    return <h2 style={{ textAlign: "center", color: "red" }}>{error}</h2>;
 
   return (
     <section className="gridProperty">
@@ -78,9 +77,9 @@ useEffect(() => {
             </div>
 
             <div className="gridProperty-viewBtns">
-              <Link to="/buydetails" className="gridProperty-viewBtn">
+              <button className="gridProperty-viewBtn">
                 <FaListUl />
-              </Link>
+              </button>
 
               <button className="gridProperty-viewBtn active">
                 <FaThLarge />
@@ -96,15 +95,18 @@ useEffect(() => {
         {/* GRID */}
         <div className="gridProperty-grid">
           {properties.map((item) => (
-            <div className="gridProperty-card" key={item._id}>
-              
+            <Link
+              to={`/property/${item._id}`}
+              key={item._id}
+              className="gridProperty-card"
+            >
               {/* IMAGE */}
               <div className="gridProperty-imageWrap">
                 <img
                   src={
                     item.banner
-                      ? IMG_URL + item.banner
-                      : "https://via.placeholder.com/400"
+                      ? `${IMG_URL}${item.banner}`
+                      : "https://via.placeholder.com/400x300"
                   }
                   alt={item.title}
                   className="gridProperty-image"
@@ -116,7 +118,7 @@ useEffect(() => {
                 <div className="gridProperty-topBadges">
                   {item.isNew && (
                     <span className="gridProperty-badge gridProperty-badgeNew">
-                      <FaSyncAlt /> New
+                      New
                     </span>
                   )}
 
@@ -135,12 +137,12 @@ useEffect(() => {
                   ₹{item.price}
                 </div>
 
-                {/* OWNER IMAGE */}
+                {/* OWNER */}
                 <div className="gridProperty-agent">
                   <img
                     src={
                       item.ownerImage
-                        ? IMG_URL + item.ownerImage
+                        ? `${IMG_URL}${item.ownerImage}`
                         : "https://via.placeholder.com/50"
                     }
                     alt="agent"
@@ -150,6 +152,7 @@ useEffect(() => {
 
               {/* CONTENT */}
               <div className="gridProperty-content">
+
                 <div className="gridProperty-rating">
                   <span className="gridProperty-stars">
                     <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
@@ -165,7 +168,7 @@ useEffect(() => {
 
                 <div className="gridProperty-location">
                   <FaMapMarkerAlt />
-                  <span>{item.address}</span>
+                  <span>{item.location}</span>
                 </div>
 
                 {/* FEATURES */}
@@ -197,8 +200,9 @@ useEffect(() => {
                     <strong>Category:</strong> {item.category}
                   </div>
                 </div>
+
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

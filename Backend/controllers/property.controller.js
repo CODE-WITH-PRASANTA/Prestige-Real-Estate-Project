@@ -1,5 +1,8 @@
-const Property = require("../models/Property.model");
 
+const Property = require("../models/Property.model");
+const { deleteImageFile } = require("../middlewares/upload");
+const fs = require("fs");
+const path = require("path");
 
 // ================= ADD PROPERTY =================
 const addProperty = async (req, res) => {
@@ -46,7 +49,6 @@ const addProperty = async (req, res) => {
   }
 };
 
-
 // ================= GET ALL =================
 const getAllProperties = async (req, res) => {
   try {
@@ -61,7 +63,6 @@ const getAllProperties = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
-
 
 // ================= GET SINGLE =================
 const getSingleProperty = async (req, res) => {
@@ -97,21 +98,122 @@ const deleteProperty = async (req, res) => {
       });
     }
 
+    // 🔥 DELETE BANNER
+    if (property.banner) {
+      deleteImageFile(property.banner);
+    }
+
+    // 🔥 DELETE OWNER IMAGE
+    if (property.ownerImage) {
+      deleteImageFile(property.ownerImage);
+    }
+
+    // 🔥 DELETE MULTIPLE IMAGES
+    if (property.images && property.images.length > 0) {
+      property.images.forEach((img) => {
+        deleteImageFile(img);
+      });
+    }
+
+    // 🔥 DELETE FROM DB
     await Property.findByIdAndDelete(req.params.id);
 
     res.json({
       success: true,
-      message: "Property Deleted 🗑️",
+      message: "Property & Images Deleted Successfully 🗑️",
     });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error("DELETE ERROR:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
 };
 
+
+const updateProperty = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+
+    if (!property) {
+      return res.status(404).json({
+        success: false,
+        message: "Property not found ❌",
+      });
+    }
+
+    const body = req.body;
+
+    // ================= IMAGE HANDLING =================
+
+    // ✅ Banner
+    if (body.banner && body.banner.length > 0) {
+      if (property.banner) deleteImageFile(property.banner);
+      property.banner = body.banner[0];
+    }
+
+    // ✅ Owner Image
+    if (body.ownerImage && body.ownerImage.length > 0) {
+      if (property.ownerImage) deleteImageFile(property.ownerImage);
+      property.ownerImage = body.ownerImage[0];
+    }
+
+    // ✅ Multiple Images
+    if (body.images && body.images.length > 0) {
+      if (property.images && property.images.length > 0) {
+        property.images.forEach((img) => deleteImageFile(img));
+      }
+      property.images = body.images;
+    }
+
+    // ================= TEXT UPDATE =================
+
+    property.title = body.title || property.title;
+    property.description = body.description || property.description;
+    property.location = body.location || property.location;
+    property.price = body.price || property.price;
+    property.downPayment = body.downPayment || property.downPayment;
+    property.loanTerms = body.loanTerms || property.loanTerms;
+    property.interestRate = body.interestRate || property.interestRate;
+    property.sqft = body.sqft || property.sqft;
+    property.category = body.category || property.category;
+    property.rating = body.rating || property.rating;
+    property.lastUpdate = body.lastUpdate || property.lastUpdate;
+    property.fullDescription =
+      body.fullDescription || property.fullDescription;
+
+    // ================= JSON SAFE PARSE =================
+
+    if (body.features) {
+      property.features = JSON.parse(body.features);
+    }
+
+    if (body.amenities) {
+      property.amenities = JSON.parse(body.amenities);
+    }
+
+    // ================= SAVE =================
+    await property.save();
+
+    res.json({
+      success: true,
+      message: "Property Updated Successfully ✅",
+      data: property,
+    });
+  } catch (err) {
+    console.error("UPDATE ERROR:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 
 module.exports = {
   addProperty,
   getAllProperties,
   getSingleProperty,
   deleteProperty,
+  updateProperty
 };

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./ReletedPost.css";
 
 import img1 from "../../assets/RelatedPost.webp";
-import img2 from "../../assets/post2.webp";
+import img2 from "../..//assets/Post2.webp";
 import img3 from "../../assets/post3.webp";
 import img4 from "../../assets/post4.webp";
-import img5 from "../../assets/post2.webp";
+import img5 from "../../assets/Post2.webp";
 import img6 from "../../assets/post3.webp";
 import img7 from "../../assets/post4.webp";
-import img8 from "../../assets/post2.webp";
+import img8 from "../../assets/Post2.webp";
 import img9 from "../../assets/post3.webp";
 
 import author1 from "../../assets/agent1.webp";

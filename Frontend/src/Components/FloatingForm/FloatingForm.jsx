@@ -172,33 +172,39 @@ const FloatingForm = () => {
             </h3>
 
             <div className="FloatingForm__formGrid">
+              
               <div className="FloatingForm__field">
                 <label>Full Name</label>
                 <input
-                  type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={FloatingFormHandleChange}
-                  required
-                />
+                    type="text"
+                    name="fullName"
+                    className="FloatingForm__input"
+                    value={formData.fullName}
+                    onChange={FloatingFormHandleChange}
+                    required
+                  />
               </div>
+
 
               <div className="FloatingForm__field">
                 <label>Phone Number</label>
                 <input
                   type="tel"
                   name="phone"
+                  className="FloatingForm__input"
                   value={formData.phone}
                   onChange={FloatingFormHandleChange}
                   required
                 />
+
               </div>
 
               <div className="FloatingForm__field">
                 <label>Email</label>
-                <input
+               <input
                   type="email"
                   name="email"
+                  className="FloatingForm__input"
                   value={formData.email}
                   onChange={FloatingFormHandleChange}
                 />
@@ -206,8 +212,9 @@ const FloatingForm = () => {
 
               <div className="FloatingForm__field">
                 <label>Property Type</label>
-                <select
+              <select
                   name="propertyType"
+                  className="FloatingForm__input"
                   value={formData.propertyType}
                   onChange={FloatingFormHandleChange}
                 >
@@ -223,38 +230,43 @@ const FloatingForm = () => {
 
               <div className="FloatingForm__field">
                 <label>Budget</label>
-                <select
-                  name="budget"
-                  value={formData.budget}
-                  onChange={FloatingFormHandleChange}
-                >
-                  <option value="">Select</option>
-                  <option value="Under 25 Lakhs">Under 25 Lakhs</option>
-                  <option value="25 - 50 Lakhs">25 - 50 Lakhs</option>
-                  <option value="50 Lakhs - 1 Cr">50 Lakhs - 1 Cr</option>
-                  <option value="1 Cr - 2 Cr">1 Cr - 2 Cr</option>
-                  <option value="Above 2 Cr">Above 2 Cr</option>
-                </select>
+               <select
+                name="budget"
+                className="FloatingForm__input"
+                value={formData.budget}
+                onChange={FloatingFormHandleChange}
+              >
+                <option value="">Select</option>
+                <option value="Under 25 Lakhs">Under 25 Lakhs</option>
+                <option value="25 - 50 Lakhs">25 - 50 Lakhs</option>
+                <option value="50 Lakhs - 1 Cr">50 Lakhs - 1 Cr</option>
+                <option value="1 Cr - 2 Cr">1 Cr - 2 Cr</option>
+                <option value="Above 2 Cr">Above 2 Cr</option>
+              </select>
+
               </div>
 
               <div className="FloatingForm__field">
                 <label>City</label>
-                <input
+               <input
                   type="text"
                   name="city"
+                  className="FloatingForm__input"
                   value={formData.city}
                   onChange={FloatingFormHandleChange}
                 />
               </div>
+
             </div>
 
             <div className="FloatingForm__field">
               <label>Message</label>
-              <textarea
+            <textarea
                 name="message"
+                className="FloatingForm__textarea"
                 value={formData.message}
                 onChange={FloatingFormHandleChange}
-              ></textarea>
+              />
             </div>
 
             <button
@@ -266,6 +278,7 @@ const FloatingForm = () => {
             </button>
           </form>
         </div>
+
       </div>
     </div>
   );

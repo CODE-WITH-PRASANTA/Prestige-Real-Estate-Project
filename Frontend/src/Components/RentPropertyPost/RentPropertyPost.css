@@ -391,9 +391,10 @@ button {
 }
 
 .rent-card-list {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: stretch;
 }
 
 /* CARD */
@@ -1269,6 +1270,83 @@ button {
 
   .rent-card-stats h4 {
     font-size: 18px;
+  }
+
+  .gallery-main,
+  .gallery-image-stage,
+  .rent-card-image {
+    min-height: 220px;
+  }
+}
+
+/* ================= GRID CARD FIX ================= */
+
+.rent-card {
+  flex-direction: column;
+  height: 100%;
+}
+
+.rent-card-image-wrap {
+  width: 100%;
+  min-width: 100%;
+}
+
+.premium-gallery {
+  width: 100%;
+  grid-template-columns: 1fr;
+}
+
+.gallery-main {
+  height: 230px;
+  min-height: 230px;
+}
+
+.gallery-image-stage,
+.rent-card-image {
+  width: 100%;
+  height: 230px;
+  min-height: 230px;
+  object-fit: cover;
+}
+
+.rent-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.rent-card-bottom {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rent-actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.rent-view-details-btn,
+.rent-view-btn,
+.rent-contact-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .rent-card-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .rent-actions {
+    grid-template-columns: 1fr;
   }
 
   .gallery-main,
