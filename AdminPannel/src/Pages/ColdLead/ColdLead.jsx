@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ColdLead.css";
-import { createColdLead } from "../../services/coldLeadService";
+import {
+  createColdLead,
+  getAllColdLeads,
+  deleteColdLead,
+  updateColdLead,
+} from "../../services/coldLeadService";
 
 const ColdLeadForm = () => {
   const base = "coldlead";
@@ -15,52 +20,94 @@ const ColdLeadForm = () => {
     message: "",
   });
 
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [tableLoading, setTableLoading] = useState(true);
+  const [editId, setEditId] = useState(null);
 
-  const handleChange = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  // FETCH DATA
+  const fetchColdLeads = async () => {
+    try {
+      setTableLoading(true);
+      const res = await getAllColdLeads();
+      setData(res.data || []);
+    } catch (err) {
+      alert("Failed to fetch data");
+    } finally {
+      setTableLoading(false);
+    }
   };
 
+  useEffect(() => {
+    fetchColdLeads();
+  }, []);
+
+  // INPUT CHANGE
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // RESET
+  const resetForm = () => {
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      property: "",
+      budget: "",
+      city: "",
+      message: "",
+    });
+    setEditId(null);
+  };
+
+  // SUBMIT / UPDATE
   const handleSubmit = async () => {
     try {
-      if (!form.name.trim()) {
-        return alert("Name is required");
-      }
-
-      if (!form.phone.trim()) {
-        return alert("Phone number is required");
-      }
+      if (!form.name.trim()) return alert("Name required");
+      if (!form.phone.trim()) return alert("Phone required");
 
       setLoading(true);
 
-      await createColdLead(form);
+      if (editId) {
+        await updateColdLead(editId, form);
+        alert("Updated successfully");
+      } else {
+        await createColdLead(form);
+        alert("Created successfully");
+      }
 
-      alert("Cold lead submitted successfully");
-
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        property: "",
-        budget: "",
-        city: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error("Submit error:", error);
-      alert(
-        error?.response?.data?.message || "Failed to submit cold lead"
-      );
+      resetForm();
+      fetchColdLeads();
+    } catch (err) {
+      alert("Submit failed");
     } finally {
       setLoading(false);
     }
   };
 
+  // EDIT
+  const handleEdit = (item) => {
+    setForm(item);
+    setEditId(item._id);
+  };
+
+  // DELETE
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this lead?")) return;
+
+    try {
+      await deleteColdLead(id);
+      alert("Deleted successfully");
+      fetchColdLeads();
+    } catch (err) {
+      alert("Delete failed");
+    }
+  };
+
   return (
     <div className={base}>
+      {/* LEFT FORM */}
       <div className={`${base}__left`}>
         <div className={`${base}__card`}>
           <h2>Request a Free Consultation</h2>
@@ -69,20 +116,16 @@ const ColdLeadForm = () => {
             <div className={`${base}__field`}>
               <label>Full Name</label>
               <input
-                type="text"
                 name="name"
-                placeholder="Enter your full name"
                 value={form.name}
                 onChange={handleChange}
               />
             </div>
 
             <div className={`${base}__field`}>
-              <label>Phone Number</label>
+              <label>Phone</label>
               <input
-                type="text"
                 name="phone"
-                placeholder="Enter your phone number"
                 value={form.phone}
                 onChange={handleChange}
               />
@@ -91,28 +134,26 @@ const ColdLeadForm = () => {
 
           <div className={`${base}__row`}>
             <div className={`${base}__field`}>
-              <label>Email Address</label>
+              <label>Email</label>
               <input
-                type="email"
                 name="email"
-                placeholder="Enter your email"
                 value={form.email}
                 onChange={handleChange}
               />
             </div>
 
             <div className={`${base}__field`}>
-              <label>Property Type</label>
+              <label>Property</label>
               <select
                 name="property"
                 value={form.property}
                 onChange={handleChange}
               >
-                <option value="">Select property type</option>
-                <option value="Flat">Flat</option>
-                <option value="Villa">Villa</option>
-                <option value="Apartment">Apartment</option>
-                <option value="Plot">Plot</option>
+                <option value="">Select</option>
+                <option>Flat</option>
+                <option>Villa</option>
+                <option>Apartment</option>
+                <option>Plot</option>
               </select>
             </div>
           </div>
@@ -125,20 +166,18 @@ const ColdLeadForm = () => {
                 value={form.budget}
                 onChange={handleChange}
               >
-                <option value="">Select budget</option>
-                <option value="5L - 10L">5L - 10L</option>
-                <option value="10L - 20L">10L - 20L</option>
-                <option value="20L - 40L">20L - 40L</option>
-                <option value="40L+">40L+</option>
+                <option value="">Select</option>
+                <option>5L - 10L</option>
+                <option>10L - 20L</option>
+                <option>20L - 40L</option>
+                <option>40L+</option>
               </select>
             </div>
 
             <div className={`${base}__field`}>
-              <label>Preferred City</label>
+              <label>City</label>
               <input
-                type="text"
                 name="city"
-                placeholder="Enter preferred city"
                 value={form.city}
                 onChange={handleChange}
               />
@@ -149,7 +188,6 @@ const ColdLeadForm = () => {
             <label>Message</label>
             <textarea
               name="message"
-              placeholder="Tell us your requirements..."
               value={form.message}
               onChange={handleChange}
             />
@@ -160,8 +198,68 @@ const ColdLeadForm = () => {
             onClick={handleSubmit}
             disabled={loading}
           >
-            {loading ? "Submitting..." : "Submit Enquiry"}
+            {loading ? "Saving..." : editId ? "Update" : "Submit"}
           </button>
+        </div>
+      </div>
+
+      {/* RIGHT TABLE */}
+      <div className={`${base}__right`}>
+        <div className={`${base}__card`}>
+          <h2>Cold Leads</h2>
+
+          <div className="coldlead__tableWrapper">
+            <table className="coldlead__table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Property</th>
+                  <th>Budget</th>
+                  <th>City</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {tableLoading ? (
+                  <tr>
+                    <td colSpan="7">Loading...</td>
+                  </tr>
+                ) : data.length === 0 ? (
+                  <tr>
+                    <td colSpan="7">No Data</td>
+                  </tr>
+                ) : (
+                  data.map((item, index) => (
+                    <tr key={item._id}>
+                      <td>{index + 1}</td>
+                      <td>{item.name}</td>
+                      <td>{item.phone}</td>
+                      <td>{item.property}</td>
+                      <td>{item.budget}</td>
+                      <td>{item.city}</td>
+                      <td>
+                        <button
+                          className="editBtn"
+                          onClick={() => handleEdit(item)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="deleteBtn"
+                          onClick={() => handleDelete(item._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

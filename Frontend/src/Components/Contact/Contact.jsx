@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Contact.css";
 import {
-  FiHome,
   FiUser,
   FiMail,
   FiPhone,
@@ -13,27 +12,28 @@ import emailIcon from "../../assets/email.webp";
 import phoneIcon from "../../assets/phone.webp";
 import locationIcon from "../../assets/adress.webp";
 
+import { getContact } from "../../services/contactService";
 
-  
-function ContactCards() {
+// 🔹 CARDS (NOW DYNAMIC)
+function ContactCards({ data }) {
   const cards = [
     {
       icon: emailIcon,
       title: "Email Address",
-      line1: "info@webmail.com",
-      line2: "jobs@webexample.com",
+      line1: data.email1 || "-",
+      line2: data.email2 || "-",
     },
     {
       icon: phoneIcon,
       title: "Phone Number",
-      line1: "+0123-456789",
-      line2: "+987-6543210",
+      line1: data.phone1 || "-",
+      line2: data.phone2 || "-",
     },
     {
       icon: locationIcon,
       title: "Office Address",
-      line1: "18/A, New Born Town Hall",
-      line2: "New York, US",
+      line1: data.address || "-",
+      line2: `${data.city || "-"}, ${data.country || "-"}`,
     },
   ];
 
@@ -57,6 +57,7 @@ function ContactCards() {
   );
 }
 
+// 🔹 FORM (unchanged UI)
 function ContactForm() {
   return (
     <section className="contact-form-section">
@@ -104,8 +105,7 @@ function ContactForm() {
             <label className="contact-checkbox">
               <input type="checkbox" />
               <span>
-                Save my name, email, and website in this browser for the next
-                time I comment.
+                Save my name, email, and website for next time.
               </span>
             </label>
 
@@ -119,12 +119,13 @@ function ContactForm() {
   );
 }
 
+// 🔹 MAP (optional dynamic later)
 function ContactMap() {
   return (
     <section className="contact-map-section">
       <iframe
         src="https://www.google.com/maps?q=Brooklyn+Botanic+Garden&output=embed"
-        title="Brooklyn Map"
+        title="Map"
         loading="lazy"
         allowFullScreen
       ></iframe>
@@ -132,6 +133,7 @@ function ContactMap() {
   );
 }
 
+// 🔹 CTA
 function ContactCTA() {
   return (
     <section className="contact-cta-section">
@@ -140,7 +142,6 @@ function ContactCTA() {
           <div className="contact-cta-left">
             <h2>Looking for a dream home?</h2>
           </div>
-
           <div className="contact-cta-right">
             <button>Explore Properties</button>
           </div>
@@ -150,11 +151,43 @@ function ContactCTA() {
   );
 }
 
+// 🔥 MAIN COMPONENT
 export default function Contact() {
+  const [data, setData] = useState({
+    email1: "",
+    email2: "",
+    phone1: "",
+    phone2: "",
+    address: "",
+    city: "",
+    country: "",
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  // 🔹 FETCH FROM BACKEND
+  const fetchContact = async () => {
+    try {
+      const res = await getContact();
+      if (res.data) setData(res.data);
+    } catch (err) {
+      console.error("Contact fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchContact();
+  }, []);
+
+  if (loading) {
+    return <div style={{ padding: "40px" }}>Loading contact...</div>;
+  }
+
   return (
     <div className="contact-page">
-     
-      <ContactCards />
+      <ContactCards data={data} />
       <ContactForm />
       <ContactMap />
       <ContactCTA />
