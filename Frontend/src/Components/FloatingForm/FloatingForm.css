@@ -292,3 +292,102 @@
     grid-template-columns: 1fr;
   }
 }
+
+.FloatingForm__form {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.FloatingForm__formTitle {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Grid */
+.FloatingForm__formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Field */
+.FloatingForm__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.FloatingForm__field label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #666;
+}
+
+/* Input Styling */
+.FloatingForm__input,
+.FloatingForm__textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+/* Focus Effect */
+.FloatingForm__input:focus,
+.FloatingForm__textarea:focus {
+  border-color: #E94e77;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(233, 78, 119, 0.1);
+}
+
+/* Hover Effect */
+.FloatingForm__input:hover,
+.FloatingForm__textarea:hover {
+  border-color: #bbb;
+}
+
+/* Textarea */
+.FloatingForm__textarea {
+  min-height: 100px;
+  resize: none;
+  margin-top: 5px;
+}
+
+/* Button */
+.FloatingForm__submitButton {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #E94e77, #ff7a9c);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.FloatingForm__submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(233, 78, 119, 0.2);
+}
+
+/* Disabled */
+.FloatingForm__submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .FloatingForm__formGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,24 +1,55 @@
+/* ================= MAIN LAYOUT ================= */
 .coldlead {
   display: flex;
   gap: 20px;
   padding: 20px;
-  background: #f5f6fa;
+  background: linear-gradient(135deg, #eef2f7, #e2e8f0);
+  min-height: 100vh;
 }
 
-/* LEFT & RIGHT */
+/* LAYOUT */
 .coldlead__left,
 .coldlead__right {
   width: 50%;
 }
 
-/* CARD */
+/* ================= CARD ================= */
 .coldlead__card {
-  background: #fff;
+  background: linear-gradient(145deg, #ffffff, #f9fafc);
   padding: 25px;
-  border-radius: 15px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
+  transition: 0.3s;
 }
 
-/* ROW */
+.coldlead__card:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= HEADING ================= */
+.coldlead__card h2 {
+  margin-bottom: 18px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  position: relative;
+  padding-left: 12px;
+}
+
+/* LEFT ACCENT BAR */
+.coldlead__card h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  height: 18px;
+  width: 4px;
+  background: linear-gradient(180deg, #3b82f6, #6366f1);
+  border-radius: 5px;
+}
+
+/* ================= FORM ================= */
 .coldlead__row {
   display: flex;
   gap: 15px;
@@ -32,8 +63,9 @@
 }
 
 .coldlead__field label {
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 5px;
+  color: #475569;
 }
 
 /* INPUT */
@@ -42,67 +74,145 @@
 .coldlead__field textarea {
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #e2e8f0;
   outline: none;
-  transition: 0.3s;
+  font-size: 14px;
+  background: #f8fafc;
+  transition: all 0.25s ease;
 }
 
+/* FOCUS */
 .coldlead__field input:focus,
 .coldlead__field select:focus,
 .coldlead__field textarea:focus {
   border-color: #3b82f6;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
 /* TEXTAREA */
 .coldlead__field textarea {
   min-height: 120px;
+  resize: none;
 }
 
-/* BUTTON */
+/* ================= SUBMIT BUTTON ================= */
 .coldlead__submit {
   width: 100%;
   padding: 14px;
   margin-top: 20px;
   border: none;
   border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
   color: #fff;
-  font-weight: bold;
-  background: linear-gradient(to right, #22c55e, #3b82f6);
+  background: linear-gradient(90deg, #22c55e, #3b82f6);
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 }
 
-/* FILTER */
-.coldlead__filterRow {
+/* HOVER */
+.coldlead__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+/* CLICK */
+.coldlead__submit:active {
+  transform: scale(0.97);
+}
+
+/* DISABLED */
+.coldlead__submit:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ================= TABLE ================= */
+.coldlead__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* HEADER */
+.coldlead__table thead {
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+}
+
+.coldlead__table th {
+  padding: 12px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* BODY */
+.coldlead__table td {
+  padding: 12px;
+  font-size: 13px;
+  color: #334155;
+  text-align: center;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* ROW HOVER */
+.coldlead__table tbody tr:hover {
+  background: #f1f5ff;
+}
+
+/* NO DATA */
+.coldlead__table td[colspan] {
+  padding: 20px;
+  color: #94a3b8;
+}
+
+/* ================= ACTION BUTTONS ================= */
+.coldlead__actions {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  justify-content: center;
+  gap: 8px;
 }
 
-.coldlead__filterRow input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+.coldlead__actions button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-/* TABLE */
-.coldlead__rowItem {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+/* EDIT */
+.edit {
+  background: #22c55e;
+  color: #fff;
 }
 
-.coldlead__rowItem h4 {
-  margin: 0;
+.edit:hover {
+  background: #16a34a;
+  transform: scale(1.05);
 }
 
-
-.coldlead__rowItem p {
-  margin: 3px 0;
-  color: #666;
+/* DELETE */
+.delete {
+  background: #ef4444;
+  color: #fff;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+.delete:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 1024px) {
   .coldlead {
     flex-direction: column;
   }
@@ -111,8 +221,27 @@
   .coldlead__right {
     width: 100%;
   }
+}
 
+/* MOBILE */
+@media (max-width: 600px) {
   .coldlead__row {
     flex-direction: column;
+  }
+
+  .coldlead__table th,
+  .coldlead__table td {
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  .coldlead__actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .coldlead__submit {
+    padding: 12px;
+    font-size: 14px;
   }
 }

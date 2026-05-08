@@ -17,6 +17,7 @@ const routeFolderMap = {
   "/api/blogs": "uploads/blogs",
   "/api/gallery": "uploads/gallery",
   "/api/rent": "uploads/rent", // ✅ rent uploads
+  "/api/user-properties": "uploads/common",
 };
 
 /* ================= GET UPLOAD PATH ================= */
@@ -104,7 +105,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB // 5MB
 });
 
 /* ================= FILE PROCESSOR ================= */
@@ -174,11 +175,18 @@ const deleteImageFile = (imagePath) => {
   try {
     if (!imagePath) return;
 
-    const fullPath = path.join(__dirname, "..", imagePath);
+    // Remove leading slash if exists
+    const cleanPath = imagePath.startsWith("/")
+      ? imagePath.slice(1)
+      : imagePath;
+
+    const fullPath = path.join(__dirname, "..", cleanPath);
 
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
       console.log("Deleted:", fullPath);
+    } else {
+      console.log("File not found:", fullPath);
     }
   } catch (err) {
     console.error("DELETE ERROR:", err);

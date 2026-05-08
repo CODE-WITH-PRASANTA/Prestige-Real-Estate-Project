@@ -1,6 +1,5 @@
 // ============================================
-// App.jsx
-// FULL UPDATED FILE
+// App.jsx (FIXED & CLEAN)
 // ============================================
 
 import React from "react";
@@ -60,90 +59,39 @@ function App() {
       <Routes>
 
         {/* HOME */}
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Route path="/" element={<Home />} />
 
         {/* AUTH */}
-        <Route
-          path="/login"
-          element={<Login />}
-        />
-
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* ABOUT */}
-        <Route
-          path="/about"
-          element={<About />}
-        />
+        <Route path="/about" element={<About />} />
 
         {/* CONTACT */}
-        <Route
-          path="/contact"
-          element={<ContactSection />}
-        />
+        <Route path="/contact" element={<ContactSection />} />
 
         {/* PRICING */}
-        <Route
-          path="/pricing"
-          element={<PrisingSection />}
-        />
+        <Route path="/pricing" element={<PrisingSection />} />
 
         {/* FAQ */}
-        <Route
-          path="/faq"
-          element={<FaqSection />}
-        />
+        <Route path="/faq" element={<FaqSection />} />
 
         {/* BLOG */}
-        <Route
-          path="/blog"
-          element={<Blog />}
-        />
-
-        <Route
-          path="/bloglist"
-          element={<BlogList />}
-        />
-
-        {/* BLOG DETAILS DYNAMIC */}
-        <Route
-          path="/blog/:id"
-          element={<BlogDetails />}
-        />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/bloglist" element={<BlogList />} />
+        <Route path="/blog/:id" element={<BlogDetails />} />
 
         {/* PROPERTY */}
-        <Route
-          path="/property"
-          element={<Property />}
-        />
+        <Route path="/property" element={<Property />} />
 
         {/* RENT */}
-        <Route
-          path="/rent/details"
-          element={<Rentdetails />}
-        />
-
-        <Route
-          path="/rent/property"
-          element={<RentProperty />}
-        />
+        <Route path="/rent/details" element={<Rentdetails />} />
+        <Route path="/rent/property" element={<RentProperty />} />
 
         {/* BUY */}
-        <Route
-          path="/buyproperties"
-          element={<BuyGrid />}
-        />
-
-        <Route
-          path="/buydetails"
-          element={<BuyDetails />}
-        />
+        <Route path="/buyproperties" element={<BuyGrid />} />
+        <Route path="/property/:id" element={<BuyDetails />} />
 
       </Routes>
 

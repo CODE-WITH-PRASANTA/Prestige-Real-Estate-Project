@@ -20,6 +20,7 @@ import {
 } from "react-icons/fa";
 
 import "./Sidebar.css";
+import { MdGridView } from "react-icons/md";
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const menu = [
@@ -37,6 +38,12 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       path: "/admin/cold-lead-table",
       icon: <FaTable />, // 📊 table view
     },
+
+{
+  name: "User Properties",
+  path: "/properties",
+  icon: <MdGridView />,
+},
 
     //////**************PROPERTY MANAGEMENT*************/////
     {
@@ -104,7 +111,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         },
         {
           name: "Blog Management",
-          path: "/blog/post",
+          path: "/blog/manage",
           icon: <FaClipboardCheck />, // 📋
         },
       ],
