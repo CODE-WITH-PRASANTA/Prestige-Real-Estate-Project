@@ -1,106 +1,334 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+
 import "./BackBlog.css";
 
-import API, { IMG_URL } from "../../api/axios";
-import author from "../../assets/BackBlog.webp";
+import API, {
+  IMG_URL,
+} from "../../api/axios";
+
+import {
+  FaArrowLeft,
+  FaCalendarAlt,
+  FaThumbsUp,
+  FaThumbsDown,
+  FaUserTie,
+} from "react-icons/fa";
 
 const BackBlog = () => {
   const base = "back-blog";
-  const navigate = useNavigate();
-  const { id } = useParams();
 
-  const [blog, setBlog] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const navigate =
+    useNavigate();
+
+  const { id } =
+    useParams();
+
+  const [blog, setBlog] =
+    useState(null);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  // LIKE STATE
+
+  const [reaction, setReaction] =
+    useState(null);
+
+  const [yesCount, setYesCount] =
+    useState(0);
+
+  const [noCount, setNoCount] =
+    useState(0);
+
+  // FETCH BLOG
 
   useEffect(() => {
-    const fetchSingleBlog = async () => {
-      try {
-        const res = await API.get(`/blogs/${id}`);
-        const data = res.data?.data || res.data;
-        setBlog(data);
-      } catch (error) {
-        console.error("Blog fetch error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const fetchSingleBlog =
+      async () => {
+        try {
+          const res =
+            await API.get(
+              `/blogs/${id}`
+            );
+
+          const data =
+            res.data?.data ||
+            res.data;
+
+          setBlog(data);
+        } catch (error) {
+          console.error(
+            "Blog fetch error:",
+            error
+          );
+        } finally {
+          setLoading(false);
+        }
+      };
 
     fetchSingleBlog();
   }, [id]);
 
-  const getImageUrl = (image) => {
-    if (!image) return "https://via.placeholder.com/1200x600";
+  // IMAGE URL
 
-    if (image.startsWith("http")) return image;
+  const getImageUrl = (
+    image
+  ) => {
+    if (!image)
+      return "/no-image.png";
 
-    if (image.startsWith("/uploads")) {
-      return `${IMG_URL}${image}`;
+    if (
+      image.startsWith(
+        "http"
+      )
+    ) {
+      return image;
     }
 
-    if (image.startsWith("uploads/")) {
-      return `${IMG_URL}/${image}`;
-    }
-
-    return `${IMG_URL}/uploads/${image}`;
+    return `${IMG_URL}${image}`;
   };
 
-  if (loading) return <h2 style={{ padding: "40px" }}>Loading...</h2>;
+  // REMOVE HTML
 
-  if (!blog) return <h2 style={{ padding: "40px" }}>Blog Not Found</h2>;
+  const stripHtml = (
+    html
+  ) => {
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.innerHTML =
+      html || "";
+
+    return (
+      div.textContent ||
+      div.innerText ||
+      ""
+    );
+  };
+
+  // TAGS
+
+  const getTags = (
+    tags
+  ) => {
+    if (
+      Array.isArray(
+        tags
+      )
+    ) {
+      return tags;
+    }
+
+    if (
+      typeof tags ===
+      "string"
+    ) {
+      try {
+        const parsed =
+          JSON.parse(
+            tags
+          );
+
+        return Array.isArray(
+          parsed
+        )
+          ? parsed
+          : [];
+      } catch {
+        return tags
+          .split(",")
+          .map((tag) =>
+            tag.trim()
+          );
+      }
+    }
+
+    return [];
+  };
+
+  // LIKE FUNCTION
+
+  const handleReaction = (
+    type
+  ) => {
+    // REMOVE OLD
+
+    if (
+      reaction === "yes"
+    ) {
+      setYesCount(
+        (prev) =>
+          prev > 0
+            ? prev - 1
+            : 0
+      );
+    }
+
+    if (
+      reaction === "no"
+    ) {
+      setNoCount(
+        (prev) =>
+          prev > 0
+            ? prev - 1
+            : 0
+      );
+    }
+
+    // ADD NEW
+
+    if (type === "yes") {
+      setYesCount(
+        (prev) => prev + 1
+      );
+    }
+
+    if (type === "no") {
+      setNoCount(
+        (prev) => prev + 1
+      );
+    }
+
+    setReaction(type);
+  };
+
+  // LOADING
+
+  if (loading) {
+    return (
+      <div className="back-blog__loading">
+        Loading Blog...
+      </div>
+    );
+  }
+
+  // NOT FOUND
+
+  if (!blog) {
+    return (
+      <div className="back-blog__loading">
+        Blog Not Found
+      </div>
+    );
+  }
+
+  const tags =
+    getTags(blog.tags);
 
   return (
-    <section className={base}>
-      <div className={`${base}__container`}>
+    <section
+      className={base}
+    >
+      <div
+        className={`${base}__container`}
+      >
         {/* BACK */}
+
         <div
           className={`${base}__back`}
-          onClick={() => navigate("/blog")}
-          style={{ cursor: "pointer" }}
+          onClick={() =>
+            navigate("/blog")
+          }
         >
-          <svg viewBox="0 0 24 24" width="20">
-            <path fill="currentColor" d="M15 18l-6-6 6-6" />
-          </svg>
-          <span>Back to Blog</span>
+          <FaArrowLeft />
+
+          <span>
+            Back to Blogs
+          </span>
         </div>
 
         {/* HERO */}
-        <div className={`${base}__hero`}>
+
+        <div
+          className={`${base}__hero`}
+        >
           <img
-            src={getImageUrl(blog.image)}
+            src={getImageUrl(
+              blog.image
+            )}
             alt={blog.title}
             onError={(e) =>
-              (e.target.src = "https://via.placeholder.com/1200x600")
+              (e.target.src =
+                "/no-image.png")
             }
           />
 
-          <div className={`${base}__hero-card`}>
-            <span className={`${base}__badge`}>
-              {blog.tag || "Blog"}
+          <div
+            className={`${base}__overlay`}
+          ></div>
+
+          <div
+            className={`${base}__heroCard`}
+          >
+            {/* CATEGORY */}
+
+            <span
+              className={`${base}__badge`}
+            >
+              {blog.category ||
+                "Blog"}
             </span>
 
-            <h1 className={`${base}__title`}>
+            {/* TITLE */}
+
+            <h1
+              className={`${base}__title`}
+            >
               {blog.title}
             </h1>
 
-            <div className={`${base}__meta`}>
-              <img src={author} alt="author" />
+            {/* META */}
 
-              <span>{blog.author || "Admin"}</span>
+            <div
+              className={`${base}__meta`}
+            >
+              {/* AUTHOR */}
 
-              <div className={`${base}__date`}>
-                <svg width="16" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2
-                    2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2zm13 8H4v10h16V10z"
-                  />
-                </svg>
+              <div
+                className={`${base}__authorMeta`}
+              >
+                <div
+                  className={`${base}__authorIcon`}
+                >
+                  <FaUserTie />
+                </div>
+
+                <div>
+                  <h5>
+                    {blog.owner ||
+                      "Admin"}
+                  </h5>
+
+                  <span>
+                    {blog.ownerdesignation ||
+                      "Author"}
+                  </span>
+                </div>
+              </div>
+
+              {/* DATE */}
+
+              <div
+                className={`${base}__date`}
+              >
+                <FaCalendarAlt />
 
                 <span>
-                  {new Date(
-                    blog.createdAt || blog.date
-                  ).toDateString()}
+                  {blog.date
+                    ? new Date(
+                        blog.date
+                      ).toLocaleDateString()
+                    : "No Date"}
                 </span>
               </div>
             </div>
@@ -108,38 +336,126 @@ const BackBlog = () => {
         </div>
 
         {/* ARTICLE */}
-        <div className={`${base}__article`}>
-          <p>{blog.desc}</p>
 
-          <p>{blog.content}</p>
-        </div>
+        <div
+          className={`${base}__article`}
+        >
+          {/* CONTENT */}
 
-        {/* AUTHOR */}
-        <div className={`${base}__author`}>
-          <img src={author} alt="author" />
+          <div
+            className={`${base}__content`}
+          >
+            {stripHtml(
+              blog.content
+            )}
+          </div>
 
-          <div>
-            <span className={`${base}__author-role`}>
-              Author
-            </span>
+          {/* TAGS */}
 
-            <h3>{blog.author || "Admin"}</h3>
-
-            <p>
-              Thank you for reading this article.
-            </p>
+          <div
+            className={`${base}__tags`}
+          >
+            {tags.length >
+            0 ? (
+              tags.map(
+                (
+                  tag,
+                  index
+                ) => (
+                  <span
+                    key={
+                      index
+                    }
+                  >
+                    #{tag}
+                  </span>
+                )
+              )
+            ) : (
+              <span>
+                #
+                {
+                  blog.category
+                }
+              </span>
+            )}
           </div>
         </div>
 
         {/* HELPFUL */}
-        <div className={`${base}__helpful`}>
-          <h4>Was this article helpful?</h4>
 
-          <span>18 out of 93 found this helpful</span>
+        <div
+          className={`${base}__helpful`}
+        >
+          {/* LEFT */}
 
-          <div className={`${base}__actions`}>
-            <button>👍 Yes</button>
-            <button>👎 No</button>
+          <div
+            className={`${base}__helpfulLeft`}
+          >
+            <h4>
+              Was this article
+              helpful?
+            </h4>
+
+            <span>
+              Give your
+              feedback about
+              this article
+            </span>
+          </div>
+
+          {/* ACTIONS */}
+
+          <div
+            className={`${base}__actions`}
+          >
+            {/* YES */}
+
+            <button
+              className={
+                reaction ===
+                "yes"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                handleReaction(
+                  "yes"
+                )
+              }
+            >
+              <FaThumbsUp />
+
+              Yes
+
+              <strong>
+                {yesCount}
+              </strong>
+            </button>
+
+            {/* NO */}
+
+            <button
+              className={
+                reaction ===
+                "no"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                handleReaction(
+                  "no"
+                )
+              }
+            >
+              <FaThumbsDown />
+
+              No
+
+              <strong>
+                {noCount}
+              </strong>
+            </button>
           </div>
         </div>
       </div>

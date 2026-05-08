@@ -2,93 +2,307 @@ import React from "react";
 import "./Footer.css";
 import Logo from "../../assets/Main-Logo.png";
 
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaArrowRight,
+} from "react-icons/fa";
+
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="Footer-container">
+
+      {/* TOP SECTION */}
       <div className="Footer-wrapper">
-        
-        {/* LEFT SECTION */}
+
+        {/* LEFT */}
         <div className="Footer-left">
-          <div className="Footer-logo">
-            <img src={Logo} alt="logo" />
+
+          {/* LOGO */}
+          <div className="Footer-logo-section">
+
+            <Link to="/" className="Footer-logo">
+              <img src={Logo} alt="Prestige Properties" />
+            </Link>
+
+            <p className="Footer-description">
+              Discover premium properties with trusted real estate
+              solutions. Prestige Properties helps you find your
+              dream home, commercial space, and investment property
+              with ease and confidence.
+            </p>
+
           </div>
 
+          {/* CONTACT */}
           <div className="Footer-contact">
-            <div>
-              <p>Total Free Customer Care</p>
-              <h4>+91 9595422040</h4>
+
+            <div className="Footer-contact-card">
+              <span className="Footer-contact-icon">
+                <FaPhoneAlt />
+              </span>
+
+              <div>
+                <p>Customer Support</p>
+
+                <a href="tel:+919595422040">
+                  +91 9595422040
+                </a>
+              </div>
             </div>
-            <div>
-              <p>Need Live Support?</p>
-              <h4>Dayanand.prestige@gmail.com</h4>
+
+            <div className="Footer-contact-card">
+              <span className="Footer-contact-icon">
+                <FaEnvelope />
+              </span>
+
+              <div>
+                <p>Email Address</p>
+
+                <a href="mailto:Dayanand.prestige@gmail.com">
+                  Dayanand.prestige@gmail.com
+                </a>
+              </div>
             </div>
+
+            <div className="Footer-contact-card">
+              <span className="Footer-contact-icon">
+                <FaMapMarkerAlt />
+              </span>
+
+              <div>
+                <p>Office Address</p>
+
+                <span>Mumbai, Maharashtra, India</span>
+              </div>
+            </div>
+
           </div>
 
+          {/* SOCIAL */}
           <div className="Footer-social">
-            <h4>Follow us on social media</h4>
+
+            <h4>Follow Us</h4>
+
             <div className="Footer-icons">
-              <i className="fab fa-facebook-f"></i>
-              <i className="fab fa-twitter"></i>
-              <i className="fab fa-instagram"></i>
-              <i className="fab fa-linkedin-in"></i>
+
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebookF />
+              </a>
+
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTwitter />
+              </a>
+
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram />
+              </a>
+
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaLinkedinIn />
+              </a>
+
             </div>
+
           </div>
+
         </div>
 
-        {/* RIGHT SECTION */}
+        {/* RIGHT */}
         <div className="Footer-right">
+
+          {/* NEWSLETTER */}
           <div className="Footer-newsletter">
-            <h3>Keep Yourself Up to Date</h3>
+
+            <div className="Footer-newsletter-content">
+
+              <span className="Footer-subtitle">
+                NEWSLETTER
+              </span>
+
+              <h3>
+                Keep Yourself Updated With Latest Properties
+              </h3>
+
+              <p>
+                Subscribe and get updates about premium listings,
+                offers, and real estate news.
+              </p>
+
+            </div>
+
             <div className="Footer-input-box">
-              <input type="email" placeholder="Your Email" />
-              <button>Subscribe</button>
+
+              <input
+                type="email"
+                placeholder="Enter your email address"
+              />
+
+              <button>
+                Subscribe
+                <FaArrowRight />
+              </button>
+
             </div>
+
           </div>
 
+          {/* LINKS */}
           <div className="Footer-links">
-            {/* COLUMN 1 */}
-            <div className="Footer-column Footer-column-1">
-              <h4 className="Footer-heading">Company</h4>
+
+            {/* COMPANY */}
+            <div className="Footer-column">
+
+              <h4 className="Footer-heading">
+                Company
+              </h4>
+
               <ul className="Footer-list">
-                <li className="Footer-item">Home</li>
-                <li className="Footer-item">About</li>
-                <li className="Footer-item">Blog</li>
-                <li className="Footer-item">Contact</li>
+
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+
+                <li>
+                  <Link to="/about">
+                    About Us
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/blog">
+                    Blog
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/contact">
+                    Contact Us
+                  </Link>
+                </li>
+
               </ul>
+
             </div>
 
-            {/* COLUMN 2 */}
-            <div className="Footer-column Footer-column-2">
-              <h4 className="Footer-heading">Properties</h4>
+            {/* PROPERTY */}
+            <div className="Footer-column">
+
+              <h4 className="Footer-heading">
+                Properties
+              </h4>
+
               <ul className="Footer-list">
-                <li className="Footer-item">Rent Property</li>
-                <li className="Footer-item">Buy Property</li>
-                <li className="Footer-item">Commercial</li>
-                <li className="Footer-item">Residential</li>
+
+                <li>
+                  <Link to="/rent-property">
+                    Rent Property
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/buy-property">
+                    Buy Property
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/commercial-property">
+                    Commercial
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/residential-property">
+                    Residential
+                  </Link>
+                </li>
+
               </ul>
+
             </div>
 
-            {/* COLUMN 3 */}
-            <div className="Footer-column Footer-column-3">
-              <h4 className="Footer-heading">Support</h4>
+            {/* SUPPORT */}
+            <div className="Footer-column">
+
+              <h4 className="Footer-heading">
+                Support
+              </h4>
+
               <ul className="Footer-list">
-                <li className="Footer-item">FAQ</li>
-                <li className="Footer-item">Help Center</li>
-                <li className="Footer-item">Privacy Policy</li>
-                <li className="Footer-item">Terms & Conditions</li>
+
+                <li>
+                  <Link to="/faq">
+                    FAQ
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/help-center">
+                    Help Center
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/privacy-policy">
+                    Privacy Policy
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/terms-condition">
+                    Terms & Conditions
+                  </Link>
+                </li>
+
               </ul>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
 
+      {/* BOTTOM */}
       <div className="Footer-bottom">
+
         <p className="Footer-copy">
-          © {new Date().getFullYear()} Prestige Properties. All rights reserved.
+          © {new Date().getFullYear()} Prestige Properties.
+          All Rights Reserved.
         </p>
 
         <p className="Footer-developed">
-          Developed with <span className="Footer-heart">❤</span> by{" "}
+          Developed with{" "}
+          <span className="Footer-heart">
+            ❤
+          </span>{" "}
+          by{" "}
+
           <a
             href="https://prwebstock.com"
             target="_blank"
@@ -97,15 +311,29 @@ const Footer = () => {
           >
             PR WEBSTOCK
           </a>
+
         </p>
 
         <div className="Footer-bottom-links">
-          <span>Privacy</span>
-          <span>·</span>
-          <span>Terms</span>
-          <span>·</span>
-          <span>Sitemap</span>
+
+          <Link to="/privacy-policy">
+            Privacy
+          </Link>
+
+          <span>•</span>
+
+          <Link to="/terms-condition">
+            Terms
+          </Link>
+
+          <span>•</span>
+
+          <Link to="/sitemap">
+            Sitemap
+          </Link>
+
         </div>
+
       </div>
 
     </footer>

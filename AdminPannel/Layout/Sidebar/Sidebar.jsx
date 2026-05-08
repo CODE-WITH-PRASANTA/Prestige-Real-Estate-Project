@@ -117,7 +117,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         },
         {
           name: "Blog Management",
-          path: "/blog/post",
+          path: "/blog/manage",
           icon: <FaClipboardCheck />, // 📋
         },
       ],

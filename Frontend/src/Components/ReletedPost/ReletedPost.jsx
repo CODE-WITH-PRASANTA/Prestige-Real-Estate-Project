@@ -1,218 +1,223 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ReletedPost.css";
-
-import img1 from "../../assets/RelatedPost.webp";
-import img2 from "../..//assets/Post2.webp";
-import img3 from "../../assets/post3.webp";
-import img4 from "../../assets/post4.webp";
-import img5 from "../../assets/Post2.webp";
-import img6 from "../../assets/post3.webp";
-import img7 from "../../assets/post4.webp";
-import img8 from "../../assets/Post2.webp";
-import img9 from "../../assets/post3.webp";
-
-import author1 from "../../assets/agent1.webp";
-import author2 from "../../assets/agent2.webp";
-import author3 from "../../assets/agent3.webp";
+import { Link } from "react-router-dom";
+import API from "../../api/axios";
 
 const ReletedPost = () => {
+  const base = "related-post";
 
-const base = "related-post";
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const posts = [
-{
-id:1,
-img:img1,
-category:"Duplex",
-author:"Jason Rose",
-date:"28 Jun 2025",
-title:"Legal Due Diligence is a Must",
-desc:"Before buying, always check the legal title, land use approvals and documentation.",
-avatar:author1
-},
-{
-id:2,
-img:img2,
-category:"Property",
-author:"Susan Cul",
-date:"10 Apr 2025",
-title:"Location is Everything",
-desc:"The value of a property largely depends on where it's located.",
-avatar:author2
-},
-{
-id:3,
-img:img3,
-category:"Villa",
-author:"Shelly Cox",
-date:"24 Apr 2025",
-title:"Real Estate is a Long-Term Asset",
-desc:"Unlike stocks, real estate usually grows in value over time.",
-avatar:author3
-},
-{
-id:4,
-img:img4,
-category:"Property",
-author:"Richard",
-date:"12 Jun 2025",
-title:"Maintenance Affects ROI",
-desc:"Regular upkeep not only preserves property value but attracts buyers.",
-avatar:author1
-},
-{
-id:5,
-img:img5,
-category:"Villa",
-author:"Shelly Cox",
-date:"24 Apr 2025",
-title:"Luxury Living Trends",
-desc:"Modern villas now combine smart homes with eco friendly design.",
-avatar:author2
-},
-{
-id:6,
-img:img6,
-category:"Duplex",
-author:"Jason Rose",
-date:"20 May 2025",
-title:"Investment Smart Buying",
-desc:"Smart buyers evaluate long-term value before purchasing.",
-avatar:author3
-},
-{
-id:7,
-img:img7,
-category:"Property",
-author:"Susan Cul",
-date:"10 Apr 2025",
-title:"Property Market Insights",
-desc:"Understanding market cycles can improve real estate investment.",
-avatar:author1
-},
-{
-id:8,
-img:img8,
-category:"Villa",
-author:"Shelly Cox",
-date:"24 Apr 2025",
-title:"Designing Modern Homes",
-desc:"Contemporary houses combine minimalism and functionality.",
-avatar:author2
-},
-{
-id:9,
-img:img9,
-category:"Property",
-author:"Richard",
-date:"12 Jun 2025",
-title:"Future of Real Estate",
-desc:"Technology and AI are shaping the future property market.",
-avatar:author3
-}
-];
+  const [page, setPage] = useState(1);
 
-const cardsPerPage = 3;
+  const cardsPerPage = 3;
 
-const [page,setPage] = useState(1);
+  const BACKEND_URL = "http://localhost:5000";
 
-const totalPages = Math.ceil(posts.length / cardsPerPage);
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
 
-const start = (page-1)*cardsPerPage;
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
 
-const currentPosts = posts.slice(start,start+cardsPerPage);
+      const res = await API.get("/blogs");
 
-return (
+      console.log("BLOG DATA:", res.data);
 
-<section className={base}>
+      if (res.data.success) {
+        setPosts(res.data.data);
+      }
+    } catch (error) {
+      console.log("BLOG FETCH ERROR:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-<div className={`${base}__container`}>
+  const totalPages = Math.ceil(
+    posts.length / cardsPerPage
+  );
 
-<div className={`${base}__header`}>
+  const startIndex = (page - 1) * cardsPerPage;
 
-<h2>Related Post</h2>
+  const currentPosts = posts.slice(
+    startIndex,
+    startIndex + cardsPerPage
+  );
 
-<div className={`${base}__nav`}>
+  return (
+    <section className={base}>
+      <div className={`${base}__container`}>
 
-<button
-disabled={page===1}
-onClick={()=>setPage(page-1)}
->
+        {/* HEADER */}
+        <div className={`${base}__header`}>
 
-<svg viewBox="0 0 24 24">
-<path d="M15 18l-6-6 6-6"/>
-</svg>
+          <div>
 
-</button>
+            <span className={`${base}__subtitle`}>
+              Latest Blogs
+            </span>
 
-<button
-disabled={page===totalPages}
-onClick={()=>setPage(page+1)}
->
+            <h2>Related Post</h2>
 
-<svg viewBox="0 0 24 24">
-<path d="M9 6l6 6-6 6"/>
-</svg>
+            <p className={`${base}__section-desc`}>
+              Discover the latest real estate insights,
+              property updates, investment tips and
+              trending housing news from our expert team.
+            </p>
 
-</button>
+          </div>
 
-</div>
+          {/* NAVIGATION */}
+          <div className={`${base}__nav`}>
 
-</div>
+            <button
+              disabled={page === 1}
+              onClick={() =>
+                setPage((prev) => prev - 1)
+              }
+            >
+              ❮
+            </button>
 
+            <button
+              disabled={page === totalPages}
+              onClick={() =>
+                setPage((prev) => prev + 1)
+              }
+            >
+              ❯
+            </button>
 
-<div className={`${base}__grid`}>
+          </div>
 
-{currentPosts.map((post)=>(
-<div key={post.id} className={`${base}__card`}>
+        </div>
 
-<img src={post.img} alt="" />
+        {/* LOADING */}
+        {loading ? (
+          <div className={`${base}__loading`}>
+            Loading...
+          </div>
+        ) : (
+          <>
+            {/* BLOG GRID */}
+            <div className={`${base}__grid`}>
 
-<div className={`${base}__content`}>
+              {currentPosts.map((post) => {
 
-<span className={`${base}__badge`}>
-{post.category}
-</span>
+                console.log(post);
 
-<div className={`${base}__meta`}>
+                return (
 
-<img src={post.avatar} alt="" />
+                  <Link
+                    to={`/blog/${post._id}`}
+                    key={post._id}
+                    className={`${base}__card`}
+                  >
 
-<span>{post.author}</span>
+                    {/* IMAGE */}
+                    <div className={`${base}__image-wrapper`}>
 
-<div className={`${base}__date`}>
+                      <img
+                        src={
+                          post.image
+                            ? `${BACKEND_URL}${post.image}`
+                            : "https://via.placeholder.com/600x400"
+                        }
+                        alt={post.title}
+                      />
 
-<svg viewBox="0 0 24 24">
+                      {/* STATUS */}
+                      <span className={`${base}__status`}>
+                        {post.status || "Published"}
+                      </span>
 
-<path
-d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2zm13 8H4v10h16V10z"
-/>
+                    </div>
 
-</svg>
+                    {/* CONTENT */}
+                    <div className={`${base}__content`}>
 
-<span>{post.date}</span>
+                      {/* CATEGORY */}
+                      <span className={`${base}__category`}>
+                        {post.category || "Property"}
+                      </span>
 
-</div>
+                      {/* TITLE */}
+                      <h3>
+                        {post.title || "No Title"}
+                      </h3>
 
-</div>
+                      {/* META */}
+                      <div className={`${base}__meta`}>
 
-<h3>{post.title}</h3>
+                        <div className={`${base}__meta-item`}>
+                          <span>👤</span>
 
-<p>{post.desc}</p>
+                          <span>
+                            {post.author || "Admin"}
+                          </span>
+                        </div>
 
-</div>
+                        <div className={`${base}__meta-item`}>
+                          <span>📅</span>
 
-</div>
-))}
+                          <span>
+                            {post.createdAt
+                              ? new Date(
+                                  post.createdAt
+                                ).toLocaleDateString()
+                              : "No Date"}
+                          </span>
+                        </div>
 
-</div>
+                      </div>
 
-</div>
+                      {/* DESCRIPTION */}
+                      <p className={`${base}__description`}>
 
-</section>
+                        {(
+                          post.description ||
+                          post.desc ||
+                          post.content ||
+                          post.blogDescription ||
+                          post.shortDescription ||
+                          ""
+                        )
+                          .replace(/<[^>]*>?/gm, "")
+                          .slice(0, 140) ||
+                          "No Description"}
 
-)
+                      </p>
 
-}
+                      {/* TAG */}
+                      <div className={`${base}__tag`}>
+                        #{post.tags || "RealEstate"}
+                      </div>
 
-export default ReletedPost
+                    </div>
+
+                  </Link>
+
+                );
+              })}
+
+            </div>
+
+            {/* EMPTY */}
+            {posts.length === 0 && (
+              <div className={`${base}__empty`}>
+                No Blogs Found
+              </div>
+            )}
+
+          </>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default ReletedPost;

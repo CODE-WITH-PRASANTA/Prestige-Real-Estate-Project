@@ -19,83 +19,64 @@ import {
 } from "react-icons/fa";
 
 const GridProperty = () => {
-
   /* ================= STATES ================= */
   const [properties, setProperties] = useState([]);
-
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState("");
-
   const [sortBy, setSortBy] = useState("default");
-
   const [viewType, setViewType] = useState("grid");
-
   const [visibleCount, setVisibleCount] = useState(6);
 
   /* ================= FETCH DATA ================= */
   useEffect(() => {
-
     const fetchProperties = async () => {
-
       try {
+        const { data } = await API.get("/property");
 
-        const res = await API.get("/property");
+        console.log("✅ API RESPONSE:", data);
 
-        let data = res.data;
-
+        // HANDLE DIFFERENT API STRUCTURES
         if (Array.isArray(data)) {
           setProperties(data);
-        }
-
-        else if (Array.isArray(data.data)) {
+        } else if (Array.isArray(data.data)) {
           setProperties(data.data);
-        }
-
-        else if (Array.isArray(data.properties)) {
+        } else if (Array.isArray(data.properties)) {
           setProperties(data.properties);
-        }
-
-        else {
+        } else {
           setProperties([]);
         }
-
       } catch (err) {
-
-        console.error(err);
-
+        console.error("❌ FETCH ERROR:", err);
         setError("Failed to load properties");
-
       } finally {
-
         setLoading(false);
-
       }
     };
 
     fetchProperties();
-
   }, []);
-
-  
 
   /* ================= SORT ================= */
   const sortedProperties = useMemo(() => {
-
     let sorted = [...properties];
 
     switch (sortBy) {
-
       case "low":
-        sorted.sort((a, b) => a.price - b.price);
+        sorted.sort(
+          (a, b) => Number(a.price || 0) - Number(b.price || 0)
+        );
         break;
 
       case "high":
-        sorted.sort((a, b) => b.price - a.price);
+        sorted.sort(
+          (a, b) => Number(b.price || 0) - Number(a.price || 0)
+        );
         break;
 
       case "rating":
-        sorted.sort((a, b) => b.rating - a.rating);
+        sorted.sort(
+          (a, b) => Number(b.rating || 0) - Number(a.rating || 0)
+        );
         break;
 
       case "latest":
@@ -111,7 +92,6 @@ const GridProperty = () => {
     }
 
     return sorted;
-
   }, [properties, sortBy]);
 
   /* ================= LOAD MORE ================= */
@@ -127,7 +107,7 @@ const GridProperty = () => {
   /* ================= LOADING ================= */
   if (loading) {
     return (
-      <h2 style={{ textAlign: "center" }}>
+      <h2 style={{ textAlign: "center", padding: "40px" }}>
         Loading...
       </h2>
     );
@@ -140,6 +120,7 @@ const GridProperty = () => {
         style={{
           textAlign: "center",
           color: "red",
+          padding: "40px",
         }}
       >
         {error}
@@ -149,7 +130,6 @@ const GridProperty = () => {
 
   return (
     <section className="gridProperty">
-
       <div className="gridProperty-container">
 
         {/* ================= TOOLBAR ================= */}
@@ -157,57 +137,49 @@ const GridProperty = () => {
 
           {/* RESULT */}
           <div className="gridProperty-result">
-            Showing result{" "}
-            <span>
-              {visibleProperties.length}
-            </span>
+            Showing Result{" "}
+            <span>{visibleProperties.length}</span>
           </div>
 
           <div className="gridProperty-toolbarRight">
 
             {/* SORT */}
             <div className="gridProperty-selectWrap">
-
               <label>Sort By</label>
 
-<div className="gridProperty-selectBox">
+              <div className="gridProperty-selectBox">
+                <select
+                  value={sortBy}
+                  onChange={(e) =>
+                    setSortBy(e.target.value)
+                  }
+                  className="gridProperty-selectInput"
+                >
+                  <option value="default">
+                    Default
+                  </option>
 
-  <select
-    value={sortBy}
-    onChange={(e) =>
-      setSortBy(e.target.value)
-    }
-    className="gridProperty-selectInput"
-  >
+                  <option value="latest">
+                    Latest Property
+                  </option>
 
-    <option value="default">
-      Default
-    </option>
+                  <option value="low">
+                    Price: Low to High
+                  </option>
 
-    <option value="latest">
-      Latest Property
-    </option>
+                  <option value="high">
+                    Price: High to Low
+                  </option>
 
-    <option value="low">
-      Price: Low to High
-    </option>
+                  <option value="rating">
+                    Top Rated
+                  </option>
+                </select>
 
-    <option value="high">
-      Price: High to Low
-    </option>
-
-    <option value="rating">
-      Top Rated
-    </option>
-
-  </select>
-
-  <span className="gridProperty-selectArrow">
-    <FaChevronDown />
-  </span>
-
-</div>
-
+                <span className="gridProperty-selectArrow">
+                  <FaChevronDown />
+                </span>
+              </div>
             </div>
 
             {/* VIEW BUTTONS */}
@@ -216,13 +188,9 @@ const GridProperty = () => {
               {/* LIST */}
               <button
                 className={`gridProperty-viewBtn ${
-                  viewType === "list"
-                    ? "active"
-                    : ""
+                  viewType === "list" ? "active" : ""
                 }`}
-                onClick={() =>
-                  setViewType("list")
-                }
+                onClick={() => setViewType("list")}
               >
                 <FaListUl />
               </button>
@@ -230,13 +198,9 @@ const GridProperty = () => {
               {/* GRID */}
               <button
                 className={`gridProperty-viewBtn ${
-                  viewType === "grid"
-                    ? "active"
-                    : ""
+                  viewType === "grid" ? "active" : ""
                 }`}
-                onClick={() =>
-                  setViewType("grid")
-                }
+                onClick={() => setViewType("grid")}
               >
                 <FaThLarge />
               </button>
@@ -244,28 +208,20 @@ const GridProperty = () => {
               {/* MAP */}
               <button
                 className={`gridProperty-viewBtn ${
-                  viewType === "map"
-                    ? "active"
-                    : ""
+                  viewType === "map" ? "active" : ""
                 }`}
-                onClick={() =>
-                  setViewType("map")
-                }
+                onClick={() => setViewType("map")}
               >
                 <FaMapMarkedAlt />
               </button>
 
             </div>
-
           </div>
-
         </div>
 
         {/* ================= MAP VIEW ================= */}
         {viewType === "map" ? (
-
           <div className="gridProperty-mapView">
-
             <iframe
               title="property-map"
               src="https://maps.google.com/maps?q=india&t=&z=5&ie=UTF8&iwloc=&output=embed"
@@ -277,11 +233,8 @@ const GridProperty = () => {
               }}
               loading="lazy"
             ></iframe>
-
           </div>
-
         ) : (
-
           <>
             {/* ================= GRID / LIST ================= */}
             <div
@@ -291,9 +244,7 @@ const GridProperty = () => {
                   : ""
               }`}
             >
-
               {visibleProperties.map((item) => (
-
                 <Link
                   to={`/property/${item._id}`}
                   key={item._id}
@@ -313,7 +264,7 @@ const GridProperty = () => {
                           ? `${IMG_URL}${item.banner}`
                           : "https://via.placeholder.com/400x300"
                       }
-                      alt={item.title}
+                      alt={item.title || "property"}
                       className="gridProperty-image"
                     />
 
@@ -321,13 +272,11 @@ const GridProperty = () => {
 
                     {/* BADGES */}
                     <div className="gridProperty-topBadges">
-
                       {item.featured && (
                         <span className="gridProperty-badge gridProperty-badgeFeatured">
                           <FaTag /> Featured
                         </span>
                       )}
-
                     </div>
 
                     {/* HEART */}
@@ -339,13 +288,12 @@ const GridProperty = () => {
                     <div className="gridProperty-price">
                       ₹
                       {Number(
-                        item.price
+                        item.price || 0
                       ).toLocaleString()}
                     </div>
 
                     {/* OWNER */}
                     <div className="gridProperty-agent">
-
                       <img
                         src={
                           item.ownerImage
@@ -354,7 +302,6 @@ const GridProperty = () => {
                         }
                         alt="agent"
                       />
-
                     </div>
 
                   </div>
@@ -381,18 +328,16 @@ const GridProperty = () => {
 
                     {/* TITLE */}
                     <h3 className="gridProperty-title">
-                      {item.title}
+                      {item.title || "No Title"}
                     </h3>
 
                     {/* LOCATION */}
                     <div className="gridProperty-location">
-
                       <FaMapMarkerAlt />
 
                       <span>
-                        {item.location}
+                        {item.location || "Location not available"}
                       </span>
-
                     </div>
 
                     {/* FEATURES */}
@@ -402,8 +347,7 @@ const GridProperty = () => {
                         <FaBed />
 
                         <span>
-                          {item.features?.bedroom || 0}
-                          {" "}Bedroom
+                          {item.features?.bedroom || 0} Bedroom
                         </span>
                       </div>
 
@@ -411,8 +355,7 @@ const GridProperty = () => {
                         <FaBath />
 
                         <span>
-                          {item.features?.bathroom || 0}
-                          {" "}Bath
+                          {item.features?.bathroom || 0} Bath
                         </span>
                       </div>
 
@@ -420,8 +363,7 @@ const GridProperty = () => {
                         <FaRulerCombined />
 
                         <span>
-                          {item.sqft || 0}
-                          {" "}Sq Ft
+                          {item.sqft || 0} Sq Ft
                         </span>
                       </div>
 
@@ -432,52 +374,40 @@ const GridProperty = () => {
 
                       <div>
                         <strong>Listed on:</strong>{" "}
-
-                        {new Date(
-                          item.createdAt
-                        ).toDateString()}
+                        {item.createdAt
+                          ? new Date(
+                              item.createdAt
+                            ).toDateString()
+                          : "N/A"}
                       </div>
 
                       <div>
                         <strong>Category:</strong>{" "}
-                        {item.category}
+                        {item.category || "Property"}
                       </div>
 
                     </div>
 
                   </div>
-
                 </Link>
-
               ))}
-
             </div>
 
             {/* ================= LOAD MORE ================= */}
             {visibleCount < sortedProperties.length && (
-
               <div className="gridProperty-loadMoreWrap">
-
                 <button
                   className="gridProperty-loadMore"
                   onClick={handleLoadMore}
                 >
-
                   <FaSyncAlt />
-
                   Load More
-
                 </button>
-
               </div>
-
             )}
-
           </>
         )}
-
       </div>
-
     </section>
   );
 };
