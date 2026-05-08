@@ -64,6 +64,44 @@ const getAllProperties = async (req, res) => {
   }
 };
 
+const togglePropertyStatus = async (req, res) => {
+
+  try {
+
+    const property = await Property.findById(
+      req.params.id
+    );
+
+    if (!property) {
+
+      return res.status(404).json({
+        success: false,
+        message: "Property not found",
+      });
+    }
+
+    property.status =
+      property.status === "published"
+        ? "draft"
+        : "published";
+
+    await property.save();
+
+    res.json({
+      success: true,
+      message: "Status Updated",
+      data: property,
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
 // ================= GET SINGLE =================
 const getSingleProperty = async (req, res) => {
   try {
@@ -215,5 +253,6 @@ module.exports = {
   getAllProperties,
   getSingleProperty,
   deleteProperty,
-  updateProperty
+  updateProperty,
+  togglePropertyStatus,
 };

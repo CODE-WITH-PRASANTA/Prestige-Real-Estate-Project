@@ -7,7 +7,8 @@ const {
   getAllProperties,
   getSingleProperty,
   deleteProperty,
-  updateProperty
+  updateProperty,
+  togglePropertyStatus
 } = require("../controllers/property.controller");
 
 // ✅ YOUR MULTER
@@ -26,6 +27,11 @@ router.post(
   ]),
   convertToWebp,
   addProperty
+);
+
+router.patch(
+  "/toggle-status/:id",
+  togglePropertyStatus
 );
 
 // 📥 GET ALL

@@ -61,8 +61,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           icon: <FaPlusSquare />, // ➕
         },
         {
-          name: "All Details Review",
-          path: "/property/review",
+          name: "Property Inquiry Management",
+          path: "/property/inquiry",
           icon: <FaClipboardCheck />, // ✅
         },
       ],

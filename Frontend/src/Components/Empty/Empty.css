@@ -209,8 +209,9 @@
   height: 74px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #ffffff;
+  border: 4px solid #eebd36;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+  background: #000;
 }
 
 .emptyProperty__ownerTop h3 {
@@ -364,10 +365,10 @@
 
 /* MORTGAGE */
 .emptyProperty__mortgageSummary {
-  padding: 0 24px 28px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+    padding: 0 0px 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
 }
 
 .emptyProperty__summaryBox {

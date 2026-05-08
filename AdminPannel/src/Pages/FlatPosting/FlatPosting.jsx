@@ -4,10 +4,11 @@ import { Editor } from "@tinymce/tinymce-react";
 import Swal from "sweetalert2";
 import { API, IMG_URL } from "../../api/axios";
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const FlatPosting = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const fileRef = useRef();
   const [activeSection, setActiveSection] = useState("basic");
   const [images, setImages] = useState([]);
@@ -441,176 +442,214 @@ const FlatPosting = () => {
         </div>
       </div>
 
-      {/* ================= SECTION 2 ================= */}
-      <div className="FlatPost__section">
-        <div
-          className="FlatPost__header"
-          onClick={() => toggleSection("features")}
+{/* ================= SECTION 2 ================= */}
+<div className="FlatPost__section">
+  <div
+    className="FlatPost__header"
+    onClick={() => toggleSection("features")}
+  >
+    <span>Property Features</span>
+
+    <FaChevronDown
+      className={`FlatPost__icon ${
+        activeSection === "features" ? "rotate" : ""
+      }`}
+    />
+  </div>
+
+  <div
+    className={`FlatPost__content ${
+      activeSection === "features" ? "open" : ""
+    }`}
+  >
+    <div className="FlatPost__grid">
+
+      {/* Bedroom */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Bedroom</label>
+        <select
+          className="FlatPost__input"
+          value={features.bedroom || ""}
+          onChange={(e) => handleFeatureChange("bedroom", e.target.value)}
         >
-          <span>Property Features</span>
-          <FaChevronDown
-            className={`FlatPost__icon ${
-              activeSection === "features" ? "rotate" : ""
-            }`}
-          />
-        </div>
-
-        <div
-          className={`FlatPost__content ${
-            activeSection === "features" ? "open" : ""
-          }`}
-        >
-         <div className="FlatPost__grid">
-
-            {/* Bedroom */}
-            <select
-              className="FlatPost__input"
-              value={features.bedroom || ""}
-              onChange={(e) => handleFeatureChange("bedroom", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-            {/* Bathroom */}
-            <select
-              className="FlatPost__input"
-              value={features.bathroom || ""}
-              onChange={(e) => handleFeatureChange("bathroom", e.target.value)}
-            >
-              {renderOptions(5)}
-            </select>
-
-            {/* Parking */}
-            <select
-              className="FlatPost__input"
-              value={features.parking || ""}
-              onChange={(e) => handleFeatureChange("parking", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-            {/* Balcony */}
-            <select
-              className="FlatPost__input"
-              value={features.balcony || ""}
-              onChange={(e) => handleFeatureChange("balcony", e.target.value)}
-            >
-              {renderOptions(5)}
-            </select>
-
-            {/* Floor */}
-            <select
-              className="FlatPost__input"
-              value={features.floor || ""}
-              onChange={(e) => handleFeatureChange("floor", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-            {/* Wardrobe */}
-            <select
-              className="FlatPost__input"
-              value={features.wardrobe || ""}
-              onChange={(e) => handleFeatureChange("wardrobe", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-            {/* TV */}
-            <select
-              className="FlatPost__input"
-              value={features.tv || ""}
-              onChange={(e) => handleFeatureChange("tv", e.target.value)}
-            >
-              {renderOptions(5)}
-            </select>
-
-            {/* Purifier */}
-            <select
-              className="FlatPost__input"
-              value={features.purifier || ""}
-              onChange={(e) => handleFeatureChange("purifier", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-            {/* Microwave */}
-            <select
-              className="FlatPost__input"
-              value={features.microwave || ""}
-              onChange={(e) => handleFeatureChange("microwave", e.target.value)}
-            >
-              {renderOptions(5)}
-            </select>
-
-            {/* AC */}
-            <select
-              className="FlatPost__input"
-              value={features.ac || ""}
-              onChange={(e) => handleFeatureChange("ac", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-            {/* Fridge */}
-            <select
-              className="FlatPost__input"
-              value={features.fridge || ""}
-              onChange={(e) => handleFeatureChange("fridge", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-            {/* Curtains */}
-            <select
-              className="FlatPost__input"
-              value={features.curtains || ""}
-              onChange={(e) => handleFeatureChange("curtains", e.target.value)}
-            >
-              {renderOptions(10)}
-            </select>
-
-          </div>
-
-          {/* ===== AMENITIES ===== */}
-          <div className="FlatPost__amenities">
-            <h3 className="FlatPost__subTitle">Amenities</h3>
-
-            <div className="FlatPost__amenitiesGrid">
-              {[
-                "Gym",
-                "Swimming Pool",
-                "Power Backup",
-                "Lift",
-                "Security",
-                "Club House",
-                "Garden",
-                "Children Play Area",
-                "Parking Area",
-                "CCTV",
-                "WiFi",
-                "Fire Safety",
-              ].map((item, i) => (
-                <label key={i} className="FlatPost__amenityItem">
-                  <input
-                    type="checkbox"
-                    checked={amenities.includes(item)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setAmenities((prev) => [...new Set([...prev, item])]);
-                      } else {
-                        setAmenities((prev) => prev.filter((a) => a !== item));
-                      }
-                    }}
-                  />
-                  <span>{item}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-        </div>
+          {renderOptions(10)}
+        </select>
       </div>
+
+      {/* Bathroom */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Bathroom</label>
+        <select
+          className="FlatPost__input"
+          value={features.bathroom || ""}
+          onChange={(e) => handleFeatureChange("bathroom", e.target.value)}
+        >
+          {renderOptions(5)}
+        </select>
+      </div>
+
+      {/* Parking */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Parking</label>
+        <select
+          className="FlatPost__input"
+          value={features.parking || ""}
+          onChange={(e) => handleFeatureChange("parking", e.target.value)}
+        >
+          {renderOptions(10)}
+        </select>
+      </div>
+
+      {/* Balcony */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Balcony</label>
+        <select
+          className="FlatPost__input"
+          value={features.balcony || ""}
+          onChange={(e) => handleFeatureChange("balcony", e.target.value)}
+        >
+          {renderOptions(5)}
+        </select>
+      </div>
+
+      {/* Floor */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Floor</label>
+        <select
+          className="FlatPost__input"
+          value={features.floor || ""}
+          onChange={(e) => handleFeatureChange("floor", e.target.value)}
+        >
+          {renderOptions(10)}
+        </select>
+      </div>
+
+      {/* Wardrobe */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Wardrobe</label>
+        <select
+          className="FlatPost__input"
+          value={features.wardrobe || ""}
+          onChange={(e) => handleFeatureChange("wardrobe", e.target.value)}
+        >
+          {renderOptions(10)}
+        </select>
+      </div>
+
+      {/* TV */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">TV</label>
+        <select
+          className="FlatPost__input"
+          value={features.tv || ""}
+          onChange={(e) => handleFeatureChange("tv", e.target.value)}
+        >
+          {renderOptions(5)}
+        </select>
+      </div>
+
+      {/* Purifier */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Water Purifier</label>
+        <select
+          className="FlatPost__input"
+          value={features.purifier || ""}
+          onChange={(e) => handleFeatureChange("purifier", e.target.value)}
+        >
+          {renderOptions(10)}
+        </select>
+      </div>
+
+      {/* Microwave */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Microwave</label>
+        <select
+          className="FlatPost__input"
+          value={features.microwave || ""}
+          onChange={(e) => handleFeatureChange("microwave", e.target.value)}
+        >
+          {renderOptions(5)}
+        </select>
+      </div>
+
+      {/* AC */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">AC</label>
+        <select
+          className="FlatPost__input"
+          value={features.ac || ""}
+          onChange={(e) => handleFeatureChange("ac", e.target.value)}
+        >
+          {renderOptions(10)}
+        </select>
+      </div>
+
+      {/* Fridge */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Fridge</label>
+        <select
+          className="FlatPost__input"
+          value={features.fridge || ""}
+          onChange={(e) => handleFeatureChange("fridge", e.target.value)}
+        >
+          {renderOptions(10)}
+        </select>
+      </div>
+
+      {/* Curtains */}
+      <div className="FlatPost__field">
+        <label className="FlatPost__label">Curtains</label>
+        <select
+          className="FlatPost__input"
+          value={features.curtains || ""}
+          onChange={(e) => handleFeatureChange("curtains", e.target.value)}
+        >
+          {renderOptions(10)}
+        </select>
+      </div>
+
+    </div>
+
+    {/* ===== AMENITIES ===== */}
+    <div className="FlatPost__amenities">
+      <h3 className="FlatPost__subTitle">Amenities</h3>
+
+      <div className="FlatPost__amenitiesGrid">
+        {[
+          "Gym",
+          "Swimming Pool",
+          "Power Backup",
+          "Lift",
+          "Security",
+          "Club House",
+          "Garden",
+          "Children Play Area",
+          "Parking Area",
+          "CCTV",
+          "WiFi",
+          "Fire Safety",
+        ].map((item, i) => (
+          <label key={i} className="FlatPost__amenityItem">
+            <input
+              type="checkbox"
+              checked={amenities.includes(item)}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setAmenities((prev) => [...new Set([...prev, item])]);
+                } else {
+                  setAmenities((prev) =>
+                    prev.filter((a) => a !== item)
+                  );
+                }
+              }}
+            />
+            <span>{item}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* ================= SECTION 3 ================= */}
       <div className="FlatPost__section">

@@ -15,8 +15,12 @@ import RentDetails from "./Pages/RentDetails/RentDetails";
 import ContactManagement from "./Pages/ContactManagement/ContactManagement";
 import PropertyList from "./Component/PropertyList.jsx/PropertyList";
 import PropertyView from "./Component/PropertyList.jsx/PropertyView";
+<<<<<<< HEAD
 import BlogManagement from "./Pages/BlogManagement/BlogManagement";
 
+=======
+import PropertyInquiry from "./Pages/PropertyInquiry/PropertyInquiry";
+>>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
 
 const App = () => {
   return (
@@ -37,15 +41,16 @@ const App = () => {
           <Route path="/admin/testimonial" element={<TestimonialPost />} />
           <Route path="/admin/enquiry" element={<EnquiryAdmin />} />
           <Route path="/admin/faq" element={<MainFaq />} /> {/* ✅ FIXED */}
-          <Route path="/flat/post" element={<FlatPosting/>}/>
-          <Route path="/admin/testimonial" element={<TestimonialPost/>}/>
-          <Route path="/admin/enquiry" element={<EnquiryAdmin/>}/>
+          <Route path="/flat/post/:id?" element={<FlatPosting />} />
+          <Route path="/admin/testimonial" element={<TestimonialPost />} />
+          <Route path="/admin/enquiry" element={<EnquiryAdmin />} />
           <Route path="/admin/gallery" element={<MainGallary />} />
           <Route path="/rent/post" element={<RentProperty />} />
           <Route path="/rent/details" element={<RentDetails />} />
           <Route path="/admin/contact" element={<ContactManagement />} />
           <Route path="/properties" element={<PropertyList />} />
           <Route path="/property/:id" element={<PropertyView />} />
+          <Route path="/property/inquiry" element={<PropertyInquiry />} />
         </Route>
       </Routes>
     </BrowserRouter>
