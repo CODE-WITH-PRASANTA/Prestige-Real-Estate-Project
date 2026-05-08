@@ -1,0 +1,460 @@
+.PropertyInquiry {
+  width: 100%;
+  padding: 28px;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+/* TOP */
+.PropertyInquiry__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+
+.PropertyInquiry__title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.PropertyInquiry__subtitle {
+  font-size: 16px;
+  color: #6b7280;
+}
+
+.PropertyInquiry__searchBox {
+  width: 320px;
+  height: 54px;
+  background: #ffffff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border: 1px solid #e5e7eb;
+}
+
+.PropertyInquiry__searchBox svg {
+  color: #6b7280;
+}
+
+.PropertyInquiry__searchBox input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+}
+
+/* TABLE */
+.PropertyInquiry__tableCard {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+.PropertyInquiry__tableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.PropertyInquiry__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1100px;
+}
+
+.PropertyInquiry__table thead {
+  background: #111827;
+}
+
+.PropertyInquiry__table thead th {
+  padding: 20px;
+  text-align: left;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.PropertyInquiry__table tbody tr {
+  border-bottom: 1px solid #edf0f5;
+  transition: 0.3s ease;
+}
+
+.PropertyInquiry__table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.PropertyInquiry__table tbody td {
+  padding: 22px 20px;
+  vertical-align: top;
+}
+
+/* SL */
+.PropertyInquiry__sl {
+  width: 38px;
+  height: 38px;
+  background: #eef2ff;
+  color: #4338ca;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* USER */
+.PropertyInquiry__userInfo h3 {
+  font-size: 17px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.PropertyInquiry__userInfo p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.PropertyInquiry__userInfo span {
+  font-size: 14px;
+  color: #374151;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.PropertyInquiry__message {
+  background: #f3f4f6;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+/* DATE */
+.PropertyInquiry__date {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* STATUS */
+.PropertyInquiry__status {
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.PropertyInquiry__status--connected {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.PropertyInquiry__status--disconnected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ACTIONS */
+.PropertyInquiry__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.PropertyInquiry__actionBtn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s ease;
+}
+
+.PropertyInquiry__editBtn {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.PropertyInquiry__deleteBtn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.PropertyInquiry__connectBtn {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.PropertyInquiry__disconnectBtn {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.PropertyInquiry__actionBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* EMPTY */
+.PropertyInquiry__empty {
+  padding: 50px 20px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* ================= MODAL ================= */
+
+.PropertyInquiry__modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.PropertyInquiry__modal {
+  width: 100%;
+  max-width: 620px;
+
+  background: #ffffff;
+  border-radius: 26px;
+
+  overflow: hidden;
+
+  animation: PropertyInquiryModal 0.3s ease;
+}
+
+@keyframes PropertyInquiryModal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.PropertyInquiry__modalHeader {
+  padding: 24px 28px;
+
+  border-bottom: 1px solid #edf0f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.PropertyInquiry__modalHeader h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.PropertyInquiry__closeBtn {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+  border: none;
+
+  background: #f3f4f6;
+
+  cursor: pointer;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  transition: 0.3s ease;
+}
+
+.PropertyInquiry__closeBtn:hover {
+  background: #e5e7eb;
+}
+
+.PropertyInquiry__modalBody {
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.PropertyInquiry__modalField {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.PropertyInquiry__modalField label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.PropertyInquiry__modalField input,
+.PropertyInquiry__modalField textarea {
+  width: 100%;
+
+  border: 1px solid #dbe2ea;
+  border-radius: 14px;
+
+  padding: 16px 18px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.3s ease;
+}
+
+.PropertyInquiry__modalField input:focus,
+.PropertyInquiry__modalField textarea:focus {
+  border-color: #4f46e5;
+}
+
+.PropertyInquiry__modalFooter {
+  padding: 24px 28px;
+
+  border-top: 1px solid #edf0f5;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.PropertyInquiry__cancelBtn,
+.PropertyInquiry__updateBtn {
+  border: none;
+  outline: none;
+
+  padding: 14px 22px;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.PropertyInquiry__cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.PropertyInquiry__updateBtn {
+  background: #111827;
+  color: #ffffff;
+}
+
+.PropertyInquiry__cancelBtn:hover,
+.PropertyInquiry__updateBtn:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .PropertyInquiry__modal {
+    max-width: 100%;
+  }
+
+  .PropertyInquiry__modalHeader {
+    padding: 20px;
+  }
+
+  .PropertyInquiry__modalBody {
+    padding: 20px;
+  }
+
+  .PropertyInquiry__modalFooter {
+    padding: 20px;
+
+    flex-direction: column;
+  }
+
+  .PropertyInquiry__cancelBtn,
+  .PropertyInquiry__updateBtn {
+    width: 100%;
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .PropertyInquiry {
+    padding: 20px;
+  }
+
+  .PropertyInquiry__title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .PropertyInquiry {
+    padding: 16px;
+  }
+
+  .PropertyInquiry__top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .PropertyInquiry__searchBox {
+    width: 100%;
+  }
+
+  .PropertyInquiry__title {
+    font-size: 24px;
+  }
+
+  .PropertyInquiry__table thead th,
+  .PropertyInquiry__table tbody td {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .PropertyInquiry__title {
+    font-size: 22px;
+  }
+
+  .PropertyInquiry__subtitle {
+    font-size: 14px;
+  }
+
+  .PropertyInquiry__message {
+    max-width: 240px;
+  }
+
+  .PropertyInquiry__actionBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

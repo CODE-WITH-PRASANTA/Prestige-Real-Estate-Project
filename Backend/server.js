@@ -18,6 +18,8 @@ const galleryRoutes = require("./routes/gallery.routes");
 const enquiryRoutes = require("./routes/enquiry.routes");
 const rentRoutes = require("./routes/rent.routes");
 const userPropertyRoutes = require("./routes/userProperty.routes");
+const propertyInquiryRoutes = require("./routes/propertyinquiry.routes");
+const rentInquiryRoutes = require("./routes/rentInquiry.routes");
 
 const app = express();
 
@@ -49,7 +51,8 @@ app.use("/api/enquiries", enquiryRoutes);
 app.use("/api/rent", rentRoutes);
 app.use("/api/cold-leads", coldLeadRoutes);
 app.use("/api/user-properties", userPropertyRoutes);
-
+app.use("/api/property-inquiries", propertyInquiryRoutes);
+app.use("/api/rent-inquiries", rentInquiryRoutes);
 /* ================= 404 HANDLER ================= */
 app.use((req, res) => {
   res.status(404).json({

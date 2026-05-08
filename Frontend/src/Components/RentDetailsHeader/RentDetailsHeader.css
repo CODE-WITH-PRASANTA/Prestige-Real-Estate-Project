@@ -1,0 +1,419 @@
+/* =========================================
+   RENT DETAILS HEADER
+========================================= */
+
+.rent-header-card {
+  width: 100%;
+  background: #ffffff;
+
+  border-radius: 28px;
+
+  padding: 35px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  overflow: hidden;
+}
+
+/* =========================================
+   TOP SECTION
+========================================= */
+
+.rent-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* =========================================
+   LEFT CONTENT
+========================================= */
+
+.rent-header-left {
+  flex: 1;
+}
+
+.rent-header-left h1 {
+  font-size: 42px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #0f172a;
+
+  margin-bottom: 16px;
+}
+
+/* =========================================
+   LOCATION
+========================================= */
+
+.rent-location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 17px;
+  font-weight: 500;
+  color: #64748b;
+
+  margin-bottom: 20px;
+}
+
+.rent-location svg {
+  color: #10b981;
+  font-size: 20px;
+}
+
+/* =========================================
+   TAGS
+========================================= */
+
+.rent-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rent-tag {
+  padding: 10px 18px;
+
+  border-radius: 50px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.rent-tag.featured {
+  background: #10b981;
+  color: #fff;
+}
+
+.rent-tag.verified {
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+.rent-tag.ready {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/* =========================================
+   RIGHT PRICE
+========================================= */
+
+.rent-header-right {
+  min-width: 260px;
+
+  background: linear-gradient(
+    135deg,
+    #10b981,
+    #059669
+  );
+
+  border-radius: 24px;
+
+  padding: 28px;
+
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.rent-price-label {
+  font-size: 15px;
+  font-weight: 500;
+
+  opacity: 0.9;
+
+  margin-bottom: 10px;
+}
+
+.rent-price {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.1;
+
+  margin-bottom: 12px;
+}
+
+.rent-price small {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.rent-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  padding: 10px 14px;
+
+  border-radius: 14px;
+
+  backdrop-filter: blur(10px);
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.rent-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.rent-header-btn {
+  height: 54px;
+
+  padding: 0 24px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.rent-header-btn svg {
+  font-size: 18px;
+}
+
+/* CALL BUTTON */
+
+.call-btn {
+  background: #10b981;
+  color: #fff;
+}
+
+.call-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+/* WHATSAPP */
+
+.whatsapp-btn {
+  background: #25d366;
+  color: #fff;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+}
+
+/* SAVE */
+
+.save-btn {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.save-btn:hover {
+  background: #e2e8f0;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+/* ---------- 1200px ---------- */
+
+@media (max-width: 1200px) {
+  .rent-header-left h1 {
+    font-size: 36px;
+  }
+
+  .rent-price {
+    font-size: 36px;
+  }
+}
+
+/* ---------- 992px ---------- */
+
+@media (max-width: 992px) {
+  .rent-header-card {
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .rent-header-top {
+    flex-direction: column;
+  }
+
+  .rent-header-right {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .rent-header-left h1 {
+    font-size: 32px;
+  }
+
+  .rent-price {
+    font-size: 34px;
+  }
+}
+
+/* ---------- 768px ---------- */
+
+@media (max-width: 768px) {
+  .rent-header-card {
+    padding: 24px 20px;
+    border-radius: 22px;
+    gap: 20px;
+  }
+
+  .rent-header-left h1 {
+    font-size: 28px;
+  }
+
+  .rent-location {
+    font-size: 15px;
+  }
+
+  .rent-header-right {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .rent-price {
+    font-size: 30px;
+  }
+
+  .rent-header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .rent-header-btn {
+    width: 100%;
+    height: 52px;
+  }
+}
+
+/* ---------- 576px ---------- */
+
+@media (max-width: 576px) {
+  .rent-header-card {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  .rent-header-left h1 {
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  .rent-location {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .rent-location svg {
+    font-size: 16px;
+  }
+
+  .rent-tags {
+    gap: 10px;
+  }
+
+  .rent-tag {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .rent-header-right {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .rent-price {
+    font-size: 26px;
+  }
+
+  .rent-price small {
+    font-size: 14px;
+  }
+
+  .rent-rating {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .rent-header-btn {
+    height: 50px;
+    border-radius: 14px;
+
+    font-size: 14px;
+  }
+}
+
+/* ---------- 420px ---------- */
+
+@media (max-width: 420px) {
+  .rent-header-left h1 {
+    font-size: 22px;
+  }
+
+  .rent-price {
+    font-size: 22px;
+  }
+
+  .rent-header-right {
+    padding: 18px;
+  }
+}
+
+/* ---------- 360px ---------- */
+
+@media (max-width: 360px) {
+  .rent-header-card {
+    padding: 16px 14px;
+  }
+
+  .rent-header-left h1 {
+    font-size: 20px;
+  }
+
+  .rent-price {
+    font-size: 20px;
+  }
+
+  .rent-header-btn {
+    height: 46px;
+    font-size: 13px;
+  }
+}

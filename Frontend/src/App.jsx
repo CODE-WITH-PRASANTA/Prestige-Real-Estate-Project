@@ -86,7 +86,7 @@ function App() {
         <Route path="/property" element={<Property />} />
 
         {/* RENT */}
-        <Route path="/rent/details" element={<Rentdetails />} />
+        <Route path="/rent/details/:id" element={<Rentdetails />} />
         <Route path="/rent/property" element={<RentProperty />} />
 
         {/* BUY */}

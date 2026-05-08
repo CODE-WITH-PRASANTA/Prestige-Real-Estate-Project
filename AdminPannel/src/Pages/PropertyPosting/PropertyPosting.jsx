@@ -1,169 +1,445 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./PropertyPosting.css";
-import { FaEllipsisV } from "react-icons/fa";
 
-export default function PropertyPost() {
+import {
+  FaEllipsisV,
+  FaBed,
+  FaBath,
+  FaRulerCombined,
+  FaMapMarkerAlt,
+  FaStar,
+  FaEdit,
+  FaTrash,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
+
+import { useNavigate } from "react-router-dom";
+
+import API, { IMG_URL } from "../../api/axios";
+
+const PropertyPosting = () => {
+
+  const base = "PropertyPostGrid";
+
+  const navigate = useNavigate();
+
+  const menuRef = useRef(null);
+
+  /* ================= STATES ================= */
   const [properties, setProperties] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
   const [activeMenu, setActiveMenu] = useState(null);
 
-  // ---------------- STATIC DATA ----------------
-  useEffect(() => {
-    const dummyData = [
-      {
-        _id: "1",
-        title: "Luxury Villa",
-        price: 2500000,
-        location: "Bhubaneswar",
-        status: "published",
-        rating: 4.5,
-        reviews: 20,
-        images: ["https://via.placeholder.com/300"],
-        ownerImage: "https://via.placeholder.com/50",
-        features: { bedroom: 3, bathroom: 2 },
-        sqft: "1500 sqft",
-        category: "Villa",
-        createdAt: new Date(),
-      },
-      {
-        _id: "2",
-        title: "Modern Apartment",
-        price: 1500000,
-        location: "Cuttack",
-        status: "draft",
-        rating: 4.2,
-        reviews: 10,
-        images: ["https://via.placeholder.com/300"],
-        ownerImage: "https://via.placeholder.com/50",
-        features: { bedroom: 2, bathroom: 1 },
-        sqft: "900 sqft",
-        category: "Apartment",
-        createdAt: new Date(),
-      },
-    ];
+  /* ================= FETCH ================= */
+  const fetchProperties = async () => {
 
-    setProperties(dummyData);
+    try {
+
+      setLoading(true);
+
+      const res = await API.get("/property");
+
+      setProperties(res.data.data || []);
+
+    } catch (error) {
+
+      console.error(error);
+
+    } finally {
+
+      setLoading(false);
+
+    }
+  };
+
+  useEffect(() => {
+    fetchProperties();
   }, []);
 
-  // ---------------- MENU ----------------
+  /* ================= CLOSE MENU ================= */
+  useEffect(() => {
+
+    const closeMenu = (e) => {
+
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target)
+      ) {
+        setActiveMenu(null);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => {
+      document.removeEventListener(
+        "click",
+        closeMenu
+      );
+    };
+
+  }, []);
+
+  /* ================= MENU ================= */
   const toggleMenu = (id) => {
-    setActiveMenu((prev) => (prev === id ? null : id));
+
+    setActiveMenu((prev) =>
+      prev === id ? null : id
+    );
   };
 
-  useEffect(() => {
-    const close = () => setActiveMenu(null);
-    window.addEventListener("click", close);
-    return () => window.removeEventListener("click", close);
-  }, []);
+  /* ================= DELETE ================= */
+  const handleDelete = async (id) => {
 
-  const stopPropagation = (e) => e.stopPropagation();
+    try {
 
-  // ---------------- ACTIONS (FRONTEND ONLY) ----------------
-  const handleDelete = (id) => {
-    setProperties((prev) => prev.filter((item) => item._id !== id));
+      const confirmDelete = window.confirm(
+        "Delete this property?"
+      );
+
+      if (!confirmDelete) return;
+
+      await API.delete(`/property/${id}`);
+
+      setProperties((prev) =>
+        prev.filter((item) => item._id !== id)
+      );
+
+    } catch (error) {
+
+      console.error(error);
+    }
   };
 
-  const handlePublish = (id) => {
+  /* ================= PUBLISH ================= */
+const handlePublishToggle = async (
+  id
+) => {
+
+  try {
+
+    const res = await API.patch(
+      `/property/toggle-status/${id}`
+    );
+
+    const updatedProperty =
+      res.data.data;
+
     setProperties((prev) =>
       prev.map((item) =>
-        item._id === id ? { ...item, status: "published" } : item
+        item._id === id
+          ? updatedProperty
+          : item
       )
     );
+
+    setActiveMenu(null);
+
+  } catch (error) {
+
+    console.error(error);
+  }
+};
+
+  /* ================= EDIT ================= */
+  const handleEdit = (id) => {
+
+    navigate(`/flat/post/${id}`);
   };
 
-  const handleUnpublish = (id) => {
-    setProperties((prev) =>
-      prev.map((item) =>
-        item._id === id ? { ...item, status: "draft" } : item
-      )
+  /* ================= LOADING ================= */
+  if (loading) {
+    return (
+      <div className={`${base}__loading`}>
+        Loading properties...
+      </div>
     );
-  };
+  }
 
-  const handleEdit = (item) => {
-    const newTitle = prompt("Edit Title", item.title);
-    if (!newTitle) return;
-
-    setProperties((prev) =>
-      prev.map((p) =>
-        p._id === item._id ? { ...p, title: newTitle } : p
-      )
-    );
-  };
-
-  // ---------------- UI ----------------
   return (
-    <div className="pp-container">
+    <section className={base}>
+
+      {/* HEADER */}
+      <div className={`${base}__top`}>
+
+        <div>
+          <h1 className={`${base}__title`}>
+            Property Management
+          </h1>
+
+          <p className={`${base}__subtitle`}>
+            Manage all listed property details
+          </p>
+        </div>
+
+      </div>
+
+      {/* EMPTY */}
       {properties.length === 0 ? (
-        <p className="pp-empty">No properties found</p>
+
+        <div className={`${base}__empty`}>
+          No Properties Found
+        </div>
+
       ) : (
-        properties.map((item) => {
-          const features = item.features || {};
 
-          return (
-            <div className="pp-card" key={item._id}>
-              
-              <div className="pp-imgBox">
-                <img src={item.images[0]} alt="property" />
+        <div className={`${base}__grid`}>
 
-                <span className="pp-tag">
-                  {item.status === "published" ? "Published" : "Draft"}
-                </span>
+          {properties.map((item) => {
 
-                <span className="pp-price">₹{item.price}</span>
+            const features =
+              item.features || {};
 
-                <img
-                  className="pp-user"
-                  src={item.ownerImage}
-                  alt="owner"
-                />
+            return (
 
-                {/* MENU */}
-                <div className="pp-menu" onClick={stopPropagation}>
-                  <FaEllipsisV onClick={() => toggleMenu(item._id)} />
+              <article
+                key={item._id}
+                className={`${base}__card`}
+              >
 
-                  {activeMenu === item._id && (
-                    <div className="pp-dropdown">
-                      <p onClick={() => handlePublish(item._id)}>Publish</p>
-                      <p onClick={() => handleUnpublish(item._id)}>Unpublish</p>
-                      <p onClick={() => handleEdit(item)}>Edit</p>
-                      <p className="danger" onClick={() => handleDelete(item._id)}>
-                        Delete
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
+                {/* IMAGE */}
+                <div className={`${base}__imageWrap`}>
 
-              <div className="pp-content">
-                <div className="pp-rating">
-                  ⭐ {item.rating} ({item.reviews})
-                </div>
+                  <img
+                    src={
+                      item.banner
+                        ? `${IMG_URL}${item.banner}`
+                        : "https://via.placeholder.com/500x300"
+                    }
+                    alt={item.title}
+                    className={`${base}__image`}
+                  />
 
-                <h3>{item.title}</h3>
+                  {/* STATUS */}
+                  <span
+                    className={`${base}__statusTag} ${
+                      item.status ===
+                      "published"
+                        ? `${base}__statusTag--published`
+                        : `${base}__statusTag--draft`
+                    }`}
+                  >
+                    {item.status ===
+                    "published"
+                      ? "Published"
+                      : "Draft"}
+                  </span>
 
-                <p className="pp-location">📍 {item.location}</p>
+                  {/* PRICE */}
+                  <div className={`${base}__price`}>
+                    ₹
+                    {Number(
+                      item.price
+                    ).toLocaleString()}
+                  </div>
 
-                <div className="pp-features">
-                  <span>🛏 {features.bedroom} Bedroom</span>
-                  <span>🛁 {features.bathroom} Bath</span>
-                  <span>📐 {item.sqft}</span>
-                </div>
+                  {/* OWNER */}
+                  <div className={`${base}__owner`}>
 
-                <div className="pp-footer">
-                  <p>
-                    <strong>Listed:</strong>{" "}
-                    {new Date(item.createdAt).toLocaleDateString()}
-                  </p>
+                    <img
+                      src={
+                        item.ownerImage
+                          ? `${IMG_URL}${item.ownerImage}`
+                          : "https://via.placeholder.com/50"
+                      }
+                      alt="owner"
+                    />
 
-                  <p>
-                    <strong>Category:</strong> {item.category}
-                  </p>
-                </div>
-              </div>
+                  </div>
 
-            </div>
-          );
-        })
-      )}
+<div
+  className={`${base}__menu`}
+  onClick={(e) => e.stopPropagation()}
+>
+
+  {/* MENU BUTTON */}
+  <button
+    type="button"
+    className={`${base}__menuBtn`}
+    onClick={(e) => {
+
+      e.stopPropagation();
+
+      toggleMenu(item._id);
+    }}
+  >
+    <FaEllipsisV />
+  </button>
+
+  {/* DROPDOWN */}
+  {activeMenu === item._id && (
+
+    <div className={`${base}__dropdown`}>
+
+      {/* PUBLISH / UNPUBLISH */}
+      <button
+        type="button"
+        onClick={() =>
+          handlePublishToggle(
+            item._id,
+            item.status
+          )
+        }
+      >
+
+        {item.status === "published" ? (
+          <>
+            <FaEyeSlash />
+            Unpublish
+          </>
+        ) : (
+          <>
+            <FaEye />
+            Publish
+          </>
+        )}
+
+      </button>
+
+      {/* EDIT */}
+      <button
+        type="button"
+        onClick={() =>
+          handleEdit(item._id)
+        }
+      >
+        <FaEdit />
+        Edit
+      </button>
+
+      {/* DELETE */}
+      <button
+        type="button"
+        className={`${base}__deleteBtn`}
+        onClick={() =>
+          handleDelete(item._id)
+        }
+      >
+        <FaTrash />
+        Delete
+      </button>
+
     </div>
+
+  )}
+
+</div>
+
+                </div>
+
+                {/* CONTENT */}
+                <div className={`${base}__content`}>
+
+                  {/* RATING */}
+                  <div className={`${base}__rating`}>
+
+                    <FaStar />
+
+                    <span>
+                      {item.rating || 0}
+                    </span>
+
+                  </div>
+
+                  {/* TITLE */}
+                  <h2 className={`${base}__propertyTitle`}>
+                    {item.title}
+                  </h2>
+
+                  {/* LOCATION */}
+                  <div className={`${base}__location`}>
+
+                    <FaMapMarkerAlt />
+
+                    <span>
+                      {item.location}
+                    </span>
+
+                  </div>
+
+                  {/* DESC */}
+                  <p className={`${base}__desc`}>
+                    {item.description}
+                  </p>
+
+                  {/* FEATURES */}
+                  <div className={`${base}__features`}>
+
+                    <div
+                      className={`${base}__feature`}
+                    >
+                      <FaBed />
+
+                      <span>
+                        {
+                          features.bedroom
+                        }{" "}
+                        Bed
+                      </span>
+                    </div>
+
+                    <div
+                      className={`${base}__feature`}
+                    >
+                      <FaBath />
+
+                      <span>
+                        {
+                          features.bathroom
+                        }{" "}
+                        Bath
+                      </span>
+                    </div>
+
+                    <div
+                      className={`${base}__feature`}
+                    >
+                      <FaRulerCombined />
+
+                      <span>
+                        {item.sqft} Sqft
+                      </span>
+                    </div>
+
+                  </div>
+
+                  {/* FOOTER */}
+                  <div className={`${base}__footer`}>
+
+                    <div>
+                      <strong>
+                        Category:
+                      </strong>{" "}
+                      {item.category}
+                    </div>
+
+                    <div>
+                      <strong>
+                        Listed:
+                      </strong>{" "}
+                      {new Date(
+                        item.createdAt
+                      ).toLocaleDateString()}
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </article>
+
+            );
+          })}
+
+        </div>
+
+      )}
+
+    </section>
   );
-}
+};
+
+export default PropertyPosting;

@@ -1,0 +1,325 @@
+/* =========================================
+   RENT SHORT DESCRIPTION
+========================================= */
+
+.rent-short-card {
+  width: 100%;
+
+  background: #ffffff;
+
+  border-radius: 28px;
+
+  padding: 34px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+
+  position: relative;
+}
+
+/* =========================================
+   TOP SECTION
+========================================= */
+
+.rent-short-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 24px;
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.rent-short-top h2 {
+  font-size: 34px;
+  font-weight: 700;
+
+  color: #0f172a;
+
+  line-height: 1.3;
+
+  position: relative;
+}
+
+/* UNDERLINE */
+
+.rent-short-top h2::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+
+  width: 80px;
+  height: 4px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    90deg,
+    #10b981,
+    #059669
+  );
+}
+
+/* =========================================
+   BADGE
+========================================= */
+
+.rent-short-badge {
+  background: linear-gradient(
+    135deg,
+    #10b981,
+    #059669
+  );
+
+  color: #ffffff;
+
+  padding: 10px 18px;
+
+  border-radius: 50px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.25);
+}
+
+/* =========================================
+   DESCRIPTION TEXT
+========================================= */
+
+.rent-short-text {
+  font-size: 17px;
+  line-height: 2;
+
+  color: #475569;
+
+  margin-bottom: 24px;
+
+  word-break: break-word;
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.rent-read-more-btn {
+  height: 52px;
+
+  padding: 0 24px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 16px;
+
+  background: #0f172a;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.rent-read-more-btn:hover {
+  background: #10b981;
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.22);
+}
+
+/* =========================================
+   LARGE LAPTOP
+========================================= */
+
+@media (max-width: 1400px) {
+  .rent-short-card {
+    padding: 30px;
+  }
+
+  .rent-short-top h2 {
+    font-size: 32px;
+  }
+}
+
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1200px) {
+  .rent-short-card {
+    border-radius: 24px;
+  }
+
+  .rent-short-text {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+  .rent-short-card {
+    padding: 28px;
+
+    border-radius: 22px;
+  }
+
+  .rent-short-top {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 16px;
+  }
+
+  .rent-short-top h2 {
+    font-size: 28px;
+  }
+
+  .rent-short-text {
+    font-size: 15px;
+
+    line-height: 1.9;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .rent-short-card {
+    padding: 24px 20px;
+
+    border-radius: 20px;
+  }
+
+  .rent-short-top h2 {
+    font-size: 24px;
+  }
+
+  .rent-short-top h2::after {
+    width: 65px;
+    height: 3px;
+  }
+
+  .rent-short-badge {
+    padding: 8px 14px;
+
+    font-size: 12px;
+  }
+
+  .rent-short-text {
+    font-size: 14px;
+
+    line-height: 1.8;
+  }
+
+  .rent-read-more-btn {
+    width: 100%;
+
+    height: 50px;
+
+    border-radius: 14px;
+
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+  .rent-short-card {
+    padding: 20px 16px;
+
+    border-radius: 18px;
+  }
+
+  .rent-short-top h2 {
+    font-size: 22px;
+  }
+
+  .rent-short-text {
+    font-size: 13px;
+
+    margin-bottom: 20px;
+  }
+
+  .rent-read-more-btn {
+    height: 48px;
+
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .rent-short-card {
+    padding: 18px 14px;
+  }
+
+  .rent-short-top h2 {
+    font-size: 20px;
+  }
+
+  .rent-short-badge {
+    font-size: 11px;
+
+    padding: 7px 12px;
+  }
+
+  .rent-short-text {
+    font-size: 12px;
+  }
+
+  .rent-read-more-btn {
+    height: 46px;
+
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   VERY SMALL DEVICES
+========================================= */
+
+@media (max-width: 360px) {
+  .rent-short-card {
+    padding: 16px 12px;
+  }
+
+  .rent-short-top h2 {
+    font-size: 18px;
+  }
+
+  .rent-short-text {
+    font-size: 11px;
+  }
+
+  .rent-read-more-btn {
+    height: 44px;
+
+    font-size: 11px;
+  }
+}

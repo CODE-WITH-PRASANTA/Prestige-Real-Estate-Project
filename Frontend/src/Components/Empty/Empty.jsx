@@ -1,4 +1,7 @@
 import React, { useMemo, useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import API from "../../api/axios";
 import "./Empty.css";
 import {
   FaInfoCircle,
@@ -16,30 +19,35 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa";
 
+import logo from "../../assets/Main-Logo.png"
+
 const Empty = () => {
   const base = "emptyProperty";
-  const [activeTab, setActiveTab] = useState("request");
+  // const [activeTab, setActiveTab] = useState("request");
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     description: "",
+    createdAt: new Date().toLocaleDateString(),
   });
 
-  const [mortgage, setMortgage] = useState({
-    totalAmount: 15000,
-    downPayment: 10000,
-    loanYears: 3,
-    interestRate: 15,
-    minSqft: "",
-  });
+const [mortgage, setMortgage] = useState({
+  totalAmount: "",
+  downPayment: "",
+  loanYears: "",
+  interestRate: "",
+  minSqft: "",
+});
 
-  const agentImage =
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80";
+  const { id } = useParams();
 
-  const ownerImage =
-    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80";
+  // const agentImage =
+  //   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80";
+
+  // const ownerImage =
+  //   "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80";
 
   const mapImage =
     "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80";
@@ -80,111 +88,183 @@ const Empty = () => {
     }));
   };
 
-  const handleMortgageChange = (e) => {
-    const { name, value } = e.target;
-    setMortgage((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  // const handleMortgageChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setMortgage((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.description,
+      createdAt: formData.createdAt,
+    };
+
+    const res = await API.post(
+      "/property-inquiries",
+      payload
+    );
+
+    if (res.data.success) {
+
+      alert("Enquiry Submitted Successfully ✅");
+
+      // RESET FORM
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        description: "",
+        createdAt: new Date().toLocaleDateString(),
+      });
+
+    }
+
+  } catch (error) {
+    console.error("Enquiry Submit Error:", error);
+
+    alert("Something went wrong ❌");
+  }
+};
+
+  
+
+  useEffect(() => {
+  const fetchProperty = async () => {
+    try {
+      const res = await API.get(`/property/${id}`);
+
+      const property = res.data.data;
+
+      // ✅ FETCH DATA FROM BACKEND
+      setMortgage({
+        totalAmount: property?.price || "",
+        downPayment: property?.downPayment || "",
+        loanYears: property?.loanTerms || "",
+        interestRate: property?.interestRate || "",
+        minSqft: property?.sqft || "",
+      });
+
+    } catch (error) {
+      console.error("Mortgage Fetch Error:", error);
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Form submitted successfully!");
-  };
+  fetchProperty();
+}, [id]);
 
   return (
     <div className={base}>
       <div className={`${base}__container`}>
         <div className={`${base}__stack`}>
+
           {/* ENQUIRY CARD */}
-          <div className={`${base}__card`}>
-            <div className={`${base}__cardHeader`}>
-              <h2>Enquiry</h2>
-            </div>
+          
+<div className={`${base}__card`}>
 
-            <div className={`${base}__tabWrap`}>
-              <button
-                type="button"
-                className={`${base}__tabBtn ${
-                  activeTab === "request" ? `${base}__tabBtn--active` : ""
-                }`}
-                onClick={() => setActiveTab("request")}
-              >
-                <FaInfoCircle />
-                Request Info
-              </button>
+  <div className={`${base}__cardHeader`}>
+    <h2>Request Information</h2>
+  </div>
 
-              <button
-                type="button"
-                className={`${base}__tabBtn ${
-                  activeTab === "visit" ? `${base}__tabBtn--dark` : ""
-                }`}
-                onClick={() => setActiveTab("visit")}
-              >
-                <FaRegCalendarAlt />
-                Schedule a Visit
-              </button>
-            </div>
+  {/* AGENT */}
+  <div className={`${base}__agentCard`}>
+    <img src={logo} alt="Agent" />
 
-            <div className={`${base}__agentCard`}>
-              <img src={agentImage} alt="Agent" />
-              <div>
-                <h3>Adrian Hendriques</h3>
-                <p>Company Agent</p>
-              </div>
-            </div>
+    <div>
+      <h3>Dayanand Baburow Yadav</h3>
+      <p>Company Agent</p>
+    </div>
+  </div>
 
-            <form className={`${base}__form`} onSubmit={handleSubmit}>
-              <div className={`${base}__field`}>
-                <label>Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleFormChange}
-                />
-              </div>
+  {/* FORM */}
+  <form
+    className={`${base}__form`}
+    onSubmit={handleSubmit}
+  >
 
-              <div className={`${base}__field`}>
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleFormChange}
-                />
-              </div>
+    {/* NAME */}
+    <div className={`${base}__field`}>
+      <label>Name</label>
 
-              <div className={`${base}__field`}>
-                <label>Phone</label>
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="Your Phone Number"
-                  value={formData.phone}
-                  onChange={handleFormChange}
-                />
-              </div>
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        value={formData.name}
+        onChange={handleFormChange}
+      />
+    </div>
 
-              <div className={`${base}__field`}>
-                <label>Description</label>
-                <textarea
-                  name="description"
-                  placeholder="Write your message..."
-                  rows="5"
-                  value={formData.description}
-                  onChange={handleFormChange}
-                />
-              </div>
+    {/* EMAIL */}
+    <div className={`${base}__field`}>
+      <label>Email</label>
 
-              <button type="submit" className={`${base}__submitBtn`}>
-                Submit
-              </button>
-            </form>
-          </div>
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        value={formData.email}
+        onChange={handleFormChange}
+      />
+    </div>
+
+    {/* PHONE */}
+    <div className={`${base}__field`}>
+      <label>Phone</label>
+
+      <input
+        type="text"
+        name="phone"
+        placeholder="Your Phone Number"
+        value={formData.phone}
+        onChange={handleFormChange}
+      />
+    </div>
+
+    {/* MESSAGE */}
+    <div className={`${base}__field`}>
+      <label>Message</label>
+
+      <textarea
+        name="description"
+        placeholder="Write your message..."
+        rows="5"
+        value={formData.description}
+        onChange={handleFormChange}
+      />
+    </div>
+
+    {/* CREATED DATE */}
+<div className={`${base}__field`}>
+  <label>Created Date</label>
+
+  <input
+    type="text"
+    name="createdAt"
+    value={formData.createdAt}
+    readOnly
+  />
+</div>
+
+    {/* BUTTON */}
+    <button
+      type="submit"
+      className={`${base}__submitBtn`}
+    >
+      Send Enquiry
+    </button>
+
+  </form>
+</div>
 
           {/* OWNER DETAILS */}
           <div className={`${base}__card`}>
@@ -193,9 +273,9 @@ const Empty = () => {
             </div>
 
             <div className={`${base}__ownerTop`}>
-              <img src={ownerImage} alt="Owner" />
+              <img src={logo} alt="Owner" />
               <div>
-                <h3>John Carter</h3>
+                <h3>Dayanand Baburow Yadav</h3>
                 <div className={`${base}__rating`}>
                   {[...Array(5)].map((_, i) => (
                     <FaStar key={i} />
@@ -208,11 +288,11 @@ const Empty = () => {
             <div className={`${base}__detailsTable`}>
               <div className={`${base}__detailsRow`}>
                 <span>Phone</span>
-                <strong>Call Us : +1 12545 45548</strong>
+                <strong>Call Us : +91 9595422040</strong>
               </div>
               <div className={`${base}__detailsRow`}>
                 <span>Email</span>
-                <strong>info@example.com</strong>
+                <strong>Dayanand.prestige@gmail.com</strong>
               </div>
               <div className={`${base}__detailsRow`}>
                 <span>No of Listings</span>
@@ -232,16 +312,29 @@ const Empty = () => {
               </div>
             </div>
 
-            <div className={`${base}__actionButtons`}>
-              <button type="button" className={`${base}__whatsappBtn`}>
-                <FaWhatsapp />
-                Whatsapp
-              </button>
-              <button type="button" className={`${base}__chatBtn`}>
-                <FaComments />
-                Chat Now
-              </button>
-            </div>
+<div className={`${base}__actionButtons`}>
+
+  {/* WHATSAPP */}
+  <a
+    href="https://wa.me/919595422040?text=Hello%20I%20am%20interested%20in%20this%20property"
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`${base}__whatsappBtn`}
+  >
+    <FaWhatsapp />
+    WhatsApp
+  </a>
+
+  {/* CALL BUTTON */}
+  <a
+    href="tel:+919595422040"
+    className={`${base}__chatBtn`}
+  >
+    <FaComments />
+    Call Now
+  </a>
+
+</div>
           </div>
 
           {/* SHARE PROPERTY */}
@@ -272,80 +365,102 @@ const Empty = () => {
             </div>
           </div>
 
-          {/* MORTGAGE */}
-          <div className={`${base}__card`}>
-            <div className={`${base}__cardHeader`}>
-              <h2>Mortarage Calculator</h2>
-            </div>
+{/* MORTGAGE */}
+<div className={`${base}__card`}>
 
-            <div className={`${base}__form`}>
-              <div className={`${base}__field`}>
-                <label>Total Amount ($)</label>
-                <input
-                  type="number"
-                  name="totalAmount"
-                  value={mortgage.totalAmount}
-                  onChange={handleMortgageChange}
-                />
-              </div>
+  <div className={`${base}__cardHeader`}>
+    <h2>Mortgage Calculator</h2>
+  </div>
 
-              <div className={`${base}__field`}>
-                <label>Down Payment ($)</label>
-                <input
-                  type="number"
-                  name="downPayment"
-                  value={mortgage.downPayment}
-                  onChange={handleMortgageChange}
-                />
-              </div>
+  <div className={`${base}__form`}>
 
-              <div className={`${base}__field`}>
-                <label>Loan Terms (Years)</label>
-                <input
-                  type="number"
-                  name="loanYears"
-                  value={mortgage.loanYears}
-                  onChange={handleMortgageChange}
-                />
-              </div>
+    {/* TOTAL */}
+    {/* TOTAL */}
+<div className={`${base}__field`}>
+  <label>Total Amount ($)</label>
 
-              <div className={`${base}__field`}>
-                <label>Interest Rate (%)</label>
-                <input
-                  type="number"
-                  name="interestRate"
-                  value={mortgage.interestRate}
-                  onChange={handleMortgageChange}
-                />
-              </div>
+  <input
+    type="number"
+    value={mortgage.totalAmount}
+    readOnly
+  />
+</div>
 
-              <div className={`${base}__field`}>
-                <label>Min Sqft</label>
-                <input
-                  type="text"
-                  name="minSqft"
-                  placeholder="Enter minimum sqft"
-                  value={mortgage.minSqft}
-                  onChange={handleMortgageChange}
-                />
-              </div>
-            </div>
+{/* DOWN PAYMENT */}
+<div className={`${base}__field`}>
+  <label>Down Payment ($)</label>
 
-            <div className={`${base}__mortgageSummary`}>
-              <div className={`${base}__summaryBox`}>
-                <span>Loan Amount</span>
-                <strong>${mortgageSummary.principal.toFixed(2)}</strong>
-              </div>
-              <div className={`${base}__summaryBox`}>
-                <span>Monthly EMI</span>
-                <strong>${mortgageSummary.emi.toFixed(2)}</strong>
-              </div>
-              <div className={`${base}__summaryBox`}>
-                <span>Total Payable</span>
-                <strong>${mortgageSummary.totalPayable.toFixed(2)}</strong>
-              </div>
-            </div>
-          </div>
+  <input
+    type="number"
+    value={mortgage.downPayment}
+    readOnly
+  />
+</div>
+
+{/* LOAN YEARS */}
+<div className={`${base}__field`}>
+  <label>Loan Terms (Years)</label>
+
+  <input
+    type="number"
+    value={mortgage.loanYears}
+    readOnly
+  />
+</div>
+
+{/* INTEREST */}
+<div className={`${base}__field`}>
+  <label>Interest Rate (%)</label>
+
+  <input
+    type="number"
+    value={mortgage.interestRate}
+    readOnly
+  />
+</div>
+
+{/* SQFT */}
+<div className={`${base}__field`}>
+  <label>Min Sqft</label>
+
+  <input
+    type="text"
+    value={mortgage.minSqft}
+    readOnly
+  />
+</div>
+
+  </div>
+
+  {/* SUMMARY */}
+  <div className={`${base}__mortgageSummary`}>
+
+    <div className={`${base}__summaryBox`}>
+      <span>Loan Amount</span>
+
+      <strong>
+        ₹ {mortgageSummary.principal.toFixed(2)}
+      </strong>
+    </div>
+
+    <div className={`${base}__summaryBox`}>
+      <span>Monthly EMI</span>
+
+      <strong>
+        ₹ {mortgageSummary.emi.toFixed(2)}
+      </strong>
+    </div>
+
+    <div className={`${base}__summaryBox`}>
+      <span>Total Payable</span>
+
+      <strong>
+        ₹ {mortgageSummary.totalPayable.toFixed(2)}
+      </strong>
+    </div>
+
+  </div>
+</div>
 
           {/* MAP */}
           <div className={`${base}__card`}>

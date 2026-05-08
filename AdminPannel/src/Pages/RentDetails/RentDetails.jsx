@@ -1,6 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import "./RentDetails.css";
-import API, { IMG_URL } from "../../api/axios";
+
+import API, {
+  IMG_URL,
+} from "../../api/axios";
+
+import {
+  useNavigate,
+} from "react-router-dom";
 
 import {
   FiMoreVertical,
@@ -13,260 +24,466 @@ import {
 } from "react-icons/fi";
 
 const RentDetails = () => {
-  const [properties, setProperties] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  // ✅ MENU STATE
-  const [openMenu, setOpenMenu] = useState(null);
+  const navigate =
+    useNavigate();
+
+  const [properties, setProperties] =
+    useState([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  // MENU
+
+  const [openMenu, setOpenMenu] =
+    useState(null);
 
   // ================= CLOSE MENU =================
-  useEffect(() => {
-    const handleClickOutside = () => {
-      setOpenMenu(null);
-    };
 
-    window.addEventListener("click", handleClickOutside);
+  useEffect(() => {
+
+    const handleClickOutside =
+      () => {
+
+        setOpenMenu(null);
+
+      };
+
+    window.addEventListener(
+      "click",
+      handleClickOutside
+    );
 
     return () => {
-      window.removeEventListener("click", handleClickOutside);
+
+      window.removeEventListener(
+        "click",
+        handleClickOutside
+      );
+
     };
+
   }, []);
 
   // ================= FETCH =================
+
   useEffect(() => {
-    const fetchRent = async () => {
-      try {
-        const res = await API.get("/rent");
 
-        const updated = res.data.map((item) => ({
-          ...item,
-          published:
-            item.published !== undefined
-              ? item.published
-              : true,
-        }));
+    const fetchRent =
+      async () => {
 
-        setProperties(updated);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load properties");
-      } finally {
-        setLoading(false);
-      }
-    };
+        try {
+
+          const res =
+            await API.get(
+              "/rent"
+            );
+
+          const updated =
+            res.data.map(
+              (item) => ({
+                ...item,
+
+                published:
+                  item.published !==
+                  undefined
+                    ? item.published
+                    : true,
+              })
+            );
+
+          setProperties(
+            updated
+          );
+
+        } catch (err) {
+
+          console.error(err);
+
+          setError(
+            "Failed to load properties"
+          );
+
+        } finally {
+
+          setLoading(false);
+
+        }
+      };
 
     fetchRent();
+
   }, []);
 
   // ================= DELETE =================
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this property?"
-    );
 
-    if (!confirmDelete) return;
+  const handleDelete =
+    async (id) => {
 
-    try {
-      await API.delete(`/rent/${id}`);
+      const confirmDelete =
+        window.confirm(
+          "Are you sure you want to delete this property?"
+        );
 
-      setProperties((prev) =>
-        prev.filter((item) => item._id !== id)
-      );
-    } catch (err) {
-      console.error(err);
-      alert("Delete failed");
-    }
-  };
+      if (!confirmDelete)
+        return;
+
+      try {
+
+        await API.delete(
+          `/rent/${id}`
+        );
+
+        setProperties(
+          (prev) =>
+            prev.filter(
+              (item) =>
+                item._id !== id
+            )
+        );
+
+      } catch (err) {
+
+        console.error(err);
+
+        alert(
+          "Delete failed"
+        );
+
+      }
+    };
 
   // ================= PUBLISH =================
-  const togglePublish = (id) => {
-    setProperties((prev) =>
-      prev.map((item) =>
-        item._id === id
-          ? {
-              ...item,
-              published: !item.published,
-            }
-          : item
-      )
-    );
-  };
+
+  const togglePublish =
+    (id) => {
+
+      setProperties(
+        (prev) =>
+          prev.map((item) =>
+            item._id === id
+              ? {
+                  ...item,
+
+                  published:
+                    !item.published,
+                }
+              : item
+          )
+      );
+    };
 
   // ================= EDIT =================
-  const handleEdit = (item) => {
-    console.log("Edit Property:", item);
 
-    // later you can navigate edit page
-    // navigate(`/admin/rent/edit/${item._id}`)
-  };
+const handleEdit = (item) => {
 
-  if (loading) return <h2>Loading...</h2>;
+  navigate(
+    `/rent/post/${item._id}`
+  );
 
-  if (error) return <h2>{error}</h2>;
+};
+
+  // ================= LOADING =================
+
+  if (loading) {
+
+    return (
+      <h2>
+        Loading...
+      </h2>
+    );
+  }
+
+  // ================= ERROR =================
+
+  if (error) {
+
+    return (
+      <h2>
+        {error}
+      </h2>
+    );
+  }
 
   return (
+
     <div className="rent-container">
-      {/* ================= HEADER ================= */}
+
+      {/* HEADER */}
+
       <div className="rent-header">
+
         <h2 className="rent-heading">
+
           Rental Properties
+
         </h2>
 
         <span className="rent-count">
-          {properties.length} Properties
+
+          {properties.length}
+          {" "}
+          Properties
+
         </span>
+
       </div>
 
-      {/* ================= GRID ================= */}
+      {/* GRID */}
+
       <div className="rent-grid">
-        {properties.map((item) => {
-          // ================= IMAGE =================
-          let imageUrl =
-            "https://via.placeholder.com/400x300?text=No+Image";
 
-          if (item.images && item.images.length > 0) {
-            const img = item.images[0];
+        {properties.map(
+          (item) => {
 
-            imageUrl = img.startsWith("http")
-              ? img
-              : `${IMG_URL}/${img.replace(/^\/+/, "")}`;
-          }
+            // IMAGE
 
-          return (
-            <div
-              key={item._id}
-              className="rent-card"
-            >
-              {/* ================= IMAGE ================= */}
-              <div className="rent-image-wrapper">
-                <img
-                  src={imageUrl}
-                  alt={item.title}
-                  onError={(e) => {
-                    e.target.src =
-                      "https://via.placeholder.com/400x300?text=Image+Error";
-                  }}
-                />
+            let imageUrl =
+              "https://via.placeholder.com/400x300?text=No+Image";
 
-                {/* TAG */}
-                <span className="rent-tag">
-                  {item.published
-                    ? "Published"
-                    : "Unpublished"}
-                </span>
+            if (
+              item.images &&
+              item.images.length > 0
+            ) {
 
-                {/* PRICE */}
-                <div className="rent-price">
-                  ₹{item.rent}
-                </div>
+              const img =
+                item.images[0];
 
-                {/* ================= 3 DOT MENU ================= */}
-                <div className="rent-menu-wrapper">
-                  <button
-                    className="rent-menu-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
+              imageUrl =
+                img.startsWith(
+                  "http"
+                )
+                  ? img
+                  : `${IMG_URL}/${img.replace(
+                      /^\/+/,
+                      ""
+                    )}`;
+            }
 
-                      setOpenMenu(
-                        openMenu === item._id
-                          ? null
-                          : item._id
-                      );
+            return (
+
+              <div
+                key={item._id}
+                className="rent-card"
+              >
+
+                {/* IMAGE */}
+
+                <div className="rent-image-wrapper">
+
+                  <img
+                    src={imageUrl}
+                    alt={item.title}
+                    onError={(e) => {
+
+                      e.target.src =
+                        "https://via.placeholder.com/400x300?text=Image+Error";
+
                     }}
-                  >
-                    <FiMoreVertical />
-                  </button>
+                  />
 
-                  {openMenu === item._id && (
-                    <div
-                      className="rent-dropdown"
-                      onClick={(e) =>
-                        e.stopPropagation()
-                      }
+                  {/* TAG */}
+
+                  <span className="rent-tag">
+
+                    {item.published
+                      ? "Published"
+                      : "Unpublished"}
+
+                  </span>
+
+                  {/* PRICE */}
+
+                  <div className="rent-price">
+
+                    ₹{item.rent}
+
+                  </div>
+
+                  {/* MENU */}
+
+                  <div className="rent-menu-wrapper">
+
+                    <button
+                      className="rent-menu-btn"
+                      onClick={(e) => {
+
+                        e.stopPropagation();
+
+                        setOpenMenu(
+                          openMenu ===
+                            item._id
+                            ? null
+                            : item._id
+                        );
+                      }}
                     >
-                      {/* EDIT */}
-                      <button
-                        onClick={() =>
-                          handleEdit(item)
-                        }
-                      >
-                        <FiEdit2 />
-                        Edit
-                      </button>
 
-                      {/* PUBLISH */}
-                      <button
-                        onClick={() =>
-                          togglePublish(item._id)
-                        }
-                      >
-                        {item.published ? (
-                          <>
-                            <FiXCircle />
-                            Unpublish
-                          </>
-                        ) : (
-                          <>
-                            <FiCheckCircle />
-                            Publish
-                          </>
-                        )}
-                      </button>
+                      <FiMoreVertical />
 
-                      {/* DELETE */}
-                      <button
-                        className="delete-btn"
-                        onClick={() =>
-                          handleDelete(item._id)
+                    </button>
+
+                    {openMenu ===
+                      item._id && (
+
+                      <div
+                        className="rent-dropdown"
+                        onClick={(e) =>
+                          e.stopPropagation()
                         }
                       >
-                        <FiTrash2 />
-                        Delete
-                      </button>
-                    </div>
-                  )}
+
+                        {/* EDIT */}
+
+                        <button
+                          onClick={() =>
+                            handleEdit(
+                              item
+                            )
+                          }
+                        >
+
+                          <FiEdit2 />
+
+                          Edit
+
+                        </button>
+
+                        {/* PUBLISH */}
+
+                        <button
+                          onClick={() =>
+                            togglePublish(
+                              item._id
+                            )
+                          }
+                        >
+
+                          {item.published ? (
+                            <>
+
+                              <FiXCircle />
+
+                              Unpublish
+
+                            </>
+                          ) : (
+                            <>
+
+                              <FiCheckCircle />
+
+                              Publish
+
+                            </>
+                          )}
+
+                        </button>
+
+                        {/* DELETE */}
+
+                        <button
+                          className="delete-btn"
+                          onClick={() =>
+                            handleDelete(
+                              item._id
+                            )
+                          }
+                        >
+
+                          <FiTrash2 />
+
+                          Delete
+
+                        </button>
+
+                      </div>
+                    )}
+
+                  </div>
+
                 </div>
-              </div>
 
-              {/* ================= CONTENT ================= */}
-              <div className="rent-content">
-                <h3>{item.title}</h3>
+                {/* CONTENT */}
 
-                {/* LOCATION */}
-                <p className="rent-location">
-                  <FiMapPin />
-                  {item.location}
-                </p>
+                <div className="rent-content">
 
-                {/* FEATURES */}
-                <div className="rent-features">
-                  <span>
-                    <FiHome />
-                    {item.bedrooms || 0} Beds
-                  </span>
+                  <h3>
+                    {item.title}
+                  </h3>
 
-                  <span>
-                    🛁 {item.bathrooms || 0} Baths
-                  </span>
+                  {/* LOCATION */}
 
-                  <span>
-                    📐 {item.sqft || 0} sqft
-                  </span>
+                  <p className="rent-location">
+
+                    <FiMapPin />
+
+                    {item.location}
+
+                  </p>
+
+                  {/* FEATURES */}
+
+                  <div className="rent-features">
+
+                    <span>
+
+                      <FiHome />
+
+                      {item.bedrooms || 0}
+                      {" "}
+                      Beds
+
+                    </span>
+
+                    <span>
+
+                      🛁
+                      {" "}
+                      {item.bathrooms || 0}
+                      {" "}
+                      Baths
+
+                    </span>
+
+                    <span>
+
+                      📐
+                      {" "}
+                      {item.sqft || 0}
+                      {" "}
+                      sqft
+
+                    </span>
+
+                  </div>
+
+                  {/* DESCRIPTION */}
+
+                  <p className="rent-description">
+
+                    {item.description
+                      ?.replace(
+                        /<[^>]+>/g,
+                        ""
+                      )
+                      ?.slice(0, 90) ||
+                      "No description available"}
+
+                  </p>
+
                 </div>
 
-                {/* DESCRIPTION */}
-                <p className="rent-description">
-                  {item.description
-                    ?.replace(/<[^>]+>/g, "")
-                    ?.slice(0, 90) ||
-                    "No description available"}
-                </p>
               </div>
-            </div>
-          );
-        })}
+            );
+          }
+        )}
+
       </div>
+
     </div>
   );
 };

@@ -1,213 +1,248 @@
-import { useMemo, useRef, useState, useEffect } from "react";
+import {
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
+
 import "./FeaturedProperties.css";
 
-import p1 from "../../assets/p1.jpg";
-import p2 from "../../assets/p2.jpg";
-import p3 from "../../assets/p3.jpg";
-import p4 from "../../assets/p4.jpg";
-import p5 from "../../assets/p5.jpg";
-import p6 from "../../assets/p6.jpg";
-import p7 from "../../assets/p7.jpg";
-import p8 from "../../assets/p8.jpg";
+import API, {
+  IMG_URL,
+} from "../../api/axios";
 
 export default function FeaturedProperties() {
 
-  const properties = [
-    {
-      id: 1,
-      title: "Serenity Condo Suite",
-      address: "17, Grove Towers, New York, USA",
-      price: "$21000",
-      type: "Lodge",
-      tags: ["New", "Featured"],
-      ratingText: "Excellent",
-      beds: 4,
-      baths: 4,
-      sqft: 350,
-      owner: "Ethan Brooks",
-      country: "United States",
-      img: p1,
-    },
-    {
-      id: 2,
-      title: "Gateway Apartment",
-      address: "54, Coral Sands Apartments, Australia",
-      price: "$1130",
-      type: "Apartment",
-      tags: [],
-      ratingText: "Excellent",
-      beds: 2,
-      baths: 4,
-      sqft: 350,
-      owner: "Olivia Hayes",
-      country: "Australia",
-      img: p2,
-    },
-    {
-      id: 3,
-      title: "Coral Bay Cabins",
-      address: "7, Rosewood Court, Brighton, UK",
-      price: "$1580",
-      type: "Residency",
-      tags: [],
-      ratingText: "Excellent",
-      beds: 5,
-      baths: 3,
-      sqft: 700,
-      owner: "Sophia Mitchell",
-      country: "United Kingdom",
-      img: p3,
-    },
-    {
-      id: 4,
-      title: "Majestic Stay",
-      address: "10, Bella Vista Villas, Rome, Italy",
-      price: "$4500",
-      type: "Residency",
-      tags: [],
-      ratingText: "Excellent",
-      beds: 3,
-      baths: 1,
-      sqft: 400,
-      owner: "Leo Ramirez",
-      country: "Italy",
-      img: p4,
-    },
-    {
-      id: 5,
-      title: "Ocean Breeze Villa",
-      address: "Palm Bay Street, Dubai, UAE",
-      price: "$3200",
-      type: "Villa",
-      tags: ["Featured"],
-      ratingText: "Excellent",
-      beds: 4,
-      baths: 3,
-      sqft: 560,
-      owner: "Ayaan Khan",
-      country: "UAE",
-      img: p5,
-    },
-    {
-      id: 6,
-      title: "Skyline Luxury Home",
-      address: "Downtown, Singapore",
-      price: "$2500",
-      type: "Apartment",
-      tags: ["New"],
-      ratingText: "Excellent",
-      beds: 2,
-      baths: 2,
-      sqft: 420,
-      owner: "Daniel Lee",
-      country: "Singapore",
-      img: p6,
-    },
-    {
-      id: 7,
-      title: "Green Valley House",
-      address: "Hillside Road, Sydney, Australia",
-      price: "$1800",
-      type: "House",
-      tags: [],
-      ratingText: "Excellent",
-      beds: 3,
-      baths: 2,
-      sqft: 480,
-      owner: "Emma Wilson",
-      country: "Australia",
-      img: p7,
-    },
-    {
-      id: 8,
-      title: "Central City Studio",
-      address: "Main Street, Tokyo, Japan",
-      price: "$990",
-      type: "Studio",
-      tags: ["Featured"],
-      ratingText: "Excellent",
-      beds: 1,
-      baths: 1,
-      sqft: 260,
-      owner: "Haruto Tanaka",
-      country: "Japan",
-      img: p8,
-    },
-  ];
+  /* ================= STATES ================= */
 
-  /* RESPONSIVE ITEMS PER PAGE */
+  const [properties, setProperties] =
+    useState([]);
 
-  const getPerPage = () => {
-  const width = window.innerWidth;
+  const [loading, setLoading] =
+    useState(true);
 
-  if (width <= 768) return 1;   // mobile → 1 card
-  if (width <= 1024) return 2;  // tablet → 2 cards
-  return 4;                     // desktop → 4 cards
-};
-
-
-  const [perPage, setPerPage] = useState(getPerPage());
-  const [page, setPage] = useState(0);
+  /* ================= FETCH ================= */
 
   useEffect(() => {
+
+    const fetchProperties =
+      async () => {
+
+        try {
+
+          const res =
+            await API.get(
+              "/property"
+            );
+
+          const data =
+            res.data.data || [];
+
+          /* ONLY PUBLISHED */
+
+          const published =
+            data.filter(
+              (item) =>
+                item.status ===
+                "published"
+            );
+
+          setProperties(published);
+
+        } catch (error) {
+
+          console.error(
+            "Property Fetch Error:",
+            error
+          );
+
+        } finally {
+
+          setLoading(false);
+        }
+      };
+
+    fetchProperties();
+
+  }, []);
+
+  /* ================= RESPONSIVE ================= */
+
+  const getPerPage = () => {
+
+    const width =
+      window.innerWidth;
+
+    if (width <= 768)
+      return 1;
+
+    if (width <= 1024)
+      return 2;
+
+    return 4;
+  };
+
+  const [perPage, setPerPage] =
+    useState(getPerPage());
+
+  const [page, setPage] =
+    useState(0);
+
+  useEffect(() => {
+
     const resize = () => {
-      setPerPage(getPerPage());
+
+      setPerPage(
+        getPerPage()
+      );
+
       setPage(0);
     };
 
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
+    window.addEventListener(
+      "resize",
+      resize
+    );
+
+    return () =>
+      window.removeEventListener(
+        "resize",
+        resize
+      );
+
   }, []);
 
-  /* PAGINATION */
+  /* ================= PAGINATION ================= */
 
   const pages = useMemo(() => {
+
     const arr = [];
-    for (let i = 0; i < properties.length; i += perPage) {
-      arr.push(properties.slice(i, i + perPage));
+
+    for (
+      let i = 0;
+      i < properties.length;
+      i += perPage
+    ) {
+
+      arr.push(
+        properties.slice(
+          i,
+          i + perPage
+        )
+      );
     }
+
     return arr;
-  }, [perPage]);
 
-  const pageCount = pages.length;
+  }, [properties, perPage]);
 
-  const prev = () => setPage((p) => Math.max(0, p - 1));
-  const next = () => setPage((p) => Math.min(pageCount - 1, p + 1));
+  const pageCount =
+    pages.length;
 
-  /* SWIPE */
+  const prev = () =>
+    setPage((p) =>
+      Math.max(0, p - 1)
+    );
 
-  const drag = useRef({ down: false, x: 0 });
+  const next = () =>
+    setPage((p) =>
+      Math.min(
+        pageCount - 1,
+        p + 1
+      )
+    );
+
+  /* ================= SWIPE ================= */
+
+  const drag = useRef({
+    down: false,
+    x: 0,
+  });
 
   const onDown = (e) => {
+
     drag.current.down = true;
-    drag.current.x = e.clientX || e.touches?.[0].clientX;
+
+    drag.current.x =
+      e.clientX ||
+      e.touches?.[0].clientX;
   };
 
   const onUp = (e) => {
-    if (!drag.current.down) return;
+
+    if (!drag.current.down)
+      return;
+
     drag.current.down = false;
 
-    const end = e.clientX || e.changedTouches?.[0].clientX;
-    const diff = drag.current.x - end;
+    const end =
+      e.clientX ||
+      e.changedTouches?.[0]
+        .clientX;
+
+    const diff =
+      drag.current.x - end;
 
     if (diff > 60) next();
+
     if (diff < -60) prev();
   };
+
+  /* ================= LOADING ================= */
+
+  if (loading) {
+
+    return (
+      <div className="fp-loading">
+        Loading Properties...
+      </div>
+    );
+  }
 
   return (
     <section className="fp">
 
+      {/* ================= HEADER ================= */}
+
       <div className="fp-head">
+
         <div>
-          <h2>Featured Properties for Rent</h2>
-          <p>Hand-picked selection of quality places</p>
+
+          <h2>
+            Featured Properties for Sale
+          </h2>
+
+          <p>
+            Hand-picked premium
+            properties
+          </p>
+
         </div>
 
         <div className="fp-arrows">
-          <button onClick={prev} disabled={page === 0}>‹</button>
-          <button onClick={next} disabled={page === pageCount - 1}>›</button>
+
+          <button
+            onClick={prev}
+            disabled={page === 0}
+          >
+            ‹
+          </button>
+
+          <button
+            onClick={next}
+            disabled={
+              page ===
+              pageCount - 1
+            }
+          >
+            ›
+          </button>
+
         </div>
+
       </div>
+
+      {/* ================= SLIDER ================= */}
 
       <div
         className="fp-slider"
@@ -219,63 +254,206 @@ export default function FeaturedProperties() {
 
         <div
           className="fp-track"
-          style={{ transform: `translateX(-${page * 100}%)` }}
+          style={{
+            transform:
+              `translateX(-${page * 100}%)`,
+          }}
         >
 
-          {pages.map((group, i) => (
-            <div className="fp-page" key={i}>
+          {pages.map(
+            (group, i) => (
 
-              {group.map((x) => (
-                <div className="fp-card" key={x.id}>
-                  <div className="fp-img">
-                    <img src={x.img} alt={x.title} />
+            <div
+              className="fp-page"
+              key={i}
+            >
 
-                    <div className="fp-topTags">
-                      {x.tags.includes("New") && <span className="tag red">New</span>}
-                      {x.tags.includes("Featured") && <span className="tag orange">Featured</span>}
-                    </div>
+              {group.map((x) => {
 
-                    <div className="fp-price">
-                      <strong>{x.price}</strong> <span>/ Night</span>
-                    </div>
+                const features =
+                  x.features || {};
 
-                    <button className="fp-like">♡</button>
-                  </div>
+                return (
 
-                  <div className="fp-body">
+                  <div
+                    className="fp-card"
+                    key={x._id}
+                  >
 
-                    <div className="fp-row1">
-                      <div className="fp-stars">★★★★★ <span>{x.ratingText}</span></div>
-                      <span className="fp-type">{x.type}</span>
-                    </div>
+                    {/* IMAGE */}
 
-                    <h3 className="fp-title">{x.title}</h3>
-                    <p className="fp-addr">📍 {x.address}</p>
+                    <div className="fp-img">
 
-                    <div className="fp-features">
-                      <div>🛏 {x.beds} Bedroom</div>
-                      <div>🛁 {x.baths} Bath</div>
-                      <div>📐 {x.sqft} Sq Ft</div>
-                    </div>
+                      <img
+                        src={
+                          x.banner
+                            ? `${IMG_URL}${x.banner}`
+                            : "https://via.placeholder.com/500x300"
+                        }
+                        alt={x.title}
+                      />
 
-                    <div className="fp-footer">
+                      {/* CATEGORY */}
 
-                      <div className="fp-owner">
-                        <div className="fp-avatar">{x.owner[0]}</div>
+                      <div className="fp-topTags">
 
-                        <div>
-                          <div className="fp-ownerName">{x.owner}</div>
-                          <div className="fp-country">{x.country}</div>
-                        </div>
+                        <span className="tag orange">
+
+                          {x.category ||
+                            "Property"}
+
+                        </span>
+
                       </div>
 
-                      <button className="fp-btn">Book Now</button>
+                      {/* PRICE */}
+
+                      <div className="fp-price">
+
+                        <strong>
+
+                          ₹
+                          {Number(
+                            x.price || 0
+                          ).toLocaleString()}
+
+                        </strong>
+
+                      </div>
+
+                      {/* LIKE */}
+
+                      <button className="fp-like">
+
+                        ♡
+
+                      </button>
+
+                    </div>
+
+                    {/* CONTENT */}
+
+                    <div className="fp-body">
+
+                      {/* RATING */}
+
+                      <div className="fp-row1">
+
+                        <div className="fp-stars">
+
+                          ★★★★★
+
+                          <span>
+
+                            {x.rating || 4.5}
+
+                          </span>
+
+                        </div>
+
+                        <span className="fp-type">
+
+                          {x.category}
+
+                        </span>
+
+                      </div>
+
+                      {/* TITLE */}
+
+                      <h3 className="fp-title">
+
+                        {x.title}
+
+                      </h3>
+
+                      {/* LOCATION */}
+
+                      <p className="fp-addr">
+
+                        📍 {x.location}
+
+                      </p>
+
+                      {/* FEATURES */}
+
+                      <div className="fp-features">
+
+                        <div>
+
+                          🛏{" "}
+
+                          {features.bedroom || 0}
+
+                          {" "}Bedroom
+
+                        </div>
+
+                        <div>
+
+                          🛁{" "}
+
+                          {features.bathroom || 0}
+
+                          {" "}Bath
+
+                        </div>
+
+                        <div>
+
+                          📐 {x.sqft || 0}
+
+                          {" "}Sq Ft
+
+                        </div>
+
+                      </div>
+
+                      {/* FOOTER */}
+
+                      <div className="fp-footer">
+
+                        <div className="fp-owner">
+
+                          <div className="fp-avatar">
+
+                            {x.title
+                              ?.charAt(0)}
+
+                          </div>
+
+                          <div>
+
+                            <div className="fp-ownerName">
+
+                              {x.ownerName ||
+                                "Admin"}
+
+                            </div>
+
+                            <div className="fp-country">
+
+                              {x.location}
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                        <button className="fp-btn">
+
+                          View Details
+
+                        </button>
+
+                      </div>
 
                     </div>
 
                   </div>
-                </div>
-              ))}
+                );
+              })}
 
             </div>
           ))}
@@ -284,18 +462,34 @@ export default function FeaturedProperties() {
 
       </div>
 
+      {/* ================= DOTS ================= */}
+
       <div className="fp-dots">
+
         {pages.map((_, i) => (
+
           <span
             key={i}
-            className={i === page ? "fp-dot active" : "fp-dot"}
-            onClick={() => setPage(i)}
+            className={
+              i === page
+                ? "fp-dot active"
+                : "fp-dot"
+            }
+            onClick={() =>
+              setPage(i)
+            }
           />
+
         ))}
+
       </div>
 
+      {/* ================= BUTTON ================= */}
+
       <button className="fp-explore">
+
         Explore All →
+
       </button>
 
     </section>
