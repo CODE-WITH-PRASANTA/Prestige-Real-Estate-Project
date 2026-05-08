@@ -44,17 +44,6 @@ const GridProperty = () => {
 
         console.log("✅ API RESPONSE:", res.data);
 
-<<<<<<< HEAD
-        const responseData = res.data;
-
-        if (Array.isArray(responseData)) {
-          setProperties(responseData);
-        } else if (Array.isArray(responseData.data)) {
-          setProperties(responseData.data);
-        } else if (Array.isArray(responseData.properties)) {
-          setProperties(responseData.properties);
-        } else {
-=======
         if (Array.isArray(data)) {
           setProperties(data);
         }
@@ -68,18 +57,13 @@ const GridProperty = () => {
         }
 
         else {
->>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
           setProperties([]);
         }
 
       } catch (err) {
-<<<<<<< HEAD
-        console.error("❌ ERROR:", err);
-=======
 
         console.error(err);
 
->>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
         setError("Failed to load properties");
 
       } finally {
@@ -93,15 +77,6 @@ const GridProperty = () => {
 
   }, []);
 
-<<<<<<< HEAD
-  if (loading) {
-    return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
-  }
-
-  if (error) {
-    return (
-      <h2 style={{ textAlign: "center", color: "red" }}>
-=======
   
 
   /* ================= SORT ================= */
@@ -167,7 +142,6 @@ const GridProperty = () => {
           color: "red",
         }}
       >
->>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
         {error}
       </h2>
     );
@@ -191,20 +165,11 @@ const GridProperty = () => {
 
           <div className="gridProperty-toolbarRight">
 
-<<<<<<< HEAD
-=======
             {/* SORT */}
->>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
             <div className="gridProperty-selectWrap">
 
               <label>Sort By</label>
 
-<<<<<<< HEAD
-              <div className="gridProperty-select">
-                <span>Default</span>
-                <FaChevronDown />
-              </div>
-=======
 <div className="gridProperty-selectBox">
 
   <select
@@ -243,7 +208,6 @@ const GridProperty = () => {
 
 </div>
 
->>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
             </div>
 
             {/* VIEW BUTTONS */}
@@ -297,176 +261,6 @@ const GridProperty = () => {
 
         </div>
 
-<<<<<<< HEAD
-        {/* GRID */}
-        <div className="gridProperty-grid">
-
-          {properties.length === 0 ? (
-            <h3 style={{ textAlign: "center" }}>
-              No Properties Found
-            </h3>
-          ) : (
-            properties.map((item) => {
-
-              const bedroom =
-                Number(item.bedroom) ||
-                Number(item.bedrooms) ||
-                0;
-
-              const bath =
-                Number(item.bath) ||
-                Number(item.bathrooms) ||
-                0;
-
-              const area =
-                Number(item.area) ||
-                Number(item.sqft) ||
-                0;
-
-              return (
-                <Link
-                  to={`/property/${item._id}`}
-                  key={item._id}
-                  className="gridProperty-card"
-                >
-
-                  {/* IMAGE */}
-                  <div className="gridProperty-imageWrap">
-
-                    <img
-                      src={
-                        item.banner
-                          ? `${IMG_URL}${item.banner}`
-                          : "https://via.placeholder.com/400x300"
-                      }
-                      alt={item.title || "property"}
-                      className="gridProperty-image"
-                    />
-
-                    <div className="gridProperty-overlay"></div>
-
-                    {/* BADGES */}
-                    <div className="gridProperty-topBadges">
-
-                      {item.isNew && (
-                        <span className="gridProperty-badge gridProperty-badgeNew">
-                          <FaSyncAlt /> New
-                        </span>
-                      )}
-
-                      {item.featured && (
-                        <span className="gridProperty-badge gridProperty-badgeFeatured">
-                          <FaTag /> Featured
-                        </span>
-                      )}
-                    </div>
-
-                    {/* HEART */}
-                    <button className="gridProperty-heartBtn">
-                      <FaRegHeart />
-                    </button>
-
-                    {/* PRICE */}
-                    <div className="gridProperty-price">
-                      ₹{item.price || 0}
-                    </div>
-
-                    {/* OWNER */}
-                    <div className="gridProperty-agent">
-                      <img
-                        src={
-                          item.ownerImage
-                            ? `${IMG_URL}${item.ownerImage}`
-                            : "https://via.placeholder.com/50"
-                        }
-                        alt="agent"
-                      />
-                    </div>
-                  </div>
-
-                  {/* CONTENT */}
-                  <div className="gridProperty-content">
-
-                    {/* RATING */}
-                    <div className="gridProperty-rating">
-                      <span className="gridProperty-stars">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                      </span>
-
-                      <span className="gridProperty-ratingText">
-                        {item.rating || "4.5"}
-                      </span>
-                    </div>
-
-                    {/* TITLE */}
-                    <h3 className="gridProperty-title">
-                      {item.title || "Untitled Property"}
-                    </h3>
-
-                    {/* LOCATION */}
-                    <div className="gridProperty-location">
-                      <FaMapMarkerAlt />
-                      <span>
-                        {item.address || item.location || "No Address"}
-                      </span>
-                    </div>
-
-                    {/* FEATURES */}
-                    <div className="gridProperty-features">
-
-                      <div className="gridProperty-featureItem">
-                        <FaBed />
-                        <span>{bedroom} Bedroom</span>
-                      </div>
-
-                      <div className="gridProperty-featureItem">
-                        <FaBath />
-                        <span>{bath} Bath</span>
-                      </div>
-
-                      <div className="gridProperty-featureItem">
-                        <FaRulerCombined />
-                        <span>{area} Sq Ft</span>
-                      </div>
-
-                    </div>
-
-                    {/* META */}
-                    <div className="gridProperty-meta">
-
-                      <div>
-                        <strong>Listed on:</strong>{" "}
-                        {item.createdAt
-                          ? new Date(item.createdAt).toDateString()
-                          : "N/A"}
-                      </div>
-
-                      <div>
-                        <strong>Category:</strong>{" "}
-                        {item.category || "N/A"}
-                      </div>
-
-                    </div>
-
-                  </div>
-                </Link>
-              );
-            })
-          )}
-        </div>
-
-        {/* LOAD MORE */}
-        <div className="gridProperty-loadMoreWrap">
-          <button className="gridProperty-loadMore">
-            <FaSyncAlt /> Load More
-          </button>
-        </div>
-
-=======
         {/* ================= MAP VIEW ================= */}
         {viewType === "map" ? (
 
@@ -682,7 +476,6 @@ const GridProperty = () => {
           </>
         )}
 
->>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
       </div>
 
     </section>
