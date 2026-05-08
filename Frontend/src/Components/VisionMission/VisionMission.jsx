@@ -120,17 +120,17 @@ const VisionMission = () => {
                 className="propertyVisionMission__founderImage"
               />
               <div>
-                <h4>Mr. Vishnu Sharma</h4>
-                <p>Founder & Managing Director</p>
+                <h4>Mr. Dayanand Baburow Yadav</h4>
+                <p> Managing Director</p>
               </div>
             </div>
 
             <a
-              href="tel:+917014627894"
+              href="tel:+919595422040"
               className="propertyVisionMission__callBtn"
             >
               <FiPhoneCall />
-              <span>Call Us +91 7014627894</span>
+              <span>Call Us +91 9595422040</span>
             </a>
 
           </div>

@@ -15,7 +15,12 @@ import RentDetails from "./Pages/RentDetails/RentDetails";
 import ContactManagement from "./Pages/ContactManagement/ContactManagement";
 import PropertyList from "./Component/PropertyList.jsx/PropertyList";
 import PropertyView from "./Component/PropertyList.jsx/PropertyView";
+<<<<<<< HEAD
+import BlogManagement from "./Pages/BlogManagement/BlogManagement";
+
+=======
 import PropertyInquiry from "./Pages/PropertyInquiry/PropertyInquiry";
+>>>>>>> bcef7c666c22c0723fc253b0ffaf0d0627ebcec6
 
 const App = () => {
   return (
@@ -24,7 +29,11 @@ const App = () => {
         {/* Parent Layout */}
         <Route element={<AdminLayout />}>
           <Route path="/" element={<DashBoard />} />
-          <Route path="/blog/post" element={<BlogPosting />} />
+      <Route
+  path="/blog/post/:id?"
+  element={<BlogPosting />}
+/>
+          <Route path="/blog/manage" element={<BlogManagement/>}/>
           <Route path="/property/post" element={<PropertyPosting />} />
           <Route path="/admin/cold-lead" element={<ColdLeadForm />} />
           <Route path="/admin/cold-lead-table" element={<ColdLeadTable />} />
