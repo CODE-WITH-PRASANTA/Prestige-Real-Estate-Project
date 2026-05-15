@@ -37,7 +37,7 @@ import Rentdetails from "./Pages/Rentdetails/Rentdetails";
 import BuyGrid from "./Pages/Properties/Properties";
 import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
-import RentProperty from "./Components/RentProperty/RentProperty";
+import RentProperty from "./Pages/RentProperty/RentProperty";
 
 function App() {
   const location = useLocation();
@@ -86,7 +86,7 @@ function App() {
         <Route path="/property" element={<Property />} />
 
         {/* RENT */}
-        <Route path="/rent/details" element={<Rentdetails />} />
+        <Route path="/rent/details/:id" element={<Rentdetails />} />
         <Route path="/rent/property" element={<RentProperty />} />
 
         {/* BUY */}

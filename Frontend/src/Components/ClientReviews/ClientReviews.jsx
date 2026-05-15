@@ -4,246 +4,405 @@ import { API, IMG_URL } from "../../api/axios";
 
 function getPerViewFromCSS(el) {
   if (!el) return 4;
-  const v = getComputedStyle(el).getPropertyValue("--perView").trim();
-  const n = parseInt(v, 10);
-  return Number.isFinite(n) && n > 0 ? n : 4;
+
+  const value = getComputedStyle(el)
+    .getPropertyValue("--perView")
+    .trim();
+
+  const num = parseInt(value, 10);
+
+  return Number.isFinite(num) && num > 0 ? num : 4;
 }
 
 export default function ClientReviews() {
-  // ================= STATE =================
+  // ================= REFS =================
   const sectionRef = useRef(null);
   const sliderRef = useRef(null);
 
+  // ================= STATE =================
   const [loading, setLoading] = useState(true);
-  const [perView, setPerView] = useState(4);
-  const [index, setIndex] = useState(0);
-  const [anim, setAnim] = useState(true);
-  const [paused, setPaused] = useState(false);
   const [data, setData] = useState([]);
 
-  // ================= FETCH =================
+  const [perView, setPerView] = useState(4);
+  const [index, setIndex] = useState(0);
+
+  const [anim, setAnim] = useState(true);
+  const [paused, setPaused] = useState(false);
+
+  // ================= FETCH TESTIMONIALS =================
   useEffect(() => {
     fetchTestimonials();
   }, []);
 
-const fetchTestimonials = async () => {
-  try {
-    const res = await API.get("/testimonials");
+  const fetchTestimonials = async () => {
+    try {
+      setLoading(true);
 
-   console.log("API RESPONSE:", res.data.data);// 👈 ADD THIS
+      const res = await API.get("/testimonials");
 
-    setData(res.data?.data || []); // ✅ SAFE FIX
-  } catch (err) {
-    console.error("FETCH ERROR:", err);
-    setData([]); // fallback
-  } finally {
-    setLoading(false);
-  }
-};
+      console.log("FULL API RESPONSE 👉", res);
+      console.log("TESTIMONIAL DATA 👉", res?.data?.data);
 
-  // ================= RESPONSIVE =================
+      // ================= SAFE ARRAY CHECK =================
+      if (
+        res?.data &&
+        Array.isArray(res.data.data)
+      ) {
+        setData(res.data.data);
+      } else {
+        console.warn("Testimonials data is not array");
+        setData([]);
+      }
+    } catch (error) {
+      console.error("FETCH TESTIMONIAL ERROR 👉", error);
+
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ================= RESPONSIVE PER VIEW =================
   useEffect(() => {
-    const update = () => {
+    const updatePerView = () => {
       const pv = getPerViewFromCSS(sliderRef.current);
-      setPerView((prev) => (prev !== pv ? pv : prev));
+
+      setPerView((prev) => {
+        return prev !== pv ? pv : prev;
+      });
     };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+
+    updatePerView();
+
+    window.addEventListener("resize", updatePerView);
+
+    return () => {
+      window.removeEventListener("resize", updatePerView);
+    };
   }, []);
 
-  // ================= ANIMATION OBSERVER =================
-useEffect(() => {
-  if (!sectionRef.current) return;
+  // ================= REVEAL ANIMATION =================
+  useEffect(() => {
+    if (!sectionRef.current) return;
 
-  const elements = sectionRef.current.querySelectorAll(".cr-reveal");
+    const elements =
+      sectionRef.current.querySelectorAll(".cr-reveal");
 
-  if (!elements.length) return; // ✅ prevent crash
+    if (!elements.length) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("cr-active");
-        }
-      });
-    },
-    { threshold: 0.18 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("cr-active");
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+    );
 
-  elements.forEach((el) => observer.observe(el));
+    elements.forEach((el) => observer.observe(el));
 
-  return () => {
-    elements.forEach((el) => observer.unobserve(el));
-  };
-}, [data]); // ✅ add dependency
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, [data]);
 
-  // ================= CORE LOGIC =================
-  const totalReal = data.length || 1;
-  const safePerView = Math.min(perView, data.length || 1);
+  // ================= SAFE VALUES =================
+  const totalReal = data.length;
 
-  // ================= EXTENDED =================
+  const safePerView =
+    totalReal > 0
+      ? Math.min(perView, totalReal)
+      : 1;
+
+  // ================= EXTENDED ARRAY FOR LOOP =================
   const extended = useMemo(() => {
+    if (!data.length) return [];
+
     const head = data.slice(0, safePerView);
     const tail = data.slice(-safePerView);
+
     return [...tail, ...data, ...head];
   }, [data, safePerView]);
 
   // ================= RESET INDEX =================
   useEffect(() => {
+    if (!data.length) return;
+
     setAnim(false);
     setIndex(safePerView);
-    const t = setTimeout(() => setAnim(true), 0);
-    return () => clearTimeout(t);
-  }, [safePerView]);
+
+    const timer = setTimeout(() => {
+      setAnim(true);
+    }, 20);
+
+    return () => clearTimeout(timer);
+  }, [safePerView, data]);
+
+  // ================= NEXT / PREV =================
+  const next = () => {
+    setIndex((prev) => prev + 1);
+  };
+
+  const prev = () => {
+    setIndex((prev) => prev - 1);
+  };
 
   // ================= AUTO SLIDE =================
-  const next = () => setIndex((i) => i + 1);
-  const prev = () => setIndex((i) => i - 1);
-
   useEffect(() => {
-    if (paused || data.length <= safePerView) return;
-    const id = setInterval(next, 3000);
-    return () => clearInterval(id);
+    if (
+      paused ||
+      data.length <= safePerView
+    )
+      return;
+
+    const interval = setInterval(() => {
+      next();
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, [paused, data, safePerView]);
 
-  // ================= LOOP FIX =================
+  // ================= INFINITE LOOP FIX =================
   const onTransitionEnd = () => {
+    // RIGHT SIDE END
     if (index >= safePerView + totalReal) {
       setAnim(false);
+
       setIndex(safePerView);
-      requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)));
-    } else if (index < safePerView) {
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setAnim(true);
+        });
+      });
+    }
+
+    // LEFT SIDE END
+    else if (index < safePerView) {
       setAnim(false);
-      setIndex(safePerView + totalReal - 1);
-      requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)));
+
+      setIndex(
+        safePerView + totalReal - 1
+      );
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setAnim(true);
+        });
+      });
     }
   };
 
-  // ================= DOTS =================
+  // ================= ACTIVE DOT =================
   const activeDot =
-    (((index - safePerView) % totalReal) + totalReal) % totalReal;
+    (((index - safePerView) % totalReal) +
+      totalReal) %
+    totalReal;
 
-  const goDot = (dotIdx) => setIndex(safePerView + dotIdx);
+  const goDot = (dotIndex) => {
+    setIndex(safePerView + dotIndex);
+  };
 
-  // ================= DRAG =================
-  const drag = useRef({ down: false, x: 0 });
+  // ================= DRAG SLIDE =================
+  const drag = useRef({
+    down: false,
+    x: 0,
+  });
 
-  const down = (e) => {
+  const handleDown = (e) => {
     drag.current.down = true;
-    drag.current.x = e.clientX || e.touches?.[0]?.clientX || 0;
+
+    drag.current.x =
+      e.clientX ||
+      e.touches?.[0]?.clientX ||
+      0;
+
     setPaused(true);
   };
 
-  const up = (e) => {
+  const handleUp = (e) => {
     if (!drag.current.down) return;
+
     drag.current.down = false;
 
-    const end = e.clientX || e.changedTouches?.[0]?.clientX || 0;
-    const diff = drag.current.x - end;
+    const endX =
+      e.clientX ||
+      e.changedTouches?.[0]?.clientX ||
+      0;
 
+    const diff = drag.current.x - endX;
+
+    // MIN SWIPE DISTANCE
     if (Math.abs(diff) < 60) {
       setPaused(false);
       return;
     }
 
-    diff > 0 ? next() : prev();
+    if (diff > 0) {
+      next();
+    } else {
+      prev();
+    }
+
     setPaused(false);
   };
 
-  // ================= UI STATES =================
+  // ================= LOADING UI =================
   if (loading) {
     return (
       <section className="cr">
-        <p style={{ textAlign: "center" }}>Loading...</p>
+        <div className="cr-loading">
+          <h2>Loading Reviews...</h2>
+        </div>
       </section>
     );
   }
 
-  if (data.length === 0) {
+  // ================= EMPTY UI =================
+  if (!loading && data.length === 0) {
     return (
       <section className="cr">
-        <p style={{ textAlign: "center" }}>No testimonials found</p>
+        <div className="cr-empty">
+          <h2>No Testimonials Found</h2>
+        </div>
       </section>
     );
   }
+
   return (
-    <section className="cr" ref={sectionRef}>
+    <section
+      className="cr"
+      ref={sectionRef}
+    >
+      {/* BACKGROUND */}
       <div className="cr-bg cr-bg-one"></div>
       <div className="cr-bg cr-bg-two"></div>
 
+      {/* HEADER */}
       <div className="cr-head">
-        <h2 className="cr-reveal">Client Reviews</h2>
+        <h2 className="cr-reveal">
+          Client Reviews
+        </h2>
 
-        <div className="cr-line cr-reveal cr-delay-1" />
-        <p className="cr-reveal cr-delay-2">What our happy clients say</p>
+        <div className="cr-line cr-reveal cr-delay-1"></div>
+
+        <p className="cr-reveal cr-delay-2">
+          What our happy clients say
+        </p>
       </div>
 
+      {/* SLIDER */}
       <div
         className="cr-slider cr-reveal cr-delay-3"
         ref={sliderRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        onMouseDown={down}
-        onMouseUp={up}
-        onTouchStart={down}
-        onTouchEnd={up}
+        onMouseDown={handleDown}
+        onMouseUp={handleUp}
+        onTouchStart={handleDown}
+        onTouchEnd={handleUp}
       >
         <div className="cr-mask">
           <div
-            className={`cr-track ${anim ? "anim" : ""}`}
+            className={`cr-track ${
+              anim ? "anim" : ""
+            }`}
             style={{
-              transform: `translateX(-${index * (100 / safePerView)}%)`,
+              transform: `translateX(-${
+                index * (100 / safePerView)
+              }%)`,
             }}
-            onTransitionEnd={onTransitionEnd}
+            onTransitionEnd={
+              onTransitionEnd
+            }
           >
-            {extended.map((x, i) => (
-              <div className="cr-slide" key={`${x._id || i}-${i}`}>
+            {extended.map((item, i) => (
+              <div
+                className="cr-slide"
+                key={`${item._id || i}-${i}`}
+              >
                 <div
                   className="cr-card"
-                  style={{ animationDelay: `${(i % perView) * 0.12}s` }}
+                  style={{
+                    animationDelay: `${
+                      (i % perView) * 0.1
+                    }s`,
+                  }}
                 >
+                  {/* IMAGE */}
                   <div className="cr-avatar">
                     <img
-                      src={x.image ? `${IMG_URL}${x.image}` : "/no-user.png"}
-                      alt={x.name}
-                      onError={(e) => (e.target.src = "/no-user.png")}
+                      src={
+                        item.image
+                          ? `${IMG_URL}${item.image}`
+                          : "/no-user.png"
+                      }
+                      alt={item.name || "user"}
+                      onError={(e) => {
+                        e.target.src =
+                          "/no-user.png";
+                      }}
                     />
                   </div>
 
-                  <p className="cr-text">{x.feedback}</p>
-                  <h3 className="cr-name">{x.name}</h3>
-                  <div className="cr-stars">{"★".repeat(x.rating)}</div>
+                  {/* FEEDBACK */}
+                  <p className="cr-text">
+                    {item.feedback}
+                  </p>
+
+                  {/* NAME */}
+                  <h3 className="cr-name">
+                    {item.name}
+                  </h3>
+
+                  {/* STARS */}
+                  <div className="cr-stars">
+                    {"★".repeat(
+                      item.rating || 5
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
+        {/* LEFT BUTTON */}
         <button
           className="cr-nav left"
           onClick={prev}
-          aria-label="Previous"
           type="button"
+          aria-label="Previous"
         >
           ‹
         </button>
+
+        {/* RIGHT BUTTON */}
         <button
           className="cr-nav right"
           onClick={next}
-          aria-label="Next"
           type="button"
+          aria-label="Next"
         >
           ›
         </button>
 
+        {/* DOTS */}
         <div className="cr-dots">
           {data.map((_, i) => (
             <span
               key={i}
-              className={i === activeDot ? "cr-dot active" : "cr-dot"}
+              className={
+                i === activeDot
+                  ? "cr-dot active"
+                  : "cr-dot"
+              }
               onClick={() => goDot(i)}
-            />
+            ></span>
           ))}
         </div>
       </div>

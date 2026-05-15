@@ -35,6 +35,12 @@ const propertySchema = new mongoose.Schema({
     curtains: Number,
   },
 
+  status: {
+  type: String,
+  enum: ["published", "draft"],
+  default: "published",
+},
+
   // ===== AMENITIES =====
   amenities: [String],
 

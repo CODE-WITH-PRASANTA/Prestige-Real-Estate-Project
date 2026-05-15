@@ -1,0 +1,346 @@
+/* =========================================
+   RENT PROPERTY STATS SECTION
+========================================= */
+
+.rent-stats-grid {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 22px;
+}
+
+/* =========================================
+   SINGLE STAT CARD
+========================================= */
+
+.stat-card {
+  background: #ffffff;
+
+  border-radius: 24px;
+
+  padding: 28px 22px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+
+  transition: 0.35s ease;
+}
+
+/* HOVER EFFECT */
+
+.stat-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 0 18px 45px rgba(16, 185, 129, 0.16);
+}
+
+/* TOP BORDER */
+
+.stat-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: linear-gradient(
+    90deg,
+    #10b981,
+    #059669
+  );
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.stat-icon {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+
+  background: #ecfdf5;
+
+  color: #10b981;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  font-size: 28px;
+
+  transition: 0.3s ease;
+}
+
+.stat-card:hover .stat-icon {
+  background: #10b981;
+  color: #ffffff;
+
+  transform: scale(1.08);
+}
+
+/* =========================================
+   VALUE
+========================================= */
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #0f172a;
+
+  margin-bottom: 8px;
+
+  line-height: 1.2;
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.stat-label {
+  font-size: 15px;
+  font-weight: 500;
+
+  color: #64748b;
+
+  line-height: 1.5;
+}
+
+/* =========================================
+   OPTIONAL SMALL TEXT
+========================================= */
+
+.stat-small {
+  font-size: 13px;
+  color: #94a3b8;
+
+  margin-top: 6px;
+}
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (max-width: 1400px) {
+  .rent-stats-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .stat-card {
+    padding: 24px 18px;
+  }
+
+  .stat-value {
+    font-size: 25px;
+  }
+}
+
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1200px) {
+  .rent-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stat-card {
+    border-radius: 22px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+  .rent-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+  }
+
+  .stat-card {
+    padding: 24px 20px;
+  }
+
+  .stat-icon {
+    width: 64px;
+    height: 64px;
+
+    font-size: 24px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+  }
+
+  .stat-label {
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .rent-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 16px;
+  }
+
+  .stat-card {
+    padding: 22px 18px;
+
+    border-radius: 20px;
+  }
+
+  .stat-icon {
+    width: 58px;
+    height: 58px;
+
+    font-size: 22px;
+
+    margin-bottom: 15px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+  .rent-stats-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .stat-card {
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    text-align: left;
+
+    gap: 18px;
+
+    padding: 20px 18px;
+
+    border-radius: 18px;
+  }
+
+  .stat-icon {
+    min-width: 54px;
+    min-height: 54px;
+
+    width: 54px;
+    height: 54px;
+
+    margin-bottom: 0;
+
+    font-size: 20px;
+  }
+
+  .stat-content {
+    flex: 1;
+  }
+
+  .stat-value {
+    font-size: 20px;
+
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .stat-card {
+    padding: 18px 15px;
+
+    gap: 14px;
+  }
+
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
+    min-height: 48px;
+
+    font-size: 18px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   VERY SMALL DEVICES
+========================================= */
+
+@media (max-width: 360px) {
+  .stat-card {
+    padding: 16px 14px;
+  }
+
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+    min-height: 44px;
+
+    font-size: 16px;
+  }
+
+  .stat-value {
+    font-size: 16px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+}

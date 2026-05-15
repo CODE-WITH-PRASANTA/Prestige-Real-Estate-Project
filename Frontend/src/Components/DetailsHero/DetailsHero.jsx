@@ -93,7 +93,6 @@ const DetailsHero = ({ data }) => {
 
       <div className="detailsHero-container">
         <div className="detailsHero-content">
-
           {/* BADGES */}
           <div className="detailsHero-badges">
             <span className="detailsHero-badge detailsHero-badgePrimary">
@@ -106,13 +105,18 @@ const DetailsHero = ({ data }) => {
           </div>
 
           {/* TITLE */}
-          <h1 className="detailsHero-title">
-            {data.title || "No Title"}
-          </h1>
+          <h1 className="detailsHero-title">{data.title || "No Title"}</h1>
+
+          {/* SEO DESCRIPTION */}
+          <p className="detailsHero-description">
+            Discover premium Prestige properties with modern amenities, luxury
+            interiors, spacious layouts, excellent connectivity, and prime
+            locations. Find your dream home with trusted real estate options
+            designed for comfort, lifestyle, and long-term investment value.
+          </p>
 
           {/* META */}
           <div className="detailsHero-meta">
-            
             {/* ⭐ RATING */}
             <div className="detailsHero-rating">
               <span className="detailsHero-stars">
@@ -150,7 +154,6 @@ const DetailsHero = ({ data }) => {
           {/* ACTIONS + PRICE */}
           <div className="detailsHero-actions">
             <div className="detailsHero-actionButtons">
-
               {/* ❤️ LIKE */}
               <button
                 className="detailsHero-actionBtn"
@@ -170,13 +173,9 @@ const DetailsHero = ({ data }) => {
               </button>
 
               {/* 🔄 SHARE */}
-              <button
-                className="detailsHero-actionBtn"
-                onClick={handleShare}
-              >
+              <button className="detailsHero-actionBtn" onClick={handleShare}>
                 <FaExchangeAlt />
               </button>
-
             </div>
 
             {/* 💰 PRICE */}
@@ -184,7 +183,6 @@ const DetailsHero = ({ data }) => {
               ₹ {data.price?.toLocaleString() || "0"}
             </div>
           </div>
-
         </div>
       </div>
     </section>

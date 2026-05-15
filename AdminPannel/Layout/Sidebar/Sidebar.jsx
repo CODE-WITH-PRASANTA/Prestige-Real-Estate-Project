@@ -7,6 +7,7 @@ import {
   FaBuilding,
   FaPlusSquare,
   FaClipboardCheck,
+  FaClipboardList,
   FaMoneyBillWave,
   FaFileInvoiceDollar,
   FaQuoteLeft,
@@ -61,8 +62,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           icon: <FaPlusSquare />, // ➕
         },
         {
-          name: "All Details Review",
-          path: "/property/review",
+          name: "Property Inquiry Management",
+          path: "/property/inquiry",
           icon: <FaClipboardCheck />, // ✅
         },
       ],
@@ -83,6 +84,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           path: "/rent/details",
           icon: <FaFileInvoiceDollar />, // 📄
         },
+        {
+          name: "Rent Inquiry Management",
+          path: "/rent/inquiries",
+          icon: <FaClipboardList />, // 📋
+       },
       ],
     },
 
@@ -111,7 +117,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         },
         {
           name: "Blog Management",
-          path: "/blog/post",
+          path: "/blog/manage",
           icon: <FaClipboardCheck />, // 📋
         },
       ],

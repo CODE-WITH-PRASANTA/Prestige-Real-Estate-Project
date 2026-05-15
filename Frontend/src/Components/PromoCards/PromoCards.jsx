@@ -1,4 +1,7 @@
-import React, { useMemo, useState, useEffect, useRef } from "react";
+// PromoCards.jsx
+
+import React from "react";
+import { Link } from "react-router-dom";
 import "./PromoCards.css";
 
 import img1 from "../../assets/promo1.jpg";
@@ -6,105 +9,82 @@ import img2 from "../../assets/promo2.jpg";
 import img3 from "../../assets/promo3.jpg";
 
 export default function PromoCards() {
-  const sectionRef = useRef(null);
-
   const items = [
-    { id: 1, img: img1, title: "Buy a Property", color: "red" },
-    { id: 2, img: img2, title: "Sell a Property", color: "orange" },
-    { id: 3, img: img3, title: "Rent a Property", color: "blue" },
-    { id: 4, img: img1, title: "Buy a Property", color: "red" },
-    { id: 5, img: img2, title: "Sell a Property", color: "orange" },
-    { id: 6, img: img3, title: "Rent a Property", color: "blue" },
+    {
+      id: 1,
+      img: img1,
+      title: "Buy Properties",
+      subtitle:
+        "Discover premium homes, apartments, and investment properties in top locations.",
+      path: "/buyproperties",
+      badge: "For Buyers",
+    },
+
+    {
+      id: 2,
+      img: img2,
+      title: "Rent Property",
+      subtitle:
+        "Find modern rental spaces that match your lifestyle and budget perfectly.",
+      path: "/rent/property",
+      badge: "For Rent",
+    },
+
+    {
+      id: 3,
+      img: img3,
+      title: "Post Property",
+      subtitle:
+        "List your property and connect with thousands of genuine buyers & tenants.",
+      path: "/property",
+      badge: "For Owners",
+    },
   ];
 
-  const getPerPage = () => {
-    const w = window.innerWidth;
-    if (w <= 768) return 1;
-    if (w <= 1024) return 2;
-    return 3;
-  };
-
-  const [perPage, setPerPage] = useState(getPerPage());
-  const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const resize = () => {
-      setPerPage(getPerPage());
-      setPage(0);
-    };
-
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
-
-  const pages = useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < items.length; i += perPage) {
-      arr.push(items.slice(i, i + perPage));
-    }
-    return arr;
-  }, [perPage]);
-
-  const prev = () => setPage((p) => Math.max(0, p - 1));
-  const next = () => setPage((p) => Math.min(pages.length - 1, p + 1));
-
   return (
-    <section className="pc" ref={sectionRef}>
-      
-      {/* 🔥 HEADING */}
-      <div className="pc-header">
-        <h2 className="pc-heading">Find Your Perfect Property Match</h2>
-        <p className="pc-subheading">
-          Buy, sell, or rent properties with ease and confidence through our trusted platform.
+    <section className="premiumPromo">
+      {/* HEADER */}
+      <div className="premiumPromo-header">
+        <span className="premiumPromo-tag">REAL ESTATE SERVICES</span>
+
+        <h2>
+          Discover Smart Ways To <br />
+          Buy, Rent & Sell Properties
+        </h2>
+
+        <p>
+          Experience a modern property platform designed to help you explore,
+          rent, buy, and post properties with complete confidence.
         </p>
       </div>
 
-      {/* SLIDER */}
-      <div className="pc-slider">
-        <button className="pc-nav left" onClick={prev}>‹</button>
+      {/* CARDS */}
+      <div className="premiumPromo-grid">
+        {items.map((item) => (
+          <div className="premiumCard" key={item.id}>
+            {/* IMAGE */}
+            <div className="premiumCard-imageWrap">
+              <img src={item.img} alt={item.title} className="premiumCard-img" />
 
-        <div
-          className="pc-track"
-          style={{ transform: `translateX(-${page * 100}%)` }}
-        >
-          {pages.map((group, i) => (
-            <div className="pc-page" key={i}>
-              {group.map((x) => (
-                <div className="pc-card" key={x.id}>
-                  <img className="pc-img" src={x.img} alt={x.title} />
+              <div className="premiumCard-overlay"></div>
 
-                  <div className="pc-overlay"></div>
-
-                  <div className="pc-action">
-                    <h3>{x.title}</h3>
-                    <button className={`pc-btn ${x.color}`}>→</button>
-                  </div>
-                </div>
-              ))}
+              <span className="premiumCard-badge">{item.badge}</span>
             </div>
-          ))}
-        </div>
 
-        <button className="pc-nav right" onClick={next}>›</button>
-      </div>
+            {/* CONTENT */}
+            <div className="premiumCard-content">
+              <h3>{item.title}</h3>
 
-      {/* PAGINATION */}
-      <div className="pc-pagination">
-        <button onClick={prev} disabled={page === 0}>&lt;</button>
+              <p>{item.subtitle}</p>
 
-        {pages.map((_, i) => (
-          <button
-            key={i}
-            className={page === i ? "active" : ""}
-            onClick={() => setPage(i)}
-          >
-            {i + 1}
-          </button>
+              <Link to={item.path} className="premiumCard-btn">
+                Read More
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
         ))}
-
-        <button onClick={next} disabled={page === pages.length - 1}>&gt;</button>
       </div>
-
     </section>
   );
 }
