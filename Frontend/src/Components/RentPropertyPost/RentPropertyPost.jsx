@@ -1,5 +1,14 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
+
+import {
+  Link,
+  useLocation,
+} from "react-router-dom";
+
 import "./RentPropertyPost.css";
 
 import {
@@ -15,15 +24,27 @@ import {
   FiList,
 } from "react-icons/fi";
 
-import API, { IMG_URL } from "../../api/axios";
+import API, {
+  IMG_URL,
+} from "../../api/axios";
 
 // ================= PROPERTY CARD =================
-function PropertyCard({ item, savedItems, toggleSave }) {
-  const [activeImage, setActiveImage] = useState(0);
-  const [direction, setDirection] = useState("next");
-  const [showNumber, setShowNumber] = useState(false);
+function PropertyCard({
+  item,
+  savedItems,
+  toggleSave,
+}) {
+  const [activeImage, setActiveImage] =
+    useState(0);
 
-  const isSaved = savedItems.includes(item.id);
+  const [direction, setDirection] =
+    useState("next");
+
+  const [showNumber, setShowNumber] =
+    useState(false);
+
+  const isSaved =
+    savedItems.includes(item.id);
 
   const phoneNumber = "9595422040";
 
@@ -31,7 +52,9 @@ function PropertyCard({ item, savedItems, toggleSave }) {
     setDirection("prev");
 
     setActiveImage((prev) =>
-      prev === 0 ? item.images.length - 1 : prev - 1
+      prev === 0
+        ? item.images.length - 1
+        : prev - 1
     );
   };
 
@@ -39,40 +62,63 @@ function PropertyCard({ item, savedItems, toggleSave }) {
     setDirection("next");
 
     setActiveImage((prev) =>
-      prev === item.images.length - 1 ? 0 : prev + 1
+      prev === item.images.length - 1
+        ? 0
+        : prev + 1
     );
   };
 
   const jumpToImage = (index) => {
-    setDirection(index > activeImage ? "next" : "prev");
+    setDirection(
+      index > activeImage
+        ? "next"
+        : "prev"
+    );
+
     setActiveImage(index);
   };
 
   const openWhatsapp = () => {
-    window.open(`https://wa.me/${phoneNumber}`, "_blank");
+    window.open(
+      `https://wa.me/${phoneNumber}`,
+      "_blank"
+    );
   };
 
   return (
     <div className="rent-card ultra-card">
+
       {/* IMAGE */}
       <div className="rent-card-image-wrap premium-gallery">
-        {item.tag && <span className="rent-badge">{item.tag}</span>}
+
+        {item.tag && (
+          <span className="rent-badge">
+            {item.tag}
+          </span>
+        )}
 
         <button
-          className={`rent-heart-btn ${isSaved ? "saved" : ""}`}
-          onClick={() => toggleSave(item.id)}
+          className={`rent-heart-btn ${
+            isSaved ? "saved" : ""
+          }`}
+          onClick={() =>
+            toggleSave(item.id)
+          }
           type="button"
         >
           <FiHeart />
         </button>
 
         <div className="gallery-main">
+
           <div
             className={`gallery-image-stage slide-${direction}`}
             key={activeImage}
           >
             <img
-              src={item.images[activeImage]}
+              src={
+                item.images[activeImage]
+              }
               alt={item.title}
               className="rent-card-image"
             />
@@ -95,23 +141,33 @@ function PropertyCard({ item, savedItems, toggleSave }) {
           </button>
 
           <div className="rent-image-slider-dots">
-            {item.images.map((_, index) => (
-              <button
-                key={index}
-                className={`slider-dot ${
-                  activeImage === index ? "active-dot" : ""
-                }`}
-                onClick={() => jumpToImage(index)}
-                type="button"
-              />
-            ))}
+
+            {item.images.map(
+              (_, index) => (
+                <button
+                  key={index}
+                  className={`slider-dot ${
+                    activeImage ===
+                    index
+                      ? "active-dot"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    jumpToImage(index)
+                  }
+                  type="button"
+                />
+              )
+            )}
+
           </div>
 
           <div className="rent-image-count">
             <FiCamera />
 
             <span>
-              {activeImage + 1}/{item.images.length}
+              {activeImage + 1}/
+              {item.images.length}
             </span>
           </div>
         </div>
@@ -119,6 +175,7 @@ function PropertyCard({ item, savedItems, toggleSave }) {
 
       {/* CONTENT */}
       <div className="rent-card-content">
+
         <div className="rent-card-top">
           <div>
             <h3>{item.title}</h3>
@@ -128,6 +185,7 @@ function PropertyCard({ item, savedItems, toggleSave }) {
         </div>
 
         <div className="rent-card-stats">
+
           <div>
             <h4>{item.price}</h4>
 
@@ -145,21 +203,34 @@ function PropertyCard({ item, savedItems, toggleSave }) {
 
             <p>{item.baths}</p>
           </div>
+
         </div>
 
         <div className="rent-highlights">
-          <strong>Highlights :</strong>
 
-          {item.highlights.map((hl, index) => (
-            <span key={index}>{hl}</span>
-          ))}
+          <strong>
+            Highlights :
+          </strong>
+
+          {item.highlights.map(
+            (hl, index) => (
+              <span key={index}>
+                {hl}
+              </span>
+            )
+          )}
+
         </div>
 
         <p className="rent-desc">
-          {item.desc.replace(/<[^>]+>/g, "")}
+          {item.desc.replace(
+            /<[^>]+>/g,
+            ""
+          )}
         </p>
 
         <div className="rent-card-bottom">
+
           <div className="rent-time">
             <span>{item.time}</span>
 
@@ -167,6 +238,7 @@ function PropertyCard({ item, savedItems, toggleSave }) {
           </div>
 
           <div className="rent-actions">
+
             <Link
               to={`/rent/details/${item.id}`}
               className="rent-view-details-btn"
@@ -178,9 +250,15 @@ function PropertyCard({ item, savedItems, toggleSave }) {
             <button
               className="rent-view-btn"
               type="button"
-              onClick={() => setShowNumber(!showNumber)}
+              onClick={() =>
+                setShowNumber(
+                  !showNumber
+                )
+              }
             >
-              {showNumber ? phoneNumber : "View Number"}
+              {showNumber
+                ? phoneNumber
+                : "View Number"}
             </button>
 
             <button
@@ -191,6 +269,7 @@ function PropertyCard({ item, savedItems, toggleSave }) {
               <FiPhone />
               Contact
             </button>
+
           </div>
         </div>
       </div>
@@ -200,225 +279,441 @@ function PropertyCard({ item, savedItems, toggleSave }) {
 
 // ================= MAIN =================
 export default function RentProperty() {
-  const [properties, setProperties] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  const [savedItems, setSavedItems] = useState([]);
+  const [properties, setProperties] =
+    useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  const [savedItems, setSavedItems] =
+    useState([]);
+
+  const [currentPage, setCurrentPage] =
+    useState(1);
 
   const location = useLocation();
 
   // SORT
-  const [sortOption, setSortOption] = useState("Default");
+  const [sortOption, setSortOption] =
+    useState("Default");
 
   // VIEW
-  const [viewType, setViewType] = useState("grid");
+  const [viewType, setViewType] =
+    useState("grid");
 
   const cardsPerPage = 10;
 
   // ================= FETCH API =================
   useEffect(() => {
+
     const fetchData = async () => {
+
       try {
-        const res = await API.get("/rent");
 
-        const formatted = res.data.map((item, index) => ({
-          id: item._id || index,
+        const res =
+          await API.get("/rent");
 
-          title: item.title,
+        console.log(
+          "RENT API",
+          res.data
+        );
 
-          subtitle: `${item.bedrooms} BHK Flat in ${item.location}`,
+        const formatted =
+          res.data.map(
+            (item, index) => ({
 
-          price: `₹${item.rent}`,
+              id:
+                item._id || index,
 
-          deposit: item.deposit || "+ Deposit not specified",
+              title:
+                item.title ||
+                "No Title",
 
-          area: `${item.sqft} sqft`,
+              // FILTER FIELDS
+              category: `${item.bedrooms} bhk`,
 
-          areaType: "Built-up Area",
+              rentalType:
+                (
+                  item.rentalType ||
+                  "Monthly Rent"
+                ).toLowerCase(),
 
-          bhk: `${item.bedrooms} BHK`,
+              location:
+                (
+                  item.location ||
+                  ""
+                ).toLowerCase(),
 
-          baths: `${item.bathrooms} Baths`,
+              rentValue: Number(
+                item.rent || 0
+              ),
 
-          highlights: ["Premium", "Good Location"],
+              // DISPLAY DATA
+              subtitle: `${item.bedrooms} BHK Flat in ${item.location}`,
 
-          desc: item.description || "No description",
+              price: `₹${item.rent}`,
 
-          time: "Recently added",
+              deposit:
+                item.deposit ||
+                "+ Deposit not specified",
 
-          postedBy: "Owner",
+              area: `${
+                item.sqft || 0
+              } sqft`,
 
-          tag: item.tag || "",
+              areaType:
+                "Built-up Area",
 
-          verified: item.verified || false,
+              bhk: `${
+                item.bedrooms || 0
+              } BHK`,
 
-          images:
-            item.images && item.images.length > 0
-              ? item.images.map((img) =>
-                  img.startsWith("http")
-                    ? img
-                    : `${IMG_URL}/${img.replace(/^\/+/, "")}`
-                )
-              : ["https://via.placeholder.com/400x300?text=No+Image"],
-        }));
+              baths: `${
+                item.bathrooms || 0
+              } Baths`,
+
+              highlights:
+                item.highlights || [
+                  "Premium",
+                  "Good Location",
+                ],
+
+              desc:
+                item.description ||
+                "No description",
+
+              time:
+                "Recently added",
+
+              postedBy: "Owner",
+
+              tag:
+                item.tag || "",
+
+              verified:
+                item.verified ||
+                false,
+
+              images:
+                item.images &&
+                item.images.length > 0
+                  ? item.images.map(
+                      (img) =>
+                        img.startsWith(
+                          "http"
+                        )
+                          ? img
+                          : `${IMG_URL}/${img.replace(
+                              /^\/+/,
+                              ""
+                            )}`
+                    )
+                  : [
+                      "https://via.placeholder.com/400x300?text=No+Image",
+                    ],
+            })
+          );
+
+        console.log(
+          "FORMATTED DATA",
+          formatted
+        );
 
         setProperties(formatted);
+
       } catch (err) {
+
         console.error(err);
 
-        setError("Failed to load properties");
+        setError(
+          "Failed to load properties"
+        );
+
       } finally {
+
         setLoading(false);
+
       }
     };
 
     fetchData();
+
   }, []);
 
   // ================= SAVE =================
   const toggleSave = (id) => {
+
     setSavedItems((prev) =>
       prev.includes(id)
-        ? prev.filter((i) => i !== id)
+        ? prev.filter(
+            (i) => i !== id
+          )
         : [...prev, id]
     );
   };
 
+  // ================= FILTER =================
+  const filteredProperties =
+    useMemo(() => {
+
+      const params =
+        new URLSearchParams(
+          location.search
+        );
+
+      const category =
+        params
+          .get("category")
+          ?.toLowerCase()
+          .trim() || "";
+
+      const type =
+        params
+          .get("type")
+          ?.toLowerCase()
+          .trim() || "";
+
+      const searchLocation =
+        params
+          .get("location")
+          ?.toLowerCase()
+          .trim() || "";
+
+      const minPrice = Number(
+        params.get("minPrice") || 0
+      );
+
+      const maxPrice = Number(
+        params.get("maxPrice") || 0
+      );
+
+      console.log({
+        category,
+        type,
+        searchLocation,
+        minPrice,
+        maxPrice,
+      });
+
+      return properties.filter(
+        (item) => {
+
+          // CATEGORY
+          if (category) {
+
+            const categoryValue =
+              (
+                item.category || ""
+              ).toLowerCase();
+
+            if (
+              !categoryValue.includes(
+                category
+              )
+            ) {
+              return false;
+            }
+          }
+
+          // RENT TYPE
+          if (type) {
+
+            const rentalType =
+              (
+                item.rentalType ||
+                ""
+              ).toLowerCase();
+
+            if (
+              !rentalType.includes(
+                type
+              )
+            ) {
+              return false;
+            }
+          }
+
+          // LOCATION
+          if (searchLocation) {
+
+            const locationValue =
+              (
+                item.location ||
+                ""
+              ).toLowerCase();
+
+            if (
+              !locationValue.includes(
+                searchLocation
+              )
+            ) {
+              return false;
+            }
+          }
+
+          // PRICE
+          const rentValue =
+            Number(
+              item.rentValue || 0
+            );
+
+          if (
+            minPrice &&
+            rentValue < minPrice
+          ) {
+            return false;
+          }
+
+          if (
+            maxPrice &&
+            rentValue > maxPrice
+          ) {
+            return false;
+          }
+
+          return true;
+        }
+      );
+
+    }, [
+      properties,
+      location.search,
+    ]);
+
   // ================= SORT =================
-  const filteredProperties = useMemo(() => {
-    const params = new URLSearchParams(location.search);
+  const sortedProperties =
+    useMemo(() => {
 
-    const category = params.get("category")?.toLowerCase().trim() || "";
-    const type = params.get("type")?.toLowerCase().trim() || "";
-    const searchLocation = params.get("location")?.toLowerCase().trim() || "";
-    const minPrice = Number(params.get("minPrice") || 0);
-    const maxPrice = Number(params.get("maxPrice") || 0);
+      let sorted = [
+        ...filteredProperties,
+      ];
 
-    return properties.filter((item) => {
-      if (category) {
-        const title = (item.title || "").toLowerCase();
-        const subtitle = (item.subtitle || "").toLowerCase();
-        if (!title.includes(category) && !subtitle.includes(category)) {
-          return false;
-        }
+      if (
+        sortOption ===
+        "Price: Low to High"
+      ) {
+
+        sorted.sort(
+          (a, b) =>
+            a.rentValue -
+            b.rentValue
+        );
       }
 
-      if (type) {
-        const title = (item.title || "").toLowerCase();
-        const subtitle = (item.subtitle || "").toLowerCase();
-        if (!title.includes(type) && !subtitle.includes(type)) {
-          return false;
-        }
+      if (
+        sortOption ===
+        "Price: High to Low"
+      ) {
+
+        sorted.sort(
+          (a, b) =>
+            b.rentValue -
+            a.rentValue
+        );
       }
 
-      if (searchLocation) {
-        const title = (item.title || "").toLowerCase();
-        const subtitle = (item.subtitle || "").toLowerCase();
-        if (!title.includes(searchLocation) && !subtitle.includes(searchLocation)) {
-          return false;
-        }
+      if (
+        sortOption ===
+        "Latest Property"
+      ) {
+        sorted.reverse();
       }
 
-      const priceValue = Number(
-        item.price.replace(/[^\d]/g, "") || 0
-      );
-      if (minPrice && priceValue < minPrice) return false;
-      if (maxPrice && priceValue > maxPrice) return false;
+      return sorted;
 
-      return true;
-    });
-  }, [properties, location.search]);
-
-  const sortedProperties = useMemo(() => {
-    let sorted = [...filteredProperties];
-
-    if (sortOption === "Price: Low to High") {
-      sorted.sort(
-        (a, b) =>
-          Number(a.price.replace(/[^\d]/g, "")) -
-          Number(b.price.replace(/[^\d]/g, ""))
-      );
-    }
-
-    if (sortOption === "Price: High to Low") {
-      sorted.sort(
-        (a, b) =>
-          Number(b.price.replace(/[^\d]/g, "")) -
-          Number(a.price.replace(/[^\d]/g, ""))
-      );
-    }
-
-    if (sortOption === "Latest Property") {
-      sorted.reverse();
-    }
-
-    return sorted;
-  }, [filteredProperties, sortOption]);
+    }, [
+      filteredProperties,
+      sortOption,
+    ]);
 
   // ================= PAGINATION =================
   const totalPages = Math.ceil(
-    sortedProperties.length / cardsPerPage
+    sortedProperties.length /
+      cardsPerPage
   );
 
-  const currentCards = useMemo(() => {
-    const start = (currentPage - 1) * cardsPerPage;
+  const currentCards =
+    useMemo(() => {
 
-    return sortedProperties.slice(
-      start,
-      start + cardsPerPage
-    );
-  }, [sortedProperties, currentPage]);
+      const start =
+        (currentPage - 1) *
+        cardsPerPage;
+
+      return sortedProperties.slice(
+        start,
+        start + cardsPerPage
+      );
+
+    }, [
+      sortedProperties,
+      currentPage,
+    ]);
 
   // ================= LOADING =================
-  if (loading)
+  if (loading) {
+
     return (
       <div className="rent-loading">
         Loading properties...
       </div>
     );
+  }
 
-  if (error)
+  // ================= ERROR =================
+  if (error) {
+
     return (
       <div className="rent-error">
         {error}
       </div>
     );
+  }
 
   // ================= RETURN =================
   return (
     <section className="rent-page">
 
-      {/* ================= TOP BAR ================= */}
-
+      {/* TOPBAR */}
       <div className="rent-topbar">
+
         <div className="rent-topbar-left">
           <h4>
             Showing result{" "}
-            <span>{sortedProperties.length}</span>
+            <span>
+              {
+                sortedProperties.length
+              }
+            </span>
           </h4>
         </div>
 
         <div className="rent-topbar-right">
 
           {/* SORT */}
-
           <div className="rent-sort-wrap">
+
             <span className="sort-label">
               Sort By
             </span>
 
             <div className="custom-select">
+
               <select
                 value={sortOption}
                 onChange={(e) => {
-                  setSortOption(e.target.value);
+
+                  setSortOption(
+                    e.target.value
+                  );
 
                   setCurrentPage(1);
                 }}
               >
+
                 <option value="Default">
                   Default
                 </option>
@@ -434,58 +729,62 @@ export default function RentProperty() {
                 <option value="Price: High to Low">
                   Price: High to Low
                 </option>
+
               </select>
 
               <FiChevronDown className="select-icon" />
             </div>
           </div>
 
-          {/* LIST VIEW */}
-
+          {/* LIST */}
           <button
             className={`layout-btn ${
               viewType === "list"
                 ? "active-layout"
                 : ""
             }`}
-            onClick={() => setViewType("list")}
+            onClick={() =>
+              setViewType("list")
+            }
             type="button"
           >
             <FiList />
           </button>
 
-          {/* GRID VIEW */}
-
+          {/* GRID */}
           <button
             className={`layout-btn ${
               viewType === "grid"
                 ? "active-layout"
                 : ""
             }`}
-            onClick={() => setViewType("grid")}
+            onClick={() =>
+              setViewType("grid")
+            }
             type="button"
           >
             <FiGrid />
           </button>
 
-          {/* MAP VIEW */}
-
+          {/* MAP */}
           <button
             className={`layout-btn ${
               viewType === "map"
                 ? "active-layout"
                 : ""
             }`}
-            onClick={() => setViewType("map")}
+            onClick={() =>
+              setViewType("map")
+            }
             type="button"
           >
             <FiMapPin />
           </button>
+
         </div>
       </div>
 
-      {/* ================= PROPERTY LIST ================= */}
-
+      {/* PROPERTY LIST */}
       <div
         className={`rent-card-list ${
           viewType === "grid"
@@ -495,46 +794,67 @@ export default function RentProperty() {
             : "list-view"
         }`}
       >
+
         {currentCards.map((item) => (
+
           <PropertyCard
             key={item.id}
             item={item}
             savedItems={savedItems}
             toggleSave={toggleSave}
           />
+
         ))}
+
       </div>
 
-      {/* ================= PAGINATION ================= */}
+      {/* NO RESULT */}
+      {sortedProperties.length ===
+        0 && (
+        <div className="rent-no-result">
+          No properties found.
+        </div>
+      )}
 
+      {/* PAGINATION */}
       {totalPages > 1 && (
         <div className="rent-pagination">
 
           <button
             onClick={() =>
-              setCurrentPage((p) => p - 1)
+              setCurrentPage(
+                (p) => p - 1
+              )
             }
-            disabled={currentPage === 1}
+            disabled={
+              currentPage === 1
+            }
           >
             Prev
           </button>
 
           <span>
-            Page {currentPage} / {totalPages}
+            Page {currentPage} /{" "}
+            {totalPages}
           </span>
 
           <button
             onClick={() =>
-              setCurrentPage((p) => p + 1)
+              setCurrentPage(
+                (p) => p + 1
+              )
             }
             disabled={
-              currentPage === totalPages
+              currentPage ===
+              totalPages
             }
           >
             Next
           </button>
+
         </div>
       )}
+
     </section>
   );
 }
