@@ -1,0 +1,335 @@
+/* ================= PAGE ================= */
+
+.rent-details-page{
+width:100%;
+background:#f8fafc;
+padding-bottom:80px;
+}
+
+/* ================= MAIN LAYOUT ================= */
+
+.rent-details-layout{
+width:95%;
+max-width:1400px;
+
+margin:auto;
+margin-top:40px;
+
+display:flex;
+gap:35px;
+align-items:flex-start;
+}
+
+/* ================= LEFT ================= */
+
+.rent-details-left{
+flex:1;
+
+display:flex;
+flex-direction:column;
+gap:30px;
+}
+
+/* ================= RIGHT ================= */
+
+.rent-details-right{
+width:380px;
+min-width:380px;
+
+position:sticky;
+top:100px;
+}
+
+/* ================= COMMON CARD ================= */
+
+.rent-header-card,
+.rent-short-card,
+.rent-description-card,
+.rent-amenities-card,
+.rent-map-card,
+.rent-similar-card,
+.rent-inquiry-card{
+background:#fff;
+border-radius:24px;
+padding:30px;
+
+box-shadow:0 10px 40px rgba(0,0,0,.06);
+}
+
+/* ================= HEADER ================= */
+
+.rent-header-card h1{
+font-size:38px;
+font-weight:700;
+color:#0f172a;
+margin-bottom:12px;
+}
+
+.rent-header-card p{
+font-size:17px;
+color:#64748b;
+margin-bottom:20px;
+}
+
+.rent-header-bottom{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.rent-price{
+font-size:34px;
+font-weight:700;
+color:#10b981;
+}
+
+.rent-rating{
+background:#f8fafc;
+padding:10px 18px;
+border-radius:12px;
+font-weight:600;
+}
+
+/* ================= STATS ================= */
+
+.rent-stats-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+}
+
+.stat-card{
+background:#fff;
+border-radius:20px;
+padding:24px;
+
+font-size:16px;
+font-weight:600;
+text-align:center;
+
+box-shadow:0 8px 30px rgba(0,0,0,.05);
+
+transition:.3s ease;
+}
+
+.stat-card:hover{
+transform:translateY(-5px);
+}
+
+/* ================= GALLERY ================= */
+
+.rent-gallery{
+width:95%;
+max-width:1400px;
+margin:auto;
+margin-top:30px;
+}
+
+.rent-gallery-main{
+width:100%;
+height:550px;
+overflow:hidden;
+border-radius:30px;
+margin-bottom:20px;
+}
+
+.rent-gallery-main img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.rent-gallery-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
+}
+
+.rent-gallery-grid img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:16px;
+cursor:pointer;
+transition:.3s;
+border:3px solid transparent;
+}
+
+.rent-gallery-grid img:hover{
+transform:scale(1.03);
+}
+
+.active-thumb{
+border-color:#10b981 !important;
+}
+
+/* ================= AMENITIES ================= */
+
+.rent-amenities-card h2{
+margin-bottom:25px;
+font-size:28px;
+}
+
+.amenities-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+.amenity-item{
+background:#f8fafc;
+padding:18px;
+border-radius:18px;
+
+font-weight:600;
+transition:.3s;
+}
+
+.amenity-item:hover{
+background:#10b981;
+color:#fff;
+}
+
+/* ================= DESCRIPTION ================= */
+
+.rent-description-card h2{
+margin-bottom:20px;
+font-size:28px;
+}
+
+.rent-description-card p{
+line-height:1.9;
+color:#475569;
+font-size:17px;
+}
+
+/* ================= INQUIRY SIDEBAR ================= */
+
+.rent-inquiry-card{
+position:sticky;
+top:100px;
+}
+
+.rent-inquiry-card h2{
+font-size:34px;
+margin-bottom:25px;
+color:#10b981;
+}
+
+.rent-inquiry-card input,
+.rent-inquiry-card textarea{
+width:100%;
+margin-bottom:18px;
+
+border:none;
+outline:none;
+
+background:#f8fafc;
+
+padding:18px;
+border-radius:16px;
+
+font-size:15px;
+}
+
+.rent-inquiry-card textarea{
+height:120px;
+resize:none;
+}
+
+.rent-inquiry-card button{
+width:100%;
+height:58px;
+
+border:none;
+border-radius:16px;
+
+font-size:16px;
+font-weight:600;
+
+cursor:pointer;
+transition:.3s;
+}
+
+.rent-inquiry-card button:first-of-type{
+background:#10b981;
+color:#fff;
+margin-bottom:15px;
+}
+
+.whatsapp-btn{
+background:#25D366;
+color:#fff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1200px){
+
+.rent-stats-grid{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
+
+@media(max-width:992px){
+
+.rent-details-layout{
+flex-direction:column;
+}
+
+.rent-details-right{
+width:100%;
+min-width:100%;
+
+position:relative;
+top:0;
+}
+
+.rent-stats-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.amenities-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.rent-gallery-main{
+height:400px;
+}
+
+}
+
+@media(max-width:768px){
+
+.rent-gallery-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.rent-gallery-grid img{
+height:100px;
+}
+
+.rent-header-card h1{
+font-size:28px;
+}
+
+.rent-price{
+font-size:28px;
+}
+
+.rent-stats-grid{
+grid-template-columns:1fr;
+}
+
+.amenities-grid{
+grid-template-columns:1fr;
+}
+
+.rent-header-bottom{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}

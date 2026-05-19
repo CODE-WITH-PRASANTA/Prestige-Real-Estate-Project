@@ -12,6 +12,7 @@ import MainFaq from "./Pages/MainFaq/MainFaq";
 import MainGallary from "./Pages/MainGallary/MainGallary";
 import RentProperty from "./Pages/RentProperty/RentProperty";
 import RentDetails from "./Pages/RentDetails/RentDetails";
+import RentInquiryManagement from "./Pages/RentInquiryManagement/RentInquiryManagement";
 import ContactManagement from "./Pages/ContactManagement/ContactManagement";
 import PropertyList from "./Component/PropertyList.jsx/PropertyList";
 import PropertyView from "./Component/PropertyList.jsx/PropertyView";
@@ -42,8 +43,10 @@ const App = () => {
           <Route path="/admin/testimonial" element={<TestimonialPost />} />
           <Route path="/admin/enquiry" element={<EnquiryAdmin />} />
           <Route path="/admin/gallery" element={<MainGallary />} />
-          <Route path="/rent/post" element={<RentProperty />} />
+          <Route path="/rent/post"element={<RentProperty />}/>
+          <Route path="/rent/post/:id" element={<RentProperty />}/>
           <Route path="/rent/details" element={<RentDetails />} />
+          <Route path="/rent/inquiries" element={<RentInquiryManagement />} />
           <Route path="/admin/contact" element={<ContactManagement />} />
           <Route path="/properties" element={<PropertyList />} />
           <Route path="/property/:id" element={<PropertyView />} />

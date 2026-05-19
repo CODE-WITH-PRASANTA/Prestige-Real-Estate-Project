@@ -7,6 +7,7 @@ import {
   FaBuilding,
   FaPlusSquare,
   FaClipboardCheck,
+  FaClipboardList,
   FaMoneyBillWave,
   FaFileInvoiceDollar,
   FaQuoteLeft,
@@ -83,6 +84,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           path: "/rent/details",
           icon: <FaFileInvoiceDollar />, // 📄
         },
+        {
+          name: "Rent Inquiry Management",
+          path: "/rent/inquiries",
+          icon: <FaClipboardList />, // 📋
+       },
       ],
     },
 

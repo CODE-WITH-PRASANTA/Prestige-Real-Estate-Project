@@ -1,32 +1,92 @@
-const express = require("express");
-const router = express.Router();
+const express =
+require("express");
 
-// ✅ middleware
-const { upload, convertToWebp } = require("../middlewares/upload");
+const router =
+express.Router();
 
-// ✅ controller (MATCH FILE NAME EXACTLY)
+// MIDDLEWARE
+
 const {
-  createRent,
-  getAllRent,
-  getRentById,
-  deleteRent,
-} = require("../controllers/rent.controller");
-
-// CREATE
-router.post(
-  "/",
-  upload.fields([{ name: "images", maxCount: 10 }]),
+  upload,
   convertToWebp,
+} = require(
+  "../middlewares/upload"
+);
+
+// CONTROLLER
+
+const {
+
+  createRent,
+
+  getAllRent,
+
+  getRentById,
+
+  updateRent,
+
+  deleteRent,
+
+} = require(
+  "../controllers/rent.controller"
+);
+
+// ================= CREATE =================
+
+router.post(
+
+  "/",
+
+  upload.fields([
+    {
+      name: "images",
+      maxCount: 10,
+    },
+  ]),
+
+  convertToWebp,
+
   createRent
 );
 
-// GET ALL
-router.get("/", getAllRent);
+// ================= GET ALL =================
 
-// GET SINGLE
-router.get("/:id", getRentById);
+router.get(
+  "/",
+  getAllRent
+);
 
-// DELETE
-router.delete("/:id", deleteRent);
+// ================= GET SINGLE =================
 
-module.exports = router;
+router.get(
+  "/:id",
+  getRentById
+);
+
+// ================= UPDATE =================
+
+router.put(
+
+  "/:id",
+
+  upload.fields([
+    {
+      name: "images",
+      maxCount: 10,
+    },
+  ]),
+
+  convertToWebp,
+
+  updateRent
+);
+
+// ================= DELETE =================
+
+router.delete(
+  "/:id",
+  deleteRent
+);
+
+module.exports =
+router;

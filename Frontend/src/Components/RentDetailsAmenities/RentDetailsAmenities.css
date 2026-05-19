@@ -1,0 +1,426 @@
+/* =========================================
+   RENT AMENITIES SECTION
+========================================= */
+
+.rent-amenities-card {
+  width: 100%;
+
+  background: #ffffff;
+
+  border-radius: 28px;
+
+  padding: 35px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.rent-amenities-card h2 {
+  font-size: 34px;
+  font-weight: 700;
+
+  color: #0f172a;
+
+  margin-bottom: 30px;
+
+  position: relative;
+}
+
+/* UNDERLINE */
+
+.rent-amenities-card h2::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+
+  width: 80px;
+  height: 4px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    90deg,
+    #10b981,
+    #059669
+  );
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.amenities-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 22px;
+}
+
+/* =========================================
+   SINGLE ITEM
+========================================= */
+
+.amenity-item {
+  background: #f8fafc;
+
+  border-radius: 22px;
+
+  padding: 22px 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: 0.35s ease;
+
+  border: 1px solid transparent;
+
+  cursor: pointer;
+}
+
+/* TOP BORDER EFFECT */
+
+.amenity-item::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(
+    90deg,
+    #10b981,
+    #059669
+  );
+
+  transform: scaleX(0);
+
+  transform-origin: left;
+
+  transition: 0.35s ease;
+}
+
+/* HOVER */
+
+.amenity-item:hover {
+  transform: translateY(-5px);
+
+  background: #ffffff;
+
+  border-color: #d1fae5;
+
+  box-shadow: 0 16px 35px rgba(16, 185, 129, 0.12);
+}
+
+.amenity-item:hover::before {
+  transform: scaleX(1);
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.amenity-icon {
+  width: 58px;
+  height: 58px;
+
+  min-width: 58px;
+
+  border-radius: 18px;
+
+  background: #ecfdf5;
+
+  color: #10b981;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  transition: 0.35s ease;
+}
+
+/* ICON HOVER */
+
+.amenity-item:hover .amenity-icon {
+  background: #10b981;
+  color: #ffffff;
+
+  transform: scale(1.08);
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.amenity-text {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.amenity-title {
+  font-size: 17px;
+  font-weight: 600;
+
+  color: #0f172a;
+
+  line-height: 1.4;
+}
+
+.amenity-subtitle {
+  font-size: 13px;
+  color: #64748b;
+
+  line-height: 1.5;
+}
+
+/* =========================================
+   LARGE LAPTOP
+========================================= */
+
+@media (max-width: 1400px) {
+  .amenities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1200px) {
+  .rent-amenities-card {
+    padding: 30px;
+  }
+
+  .rent-amenities-card h2 {
+    font-size: 30px;
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+  .rent-amenities-card {
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+  }
+
+  .amenity-item {
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+
+  .amenity-icon {
+    width: 52px;
+    height: 52px;
+
+    min-width: 52px;
+
+    border-radius: 16px;
+
+    font-size: 22px;
+  }
+
+  .amenity-title {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .rent-amenities-card {
+    padding: 24px 20px;
+
+    border-radius: 22px;
+  }
+
+  .rent-amenities-card h2 {
+    font-size: 26px;
+
+    margin-bottom: 26px;
+  }
+
+  .amenities-grid {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .amenity-item {
+    padding: 18px 16px;
+
+    border-radius: 18px;
+  }
+
+  .amenity-icon {
+    width: 50px;
+    height: 50px;
+
+    min-width: 50px;
+
+    font-size: 20px;
+  }
+
+  .amenity-title {
+    font-size: 15px;
+  }
+
+  .amenity-subtitle {
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+  .rent-amenities-card {
+    padding: 20px 16px;
+
+    border-radius: 20px;
+  }
+
+  .rent-amenities-card h2 {
+    font-size: 22px;
+  }
+
+  .rent-amenities-card h2::after {
+    width: 60px;
+    height: 3px;
+  }
+
+  .amenity-item {
+    gap: 14px;
+
+    padding: 16px 14px;
+  }
+
+  .amenity-icon {
+    width: 46px;
+    height: 46px;
+
+    min-width: 46px;
+
+    border-radius: 14px;
+
+    font-size: 18px;
+  }
+
+  .amenity-title {
+    font-size: 14px;
+  }
+
+  .amenity-subtitle {
+    font-size: 11px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .rent-amenities-card {
+    padding: 18px 14px;
+  }
+
+  .rent-amenities-card h2 {
+    font-size: 20px;
+  }
+
+  .amenity-item {
+    border-radius: 16px;
+
+    padding: 14px 12px;
+  }
+
+  .amenity-icon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+  }
+
+  .amenity-title {
+    font-size: 13px;
+  }
+
+  .amenity-subtitle {
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   VERY SMALL DEVICES
+========================================= */
+
+@media (max-width: 360px) {
+  .rent-amenities-card {
+    padding: 16px 12px;
+  }
+
+  .rent-amenities-card h2 {
+    font-size: 18px;
+  }
+
+  .amenity-item {
+    gap: 12px;
+  }
+
+  .amenity-icon {
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    font-size: 15px;
+  }
+
+  .amenity-title {
+    font-size: 12px;
+  }
+
+  .amenity-subtitle {
+    font-size: 9px;
+  }
+}
