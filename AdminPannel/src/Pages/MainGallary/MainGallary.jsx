@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import API from "../../api/axios";
+import React, { useEffect, useState } from "react";
+import API, { IMG_URL } from "../../api/axios";
 import "./MainGallary.css";
 
 const MainGallary = () => {
@@ -14,91 +14,158 @@ const MainGallary = () => {
   const [data, setData] = useState([]);
   const [editId, setEditId] = useState(null);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  /* ================= FETCH DATA ================= */
-const [totalPages, setTotalPages] = useState(1);
+  /* ================= FETCH ================= */
 
-const fetchData = async () => {
-  try {
-    const res = await API.get(`/gallery?page=${currentPage}`);
-    setData(res.data.data);
-    setTotalPages(res.data.pages);
-  } catch (err) {
-    console.error("Fetch Error:", err.message);
-  }
-};
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+
+      const res = await API.get("/gallery");
+
+      setData(res.data.data || []);
+
+    } catch (err) {
+      console.log("Fetch Error:", err.response?.data || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, []);
 
   /* ================= INPUT ================= */
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
-  const handleImage = (e) => {
-    const file = e.target.files[0];
     setFormData({
       ...formData,
-      image: file,
-      preview: URL.createObjectURL(file),
+      [name]: value,
     });
   };
 
+  /* ================= IMAGE ================= */
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setFormData({
+        ...formData,
+        image: file,
+        preview: URL.createObjectURL(file),
+      });
+    }
+  };
+
   /* ================= SUBMIT ================= */
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = new FormData();
-    form.append("topCity", formData.topCity);
-    form.append("cityName", formData.cityName);
-    form.append("properties", formData.properties);
-
-    if (formData.image) {
-      form.append("image", formData.image);
-    }
-
     try {
-      if (editId) {
-        await API.put(`/gallery/${editId}`, form);
-      } else {
-        await API.post("/gallery", form);
+      const sendData = new FormData();
+
+      sendData.append("topCity", formData.topCity);
+      sendData.append("cityName", formData.cityName);
+      sendData.append("properties", formData.properties);
+
+      if (formData.image) {
+        sendData.append("image", formData.image);
       }
 
-      alert("Saved Successfully ✅");
-      fetchData();
+      /* ================= UPDATE ================= */
+
+      if (editId) {
+        await API.put(`/gallery/${editId}`, sendData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        alert("Updated Successfully ✅");
+
+      } else {
+
+        /* ================= CREATE ================= */
+
+        await API.post("/gallery", sendData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        alert("Added Successfully ✅");
+      }
+
       resetForm();
+
+      fetchData();
+
     } catch (err) {
-      console.error("Submit Error:", err.response?.data || err.message);
+      console.log(
+        "Submit Error:",
+        err.response?.data || err.message
+      );
+
+      alert(
+        err.response?.data?.message ||
+          "Something went wrong ❌"
+      );
     }
   };
 
   /* ================= EDIT ================= */
+
   const handleEdit = (item) => {
+    setEditId(item._id);
+
     setFormData({
       topCity: item.topCity,
       cityName: item.cityName,
       properties: item.properties,
       image: null,
-      preview: `http://localhost:5000${item.image}`,
+      preview: `${IMG_URL}${item.image}`,
     });
-    setEditId(item._id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   /* ================= DELETE ================= */
+
   const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this gallery?"
+    );
+
+    if (!confirmDelete) return;
+
     try {
       await API.delete(`/gallery/${id}`);
+
+      alert("Deleted Successfully ✅");
+
       fetchData();
+
     } catch (err) {
-      console.error("Delete Error:", err);
+      console.log(
+        "Delete Error:",
+        err.response?.data || err.message
+      );
+
+      alert("Delete Failed ❌");
     }
   };
 
   /* ================= RESET ================= */
+
   const resetForm = () => {
     setFormData({
       topCity: "",
@@ -107,136 +174,212 @@ const fetchData = async () => {
       image: null,
       preview: "",
     });
+
     setEditId(null);
   };
 
   return (
     <div className="galleryAdmin">
       <div className="galleryAdmin__container">
-        {/* FORM */}
+
+        {/* ================= FORM ================= */}
+
         <div className="galleryAdmin__form">
-          <h2>City Gallery Form</h2>
+
+          <h2>
+            {editId
+              ? "Update Gallery"
+              : "Add Gallery"}
+          </h2>
 
           <form onSubmit={handleSubmit}>
+
+            {/* TOP CITY */}
+
             <div className="galleryAdmin__input">
-              <label>Top City Tag</label>
+              <label>Top City</label>
+
               <input
                 type="text"
                 name="topCity"
+                placeholder="Top City"
                 value={formData.topCity}
                 onChange={handleChange}
-                placeholder="Top City"
                 required
               />
             </div>
+
+            {/* CITY NAME */}
 
             <div className="galleryAdmin__input">
               <label>City Name</label>
+
               <input
                 type="text"
                 name="cityName"
+                placeholder="City Name"
                 value={formData.cityName}
                 onChange={handleChange}
-                placeholder="City Name"
                 required
               />
             </div>
+
+            {/* PROPERTIES */}
 
             <div className="galleryAdmin__input">
               <label>Properties</label>
+
               <input
                 type="number"
                 name="properties"
+                placeholder="Properties"
                 value={formData.properties}
                 onChange={handleChange}
-                placeholder="Number of properties"
                 required
               />
             </div>
 
+            {/* IMAGE */}
+
             <div className="galleryAdmin__input">
               <label>Upload Image</label>
-              <input type="file" onChange={handleImage} />
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImage}
+              />
             </div>
+
+            {/* PREVIEW */}
 
             {formData.preview && (
               <div className="galleryAdmin__preview">
-                <img src={formData.preview} alt="preview" />
+                <img
+                  src={formData.preview}
+                  alt="Preview"
+                />
               </div>
             )}
 
-            <button className="galleryAdmin__btn">
-              {editId ? "Update" : "Add City"}
-            </button>
+            {/* BUTTONS */}
+
+            <div className="galleryAdmin__btnGroup">
+
+              <button
+                type="submit"
+                className="galleryAdmin__btn"
+              >
+                {editId ? "Update" : "Add"}
+              </button>
+
+              {editId && (
+                <button
+                  type="button"
+                  className="galleryAdmin__cancel"
+                  onClick={resetForm}
+                >
+                  Cancel
+                </button>
+              )}
+
+            </div>
+
           </form>
         </div>
 
-        {/* TABLE */}
+        {/* ================= TABLE ================= */}
+
         <div className="galleryAdmin__table">
+
           <h2>Gallery List</h2>
 
           <div className="galleryAdmin__tableWrapper">
+
             <table>
+
               <thead>
                 <tr>
                   <th>Image</th>
-                  <th>Top Tag</th>
-                  <th>City</th>
+                  <th>Top City</th>
+                  <th>City Name</th>
                   <th>Properties</th>
                   <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
-                {data.map((item) => (
-                  <tr key={item._id}>
-                    <td>
-                      <img src={`http://localhost:5000${item.image}`} alt="" />
-                    </td>
-                    <td>{item.topCity}</td>
-                    <td>{item.cityName}</td>
-                    <td>{item.properties}</td>
-                    <td>
-                      <button className="edit" onClick={() => handleEdit(item)}>
-                        Edit
-                      </button>
-                      <button
-                        className="delete"
-                        onClick={() => handleDelete(item._id)}
-                      >
-                        Delete
-                      </button>
+
+                {loading ? (
+                  <tr>
+                    <td colSpan="5">
+                      Loading...
                     </td>
                   </tr>
-                ))}
+                ) : data.length > 0 ? (
+                  data.map((item) => (
+                    <tr key={item._id}>
+
+                      {/* IMAGE */}
+
+                      <td>
+                        <img
+                          src={`${IMG_URL}${item.image}`}
+                          alt={item.cityName}
+                          className="galleryAdmin__tableImg"
+                        />
+                      </td>
+
+                      {/* TOP CITY */}
+
+                      <td>{item.topCity}</td>
+
+                      {/* CITY */}
+
+                      <td>{item.cityName}</td>
+
+                      {/* PROPERTIES */}
+
+                      <td>{item.properties}</td>
+
+                      {/* ACTION */}
+
+                      <td>
+
+                        <button
+                          className="edit"
+                          onClick={() =>
+                            handleEdit(item)
+                          }
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          className="delete"
+                          onClick={() =>
+                            handleDelete(item._id)
+                          }
+                        >
+                          Delete
+                        </button>
+
+                      </td>
+
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5">
+                      No Gallery Data Found
+                    </td>
+                  </tr>
+                )}
+
               </tbody>
+
             </table>
-          </div>
 
-          <div className="galleryAdmin__pagination">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              Prev
-            </button>
-
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i}
-                className={currentPage === i + 1 ? "active" : ""}
-                onClick={() => setCurrentPage(i + 1)}
-              >
-                {i + 1}
-              </button>
-            ))}
-
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              Next
-            </button>
           </div>
         </div>
       </div>

@@ -19,74 +19,98 @@ const Footer = () => {
   return (
     <footer className="Footer-container">
 
-      {/* TOP SECTION */}
+      {/* ================= MAIN ================= */}
+
       <div className="Footer-wrapper">
 
-        {/* LEFT */}
+        {/* ================= LEFT ================= */}
+
         <div className="Footer-left">
 
           {/* LOGO */}
+
           <div className="Footer-logo-section">
 
-            <Link to="/" className="Footer-logo">
-              <img src={Logo} alt="Prestige Properties" />
+            <Link
+              to="/"
+              className="Footer-logo"
+            >
+              <img
+                src={Logo}
+                alt="Prestige Properties"
+              />
             </Link>
 
             <p className="Footer-description">
-              Discover premium properties with trusted real estate
-              solutions. Prestige Properties helps you find your
-              dream home, commercial space, and investment property
-              with ease and confidence.
+              Discover premium properties with trusted
+              real estate solutions for your dream
+              home and investment opportunities.
             </p>
 
           </div>
 
-          {/* CONTACT */}
+          {/* ================= CONTACT ================= */}
+
           <div className="Footer-contact">
 
             <div className="Footer-contact-card">
+
               <span className="Footer-contact-icon">
                 <FaPhoneAlt />
               </span>
 
               <div>
+
                 <p>Customer Support</p>
 
                 <a href="tel:+919595422040">
                   +91 9595422040
                 </a>
+
               </div>
+
             </div>
 
             <div className="Footer-contact-card">
+
               <span className="Footer-contact-icon">
                 <FaEnvelope />
               </span>
 
               <div>
+
                 <p>Email Address</p>
 
                 <a href="mailto:Dayanand.prestige@gmail.com">
                   Dayanand.prestige@gmail.com
                 </a>
+
               </div>
+
             </div>
 
             <div className="Footer-contact-card">
+
               <span className="Footer-contact-icon">
                 <FaMapMarkerAlt />
               </span>
 
               <div>
+
                 <p>Office Address</p>
 
-                <span>Mumbai, Maharashtra, India</span>
+                <span>
+                  Mumbai, Maharashtra, India
+                </span>
+
               </div>
+
             </div>
 
           </div>
 
-          {/* SOCIAL */}
+          {/* ================= SOCIAL ================= */}
+
           <div className="Footer-social">
 
             <h4>Follow Us</h4>
@@ -131,10 +155,12 @@ const Footer = () => {
 
         </div>
 
-        {/* RIGHT */}
+        {/* ================= RIGHT ================= */}
+
         <div className="Footer-right">
 
-          {/* NEWSLETTER */}
+          {/* ================= NEWSLETTER ================= */}
+
           <div className="Footer-newsletter">
 
             <div className="Footer-newsletter-content">
@@ -144,12 +170,12 @@ const Footer = () => {
               </span>
 
               <h3>
-                Keep Yourself Updated With Latest Properties
+                Latest Property Updates
               </h3>
 
               <p>
-                Subscribe and get updates about premium listings,
-                offers, and real estate news.
+                Subscribe for premium listings,
+                offers and real estate updates.
               </p>
 
             </div>
@@ -158,7 +184,7 @@ const Footer = () => {
 
               <input
                 type="email"
-                placeholder="Enter your email address"
+                placeholder="Enter your email"
               />
 
               <button>
@@ -170,10 +196,12 @@ const Footer = () => {
 
           </div>
 
-          {/* LINKS */}
+          {/* ================= LINKS ================= */}
+
           <div className="Footer-links">
 
             {/* COMPANY */}
+
             <div className="Footer-column">
 
               <h4 className="Footer-heading">
@@ -183,7 +211,9 @@ const Footer = () => {
               <ul className="Footer-list">
 
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/">
+                    Home
+                  </Link>
                 </li>
 
                 <li>
@@ -200,7 +230,7 @@ const Footer = () => {
 
                 <li>
                   <Link to="/contact">
-                    Contact Us
+                    Contact
                   </Link>
                 </li>
 
@@ -208,7 +238,8 @@ const Footer = () => {
 
             </div>
 
-            {/* PROPERTY */}
+            {/* PROPERTIES */}
+
             <div className="Footer-column">
 
               <h4 className="Footer-heading">
@@ -246,6 +277,7 @@ const Footer = () => {
             </div>
 
             {/* SUPPORT */}
+
             <div className="Footer-column">
 
               <h4 className="Footer-heading">
@@ -288,20 +320,51 @@ const Footer = () => {
 
       </div>
 
-      {/* BOTTOM */}
+      {/* ================= BOTTOM ================= */}
+
       <div className="Footer-bottom">
 
         <p className="Footer-copy">
-          © {new Date().getFullYear()} Prestige Properties.
+          © {new Date().getFullYear()}
+          {" "}
+          Prestige Properties.
           All Rights Reserved.
         </p>
 
+        <div className="Footer-bottom-right">
+
+          <Link
+            to="/privacy-policy"
+            className="Footer-bottom-link"
+          >
+            Privacy Policy
+          </Link>
+
+          <span className="Footer-divider">
+            |
+          </span>
+
+          <Link
+            to="/terms-condition"
+            className="Footer-bottom-link"
+          >
+            Terms & Conditions
+          </Link>
+
+        </div>
+
         <p className="Footer-developed">
-          Developed with{" "}
+
+          Developed with
+          {" "}
+
           <span className="Footer-heart">
             ❤
-          </span>{" "}
-          by{" "}
+          </span>
+
+          {" "}
+          by
+          {" "}
 
           <a
             href="https://prwebstock.com"
