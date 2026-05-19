@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./RentPropertyPost.css";
-import { Link } from "react-router-dom";
 
 import {
   FiChevronDown,
@@ -208,6 +208,8 @@ export default function RentProperty() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  const location = useLocation();
+
   // SORT
   const [sortOption, setSortOption] = useState("Default");
 
@@ -286,8 +288,52 @@ export default function RentProperty() {
   };
 
   // ================= SORT =================
+  const filteredProperties = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+
+    const category = params.get("category")?.toLowerCase().trim() || "";
+    const type = params.get("type")?.toLowerCase().trim() || "";
+    const searchLocation = params.get("location")?.toLowerCase().trim() || "";
+    const minPrice = Number(params.get("minPrice") || 0);
+    const maxPrice = Number(params.get("maxPrice") || 0);
+
+    return properties.filter((item) => {
+      if (category) {
+        const title = (item.title || "").toLowerCase();
+        const subtitle = (item.subtitle || "").toLowerCase();
+        if (!title.includes(category) && !subtitle.includes(category)) {
+          return false;
+        }
+      }
+
+      if (type) {
+        const title = (item.title || "").toLowerCase();
+        const subtitle = (item.subtitle || "").toLowerCase();
+        if (!title.includes(type) && !subtitle.includes(type)) {
+          return false;
+        }
+      }
+
+      if (searchLocation) {
+        const title = (item.title || "").toLowerCase();
+        const subtitle = (item.subtitle || "").toLowerCase();
+        if (!title.includes(searchLocation) && !subtitle.includes(searchLocation)) {
+          return false;
+        }
+      }
+
+      const priceValue = Number(
+        item.price.replace(/[^\d]/g, "") || 0
+      );
+      if (minPrice && priceValue < minPrice) return false;
+      if (maxPrice && priceValue > maxPrice) return false;
+
+      return true;
+    });
+  }, [properties, location.search]);
+
   const sortedProperties = useMemo(() => {
-    let sorted = [...properties];
+    let sorted = [...filteredProperties];
 
     if (sortOption === "Price: Low to High") {
       sorted.sort(
@@ -310,7 +356,7 @@ export default function RentProperty() {
     }
 
     return sorted;
-  }, [properties, sortOption]);
+  }, [filteredProperties, sortOption]);
 
   // ================= PAGINATION =================
   const totalPages = Math.ceil(

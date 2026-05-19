@@ -1,104 +1,360 @@
-import React, { useEffect, useRef } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./HomeBreadcrumb.css";
 import heroImg from "../../assets/hero.jpg";
 
 function HomeBreadcrumb() {
+
   const sectionRef = useRef();
+  const navigate = useNavigate();
+
+  const [propertyMode, setPropertyMode] =
+    useState("buy");
+  const [propertyType, setPropertyType] =
+    useState("");
+  const [propertyCategory, setPropertyCategory] =
+    useState("");
+  const [locationValue, setLocationValue] =
+    useState("");
+  const [minPrice, setMinPrice] =
+    useState("");
+  const [maxPrice, setMaxPrice] =
+    useState("");
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+
+    params.set("mode", propertyMode);
+
+    if (propertyType) {
+      params.set("category", propertyType);
+    }
+    if (propertyCategory) {
+      params.set("type", propertyCategory);
+    }
+    if (locationValue.trim()) {
+      params.set("location", locationValue.trim());
+    }
+    if (minPrice.trim()) {
+      params.set("minPrice", minPrice.trim());
+    }
+    if (maxPrice.trim()) {
+      params.set("maxPrice", maxPrice.trim());
+    }
+
+    const path = propertyMode === "rent"
+      ? "/rent/property"
+      : "/buyproperties";
+
+    navigate({ pathname: path, search: params.toString() });
+  };
 
   useEffect(() => {
+
     const el = sectionRef.current;
 
     const observer = new IntersectionObserver(
       (entries) => {
+
         entries.forEach((entry) => {
+
           if (entry.isIntersecting) {
             el.classList.add("hb-show");
           }
+
         });
+
       },
       { threshold: 0.2 }
     );
 
     observer.observe(el);
+
+    return () => observer.disconnect();
+
   }, []);
 
   return (
+
     <section
       ref={sectionRef}
       className="hb-hero"
-      style={{ backgroundImage: `url(${heroImg})` }}
+      style={{
+        backgroundImage: `url(${heroImg})`,
+      }}
     >
+
+      {/* OVERLAY */}
       <div className="hb-overlay"></div>
 
+      {/* CONTENT */}
       <div className="hb-container">
 
         <div className="hb-left">
 
+          <span className="hb-badge">
+            Prestige Real Estate
+          </span>
+
           <h1 className="hb-title">
-            Find Your Best Dream House
-            for Rental, Buy & Sell...
+            Find Your Dream Property
+            with Prestige Real Estate
           </h1>
 
           <p className="hb-sub">
-            Properties for buy / rent in your location. We have more than
-            3000+ listings for you to choose
+            Explore premium apartments,
+            villas, and plots in prime
+            locations. Whether you're
+            buying or renting, Prestige
+            brings you verified properties
+            designed for modern living
+            and long-term value.
           </p>
 
+          {/* BUTTONS */}
           <div className="hb-buttons">
-            <button className="hb-btn hb-btn-primary">
-              Buy Property
+
+            <button
+              className={`hb-btn ${
+                propertyMode === "buy"
+                  ? "hb-btn-primary"
+                  : ""
+              }`}
+              onClick={() =>
+                setPropertyMode("buy")
+              }
+            >
+              Explore Properties
             </button>
 
-            <button className="hb-btn">
-              Rent Property
+            <button
+              className={`hb-btn ${
+                propertyMode === "rent"
+                  ? "hb-btn-primary"
+                  : ""
+              }`}
+              onClick={() =>
+                setPropertyMode("rent")
+              }
+            >
+              View Rentals
             </button>
+
           </div>
 
         </div>
 
       </div>
 
-      {/* SEARCH */}
+      {/* SEARCH FILTER */}
       <div className="hb-search-wrap">
 
         <div className="hb-search">
 
+          {/* PROPERTY */}
           <div className="hb-field">
-            <label>Keyword</label>
-            <select>
-              <option>Select</option>
-              <option>Apartment</option>
-              <option>Villa</option>
-              <option>Plot</option>
+
+            <label>
+              {propertyMode === "buy"
+                ? "Property"
+                : "Rental Property"}
+            </label>
+
+            <select
+              value={propertyType}
+              onChange={(e) =>
+                setPropertyType(e.target.value)
+              }
+            >
+              <option value="">
+                {propertyMode === "buy"
+                  ? "Select Property"
+                  : "Select Rental"}
+              </option>
+
+              {propertyMode === "buy" ? (
+                <>
+                  <option value="Apartment">
+                    Apartment
+                  </option>
+
+                  <option value="Villa">
+                    Villa
+                  </option>
+
+                  <option value="Plot">
+                    Plot
+                  </option>
+
+                  <option value="Commercial">
+                    Commercial
+                  </option>
+                </>
+              ) : (
+                <>
+                  <option value="1 BHK">
+                    1 BHK
+                  </option>
+
+                  <option value="2 BHK">
+                    2 BHK
+                  </option>
+
+                  <option value="3 BHK">
+                    3 BHK
+                  </option>
+
+                  <option value="PG">
+                    PG
+                  </option>
+
+                  <option value="Hostel">
+                    Hostel
+                  </option>
+
+                  <option value="Office Space">
+                    Office Space
+                  </option>
+                </>
+              )}
             </select>
+
           </div>
 
+          {/* TYPE */}
           <div className="hb-field">
-            <label>Property Type</label>
-            <select>
-              <option>Select</option>
-              <option>Buy</option>
-              <option>Rent</option>
+
+            <label>Type</label>
+
+            <select
+              value={propertyCategory}
+              onChange={(e) =>
+                setPropertyCategory(e.target.value)
+              }
+            >
+              <option value="">
+                {propertyMode === "buy"
+                  ? "Select Type"
+                  : "Select Rental Type"}
+              </option>
+
+              {propertyMode === "buy" ? (
+                <>
+                  <option value="Ready To Move">
+                    Ready To Move
+                  </option>
+
+                  <option value="New Launch">
+                    New Launch
+                  </option>
+
+                  <option value="Luxury">
+                    Luxury
+                  </option>
+                </>
+              ) : (
+                <>
+                  <option value="Monthly Rent">
+                    Monthly Rent
+                  </option>
+
+                  <option value="Yearly Lease">
+                    Yearly Lease
+                  </option>
+
+                  <option value="Short Stay">
+                    Short Stay
+                  </option>
+                </>
+              )}
             </select>
+
           </div>
 
+          {/* LOCATION */}
           <div className="hb-field">
-            <label>Address</label>
-            <input type="text" />
+
+            <label>
+              Location
+            </label>
+
+            <input
+              type="text"
+              value={locationValue}
+              onChange={(e) =>
+                setLocationValue(e.target.value)
+              }
+              placeholder={
+                propertyMode === "buy"
+                  ? "Enter location"
+                  : "Enter rental area"
+              }
+            />
+
           </div>
 
+          {/* MIN PRICE */}
           <div className="hb-field">
-            <label>Min Price</label>
-            <input type="text" placeholder="$" />
+
+            <label>
+              {propertyMode === "buy"
+                ? "Min Price"
+                : "Min Rent"}
+            </label>
+
+            <input
+              type="text"
+              value={minPrice}
+              onChange={(e) =>
+                setMinPrice(e.target.value)
+              }
+              placeholder={
+                propertyMode === "buy"
+                  ? "₹ Min"
+                  : "₹ Monthly"
+              }
+            />
+
           </div>
 
+          {/* MAX PRICE */}
           <div className="hb-field">
-            <label>Max Price</label>
-            <input type="text" placeholder="$" />
+
+            <label>
+              {propertyMode === "buy"
+                ? "Max Price"
+                : "Max Rent"}
+            </label>
+
+            <input
+              type="text"
+              value={maxPrice}
+              onChange={(e) =>
+                setMaxPrice(e.target.value)
+              }
+              placeholder={
+                propertyMode === "buy"
+                  ? "₹ Max"
+                  : "₹ Budget"
+              }
+            />
+
           </div>
 
-          <button className="hb-search-btn">
-            🔍
+          {/* SEARCH BUTTON */}
+          <button
+            className="hb-search-btn"
+            type="button"
+            onClick={handleSearch}
+          >
+            {propertyMode === "buy"
+              ? "Search Property"
+              : "Search Rentals"}
           </button>
 
         </div>
@@ -106,6 +362,7 @@ function HomeBreadcrumb() {
       </div>
 
     </section>
+
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./GridProperty.css";
-import { Link } from "react-router-dom";
 import API, { IMG_URL } from "../../api/axios";
 
 import {
@@ -26,6 +26,52 @@ const GridProperty = () => {
   const [sortBy, setSortBy] = useState("default");
   const [viewType, setViewType] = useState("grid");
   const [visibleCount, setVisibleCount] = useState(6);
+  const location = useLocation();
+
+  const filteredProperties = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+
+    const category = params.get("category")?.toLowerCase().trim() || "";
+    const type = params.get("type")?.toLowerCase().trim() || "";
+    const searchLocation = params.get("location")?.toLowerCase().trim() || "";
+    const minPrice = Number(params.get("minPrice") || 0);
+    const maxPrice = Number(params.get("maxPrice") || 0);
+
+    return properties.filter((item) => {
+      if (category) {
+        const categoryValue = (item.category || "").toLowerCase();
+        if (!categoryValue.includes(category)) {
+          return false;
+        }
+      }
+
+      if (type) {
+        const title = (item.title || "").toLowerCase();
+        const categoryValue = (item.category || "").toLowerCase();
+        const description = (item.fullDescription || "").toLowerCase();
+        if (
+          !title.includes(type) &&
+          !categoryValue.includes(type) &&
+          !description.includes(type)
+        ) {
+          return false;
+        }
+      }
+
+      if (searchLocation) {
+        const locationValue = (item.location || "").toLowerCase();
+        if (!locationValue.includes(searchLocation)) {
+          return false;
+        }
+      }
+
+      const priceValue = Number(item.price || 0);
+      if (minPrice && priceValue < minPrice) return false;
+      if (maxPrice && priceValue > maxPrice) return false;
+
+      return true;
+    });
+  }, [properties, location.search]);
 
   /* ================= FETCH DATA ================= */
   useEffect(() => {
@@ -58,7 +104,7 @@ const GridProperty = () => {
 
   /* ================= SORT ================= */
   const sortedProperties = useMemo(() => {
-    let sorted = [...properties];
+    let sorted = [...filteredProperties];
 
     switch (sortBy) {
       case "low":
@@ -92,7 +138,7 @@ const GridProperty = () => {
     }
 
     return sorted;
-  }, [properties, sortBy]);
+  }, [filteredProperties, sortBy]);
 
   /* ================= LOAD MORE ================= */
   const visibleProperties = sortedProperties.slice(
@@ -392,6 +438,12 @@ const GridProperty = () => {
                 </Link>
               ))}
             </div>
+
+            {visibleProperties.length === 0 && (
+              <div className="gridProperty-noResults">
+                No properties match your search filters.
+              </div>
+            )}
 
             {/* ================= LOAD MORE ================= */}
             {visibleCount < sortedProperties.length && (
