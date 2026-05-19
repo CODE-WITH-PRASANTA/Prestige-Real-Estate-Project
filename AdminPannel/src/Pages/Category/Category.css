@@ -1,0 +1,607 @@
+/* =========================================
+   PAGE
+========================================= */
+
+.props-cat-page {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 40px 4%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f6f7fb 0%,
+      #eef1ff 100%
+    );
+
+  overflow: hidden;
+}
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.props-cat-wrapper {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 360px 1fr;
+
+  gap: 28px;
+  align-items: flex-start;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.props-cat-formCard,
+.props-cat-tableCard {
+  width: 100%;
+
+  background:
+    rgba(255, 255, 255, 0.88);
+
+  backdrop-filter: blur(18px);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.4);
+
+  border-radius: 28px;
+
+  padding: 28px;
+
+  box-shadow:
+    0 10px 40px
+      rgba(80, 90, 140, 0.08),
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.8);
+
+  overflow: hidden;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.props-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 28px;
+}
+
+.props-cat-header h2 {
+  font-size: clamp(24px, 3vw, 32px);
+
+  font-weight: 700;
+
+  color: #111827;
+
+  line-height: 1.2;
+
+  word-break: break-word;
+}
+
+.props-cat-header p {
+  margin-top: 8px;
+
+  color: #667085;
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+.props-cat-icon {
+  flex-shrink: 0;
+
+  width: 62px;
+  height: 62px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6d5dfc,
+      #4f46e5
+    );
+
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  box-shadow:
+    0 10px 25px
+      rgba(79, 70, 229, 0.3);
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.props-cat-form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+.props-cat-field {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.props-cat-field label {
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #1f2937;
+}
+
+.props-cat-field input {
+  width: 100%;
+  height: 58px;
+
+  border-radius: 18px;
+
+  border: 1px solid #dbe2f0;
+
+  background: #f9fbff;
+
+  padding: 0 18px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.3s ease;
+}
+
+.props-cat-field input:focus {
+  border-color: #6d5dfc;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 0 4px
+      rgba(109, 93, 252, 0.12);
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.props-cat-submitBtn {
+  width: 100%;
+  min-height: 58px;
+
+  border: none;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6d5dfc,
+      #4f46e5
+    );
+
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 0 18px;
+
+  transition: 0.35s ease;
+
+  box-shadow:
+    0 12px 28px
+      rgba(79, 70, 229, 0.28);
+}
+
+.props-cat-submitBtn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 16px 35px
+      rgba(79, 70, 229, 0.38);
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.props-cat-tableWrapper {
+  width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  border-radius: 20px;
+}
+
+.props-cat-tableWrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.props-cat-tableWrapper::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 20px;
+}
+
+.props-cat-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 680px;
+}
+
+.props-cat-table thead {
+  background: #f7f8fd;
+}
+
+.props-cat-table th {
+  padding: 18px 20px;
+
+  text-align: left;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #374151;
+
+  white-space: nowrap;
+}
+
+.props-cat-table td {
+  padding: 18px 20px;
+
+  border-top: 1px solid #edf0f7;
+
+  font-size: 15px;
+
+  color: #111827;
+
+  vertical-align: middle;
+
+  word-break: break-word;
+}
+
+.props-cat-table tbody tr {
+  transition: 0.3s ease;
+}
+
+.props-cat-table tbody tr:hover {
+  background: #fafbff;
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.props-cat-actionBtns {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+.props-cat-editBtn,
+.props-cat-deleteBtn {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+
+  flex-shrink: 0;
+
+  transition: 0.3s ease;
+}
+
+.props-cat-editBtn {
+  background:
+    rgba(79, 70, 229, 0.12);
+
+  color: #4f46e5;
+}
+
+.props-cat-editBtn:hover {
+  background: #4f46e5;
+
+  color: #fff;
+
+  transform: translateY(-2px);
+}
+
+.props-cat-deleteBtn {
+  background:
+    rgba(239, 68, 68, 0.12);
+
+  color: #ef4444;
+}
+
+.props-cat-deleteBtn:hover {
+  background: #ef4444;
+
+  color: #fff;
+
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.props-cat-empty {
+  text-align: center;
+
+  padding: 40px 20px !important;
+
+  color: #6b7280;
+
+  font-size: 15px;
+}
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1600px) {
+  .props-cat-page {
+    padding: 50px 6%;
+  }
+
+  .props-cat-wrapper {
+    grid-template-columns: 400px 1fr;
+  }
+}
+
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1200px) {
+  .props-cat-wrapper {
+    grid-template-columns: 320px 1fr;
+  }
+
+  .props-cat-formCard,
+  .props-cat-tableCard {
+    padding: 24px;
+  }
+}
+
+/* =========================================
+   TABLET LANDSCAPE
+========================================= */
+
+@media (max-width: 992px) {
+  .props-cat-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .props-cat-formCard,
+  .props-cat-tableCard {
+    padding: 24px;
+  }
+
+  .props-cat-table {
+    min-width: 700px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+  .props-cat-page {
+    padding: 24px 16px;
+  }
+
+  .props-cat-wrapper {
+    gap: 22px;
+  }
+
+  .props-cat-header {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .props-cat-header h2 {
+    font-size: 24px;
+  }
+
+  .props-cat-formCard,
+  .props-cat-tableCard {
+    padding: 20px;
+
+    border-radius: 22px;
+  }
+
+  .props-cat-submitBtn {
+    min-height: 54px;
+  }
+
+  .props-cat-field input {
+    height: 54px;
+
+    font-size: 14px;
+  }
+
+  .props-cat-table th,
+  .props-cat-table td {
+    padding: 16px;
+  }
+
+  .props-cat-table {
+    min-width: 640px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+  .props-cat-page {
+    padding: 18px 14px;
+  }
+
+  .props-cat-wrapper {
+    gap: 18px;
+  }
+
+  .props-cat-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .props-cat-header h2 {
+    font-size: 22px;
+  }
+
+  .props-cat-header p {
+    font-size: 14px;
+  }
+
+  .props-cat-icon {
+    width: 56px;
+    height: 56px;
+
+    border-radius: 16px;
+
+    font-size: 20px;
+  }
+
+  .props-cat-formCard,
+  .props-cat-tableCard {
+    padding: 18px;
+
+    border-radius: 20px;
+  }
+
+  .props-cat-field input {
+    height: 52px;
+
+    border-radius: 16px;
+
+    padding: 0 16px;
+  }
+
+  .props-cat-submitBtn {
+    min-height: 52px;
+
+    border-radius: 16px;
+  }
+
+  .props-cat-editBtn,
+  .props-cat-deleteBtn {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 12px;
+  }
+
+  .props-cat-table {
+    min-width: 580px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+  .props-cat-page {
+    padding: 14px 10px;
+  }
+
+  .props-cat-header h2 {
+    font-size: 20px;
+  }
+
+  .props-cat-header p {
+    font-size: 13px;
+  }
+
+  .props-cat-formCard,
+  .props-cat-tableCard {
+    padding: 14px;
+
+    border-radius: 18px;
+  }
+
+  .props-cat-icon {
+    width: 50px;
+    height: 50px;
+
+    font-size: 18px;
+  }
+
+  .props-cat-field label {
+    font-size: 14px;
+  }
+
+  .props-cat-field input {
+    height: 50px;
+
+    font-size: 14px;
+  }
+
+  .props-cat-submitBtn {
+    min-height: 50px;
+
+    font-size: 14px;
+  }
+
+  .props-cat-editBtn,
+  .props-cat-deleteBtn {
+    width: 36px;
+    height: 36px;
+
+    font-size: 13px;
+  }
+
+  .props-cat-table th,
+  .props-cat-table td {
+    padding: 14px;
+    font-size: 13px;
+  }
+}

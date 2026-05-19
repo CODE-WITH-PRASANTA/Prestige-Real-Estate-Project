@@ -19,6 +19,8 @@ import PropertyView from "./Component/PropertyList.jsx/PropertyView";
 import BlogManagement from "./Pages/BlogManagement/BlogManagement";
 
 import PropertyInquiry from "./Pages/PropertyInquiry/PropertyInquiry";
+import Category from "./Pages/Category/Category";
+import CustomerActivity from "./Pages/CustomerActivity/CustomerActivity";
 
 const App = () => {
   return (
@@ -51,6 +53,8 @@ const App = () => {
           <Route path="/properties" element={<PropertyList />} />
           <Route path="/property/:id" element={<PropertyView />} />
           <Route path="/property/inquiry" element={<PropertyInquiry />} />
+          <Route path="/category/property" element={<Category/>}/>
+          <Route path="/customer/activity" element={<CustomerActivity/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

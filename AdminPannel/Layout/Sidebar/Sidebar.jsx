@@ -18,6 +18,8 @@ import {
   FaEnvelope,
   FaInbox,
   FaChevronDown,
+  FaWarehouse,
+  FaUserClock,
 } from "react-icons/fa";
 
 import "./Sidebar.css";
@@ -99,11 +101,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       icon: <FaQuoteLeft />, // 💬
     },
 
-    // {
-    //   name: "FAQ Posting",
-    //   path: "/admin/faq",
-    //   icon: <FaQuestionCircle />, // ❓
-    // },
+    {
+      name: "Customer Activity",
+      path: "/customer/activity",
+      icon: <FaUserClock />, // ❓
+    },
 
     {
       name: "Blog Posting",
@@ -127,6 +129,12 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       name: "Main Gallery",
       path: "/admin/gallery",
       icon: <FaImages />, // 🖼️
+    },
+
+        {
+      name: "Property Category",
+      path: "/category/property",
+      icon: < FaWarehouse />, // 🖼️
     },
 
    

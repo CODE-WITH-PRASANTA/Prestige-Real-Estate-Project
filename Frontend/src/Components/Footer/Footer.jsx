@@ -316,20 +316,8 @@ const Footer = () => {
 
         <div className="Footer-bottom-links">
 
-          <Link to="/privacy-policy">
-            Privacy
-          </Link>
-
-          <span>•</span>
-
-          <Link to="/terms-condition">
-            Terms
-          </Link>
-
-          <span>•</span>
-
-          <Link to="/sitemap">
-            Sitemap
+          <Link to="/privacy-policy-terms">
+            Privacy Policy | Terms Of Condition
           </Link>
 
         </div>
