@@ -245,3 +245,71 @@
     font-size: 14px;
   }
 }
+/* ================= ACTION BUTTONS ================= */
+
+.coldlead__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/* EDIT BUTTON */
+
+.editBtn {
+  border: none;
+  outline: none;
+  background: #4f46e5;
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.editBtn:hover {
+  background: #4338ca;
+}
+
+/* DELETE BUTTON */
+
+.deleteBtn {
+  border: none;
+  outline: none;
+  background: #ef4444;
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.deleteBtn:hover {
+  background: #dc2626;
+}
+
+/* ACTION COLUMN */
+
+.coldlead__table td:last-child {
+  min-width: 170px;
+  text-align: center;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 768px) {
+  .coldlead__action {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .editBtn,
+  .deleteBtn {
+    width: 100%;
+  }
+}
