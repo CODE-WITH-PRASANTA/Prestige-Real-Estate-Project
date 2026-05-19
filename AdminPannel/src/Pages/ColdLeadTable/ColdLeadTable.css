@@ -1,126 +1,244 @@
+/* ================= MAIN WRAPPER ================= */
+
 .coldLeadTable {
   width: 100%;
-  padding: 20px;
-  background: #f5f7fb;
+  padding: 24px;
+  background: #f4f7fc;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
+
+/* ================= CONTAINER ================= */
 
 .coldLeadTable__container {
+  width: 100%;
   background: #ffffff;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.05),
+    0 2px 6px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
 }
 
-/* Header */
+/* ================= HEADER ================= */
+
 .coldLeadTable__header {
-  margin-bottom: 15px;
+  margin-bottom: 24px;
 }
 
 .coldLeadTable__title {
-  font-size: 22px;
-  font-weight: 600;
-  color: #1e2a3b;
-  margin-bottom: 4px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
 }
 
 .coldLeadTable__subtitle {
   font-size: 14px;
   color: #6b7280;
+  line-height: 1.5;
 }
 
-/* Table Wrapper */
+/* ================= TABLE WRAPPER ================= */
+
 .coldLeadTable__tableWrapper {
   width: 100%;
   overflow-x: auto;
-  border-radius: 10px;
+  border-radius: 16px;
   border: 1px solid #e5e7eb;
+  background: #ffffff;
 }
 
-/* Table */
+/* ================= TABLE ================= */
+
 .coldLeadTable__table {
   width: 100%;
+  min-width: 950px;
   border-collapse: collapse;
-  min-width: 800px;
 }
 
-/* Table Head */
+/* ================= TABLE HEAD ================= */
+
 .coldLeadTable__table thead {
-  background: #eef2f7;
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #6366f1
+  );
 }
 
 .coldLeadTable__table th {
+  padding: 16px 18px;
   text-align: left;
-  padding: 12px 14px;
+  color: #ffffff;
   font-size: 14px;
-  color: #1f2937;
   font-weight: 600;
+  white-space: nowrap;
+  border: none;
 }
 
-/* Table Body */
+/* ================= TABLE BODY ================= */
+
+.coldLeadTable__table tbody tr {
+  transition: all 0.25s ease;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.coldLeadTable__table tbody tr:hover {
+  background: #f8fafc;
+}
+
 .coldLeadTable__table td {
-  padding: 14px;
+  padding: 16px 18px;
   font-size: 14px;
   color: #374151;
-  border-top: 1px solid #e5e7eb;
+  vertical-align: middle;
+  line-height: 1.5;
 }
 
-/* Empty State */
+/* ================= EMPTY STATE ================= */
+
 .coldLeadTable__empty {
-  text-align: left;
-  padding: 16px;
+  text-align: center;
+  padding: 30px !important;
   color: #6b7280;
+  font-size: 15px;
+  font-weight: 500;
 }
 
-/* Buttons */
+/* ================= ACTION BUTTON WRAPPER ================= */
+
+.coldLeadTable__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ================= BUTTON COMMON ================= */
+
 .coldLeadTable__btn {
+  width: 38px;
+  height: 38px;
   border: none;
   outline: none;
-  padding: 6px 10px;
-  margin-right: 6px;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 14px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.25s ease;
+  font-size: 15px;
 }
 
-/* Edit Button */
+/* ================= EDIT BUTTON ================= */
+
 .coldLeadTable__btn.edit {
-  background: #e0f2fe;
-  color: #0284c7;
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
 }
 
-/* Delete Button */
+.coldLeadTable__btn.edit:hover {
+  background: #2563eb;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+/* ================= DELETE BUTTON ================= */
+
 .coldLeadTable__btn.delete {
-  background: #fee2e2;
+  background: rgba(239, 68, 68, 0.12);
   color: #dc2626;
 }
 
-/* Hover Effects */
-.coldLeadTable__btn.edit:hover {
-  background: #bae6fd;
-}
-
 .coldLeadTable__btn.delete:hover {
-  background: #fecaca;
+  background: #dc2626;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.25);
 }
 
-/* Responsive */
+/* ================= SCROLLBAR ================= */
+
+.coldLeadTable__tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.coldLeadTable__tableWrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.coldLeadTable__tableWrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.coldLeadTable__tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .coldLeadTable__container {
+    padding: 18px;
+  }
+
+  .coldLeadTable__title {
+    font-size: 24px;
+  }
+
+  .coldLeadTable__table th,
+  .coldLeadTable__table td {
+    padding: 14px;
+  }
+}
+
 @media (max-width: 768px) {
   .coldLeadTable {
-    padding: 10px;
+    padding: 12px;
   }
 
   .coldLeadTable__container {
-    padding: 15px;
+    padding: 14px;
+    border-radius: 14px;
   }
 
+  .coldLeadTable__title {
+    font-size: 20px;
+  }
+
+  .coldLeadTable__subtitle {
+    font-size: 13px;
+  }
+
+  .coldLeadTable__table {
+    min-width: 850px;
+  }
+
+  .coldLeadTable__btn {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
   .coldLeadTable__title {
     font-size: 18px;
   }
 
   .coldLeadTable__subtitle {
     font-size: 12px;
+  }
+
+  .coldLeadTable__table th,
+  .coldLeadTable__table td {
+    padding: 12px;
+    font-size: 13px;
   }
 }

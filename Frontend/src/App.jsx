@@ -38,6 +38,7 @@ import BuyGrid from "./Pages/Properties/Properties";
 import BuyDetails from "./Pages/BuyDetails/BuyDetails";
 
 import RentProperty from "./Pages/RentProperty/RentProperty";
+import PrivacyPolicy from "./Pages/PrivacyPolicy/PrivacyPolicy";
 
 function App() {
   const location = useLocation();
@@ -92,6 +93,8 @@ function App() {
         {/* BUY */}
         <Route path="/buyproperties" element={<BuyGrid />} />
         <Route path="/property/:id" element={<BuyDetails />} />
+
+        <Route path="/privacy-policy-terms" element={<PrivacyPolicy/>}/>
 
       </Routes>
 
